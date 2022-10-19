@@ -3,7 +3,7 @@ plugins {
 }
 
 
-group = 'com.iananderson'
+group = 'club.iananderson'
 version = '1.0.0'
 
 java {
