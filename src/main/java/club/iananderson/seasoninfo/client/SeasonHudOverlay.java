@@ -13,10 +13,6 @@ import net.minecraftforge.client.event.RenderGuiOverlayEvent;
 import net.minecraftforge.client.event.ScreenEvent;
 import net.minecraftforge.client.gui.overlay.IGuiOverlay;
 
-import sereneseasons.config.BiomeConfig;
-import sereneseasons.api.season.Season.SubSeason;
-import sereneseasons.api.season.SeasonHelper;
-
 public class SeasonHudOverlay {
 
     private static final ResourceLocation SPRING = new ResourceLocation(Seasoninfo.MODID,
@@ -31,14 +27,16 @@ public class SeasonHudOverlay {
     public static final IGuiOverlay HUD_SEASON = ((gui, poseStack, partialTick,screenWidth, screenHeight) -> {
         int x = 0;
         int y = 0;
+        int iconDim = 12;
+        int offsetDim = 5;
+
+        String currentSeason = "Summer";
+        gui.getFont().draw(poseStack,currentSeason, (float) (x+20), (float) (y+offsetDim+(.25*iconDim)),0xffffffff);
 
         RenderSystem.setShader(GameRenderer::getPositionTexShader);
         RenderSystem.setShaderColor(1.0F,1.0F,1.0F,1.0F);
-        RenderSystem.setShaderTexture(0,SPRING);
-        Season getSeason();
+        RenderSystem.setShaderTexture(0,SUMMER);
+        GuiComponent.blit(poseStack,x+offsetDim, y+offsetDim,0,0,iconDim,iconDim,iconDim,iconDim);
 
-    for(int i = 0; i < 1; i++) {
-        GuiComponent.blit(poseStack,x+5, y+5,0,0,12,12,12,12);
-    }
     });
 }
