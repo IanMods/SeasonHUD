@@ -2,9 +2,8 @@ plugins {
     id 'net.minecraftforge.gradle' version '5.1.+'
 }
 
-
 group = 'club.iananderson'
-version = '1.0.0'
+version = "1.0.0"
 
 java {
     archivesBaseName = 'seasoninfo'
@@ -79,13 +78,9 @@ minecraft {
         // The gametest system is also enabled by default for other run configs under the /test command.
         gameTestServer {
             workingDirectory project.file('run')
-
             property 'forge.logging.markers', 'REGISTRIES'
-
             property 'forge.logging.console.level', 'debug'
-
             property 'forge.enabledGameTestNamespaces', 'seasoninfo'
-
             mods {
                 seasoninfo {
                     source sourceSets.main
@@ -95,14 +90,10 @@ minecraft {
 
         data {
             workingDirectory project.file('run')
-
             property 'forge.logging.markers', 'REGISTRIES'
-
             property 'forge.logging.console.level', 'debug'
-
             // Specify the modid for data generation, where to output the resulting resource, and where to look for existing resources.
             args '--mod', 'seasoninfo', '--all', '--output', file('src/generated/resources/'), '--existing', file('src/main/resources/')
-
             mods {
                 seasoninfo {
                     source sourceSets.main
@@ -118,8 +109,20 @@ sourceSets.main.resources { srcDir 'src/generated/resources' }
 repositories {
     // Put repositories for dependencies here
     // ForgeGradle automatically adds the Forge maven and Maven Central for you
-
     // If you have mod jar dependencies in ./libs, you can declare them as a repository like so:
+    maven {
+        name = "CurseForge"
+        url = "https://minecraft.curseforge.com/api/maven/"
+    }
+    repositories {
+        maven {
+            name = "CurseMaven"
+            url "https://cursemaven.com"
+            content {
+                includeGroup "curse.maven"
+            }
+        }
+    }
     flatDir {
          dir 'libs'
      }
@@ -129,17 +132,17 @@ dependencies {
     // Specify the version of Minecraft to use. If this is any group other than 'net.minecraft' it is assumed
     // that the dep is a ForgeGradle 'patcher' dependency, and its patches will be applied.
     // The userdev artifact is a special name and will get all sorts of transformations applied to it.
-    minecraft 'net.minecraftforge:forge:1.19.2-43.1.43'
+   minecraft 'net.minecraftforge:forge:1.19.2-43.1.43'
 
     // Real mod deobf dependency examples - these get remapped to your current mappings
     // compileOnly fg.deobf("mezz.jei:jei-${mc_version}:${jei_version}:api") // Adds JEI API as a compile dependency
     // runtimeOnly fg.deobf("mezz.jei:jei-${mc_version}:${jei_version}") // Adds the full JEI mod as a runtime dependency
     // implementation fg.deobf("com.tterrag.registrate:Registrate:MC${mc_version}-${registrate_version}") // Adds registrate as a dependency
 
-    runtimeOnly fg.deobf("serene-seasons:SereneSeasons-1.19:8.0.0.19:deobf")
-    compileOnly fg.deobf("serene-seasons:SereneSeasons-1.19:8.0.0.19:api")
+    //Serene Seasons
+    //runtimeOnly fg.deobf("curse.maven:SereneSeasons-291874:3871433")
+    implementation "curse.maven:serene-seasons-291874:3871433-deobf-api"
 
-    //compile fg.deobf("serene-seasons:SereneSeasons-1.19:8.0.0.19:api")
     // Examples using mod jars from ./libs
     // implementation fg.deobf("blank:coolmod-${mc_version}:${coolmod_version}")
 
