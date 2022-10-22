@@ -141,7 +141,8 @@ dependencies {
 
     //Serene Seasons
     //runtimeOnly fg.deobf("curse.maven:SereneSeasons-291874:3871433")
-    implementation "curse.maven:serene-seasons-291874:3871433-deobf-api"
+    implementation "curse.maven:serene-seasons-291874:4036808-deobf-api"
+    //implementation "curse.maven:serene-seasons-291874:4036809-api"
 
     // Examples using mod jars from ./libs
     // implementation fg.deobf("blank:coolmod-${mc_version}:${coolmod_version}")
