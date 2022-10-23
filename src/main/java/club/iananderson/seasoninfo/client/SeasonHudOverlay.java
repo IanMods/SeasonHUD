@@ -7,6 +7,7 @@ import net.minecraft.client.gui.GuiComponent;
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.client.renderer.GameRenderer;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraftforge.client.gui.overlay.ForgeGui;
 import net.minecraftforge.client.gui.overlay.IGuiOverlay;
 import sereneseasons.api.season.Season;
 import sereneseasons.api.season.SeasonHelper;
@@ -24,7 +25,7 @@ public class SeasonHudOverlay {
     public static final IGuiOverlay HUD_SEASON = (gui, poseStack, partialTick,screenWidth, screenHeight) -> {
         int x = 0;
         int y = 0;
-        int iconDim = 16;
+        int iconDim = 10;
         int offsetDim = 5;
 
         ResourceLocation SEASON = new ResourceLocation(Seasoninfo.MODID,
@@ -38,8 +39,7 @@ public class SeasonHudOverlay {
         String seasonCap = seasonLower.substring(0,1).toUpperCase()+ seasonLower.substring(1);
 
         //String currentSeason = "Summer";
-        gui.getFont().draw(poseStack,seasonCap, (float) (x+25), (float) (y+offsetDim+(.25*iconDim)),0xffffffff);
-
+        gui.getFont().draw(poseStack,seasonCap, (float) (x+18), (float) (y+offsetDim+(.12*iconDim)),0xffffffff);
         RenderSystem.setShader(GameRenderer::getPositionTexShader);
         RenderSystem.setShaderColor(1.0F,1.0F,1.0F,1.0F);
         RenderSystem.setShaderTexture(0,SEASON);
