@@ -1,20 +1,19 @@
-package club.iananderson.seasoninfo.client;
+package club.iananderson.seasonhud.client;
 
-import club.iananderson.seasoninfo.Seasoninfo;
+import club.iananderson.seasonhud.SeasonHUD;
 import com.mojang.blaze3d.systems.RenderSystem;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiComponent;
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.client.renderer.GameRenderer;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraftforge.client.gui.overlay.ForgeGui;
 import net.minecraftforge.client.gui.overlay.IGuiOverlay;
 import sereneseasons.api.season.Season;
 import sereneseasons.api.season.SeasonHelper;
 
 import javax.annotation.Nullable;
 
-public class SeasonHudOverlay {
+public class SeasonHUDOverlay {
     @Nullable
     public static Season SeasonVal(){
         ClientLevel MCLEVEL = Minecraft.getInstance().level;
@@ -28,7 +27,7 @@ public class SeasonHudOverlay {
         int iconDim = 10;
         int offsetDim = 5;
 
-        ResourceLocation SEASON = new ResourceLocation(Seasoninfo.MODID,
+        ResourceLocation SEASON = new ResourceLocation(SeasonHUD.MODID,
             "textures/season/"+SeasonVal().name().toLowerCase()+".png");
 
         ClientLevel MCLEVEL = Minecraft.getInstance().level;

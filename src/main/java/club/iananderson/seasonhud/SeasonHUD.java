@@ -1,4 +1,4 @@
-package club.iananderson.seasoninfo;
+package club.iananderson.seasonhud;
 
 import com.mojang.logging.LogUtils;
 import net.minecraft.client.Minecraft;
@@ -23,24 +23,24 @@ import net.minecraftforge.registries.RegistryObject;
 import org.slf4j.Logger;
 
 // The value here should match an entry in the META-INF/mods.toml file
-@Mod(Seasoninfo.MODID)
-public class Seasoninfo {
+@Mod(SeasonHUD.MODID)
+public class  SeasonHUD{
 
     // Define mod id in a common place for everything to reference
-    public static final String MODID = "seasoninfo";
+    public static final String MODID = "seasonhud";
     // Directly reference a slf4j logger
     private static final Logger LOGGER = LogUtils.getLogger();
-    // Create a Deferred Register to hold Blocks which will all be registered under the "seasoninfo" namespace
+    // Create a Deferred Register to hold Blocks which will all be registered under the "seasonhud" namespace
     public static final DeferredRegister<Block> BLOCKS = DeferredRegister.create(ForgeRegistries.BLOCKS, MODID);
-    // Create a Deferred Register to hold Items which will all be registered under the "seasoninfo" namespace
+    // Create a Deferred Register to hold Items which will all be registered under the "seasonhud" namespace
     public static final DeferredRegister<Item> ITEMS = DeferredRegister.create(ForgeRegistries.ITEMS, MODID);
 
-    // Creates a new Block with the id "seasoninfo:example_block", combining the namespace and path
+    // Creates a new Block with the id "seasonhud:example_block", combining the namespace and path
     public static final RegistryObject<Block> EXAMPLE_BLOCK = BLOCKS.register("example_block", () -> new Block(BlockBehaviour.Properties.of(Material.STONE)));
-    // Creates a new BlockItem with the id "seasoninfo:example_block", combining the namespace and path
+    // Creates a new BlockItem with the id "seasonhud:example_block", combining the namespace and path
     public static final RegistryObject<Item> EXAMPLE_BLOCK_ITEM = ITEMS.register("example_block", () -> new BlockItem(EXAMPLE_BLOCK.get(), new Item.Properties().tab(CreativeModeTab.TAB_BUILDING_BLOCKS)));
 
-    public Seasoninfo() {
+    public SeasonHUD() {
         IEventBus modEventBus = FMLJavaModLoadingContext.get().getModEventBus();
 
         // Register the commonSetup method for modloading

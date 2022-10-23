@@ -6,7 +6,7 @@ group = 'club.iananderson'
 version = "1.0.0"
 
 java {
-    archivesBaseName = 'seasoninfo'
+    archivesBaseName = 'seasonhud'
     toolchain.languageVersion = JavaLanguageVersion.of(17)
 }
 
@@ -48,10 +48,10 @@ minecraft {
             property 'forge.logging.console.level', 'debug'
 
             // Comma-separated list of namespaces to load gametests from. Empty = all namespaces.
-            property 'forge.enabledGameTestNamespaces', 'seasoninfo'
+            property 'forge.enabledGameTestNamespaces', 'seasonhud'
 
             mods {
-                seasoninfo {
+                seasonhud {
                     source sourceSets.main
                 }
             }
@@ -64,10 +64,10 @@ minecraft {
 
             property 'forge.logging.console.level', 'debug'
 
-            property 'forge.enabledGameTestNamespaces', 'seasoninfo'
+            property 'forge.enabledGameTestNamespaces', 'seasonhud'
 
             mods {
-                seasoninfo {
+                seasonhud {
                     source sourceSets.main
                 }
             }
@@ -80,9 +80,9 @@ minecraft {
             workingDirectory project.file('run')
             property 'forge.logging.markers', 'REGISTRIES'
             property 'forge.logging.console.level', 'debug'
-            property 'forge.enabledGameTestNamespaces', 'seasoninfo'
+            property 'forge.enabledGameTestNamespaces', 'seasonhud'
             mods {
-                seasoninfo {
+                seasonhud {
                     source sourceSets.main
                 }
             }
@@ -93,9 +93,9 @@ minecraft {
             property 'forge.logging.markers', 'REGISTRIES'
             property 'forge.logging.console.level', 'debug'
             // Specify the modid for data generation, where to output the resulting resource, and where to look for existing resources.
-            args '--mod', 'seasoninfo', '--all', '--output', file('src/generated/resources/'), '--existing', file('src/main/resources/')
+            args '--mod', 'seasonhud', '--all', '--output', file('src/generated/resources/'), '--existing', file('src/main/resources/')
             mods {
-                seasoninfo {
+                seasonhud {
                     source sourceSets.main
                 }
             }
@@ -156,12 +156,12 @@ dependencies {
 jar {
     manifest {
         attributes([
-                "Specification-Title"     : "seasoninfo",
-                //"Specification-Vendor": "seasoninfo authors",
+                "Specification-Title"     : "seasonhud",
+                //"Specification-Vendor": "seasonhud authors",
                 "Specification-Version"   : "1", // We are version 1 of ourselves
                 "Implementation-Title"    : project.name,
                 "Implementation-Version"  : project.jar.archiveVersion,
-                //"Implementation-Vendor": "seasoninfo authors",
+                //"Implementation-Vendor": "seasonhud authors",
                 "Implementation-Timestamp": new Date().format("yyyy-MM-dd'T'HH:mm:ssZ")
         ])
     }
