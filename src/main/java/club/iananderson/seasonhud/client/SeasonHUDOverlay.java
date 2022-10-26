@@ -12,7 +12,9 @@ import sereneseasons.api.season.Season;
 import sereneseasons.api.season.SeasonHelper;
 
 import java.util.Objects;
+import static xaero.common.core.XaeroMinimapCore.modMain;
 
+//HUD w/ no minimap installed
 public class SeasonHUDOverlay {
 
     public static Season SeasonVal(){
