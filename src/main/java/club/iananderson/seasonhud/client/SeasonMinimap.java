@@ -1,3 +1,4 @@
+//Hud w/ Xaero's Minimap installed
 package club.iananderson.seasonhud.client;
 
 import club.iananderson.seasonhud.SeasonHUD;
@@ -7,35 +8,54 @@ import net.minecraft.client.gui.GuiComponent;
 import net.minecraft.client.renderer.GameRenderer;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraftforge.client.gui.overlay.IGuiOverlay;
-import sereneseasons.api.season.Season;
-import sereneseasons.api.season.SeasonHelper;
+import club.iananderson.seasonhud.client.CurrentSeason;
 
 import java.util.Objects;
 
-import static club.iananderson.seasonhud.client.SeasonMapSettings.seasonCap;
+import static xaero.common.settings.ModOptions.modMain;
 
-//Hud w/ Xaero's Minimap installed
 public class SeasonMinimap {
-    public static Season SeasonVal(){
-        Minecraft mc = Minecraft.getInstance();
-        return SeasonHelper.getSeasonState(Objects.requireNonNull(mc.level)).getSeason();
-        }
-
-
-
     public static final IGuiOverlay XAERO_SEASON = (ForgeGui, poseStack, partialTick, screenWidth, screenHeight) -> {
+        Minecraft mc = Minecraft.getInstance();
+
         //Icon chooser
         ResourceLocation SEASON = new ResourceLocation(SeasonHUD.MODID,
-                "textures/season/"+SeasonVal().name().toLowerCase()+".png");
+                "textures/season/"+ Objects.requireNonNull(CurrentSeason.getCurrentSeason().name().toLowerCase())+".png");
 
-        //Current Season Name
-        Season currentSeason = SeasonVal();
-        String SEASONNAME = currentSeason.name();
-        String seasonLower = SEASONNAME.toLowerCase();
-        String seasonCap = seasonLower.substring(0,1).toUpperCase()+ seasonLower.substring(1);
+        //Data
+        int interfaceSize = (int) mc.getWindow().getGuiScale();
+        int scaledX = mc.getWindow().getGuiScaledWidth();
+        int scaledY = mc.getWindow().getGuiScaledHeight();
+
+        boolean minimapShape = modMain.getSettings().getMinimap(); //Need to factor in?
+        float minimapScale = modMain.getSettings().getMinimapScale();
+        float mapScale = interfaceSize/minimapScale;
+
+        int minimapSize = modMain.getSettings().getMinimapSize();
+        int AutoUIScale = modMain.getSettings().getAutoUIScale();
+        //int text size = (height of text)*(how many lines)
+        //Change math by minimap orientation. Look for variable
+
+        boolean xBiome = modMain.getSettings().showBiome; // Use for line count x 4
+        boolean xDimensionName = modMain.getSettings().showDimensionName;
+        boolean xCoords = modMain.getSettings().getShowCoords();
+        boolean xAngles = modMain.getSettings().showAngles;
+
+        int x = (int)((float)scaledX*(minimapScale/mapScale));
+        int y = (int)((float)scaledY*(minimapScale/mapScale));
+
+
+        int stringWidth = mc.font.width(CurrentSeason.getSeasonFinalName());
+        int size = (int)((float)(Math.min(y, x)) / minimapScale);
+
+        int stringX = (int)(scaledX - stringWidth - (Math.sqrt((double)(minimapSize*minimapSize)/2)/mapScale)); //might need to center on x
+
+        int stringY = (int) ((Math.sqrt((double) (minimapSize * minimapSize) / 3)) / mapScale); //Size looks to be diagonal with x + y being equal.
+                //Needs to go down a bit
+
 
         //Font
-        ForgeGui.getFont().draw(poseStack,seasonCap,(float) SeasonMapSettings.stringX.getValueof(), (float) SeasonMapSettings.stringY,0xffffffff);
+        ForgeGui.getFont().draw(poseStack,CurrentSeason.getSeasonFinalName(),(float) stringX, (float) stringY,0xffffffff);
 
         //Icon
         int iconDim = 10;
@@ -44,6 +64,6 @@ public class SeasonMinimap {
         RenderSystem.setShader(GameRenderer::getPositionTexShader);
         RenderSystem.setShaderColor(1.0F,1.0F,1.0F,1.0F);
         RenderSystem.setShaderTexture(0,SEASON);
-        GuiComponent.blit(poseStack,SeasonMapSettings.stringX+offsetDim, SeasonMapSettings.stringY,0,0,iconDim,iconDim,iconDim,iconDim);
+        GuiComponent.blit(poseStack, stringX+offsetDim, stringY,0,0,iconDim,iconDim,iconDim,iconDim);
     };
 }
