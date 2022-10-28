@@ -1,7 +1,6 @@
 package club.iananderson.seasonhud.client;
 
 import club.iananderson.seasonhud.SeasonHUD;
-import club.iananderson.seasonhud.client.CurrentSeason;
 import net.minecraftforge.client.gui.overlay.ForgeGui;
 import com.mojang.blaze3d.systems.RenderSystem;
 import net.minecraft.client.Minecraft;
@@ -11,7 +10,9 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraftforge.client.gui.overlay.IGuiOverlay;
 import sereneseasons.api.season.Season;
 import sereneseasons.api.season.SeasonHelper;
+import xaero.common.settings.ModOptions;
 
+import javax.annotation.Nonnull;
 import java.util.Objects;
 
 import static xaero.common.core.XaeroMinimapCore.currentSession;
@@ -19,25 +20,39 @@ import static xaero.common.core.XaeroMinimapCore.modMain;
 
 //HUD w/ no minimap installed
 public class SeasonHUDOverlay {
-    public static final IGuiOverlay HUD_SEASON = (ForgeGui, poseStack, partialTick,screenWidth, screenHeight) -> {
+    public static final IGuiOverlay HUD_SEASON = (ForgeGui, seasonStack, partialTick,screenWidth, screenHeight) -> {
         int x = 0;
         int y = 0;
         int iconDim = 10;
         int offsetDim = 5;
+        Minecraft mc = Minecraft.getInstance();
 
+        //Season
+        Season currentSeason = SeasonHelper.getSeasonState(Objects.requireNonNull(mc.level)).getSeason();
+        String seasonCap = currentSeason.name();
+        String seasonLower = seasonCap.toLowerCase();
+        String seasonName = seasonLower.substring(0,1).toUpperCase()+ seasonLower.substring(1);
 
         ResourceLocation SEASON = new ResourceLocation(SeasonHUD.MODID,
-            "textures/season/"+CurrentSeason.getSeasonLower()+".png");
+            "textures/season/"+seasonLower+".png");
 
+        float interfaceSize = (float) mc.getWindow().getGuiScale();
+        float minimapScale = ModOptions.modMain.getSettings().getMinimapScale();
+        float mapScale = interfaceSize / minimapScale;
 
+        final float scale = 1.0F/(minimapScale/mapScale);
+
+        seasonStack.pushPose();
+        seasonStack.scale(scale,scale,scale);
 
         //Text
-        ForgeGui.getFont().draw(poseStack,Objects.requireNonNull(CurrentSeason.getCurrentSeason().name().toLowerCase()), (float) (x+18), (float) (y+offsetDim+(.12*iconDim)),0xffffffff);
+        ForgeGui.getFont().draw(seasonStack,seasonName, (float) (x+iconDim+offsetDim+2), (float) (y+offsetDim+(.12*iconDim)),0xffffffff);
 
         //Icon
         RenderSystem.setShader(GameRenderer::getPositionTexShader);
         RenderSystem.setShaderColor(1.0F,1.0F,1.0F,1.0F);
         RenderSystem.setShaderTexture(0,SEASON);
-        GuiComponent.blit(poseStack,x+offsetDim, y+offsetDim,0,0,iconDim,iconDim,iconDim,iconDim);
+        GuiComponent.blit(seasonStack,x+offsetDim, y+offsetDim,0,0,iconDim,iconDim,iconDim,iconDim);
+        seasonStack.popPose();
     };
 }
