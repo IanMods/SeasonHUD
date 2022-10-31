@@ -17,12 +17,13 @@ public class ClientEvents{
         public static void registerGuiOverlays(RegisterGuiOverlaysEvent event){
             event.registerAboveAll("season", SeasonHUDOverlay.HUD_SEASON);
         }
-        @SubscribeEvent
-        public static void registerMinimapOverlay(RegisterGuiOverlaysEvent event) {
-            event.registerAboveAll("xaero2", SeasonMinimap.XAERO_SEASON);
-        }
+
         @SubscribeEvent
         public static void registerDebugOverlay(RegisterGuiOverlaysEvent event) {
+            event.registerAboveAll("xaero", SeasonMinimap.XAERO_SEASON);
+        }
+        @SubscribeEvent
+        public static void registerMinimapOverlay(RegisterGuiOverlaysEvent event) {
             event.registerAboveAll("debug", DebugHUD.DEBUG_HUD);
         }
     }
