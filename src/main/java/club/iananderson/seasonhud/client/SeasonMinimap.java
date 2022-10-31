@@ -12,6 +12,7 @@ import sereneseasons.api.season.Season;
 import sereneseasons.api.season.SeasonHelper;
 import xaero.common.XaeroMinimapSession;
 import xaero.common.core.XaeroMinimapCore;
+import xaero.common.minimap.element.render.map.MinimapElementMapRendererHandler;
 import xaero.common.settings.ModSettings;
 
 import java.util.Objects;
@@ -36,68 +37,51 @@ public class SeasonMinimap {
         //Data
         int shape = modMain.getSettings().minimapShape;
 
-        int mapSize = XaeroMinimapCore.currentSession.getMinimapProcessor()
-                .getMinimapSize();
+        int mapSize = XaeroMinimapCore.currentSession.getMinimapProcessor().getMinimapSize();//Minimap Size
 
         int bufferSize = XaeroMinimapCore.currentSession.getMinimapProcessor()
                 .getMinimapBufferSize(mapSize);
 
-        final float scale = 0.5F;
-
+        //float scale = XaeroMinimapCore.currentSession.getModMain().getSettings().getAutoUIScale();
+        float scale = modMain.getSettings().getWaypointsIngameNameScale();
 
         float sizeFix = (float)bufferSize / 512.0F;
-        float minimapScale = modMain.getSettings().getMinimapScale();
+        //float minimapScale = XaeroMinimapCore.currentSession.getModMain().getSettings().getAutoUIScale();
+        float minimapScale = XaeroMinimapCore.currentSession.getModMain().getSettings().getMinimapScale();
         float mapScale = (float)(scale / (double)minimapScale);
 
         int height = Minecraft.getInstance().getWindow().getHeight();
         int scaledHeight = (int)((float)height * mapScale);
         int width = Minecraft.getInstance().getWindow().getWidth();
         int size = (int)((float)(height <= width ? height : width) / minimapScale);
-        int interfaceSize = size;
 
-        int x =modMain.getInterfaces().getMinimapInterface().getX();
-        int y =modMain.getInterfaces().getMinimapInterface().getY();
 
-        int scaledX = (int)((float)x * mapScale); //int scaledX = mc.getWindow().getGuiScaledWidth();
-        int scaledY = (int)((float)y * mapScale); //int scaledY = mc.getWindow().getGuiScaledHeight();
+        //int x = screenWidth;
+        //int y = screenHeight;
+        int x = (int)((Math.sqrt((double)(mapSize*mapSize)/2))); //might need to center on x
+        int y = (int)((Math.sqrt((double)(mapSize*mapSize)/2))); //Size looks to be diagonal with x + y being equal.
+        //Needs to go down a bit?
+
+        int scaledX = (int)((float)x * mapScale);
+        //int scaledX = mc.getWindow().getGuiScaledWidth();
+        int scaledY = (int)((float)y * mapScale);
+        //int scaledY = mc.getWindow().getGuiScaledHeight();
+
+        int interfaceSize = scaledY + (int)(18*mapScale);
 
         double centerX = (double)(2 * scaledX + 18 + mapSize / 2);
         double centerY = (double)(2 * scaledY + 18 + mapSize / 2);
 
-
-        int i = 0;
-        int align = modMain.getSettings().minimapTextAlign;
-        int stringWidth = mc.font.width(seasonName);
-        boolean under = scaledY + interfaceSize / 2 < scaledHeight / 2;
-
-        int stringX = scaledY + (under ? interfaceSize : -9) + i * 10 * (under ? 1 : -1);
-        int stringY = scaledX + (align == 0 ? interfaceSize / 2 - stringWidth / 2 : (align == 1 ? 6 : interfaceSize - 6 - stringWidth));
-
-
-
-//        boolean minimapShape = modMain.getSettings().getMinimap(); //Need to factor in?
-//        float interfaceSize = (float) mc.getWindow().getGuiScale();
-//        float minimapScale = modMain.getSettings().getMinimapScale();
-//        float mapScale = interfaceSize / minimapScale;
-//
-//        int minimapSize = modMain.getSettings().getMinimapSize();
-//        int AutoUIScale = modMain.getSettings().getAutoUIScale();
-//        //int text size = (height of text)*(how many lines)
-//        //Change math by minimap orientation. Look for variable
-//
-//
-//        int x = (int) ((float) scaledX * (minimapScale / mapScale));
-//        int y = (int) ((float) scaledY * (minimapScale / mapScale));
 
         boolean xBiome = modMain.getSettings().showBiome;
         boolean xDim = modMain.getSettings().showDimensionName;
         boolean xCoords = modMain.getSettings().getShowCoords();
         boolean xAngles = modMain.getSettings().showAngles;
 
-        int trueCount = 0;
+        int trueCount=0;
 
         if (xBiome == true) {
-           trueCount++;
+            trueCount++;
         }
         if (xDim == true) {
             trueCount++;
@@ -109,22 +93,33 @@ public class SeasonMinimap {
             trueCount++;
         }
 
+        int i = trueCount;
+
+
+        int align = XaeroMinimapCore.currentSession.getModMain().getSettings().minimapTextAlign;
+        int stringWidth = mc.font.width(seasonName);
+        boolean under = scaledY + interfaceSize / 2 < scaledHeight / 2;
+
+        //int stringY = scaledY + (under ? interfaceSize : -9) + i * 10 * (under ? 1 : -1);
+        int stringY = (interfaceSize)+(int)(i*(ForgeGui.getFont().lineHeight)*mapScale);
+        int stringX = mc.getWindow().getGuiScaledWidth() - scaledX - (align == 0 ? interfaceSize / 2 - stringWidth / 2 : (align == 1 ? 6 : interfaceSize - 6 - stringWidth));
+
 
         seasonStack.pushPose();
-        seasonStack.scale(scale/mapScale,scale/mapScale,scale);
+        seasonStack.scale(1F,1F,1F);
 
         //Icon
         int iconDim = 10;
         int offsetDim = 5;
 
         //Font
-        ForgeGui.getFont().draw(seasonStack,seasonName,(float) stringX+offsetDim+iconDim+2, (float) (stringY+offsetDim+(.12*iconDim)),0xffffffff);
+        ForgeGui.getFont().draw(seasonStack,seasonName,(float) stringX/*+offsetDim+iconDim+2*/, (float) (stringY/*+offsetDim+(.12*iconDim)*/),0xffffffff);
 
 
         RenderSystem.setShader(GameRenderer::getPositionTexShader);
         RenderSystem.setShaderColor(1.0F,1.0F,1.0F,1.0F);
         RenderSystem.setShaderTexture(0,SEASON);
-        GuiComponent.blit(seasonStack, stringX+offsetDim, stringY+offsetDim,0,0,iconDim,iconDim,iconDim,iconDim);
+        GuiComponent.blit(seasonStack, stringX, stringY,0,0,iconDim,iconDim,iconDim,iconDim);
         seasonStack.popPose();
     };
 }

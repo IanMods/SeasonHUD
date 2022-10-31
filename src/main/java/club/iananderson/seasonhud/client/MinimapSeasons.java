@@ -1,3 +1,4 @@
+/*
 package club.iananderson.seasonhud.client;
 
 import com.mojang.blaze3d.platform.Lighting;
@@ -161,3 +162,4 @@ public abstract class MinimapSeasons extends MinimapRenderer {
 
 
 }
+*/
