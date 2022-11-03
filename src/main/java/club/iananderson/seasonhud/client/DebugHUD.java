@@ -33,7 +33,7 @@ public class DebugHUD {
         //Data
         int shape = modMain.getSettings().minimapShape;
 
-        int mapSize = XaeroMinimapCore.currentSession.getMinimapProcessor().getMinimapSize(); //minimap size
+        int mapSize = XaeroMinimapCore.currentSession.getMinimapProcessor().getMinimapSize();//Minimap Size
 
         int bufferSize = XaeroMinimapCore.currentSession.getMinimapProcessor()
                 .getMinimapBufferSize(mapSize);
@@ -43,17 +43,14 @@ public class DebugHUD {
 
         float sizeFix = (float)bufferSize / 512.0F;
         //float minimapScale = XaeroMinimapCore.currentSession.getModMain().getSettings().getAutoUIScale();
-        float minimapScale = XaeroMinimapCore.currentSession.getModMain().getSettings().getMinimapScale(); //minimap scale
-        float mapScale = (float)(scale / (double)minimapScale);
+        float minimapScale = XaeroMinimapCore.currentSession.getModMain().getSettings().getMinimapScale();
+        float mapScale = ((float)(scale / (double)minimapScale));
 
         int height = Minecraft.getInstance().getWindow().getHeight();
-        int scaledHeight = (int)((float)height * mapScale);
+        int scaledHeight = (int)(height/minimapScale);
         int width = Minecraft.getInstance().getWindow().getWidth();
-        int size = (int)((float)(height <= width ? height : width) / minimapScale);
-
-
-        //int interfaceSize = XaeroMinimapCore.currentSession.getMinimapProcessor().getMinimapSize() / 2 + 18;
-
+        int scaledWidth = (int)(width/minimapScale);
+        int size = (int)((float)(height <= width ? height : width) / mapScale);
 
 
         //int x = screenWidth;
@@ -62,16 +59,16 @@ public class DebugHUD {
         int y = (int)((Math.sqrt((double)(mapSize*mapSize)/2))); //Size looks to be diagonal with x + y being equal.
         //Needs to go down a bit?
 
-
-        int scaledX = (int)((float)x * mapScale);
+        int scaledX = (int)((float)x / minimapScale);
         //int scaledX = mc.getWindow().getGuiScaledWidth();
-        int scaledY = (int)((float)y * mapScale);
+        int scaledY = (int)((float)y / minimapScale);
         //int scaledY = mc.getWindow().getGuiScaledHeight();
 
-        int interfaceSize = scaledY + (int)(18*mapScale);
+        int interfaceSize = (int)(18/mapScale);
 
-        double centerX = (double)(2 * scaledX + 18 + mapSize / 2);
-        double centerY = (double)(2 * scaledY + 18 + mapSize / 2);
+        int centerX = (int)(2 * scaledX + 18 + mapSize);
+        int centerY = (int)(2 * scaledY + 18 + mapSize);
+
 
         boolean xBiome = modMain.getSettings().showBiome;
         boolean xDim = modMain.getSettings().showDimensionName;
@@ -100,16 +97,15 @@ public class DebugHUD {
         int stringWidth = mc.font.width(seasonName);
         boolean under = scaledY + interfaceSize / 2 < scaledHeight / 2;
 
-        //int stringY = scaledY + (under ? interfaceSize : -9) + i * 10 * (under ? 1 : -1); //doesnt seem right. interface size is 5
-        int stringY = (interfaceSize)+(int)(i*10*mapScale);
-        int stringX = mc.getWindow().getGuiScaledWidth() - scaledX + (align == 0 ? interfaceSize / 2 - stringWidth / 2 : (align == 1 ? 6 : interfaceSize - 6 - stringWidth));
-
-        float fontScale = (minimapScale*minimapScale)/mapScale;
+        //int stringY = scaledY + (under ? interfaceSize : -9) + i * 10 * (under ? 1 : -1);
+        int stringY = scaledY+(interfaceSize)+(int)(i*(ForgeGui.getFont().lineHeight)/mapScale);
+        int stringX = scaledWidth  - scaledX - ((align == 0 ? interfaceSize/2 - stringWidth/2 : (align == 1 ? 6 : interfaceSize/2 - 6 - stringWidth/2)));
+        float fontScale = (float)(1/mapScale);
 
         String[] debug = new String[5];
-        debug[0] = "MinimapSize: " + mapSize + " | " + "Scaled Height: " + scaledHeight + " | " + "interfaceSize: " + interfaceSize;
-        debug[2] = "y: " + y + " | " + "scaledY: " + scaledY + " | " + "stringY: " + stringY;
-        debug[1] = "x: " + x + " | " + "scaledX: " + scaledX + " | " + "stringX: " + stringX;
+        debug[0] = "MinimapSize: " + mapSize + " | " + "interfaceSize: " + interfaceSize;
+        debug[2] = "y: " + y + " | " + "scaledY: " + scaledY + " | " + "stringY: " + stringY + " | " + "Scaled Height: " + scaledHeight;
+        debug[1] = "x: " + x + " | " + "scaledX: " + scaledX + " | " + "stringX: " + stringX + " | " + "Scaled Width: " + scaledWidth;
         debug[3] = "scale: " + scale + " | " + "minimapScale: " + minimapScale + " | " + "mapScale: " + mapScale
                 + " | " + "fontScale: " + fontScale;
 
