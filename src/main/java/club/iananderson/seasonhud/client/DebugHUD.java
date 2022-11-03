@@ -6,6 +6,7 @@ import net.minecraft.client.Minecraft;
 import net.minecraftforge.client.gui.overlay.IGuiOverlay;
 import sereneseasons.api.season.Season;
 import sereneseasons.api.season.SeasonHelper;
+import xaero.common.XaeroMinimapSession;
 import xaero.common.core.XaeroMinimapCore;
 import xaero.common.settings.ModOptions;
 
@@ -101,6 +102,8 @@ public class DebugHUD {
         int stringY = scaledY+(interfaceSize)+(int)(i*(ForgeGui.getFont().lineHeight)/mapScale);
         int stringX = scaledWidth  - scaledX - ((align == 0 ? interfaceSize/2 - stringWidth/2 : (align == 1 ? 6 : interfaceSize/2 - 6 - stringWidth/2)));
         float fontScale = (float)(1/mapScale);
+
+
 
         String[] debug = new String[5];
         debug[0] = "MinimapSize: " + mapSize + " | " + "interfaceSize: " + interfaceSize;

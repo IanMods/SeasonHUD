@@ -14,6 +14,7 @@ import sereneseasons.api.season.SeasonHelper;
 import xaero.common.XaeroMinimapSession;
 import xaero.common.core.XaeroMinimapCore;
 import xaero.common.minimap.element.render.map.MinimapElementMapRendererHandler;
+import xaero.common.settings.ModOptions;
 import xaero.common.settings.ModSettings;
 
 import java.util.Objects;
@@ -49,7 +50,7 @@ public class SeasonMinimap {
         float sizeFix = (float)bufferSize / 512.0F;
         //float minimapScale = XaeroMinimapCore.currentSession.getModMain().getSettings().getAutoUIScale();
         float minimapScale = XaeroMinimapCore.currentSession.getModMain().getSettings().getMinimapScale();
-        float mapScale = ((float)(scale / (double)minimapScale));
+        float mapScale = ((float)(scale / minimapScale));
 
         int height = Minecraft.getInstance().getWindow().getHeight();
         int scaledHeight = (int)(height/minimapScale);
@@ -58,18 +59,15 @@ public class SeasonMinimap {
         int size = (int)((float)(height <= width ? height : width) / mapScale);
 
 
-        //int x = screenWidth;
-        //int y = screenHeight;
-        int x = (int)((Math.sqrt((double)(mapSize*mapSize)/2))); //might need to center on x
-        int y = (int)((Math.sqrt((double)(mapSize*mapSize)/2))); //Size looks to be diagonal with x + y being equal.
-        //Needs to go down a bit?
+        double x = ((Math.sqrt((double)(mapSize*mapSize)/2)));
+        double y = ((Math.sqrt((double)(mapSize*mapSize)/2))); //Size looks to be diagonal with x + y being equal
 
-        int scaledX = (int)((float)x / minimapScale);
+        int scaledX = (int)(x / mapScale);
         //int scaledX = mc.getWindow().getGuiScaledWidth();
-        int scaledY = (int)((float)y / minimapScale);
+        int scaledY = (int)(y / mapScale);
         //int scaledY = mc.getWindow().getGuiScaledHeight();
 
-        int interfaceSize = (int)(18*minimapScale);
+        int interfaceSize = (int)(18*mapScale);//frame is 9 maybe?
 
         int centerX = (2 * scaledX + 18 + mapSize / 2);
         int centerY = (2 * scaledY + 18 + mapSize / 2);
@@ -99,19 +97,21 @@ public class SeasonMinimap {
 
 
         //Icon
-        int iconDim = 10;
-        int offsetDim = iconDim+2;
+        int iconDim = Math.round(12/mapScale);
+        int offsetDim = Math.round(iconDim+(3/mapScale));//maybe change to 2
+        int sizeTest = modMain.getInterfaces().getMinimapInterface().getW(); //interface:gui.xaero_minimap:77:59:false:false:true:false for move gui?
 
 
         int align = XaeroMinimapCore.currentSession.getModMain().getSettings().minimapTextAlign;
-        int stringWidth = mc.font.width(seasonName);
+        int stringWidth = Math.round(mc.font.width(seasonName)/mapScale);
+        int stringHeight = Math.round(ForgeGui.getFont().lineHeight/mapScale);
         boolean under = scaledY + interfaceSize / 2 < scaledHeight / 2;
 
         //int stringY = scaledY + (under ? interfaceSize : -9) + i * 10 * (under ? 1 : -1); // use this for above map test
-        int stringY = 25+scaledY+(interfaceSize)+(int)(i*(ForgeGui.getFont().lineHeight)/mapScale);
-        int stringX = scaledWidth - scaledX - iconDim
-                - (int)(align == 0 ? interfaceSize - stringWidth/mapScale - offsetDim
-                        : (align == 1 ? stringWidth/mapScale + offsetDim : -stringWidth/mapScale - offsetDim));//need to fix for all sizes
+        int stringY = scaledY+interfaceSize+(i*stringHeight);
+        int stringX = scaledWidth - scaledX
+                - (int)(align == 0 ? interfaceSize/2 - stringWidth/2
+                        : (align == 1 ? interfaceSize/2 + stringWidth/2 + offsetDim : -stringWidth/2 - offsetDim));//need to fix for all sizes
 
         float fontScale = 1/mapScale;
 
@@ -120,13 +120,14 @@ public class SeasonMinimap {
 
 
         //Font
-        ForgeGui.getFont().draw(seasonStack,seasonName,(float) stringX+iconDim+2, (float) (stringY+(.12*iconDim)),0xffffffff);
+        mc.font.draw(seasonStack,seasonName,(float) stringX, (float) stringY,0xffffffff);
+        mc.font.drawShadow(seasonStack, seasonName, (float) stringX, (float) stringY,0xffffffff);
 
 
         RenderSystem.setShader(GameRenderer::getPositionTexShader);
         RenderSystem.setShaderColor(1.0F,1.0F,1.0F,1.0F);
         RenderSystem.setShaderTexture(0,SEASON);
-        GuiComponent.blit(seasonStack, stringX, stringY,0,0,iconDim,iconDim,iconDim,iconDim);
+        GuiComponent.blit(seasonStack, stringX-offsetDim, stringY,0,0,iconDim,iconDim,iconDim,iconDim);
         seasonStack.popPose();
     };
 }
