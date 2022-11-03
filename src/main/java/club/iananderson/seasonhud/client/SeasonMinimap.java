@@ -8,6 +8,7 @@ import net.minecraft.client.gui.GuiComponent;
 import net.minecraft.client.renderer.GameRenderer;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraftforge.client.gui.overlay.IGuiOverlay;
+import org.lwjgl.opengl.GLX11;
 import sereneseasons.api.season.Season;
 import sereneseasons.api.season.SeasonHelper;
 import xaero.common.XaeroMinimapSession;
@@ -43,12 +44,12 @@ public class SeasonMinimap {
                 .getMinimapBufferSize(mapSize);
 
         //float scale = XaeroMinimapCore.currentSession.getModMain().getSettings().getAutoUIScale();
-        float scale = modMain.getSettings().getWaypointsIngameNameScale();
+        double scale = mc.getWindow().getGuiScale();
 
         float sizeFix = (float)bufferSize / 512.0F;
         //float minimapScale = XaeroMinimapCore.currentSession.getModMain().getSettings().getAutoUIScale();
         float minimapScale = XaeroMinimapCore.currentSession.getModMain().getSettings().getMinimapScale();
-        float mapScale = (float)(scale / (double)minimapScale);
+        float mapScale = ((float)(scale / (double)minimapScale));
 
         int height = Minecraft.getInstance().getWindow().getHeight();
         int scaledHeight = (int)((float)height * mapScale);
@@ -67,7 +68,7 @@ public class SeasonMinimap {
         int scaledY = (int)((float)y * mapScale);
         //int scaledY = mc.getWindow().getGuiScaledHeight();
 
-        int interfaceSize = scaledY + (int)(18*mapScale);
+        int interfaceSize = (int)(18*mapScale);
 
         double centerX = (double)(2 * scaledX + 18 + mapSize / 2);
         double centerY = (double)(2 * scaledY + 18 + mapSize / 2);
@@ -101,19 +102,20 @@ public class SeasonMinimap {
         boolean under = scaledY + interfaceSize / 2 < scaledHeight / 2;
 
         //int stringY = scaledY + (under ? interfaceSize : -9) + i * 10 * (under ? 1 : -1);
-        int stringY = (interfaceSize)+(int)(i*(ForgeGui.getFont().lineHeight)*mapScale);
+        int stringY = scaledY+(interfaceSize)+(int)(i*(ForgeGui.getFont().lineHeight)*mapScale);
         int stringX = mc.getWindow().getGuiScaledWidth() - scaledX - (align == 0 ? interfaceSize / 2 - stringWidth / 2 : (align == 1 ? 6 : interfaceSize - 6 - stringWidth));
 
+        float fontScale = (minimapScale*minimapScale)/mapScale;
 
         seasonStack.pushPose();
-        seasonStack.scale(1F,1F,1F);
+        seasonStack.scale(fontScale,fontScale,fontScale);
 
         //Icon
         int iconDim = 10;
         int offsetDim = 5;
 
         //Font
-        ForgeGui.getFont().draw(seasonStack,seasonName,(float) stringX/*+offsetDim+iconDim+2*/, (float) (stringY/*+offsetDim+(.12*iconDim)*/),0xffffffff);
+        ForgeGui.getFont().draw(seasonStack,seasonName,(float) stringX+iconDim+2, (float) (stringY+(.12*iconDim)),0xffffffff);
 
 
         RenderSystem.setShader(GameRenderer::getPositionTexShader);

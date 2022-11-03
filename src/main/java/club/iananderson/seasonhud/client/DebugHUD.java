@@ -39,7 +39,7 @@ public class DebugHUD {
                 .getMinimapBufferSize(mapSize);
 
         //float scale = XaeroMinimapCore.currentSession.getModMain().getSettings().getAutoUIScale();
-        float scale = modMain.getSettings().getWaypointsIngameNameScale();;
+        double scale = mc.getWindow().getGuiScale();
 
         float sizeFix = (float)bufferSize / 512.0F;
         //float minimapScale = XaeroMinimapCore.currentSession.getModMain().getSettings().getAutoUIScale();
@@ -104,13 +104,14 @@ public class DebugHUD {
         int stringY = (interfaceSize)+(int)(i*10*mapScale);
         int stringX = mc.getWindow().getGuiScaledWidth() - scaledX + (align == 0 ? interfaceSize / 2 - stringWidth / 2 : (align == 1 ? 6 : interfaceSize - 6 - stringWidth));
 
-
+        float fontScale = (minimapScale*minimapScale)/mapScale;
 
         String[] debug = new String[5];
-        debug[0] = "MinimapSize: " + mapSize + " | " + "Scaled Height: " + scaledHeight + " | " + "minimapScale: " + minimapScale;
+        debug[0] = "MinimapSize: " + mapSize + " | " + "Scaled Height: " + scaledHeight + " | " + "interfaceSize: " + interfaceSize;
         debug[2] = "y: " + y + " | " + "scaledY: " + scaledY + " | " + "stringY: " + stringY;
         debug[1] = "x: " + x + " | " + "scaledX: " + scaledX + " | " + "stringX: " + stringX;
-        debug[3] = "scale: " + scale + " | " + "interfaceSize: " + interfaceSize + " | " + "mapScale: " + mapScale;
+        debug[3] = "scale: " + scale + " | " + "minimapScale: " + minimapScale + " | " + "mapScale: " + mapScale
+                + " | " + "fontScale: " + fontScale;
 
         if (enableDebugHUD()) {
             seasonStack.pushPose();
