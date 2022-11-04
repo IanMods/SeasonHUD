@@ -21,7 +21,7 @@ public class DebugHUD {
     }
 
     //Debug
-    public static final IGuiOverlay DEBUG_HUD = (ForgeGui, seasonStack, partialTick, screenWidth, screenHeight) -> {
+    public static final IGuiOverlay DEBUG_HUD = (ForgeGui, seasonStack, partialTick, width, height) -> {
         Minecraft mc = Minecraft.getInstance();
         int offset = 20;
 
@@ -32,43 +32,31 @@ public class DebugHUD {
         String seasonName = seasonLower.substring(0,1).toUpperCase()+ seasonLower.substring(1);
 
         //Data
-        int shape = modMain.getSettings().minimapShape;
-
         int mapSize = XaeroMinimapCore.currentSession.getMinimapProcessor().getMinimapSize();//Minimap Size
 
-        int bufferSize = XaeroMinimapCore.currentSession.getMinimapProcessor()
-                .getMinimapBufferSize(mapSize);
-
-        //float scale = XaeroMinimapCore.currentSession.getModMain().getSettings().getAutoUIScale();
         double scale = mc.getWindow().getGuiScale();
 
-        float sizeFix = (float)bufferSize / 512.0F;
-        //float minimapScale = XaeroMinimapCore.currentSession.getModMain().getSettings().getAutoUIScale();
         float minimapScale = XaeroMinimapCore.currentSession.getModMain().getSettings().getMinimapScale();
-        float mapScale = ((float)(scale / (double)minimapScale));
+        float mapScale = ((float)(scale / minimapScale));
+        float fontScale = 1/mapScale;
 
-        int height = Minecraft.getInstance().getWindow().getHeight();
-        int scaledHeight = (int)(height/minimapScale);
-        int width = Minecraft.getInstance().getWindow().getWidth();
-        int scaledWidth = (int)(width/minimapScale);
-        int size = (int)((float)(height <= width ? height : width) / mapScale);
+        int scaledHeight = (int)(height*mapScale);
+
+        int scaledWidth = (int)((width)*mapScale);
+
+        //int bufferSize = XaeroMinimapCore.currentSession.getMinimapProcessor().getMinimapBufferSize(mapSize);
+        ///float sizeFix = (float)bufferSize / 512.0F;
+        int frameSize = 8;
+
+        int size = (int)((float)(Math.min(height, width)) / mapScale);
 
 
-        //int x = screenWidth;
-        //int y = screenHeight;
-        int x = (int)((Math.sqrt((double)(mapSize*mapSize)/2))); //might need to center on x
-        int y = (int)((Math.sqrt((double)(mapSize*mapSize)/2))); //Size looks to be diagonal with x + y being equal.
-        //Needs to go down a bit?
+        int x = -(frameSize+6+(mapSize/2));
+        int y = (2*frameSize)+18+mapSize;
 
-        int scaledX = (int)((float)x / minimapScale);
-        //int scaledX = mc.getWindow().getGuiScaledWidth();
-        int scaledY = (int)((float)y / minimapScale);
-        //int scaledY = mc.getWindow().getGuiScaledHeight();
+        int scaledX = (int)(x*fontScale);
+        int scaledY = (int)(y*fontScale);
 
-        int interfaceSize = (int)(18/mapScale);
-
-        int centerX = (int)(2 * scaledX + 18 + mapSize);
-        int centerY = (int)(2 * scaledY + 18 + mapSize);
 
 
         boolean xBiome = modMain.getSettings().showBiome;
@@ -94,19 +82,23 @@ public class DebugHUD {
         int i = trueCount;
 
 
-        int align = XaeroMinimapCore.currentSession.getModMain().getSettings().minimapTextAlign;
-        int stringWidth = mc.font.width(seasonName);
-        boolean under = scaledY + interfaceSize / 2 < scaledHeight / 2;
+        //Icon
+        int iconDim = Math.round(12*fontScale);
+        int offsetDim = Math.round(iconDim+(3*fontScale));//maybe change to 2
 
-        //int stringY = scaledY + (under ? interfaceSize : -9) + i * 10 * (under ? 1 : -1);
-        int stringY = scaledY+(interfaceSize)+(int)(i*(ForgeGui.getFont().lineHeight)/mapScale);
-        int stringX = scaledWidth  - scaledX - ((align == 0 ? interfaceSize/2 - stringWidth/2 : (align == 1 ? 6 : interfaceSize/2 - 6 - stringWidth/2)));
-        float fontScale = (float)(1/mapScale);
+        int align = XaeroMinimapCore.currentSession.getModMain().getSettings().minimapTextAlign;
+        int stringWidth = Math.round(mc.font.width(seasonName)*fontScale);
+        int stringHeight = Math.round(mc.font.lineHeight*fontScale);
+
+        int stringY = scaledY+(i*stringHeight);
+        int stringX = scaledWidth + scaledX - (int)(align == 0 ? - stringWidth/2 : (align == 1 ? stringWidth/2 + offsetDim : -stringWidth/2 - offsetDim));//need to fix for all sizes
+
+
 
 
 
         String[] debug = new String[5];
-        debug[0] = "MinimapSize: " + mapSize + " | " + "interfaceSize: " + interfaceSize;
+        debug[0] = "MinimapSize: " + mapSize + " | " + "stringHeight: " + stringHeight + " | " + "align: " + align + " | " + "frameSize: " + frameSize + " | " + "i: " + i;
         debug[2] = "y: " + y + " | " + "scaledY: " + scaledY + " | " + "stringY: " + stringY + " | " + "Scaled Height: " + scaledHeight;
         debug[1] = "x: " + x + " | " + "scaledX: " + scaledX + " | " + "stringX: " + stringX + " | " + "Scaled Width: " + scaledWidth;
         debug[3] = "scale: " + scale + " | " + "minimapScale: " + minimapScale + " | " + "mapScale: " + mapScale
