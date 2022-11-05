@@ -37,25 +37,28 @@ public class DebugHUD {
         double scale = mc.getWindow().getGuiScale();
 
         float minimapScale = XaeroMinimapCore.currentSession.getModMain().getSettings().getMinimapScale();
-        float mapScale = ((float)(scale / minimapScale));
+        float mapScale = ((float)(scale / (double)minimapScale));
         float fontScale = 1/mapScale;
 
-        int scaledHeight = (int)(height*mapScale);
+        int bufferSize = XaeroMinimapCore.currentSession.getMinimapProcessor().getMinimapBufferSize(mapSize);
+        float sizeFix = (float)bufferSize / 512.0F;
 
-        int scaledWidth = (int)((width)*mapScale);
+        int minimapFrameSize  = (int)((float)(mapSize / 2) / sizeFix);
+        int halfFrame = (int)((float)mapSize * minimapScale / 2.0F / 2.0F);
 
-        //int bufferSize = XaeroMinimapCore.currentSession.getMinimapProcessor().getMinimapBufferSize(mapSize);
-        ///float sizeFix = (float)bufferSize / 512.0F;
-        int frameSize = 8;
+
+        int bottomCornerStartY =(Math.min(minimapFrameSize, halfFrame)) + (int)(3.0F * minimapScale);
+        int padding = bottomCornerStartY-(Math.min(minimapFrameSize, halfFrame));
+
 
         int size = (int)((float)(Math.min(height, width)) / mapScale);
 
 
-        int x = -(frameSize+6+(mapSize/2));
-        int y = (2*frameSize)+18+mapSize;
+        int x = width;//-(frameSize+6+(mapSize/2));
+        int y = height;//(2*frameSize)+18+mapSize;
 
-        int scaledX = (int)(x*fontScale);
-        int scaledY = (int)(y*fontScale);
+        int scaledX = (int)(x*mapScale);
+        int scaledY = (int)(y*mapScale);
 
 
 
@@ -63,19 +66,27 @@ public class DebugHUD {
         boolean xDim = modMain.getSettings().showDimensionName;
         boolean xCoords = modMain.getSettings().getShowCoords();
         boolean xAngles = modMain.getSettings().showAngles;
+        int xLight = modMain.getSettings().showLightLevel;
+        int xTime = modMain.getSettings().showTime;
 
-        int trueCount=0;
+        int trueCount = 0;
 
-        if (xBiome == true) {
+        if (xBiome) {
             trueCount++;
         }
-        if (xDim == true) {
+        if (xDim) {
             trueCount++;
         }
-        if (xCoords == true) {
+        if (xCoords) {
             trueCount++;
         }
-        if (xAngles == true) {
+        if (xAngles) {
+            trueCount++;
+        }
+        if (xLight > 0) {
+            trueCount++;
+        }
+        if (xTime > 0) {
             trueCount++;
         }
 
@@ -83,33 +94,37 @@ public class DebugHUD {
 
 
         //Icon
-        int iconDim = Math.round(12*fontScale);
-        int offsetDim = Math.round(iconDim+(3*fontScale));//maybe change to 2
-
         int align = XaeroMinimapCore.currentSession.getModMain().getSettings().minimapTextAlign;
         int stringWidth = Math.round(mc.font.width(seasonName)*fontScale);
-        int stringHeight = Math.round(mc.font.lineHeight*fontScale);
+        int stringHeight = Math.round((mc.font.lineHeight+1));
 
-        int stringY = scaledY+(i*stringHeight);
-        int stringX = scaledWidth + scaledX - (int)(align == 0 ? - stringWidth/2 : (align == 1 ? stringWidth/2 + offsetDim : -stringWidth/2 - offsetDim));//need to fix for all sizes
+        int iconDim = stringHeight+1;
+        int offsetDim = iconDim+1;//maybe change to 2
 
+        int stringY = bottomCornerStartY+(i*stringHeight);
+        int stringX = scaledX + (align == 0 ? -Math.min(minimapFrameSize, halfFrame)/2 - stringWidth/2 +offsetDim/2
+                : (align == 1 ? -Math.min(minimapFrameSize, halfFrame)+offsetDim: -stringWidth-(padding/2)));
 
 
 
 
         String[] debug = new String[5];
-        debug[0] = "MinimapSize: " + mapSize + " | " + "stringHeight: " + stringHeight + " | " + "align: " + align + " | " + "frameSize: " + frameSize + " | " + "i: " + i;
-        debug[2] = "y: " + y + " | " + "scaledY: " + scaledY + " | " + "stringY: " + stringY + " | " + "Scaled Height: " + scaledHeight;
-        debug[1] = "x: " + x + " | " + "scaledX: " + scaledX + " | " + "stringX: " + stringX + " | " + "Scaled Width: " + scaledWidth;
+        debug[0] = "stringHeight: " + stringHeight + " | " + "align: " + align + " | " + "minimapFrameSize: " + minimapFrameSize + " | " + "halfFrame: " + halfFrame + " | " + "bottomCornerStartY: " + bottomCornerStartY;;
+        debug[2] = "y: " + y + " | " + "scaledY: " + scaledY + " | " + "stringY: " + stringY;
+        debug[1] = "x: " + x + " | " + "scaledX: " + scaledX + " | " + "stringX: " + stringX;
         debug[3] = "scale: " + scale + " | " + "minimapScale: " + minimapScale + " | " + "mapScale: " + mapScale
                 + " | " + "fontScale: " + fontScale;
+        debug[4] =  "bufferSize: " + bufferSize + " | " + "sizeFix: " + sizeFix + " | " + "MinimapSize: " + mapSize;
 
         if (enableDebugHUD()) {
             seasonStack.pushPose();
-            ForgeGui.getFont().draw(seasonStack, debug[0], offset, offset, 0xffffffff);
-            ForgeGui.getFont().draw(seasonStack, debug[1], offset, (offset * 2), 0xffffffff);
-            ForgeGui.getFont().draw(seasonStack, debug[2], offset, (offset * 3), 0xffffffff);
-            ForgeGui.getFont().draw(seasonStack, debug[3], offset, (offset * 4), 0xffffffff);
+            seasonStack.scale(fontScale,fontScale,fontScale);
+            ForgeGui.getFont().drawShadow(seasonStack, debug[0], offset, offset, 0xffffffff);
+            ForgeGui.getFont().drawShadow(seasonStack, debug[1], offset, (offset * 2), 0xffffffff);
+            ForgeGui.getFont().drawShadow(seasonStack, debug[2], offset, (offset * 3), 0xffffffff);
+            ForgeGui.getFont().drawShadow(seasonStack, debug[3], offset, (offset * 4), 0xffffffff);
+            ForgeGui.getFont().drawShadow(seasonStack, debug[4], offset, (offset * 5), 0xffffffff);
+
             seasonStack.popPose();
         }
     };

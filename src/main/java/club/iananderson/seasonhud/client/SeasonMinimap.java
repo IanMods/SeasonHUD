@@ -42,25 +42,28 @@ public class SeasonMinimap {
         double scale = mc.getWindow().getGuiScale();
 
         float minimapScale = XaeroMinimapCore.currentSession.getModMain().getSettings().getMinimapScale();
-        float mapScale = ((float)(scale / minimapScale));
+        float mapScale = ((float)(scale / (double)minimapScale));
         float fontScale = 1/mapScale;
 
-        int scaledHeight = (int)(height*mapScale);
+        int bufferSize = XaeroMinimapCore.currentSession.getMinimapProcessor().getMinimapBufferSize(mapSize);
+        float sizeFix = (float)bufferSize / 512.0F;
 
-        int scaledWidth = (int)((width)*mapScale);
+        int minimapFrameSize  = (int)((float)(mapSize / 2) / sizeFix);
+        int halfFrame = (int)((float)mapSize * minimapScale / 2.0F / 2.0F);
 
-        //int bufferSize = XaeroMinimapCore.currentSession.getMinimapProcessor().getMinimapBufferSize(mapSize);
-        ///float sizeFix = (float)bufferSize / 512.0F;
-        int frameSize = 8;
+
+        int bottomCornerStartY =(Math.min(minimapFrameSize, halfFrame)) + (int)(3.0F * minimapScale);
+        int padding = bottomCornerStartY-(Math.min(minimapFrameSize, halfFrame));
+
 
         int size = (int)((float)(Math.min(height, width)) / mapScale);
 
 
-        int x = -(frameSize+6+(mapSize/2));
-        int y = (2*frameSize)+18+mapSize;
+        int x = width;//-(frameSize+6+(mapSize/2));
+        int y = height;//(2*frameSize)+18+mapSize;
 
-        int scaledX = (int)(x*fontScale);
-        int scaledY = (int)(y*fontScale);
+        int scaledX = (int)(x*mapScale);
+        int scaledY = (int)(y*mapScale);
 
 
 
@@ -68,51 +71,60 @@ public class SeasonMinimap {
         boolean xDim = modMain.getSettings().showDimensionName;
         boolean xCoords = modMain.getSettings().getShowCoords();
         boolean xAngles = modMain.getSettings().showAngles;
+        int xLight = modMain.getSettings().showLightLevel;
+        int xTime = modMain.getSettings().showTime;
 
-        int trueCount=0;
+        int trueCount = 0;
 
-        if (xBiome == true) {
-            trueCount++;
-        }
-        if (xDim == true) {
-            trueCount++;
-        }
-        if (xCoords == true) {
-            trueCount++;
-        }
-        if (xAngles == true) {
-            trueCount++;
-        }
+            if (xBiome) {
+                trueCount++;
+            }
+            if (xDim) {
+                trueCount++;
+            }
+            if (xCoords) {
+                trueCount++;
+            }
+            if (xAngles) {
+                trueCount++;
+            }
+            if (xLight > 0) {
+                trueCount++;
+            }
+            if (xTime > 0) {
+                trueCount++;
+            }
 
         int i = trueCount;
 
 
         //Icon
-        int iconDim = Math.round(12*fontScale);
-        int offsetDim = Math.round(iconDim+(3*fontScale));//maybe change to 2
-
         int align = XaeroMinimapCore.currentSession.getModMain().getSettings().minimapTextAlign;
         int stringWidth = Math.round(mc.font.width(seasonName)*fontScale);
-        int stringHeight = Math.round(mc.font.lineHeight*fontScale);
+        int stringHeight = Math.round((mc.font.lineHeight+1));
 
-        int stringY = scaledY+(i*stringHeight);
-        int stringX = scaledWidth + scaledX - (int)(align == 0 ? - stringWidth/2 : (align == 1 ? stringWidth/2 + offsetDim : -stringWidth/2 - offsetDim));//need to fix for all sizes
+        int iconDim = stringHeight+1;
+        int offsetDim = iconDim+1;//maybe change to 2
+
+        int stringY = bottomCornerStartY+(i*stringHeight);
+        int stringX = scaledX + (align == 0 ? -Math.min(minimapFrameSize, halfFrame)/2 - stringWidth/2 +offsetDim/2
+                : (align == 1 ? -Math.min(minimapFrameSize, halfFrame)+offsetDim: -stringWidth-(padding/2)));
 
 
 
         seasonStack.pushPose();
-        seasonStack.scale(fontScale,fontScale,fontScale);
+        seasonStack.translate((double)(-9), (double)(9), 0.0);
+        seasonStack.scale(fontScale,fontScale,1.0F);
 
 
         //Font
-        mc.font.draw(seasonStack,seasonName,(float) stringX, (float) stringY,0xffffffff);
         mc.font.drawShadow(seasonStack,seasonName, (float) stringX, (float) stringY,0xffffffff);
 
 
         RenderSystem.setShader(GameRenderer::getPositionTexShader);
         RenderSystem.setShaderColor(1.0F,1.0F,1.0F,1.0F);
         RenderSystem.setShaderTexture(0,SEASON);
-        GuiComponent.blit(seasonStack, stringX-offsetDim, stringY,0,0,iconDim,iconDim,iconDim,iconDim);
+        GuiComponent.blit(seasonStack, stringX-offsetDim, stringY-offsetDim+iconDim,0,0,iconDim,iconDim,iconDim,iconDim);
         seasonStack.popPose();
     };
 }
