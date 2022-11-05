@@ -1,24 +1,22 @@
 package club.iananderson.seasonhud.client;
 
 import club.iananderson.seasonhud.SeasonHUD;
-import club.iananderson.seasonhud.config.SeasonHUDClientConfigs;
 import com.mojang.blaze3d.systems.RenderSystem;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiComponent;
 import net.minecraft.client.renderer.GameRenderer;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraftforge.client.gui.overlay.IGuiOverlay;
+import net.minecraftforge.fml.ModList;
 import sereneseasons.api.season.Season;
 import sereneseasons.api.season.SeasonHelper;
-import xaero.common.settings.ModOptions;
 
 import java.util.Objects;
 
 //HUD w/ no minimap installed
 public class SeasonHUDOverlay {
-    public static int seasonHUDOverlay() {
-        int seasonHUDLocation = SeasonHUDClientConfigs.seasonHUDLocation.get();
-        return seasonHUDLocation;
+    public static boolean seasonHUDOverlay() {
+        return !ModList.get().isLoaded("xaerominimap");
     }
 
     public static final IGuiOverlay HUD_SEASON = (ForgeGui, seasonStack, partialTick, screenWidth, screenHeight) -> {
@@ -37,15 +35,11 @@ public class SeasonHUDOverlay {
         ResourceLocation SEASON = new ResourceLocation(SeasonHUD.MODID,
                 "textures/season/" + seasonLower + ".png");
 
-        int interfaceSize = (int) mc.getWindow().getGuiScale();
-        float minimapScale = ModOptions.modMain.getSettings().getMinimapScale();
-        float mapScale = interfaceSize / minimapScale;
+        int scale = (int) mc.getWindow().getGuiScale();
 
-        final float scale = 1.0F / (minimapScale / mapScale);
-
-        if (seasonHUDOverlay() == 1) {
+        if (seasonHUDOverlay()) {
             seasonStack.pushPose();
-            seasonStack.scale(scale, scale, scale);
+            seasonStack.scale(1F, 1F, 1F);
 
             //Text
             ForgeGui.getFont().draw(seasonStack, seasonName, (float) (x + iconDim + offsetDim + 2), (float) (y + offsetDim + (.12 * iconDim)), 0xffffffff);

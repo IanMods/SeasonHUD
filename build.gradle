@@ -3,7 +3,7 @@ plugins {
 }
 
 group = 'club.iananderson'
-version = "1.0.2"
+version = "1.1.0"
 
 java {
     archivesBaseName = 'seasonhud'
@@ -145,7 +145,7 @@ dependencies {
     implementation "curse.maven:serene-seasons-291874:4037230-deobf-api"
 
     //Xaero's Minimap
-    implementation fg.deobf("curse.maven:xaeros-minimap-263420:4026493")
+    compileOnly fg.deobf("curse.maven:xaeros-minimap-263420:4026493")
 
     // Examples using mod jars from ./libs
     // implementation fg.deobf("blank:coolmod-${mc_version}:${coolmod_version}")
