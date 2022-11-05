@@ -36,6 +36,8 @@ public class SeasonMinimap {
         ResourceLocation SEASON = new ResourceLocation(SeasonHUD.MODID,
                 "textures/season/" + seasonLower + ".png");
 
+
+
         //Data
         int mapSize = XaeroMinimapCore.currentSession.getMinimapProcessor().getMinimapSize();//Minimap Size
 
@@ -107,8 +109,9 @@ public class SeasonMinimap {
         int offsetDim = iconDim+1;//maybe change to 2
 
         int stringY = bottomCornerStartY+(i*stringHeight);
-        int stringX = scaledX + (align == 0 ? -Math.min(minimapFrameSize, halfFrame)/2 - stringWidth/2 +offsetDim/2
-                : (align == 1 ? -Math.min(minimapFrameSize, halfFrame)+offsetDim: -stringWidth-(padding/2)));
+        int stringX = scaledX + (align == 0 ? -Math.min(minimapFrameSize, halfFrame)/2 - stringWidth/2 +iconDim/2
+                : (align == 1 ? -Math.min(minimapFrameSize, halfFrame)+offsetDim
+                : -stringWidth-iconDim/2));
 
 
 
