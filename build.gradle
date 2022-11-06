@@ -3,7 +3,7 @@ plugins {
 }
 
 group = 'club.iananderson'
-version = "1.1.0"
+version = "1.1.1"
 
 java {
     archivesBaseName = 'seasonhud'
@@ -140,12 +140,12 @@ dependencies {
     // implementation fg.deobf("com.tterrag.registrate:Registrate:MC${mc_version}-${registrate_version}") // Adds registrate as a dependency
 
     //Serene Seasons
-    //runtimeOnly fg.deobf("curse.maven:SereneSeasons-291874:3871433")
     implementation "curse.maven:serene-seasons-291874:4037228"
     implementation "curse.maven:serene-seasons-291874:4037230-deobf-api"
 
     //Xaero's Minimap
     compileOnly fg.deobf("curse.maven:xaeros-minimap-263420:4026493")
+    //implementation fg.deobf("curse.maven:xaeros-minimap-263420:4026493")
 
     // Examples using mod jars from ./libs
     // implementation fg.deobf("blank:coolmod-${mc_version}:${coolmod_version}")

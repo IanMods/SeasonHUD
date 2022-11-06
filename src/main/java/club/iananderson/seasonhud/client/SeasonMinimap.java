@@ -2,17 +2,23 @@
 package club.iananderson.seasonhud.client;
 
 import club.iananderson.seasonhud.SeasonHUD;
+import club.iananderson.seasonhud.config.SeasonHUDClientConfigs;
 import com.mojang.blaze3d.systems.RenderSystem;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiComponent;
+import net.minecraft.client.gui.screens.ChatScreen;
+import net.minecraft.client.gui.screens.DeathScreen;
 import net.minecraft.client.renderer.GameRenderer;
+import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraftforge.client.gui.overlay.IGuiOverlay;
 import net.minecraftforge.fml.ModList;
 import sereneseasons.api.season.Season;
 import sereneseasons.api.season.SeasonHelper;
 import xaero.common.core.XaeroMinimapCore;
+import xaero.common.gui.IScreenBase;
 
+import java.util.ArrayList;
 import java.util.Objects;
 
 import static xaero.common.settings.ModOptions.modMain;
@@ -20,14 +26,24 @@ import static xaero.common.settings.ModOptions.modMain;
 
 
 public class SeasonMinimap {
+    public static boolean minimapLoaded(){
+        return ModList.get().isLoaded("xaerominimap");
+    }
+
+
     public static final IGuiOverlay XAERO_SEASON = (ForgeGui, seasonStack, partialTick, width, height) -> {
         Minecraft mc = Minecraft.getInstance();
-        if (ModList.get().isLoaded("xaerominimap")) {
+        int hudPosition = SeasonHUDClientConfigs.hudPosition.get();
+        ArrayList<Component> underText = new ArrayList<>();
+
+
+        if (minimapLoaded()) {
             //Season
             Season currentSeason = SeasonHelper.getSeasonState(Objects.requireNonNull(mc.level)).getSeason();
             String seasonCap = currentSeason.name();
             String seasonLower = seasonCap.toLowerCase();
             String seasonName = seasonLower.substring(0, 1).toUpperCase() + seasonLower.substring(1);
+            underText.add(Component.literal(seasonName));
 
             //Icon chooser
             ResourceLocation SEASON = new ResourceLocation(SeasonHUD.MODID,
@@ -51,7 +67,7 @@ public class SeasonMinimap {
 
 
             int bottomCornerStartY = (Math.min(minimapFrameSize, halfFrame)) + (int) (3.0F * minimapScale);
-            int padding = bottomCornerStartY - (Math.min(minimapFrameSize, halfFrame));
+            int padding = bottomCornerStartY - Math.min(minimapFrameSize, halfFrame);
 
 
             int size = (int) ((float) (Math.min(height, width)) / mapScale);
@@ -92,37 +108,56 @@ public class SeasonMinimap {
                 trueCount++;
             }
 
-            int i = trueCount;
 
 
             //Icon
             int align = XaeroMinimapCore.currentSession.getModMain().getSettings().minimapTextAlign;
-            int stringWidth = Math.round(mc.font.width(seasonName) * fontScale);
-            int stringHeight = Math.round((mc.font.lineHeight + 1));
+            int stringWidth = Math.round(mc.font.width(seasonName)*fontScale);
+            int stringHeight = (int) Math.round((mc.font.lineHeight));
+            int scaledHeight = (int) (fontScale + stringHeight);
+
 
             int iconDim = stringHeight;
-            int offsetDim = iconDim + 1;//maybe change to 2
+            int offsetDim = (int)fontScale;//maybe change to 2
 
-            int stringY = bottomCornerStartY + (i * stringHeight);
-            int stringX = scaledX + (align == 0 ? -Math.min(minimapFrameSize, halfFrame) / 2 - stringWidth / 2 + iconDim/2
-                    : (align == 1 ? -Math.min(minimapFrameSize, halfFrame) + offsetDim
-                    : -stringWidth - iconDim / 2));
+            int totalWidth = stringWidth + iconDim + offsetDim;
+            //underText.add(Component.literal(String.valueOf(totalWidth)));
+
+            int stringY = bottomCornerStartY + (trueCount * scaledHeight);
+
+            //int center = (Math.min(minimapFrameSize, halfFrame) / 2 ) + stringWidth/2 - (iconDim)/2+offsetDim;
+
+            int leftStringX = (align == 0 ? (Math.min(minimapFrameSize, halfFrame) / 2 ) + totalWidth/4: (align == 1 ? stringWidth + iconDim/2: Math.min(minimapFrameSize, halfFrame)- iconDim/2-offsetDim));
+
+            int rightStringX = scaledX - (align == 0 ? (Math.min(minimapFrameSize, halfFrame) / 2 )+(totalWidth/4): (align == 1 ? Math.min(minimapFrameSize, halfFrame) - iconDim - offsetDim : stringWidth + iconDim/2));;
+
+            int stringX = (hudPosition == 1 ? leftStringX : rightStringX);
 
 
-            seasonStack.pushPose();
-            seasonStack.translate((double) (-9), (double) (iconDim), 0.0);
-            seasonStack.scale(fontScale, fontScale, 1.0F);
+            if ((!modMain.getSettings().hideMinimapUnderScreen || mc.screen == null || mc.screen instanceof IScreenBase || mc.screen instanceof ChatScreen || mc.screen instanceof DeathScreen)
+            && (!modMain.getSettings().hideMinimapUnderF3 || !mc.options.renderDebug)) {
+                seasonStack.pushPose();
+
+                seasonStack.translate((double)-9,(double)iconDim+offsetDim,0);
+                seasonStack.scale(fontScale, fontScale, 1.0F);
 
 
-            //Font
-            mc.font.drawShadow(seasonStack, seasonName, (float) stringX, (float) stringY, 0xffffffff);
+                //Font
+                for (Component s : underText) {
+                    mc.font.drawShadow (seasonStack, s, (float) stringX, (float) stringY, -1);
+                }
 
+                underText.clear();
 
-            RenderSystem.setShader(GameRenderer::getPositionTexShader);
-            RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
-            RenderSystem.setShaderTexture(0, SEASON);
-            GuiComponent.blit(seasonStack, stringX - offsetDim, stringY - offsetDim + iconDim, 0, 0, iconDim, iconDim, iconDim, iconDim);
-            seasonStack.popPose();
+                RenderSystem.setShader(GameRenderer::getPositionTexShader);
+                RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
+                RenderSystem.setShaderTexture(0, SEASON);
+                GuiComponent.blit(seasonStack, stringX-iconDim-offsetDim, stringY-offsetDim, 0, 0, iconDim, iconDim, iconDim, iconDim);
+                seasonStack.popPose();
+            }
         }
+
     };
 }
+
+

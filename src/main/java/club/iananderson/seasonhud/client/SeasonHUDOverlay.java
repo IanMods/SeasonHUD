@@ -7,18 +7,15 @@ import net.minecraft.client.gui.GuiComponent;
 import net.minecraft.client.renderer.GameRenderer;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraftforge.client.gui.overlay.IGuiOverlay;
-import net.minecraftforge.fml.ModList;
 import sereneseasons.api.season.Season;
 import sereneseasons.api.season.SeasonHelper;
 
 import java.util.Objects;
 
+import static club.iananderson.seasonhud.client.SeasonMinimap.minimapLoaded;
+
 //HUD w/ no minimap installed
 public class SeasonHUDOverlay {
-    public static boolean seasonHUDOverlay() {
-        return !ModList.get().isLoaded("xaerominimap");
-    }
-
     public static final IGuiOverlay HUD_SEASON = (ForgeGui, seasonStack, partialTick, screenWidth, screenHeight) -> {
         int x = 0;
         int y = 0;
@@ -35,9 +32,8 @@ public class SeasonHUDOverlay {
         ResourceLocation SEASON = new ResourceLocation(SeasonHUD.MODID,
                 "textures/season/" + seasonLower + ".png");
 
-        int scale = (int) mc.getWindow().getGuiScale();
 
-        if (seasonHUDOverlay()) {
+        if (!minimapLoaded()) {
             seasonStack.pushPose();
             seasonStack.scale(1F, 1F, 1F);
 

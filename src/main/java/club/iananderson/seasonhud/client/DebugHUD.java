@@ -3,13 +3,13 @@ package club.iananderson.seasonhud.client;
 import club.iananderson.seasonhud.config.SeasonHUDClientConfigs;
 import net.minecraft.client.Minecraft;
 import net.minecraftforge.client.gui.overlay.IGuiOverlay;
-import net.minecraftforge.fml.ModList;
 import sereneseasons.api.season.Season;
 import sereneseasons.api.season.SeasonHelper;
 import xaero.common.core.XaeroMinimapCore;
 
 import java.util.Objects;
 
+import static club.iananderson.seasonhud.client.SeasonMinimap.minimapLoaded;
 import static xaero.common.settings.ModOptions.modMain;
 
 public class DebugHUD {
@@ -29,7 +29,7 @@ public class DebugHUD {
         String seasonLower = seasonCap.toLowerCase();
         String seasonName = seasonLower.substring(0,1).toUpperCase()+ seasonLower.substring(1);
 
-        if (ModList.get().isLoaded("xaerominimap")) {
+        if (minimapLoaded()) {
 
             //Data
             int mapSize = XaeroMinimapCore.currentSession.getMinimapProcessor().getMinimapSize();//Minimap Size
@@ -51,14 +51,8 @@ public class DebugHUD {
             int padding = bottomCornerStartY-(Math.min(minimapFrameSize, halfFrame));
 
 
-            int size = (int)((float)(Math.min(height, width)) / mapScale);
-
-
-            int x = width;//-(frameSize+6+(mapSize/2));
-            int y = height;//(2*frameSize)+18+mapSize;
-
-            int scaledX = (int)(x*mapScale);
-            int scaledY = (int)(y*mapScale);
+            int scaledX = (int)(width *mapScale);
+            int scaledY = (int)(height *mapScale);
 
 
 
@@ -109,9 +103,9 @@ public class DebugHUD {
 
 
             String[] debug = new String[5];
-            debug[0] = "stringHeight: " + stringHeight + " | " + "align: " + align + " | " + "minimapFrameSize: " + minimapFrameSize + " | " + "halfFrame: " + halfFrame + " | " + "bottomCornerStartY: " + bottomCornerStartY;;
-            debug[2] = "y: " + y + " | " + "scaledY: " + scaledY + " | " + "stringY: " + stringY;
-            debug[1] = "x: " + x + " | " + "scaledX: " + scaledX + " | " + "stringX: " + stringX;
+            debug[0] = "stringHeight: " + stringHeight + " | " + "align: " + align + " | " + "minimapFrameSize: " + minimapFrameSize + " | " + "halfFrame: " + halfFrame + " | " + "bottomCornerStartY: " + bottomCornerStartY;
+            debug[2] = "y: " + height + " | " + "scaledY: " + scaledY + " | " + "stringY: " + stringY;
+            debug[1] = "x: " + width + " | " + "scaledX: " + scaledX + " | " + "stringX: " + stringX;
             debug[3] = "scale: " + scale + " | " + "minimapScale: " + minimapScale + " | " + "mapScale: " + mapScale
                     + " | " + "fontScale: " + fontScale;
             debug[4] =  "bufferSize: " + bufferSize + " | " + "sizeFix: " + sizeFix + " | " + "MinimapSize: " + mapSize;
