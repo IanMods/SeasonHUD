@@ -114,7 +114,7 @@ public class SeasonMinimap {
             int align = XaeroMinimapCore.currentSession.getModMain().getSettings().minimapTextAlign;
             int stringWidth = Math.round(mc.font.width(seasonName)*fontScale);
             int stringHeight = (int) Math.round((mc.font.lineHeight)+1);
-            int scaledHeight = (int) (fontScale + stringHeight);
+            int scaledHeight = (int) ((fontScale) + (stringHeight));
 
 
             int iconDim = stringHeight;
@@ -123,7 +123,7 @@ public class SeasonMinimap {
             int totalWidth = stringWidth + iconDim + offsetDim;
             //underText.add(Component.literal(String.valueOf(totalWidth)));
 
-            int stringY = bottomCornerStartY + (trueCount * scaledHeight)+offsetDim;
+            int stringY = bottomCornerStartY + (trueCount * scaledHeight);
 
             //int center = (Math.min(minimapFrameSize, halfFrame) / 2 ) + stringWidth/2 - (iconDim)/2+offsetDim;
 
@@ -144,7 +144,7 @@ public class SeasonMinimap {
 
                 //Font
                 for (Component s : underText) {
-                    mc.font.drawShadow (seasonStack, s, (float) stringX, (float) stringY+offsetDim, -1);
+                    mc.font.drawShadow (seasonStack, s, (float) stringX, (float) stringY, -1);
                 }
 
                 underText.clear();
@@ -152,7 +152,7 @@ public class SeasonMinimap {
                 RenderSystem.setShader(GameRenderer::getPositionTexShader);
                 RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
                 RenderSystem.setShaderTexture(0, SEASON);
-                GuiComponent.blit(seasonStack, stringX-iconDim-offsetDim, stringY, 0, 0, iconDim, iconDim, iconDim, iconDim);
+                GuiComponent.blit(seasonStack, stringX-iconDim-offsetDim, stringY-offsetDim, 0, 0, iconDim, iconDim, iconDim, iconDim);
                 seasonStack.popPose();
             }
         }

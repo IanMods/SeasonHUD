@@ -145,7 +145,7 @@ dependencies {
 
     //Xaero's Minimap
     compileOnly fg.deobf("curse.maven:xaeros-minimap-263420:4026493")
-    //implementation fg.deobf("curse.maven:xaeros-minimap-263420:4026493")
+//    implementation fg.deobf("curse.maven:xaeros-minimap-263420:4026493")
 
     // Examples using mod jars from ./libs
     // implementation fg.deobf("blank:coolmod-${mc_version}:${coolmod_version}")
