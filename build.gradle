@@ -6,7 +6,7 @@ group = 'club.iananderson'
 version = "1.1.1"
 
 java {
-    archivesBaseName = 'seasonhud'
+    archivesBaseName = 'seasonhud 1.19.2'
     toolchain.languageVersion = JavaLanguageVersion.of(17)
 }
 
