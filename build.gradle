@@ -3,7 +3,7 @@ plugins {
 }
 
 group = 'club.iananderson'
-version = "1.1.1"
+version = "1.1.2"
 
 java {
     archivesBaseName = 'seasonhud-1.19.2'
@@ -49,6 +49,9 @@ minecraft {
 
             // Comma-separated list of namespaces to load gametests from. Empty = all namespaces.
             property 'forge.enabledGameTestNamespaces', 'seasonhud'
+
+            property 'mixin.env.remapRefMap', 'true'
+            property 'mixin.env.refMapRemappingFile', "${projectDir}/build/createSrgToMcp/output.srg"
 
             mods {
                 seasonhud {
@@ -132,7 +135,7 @@ dependencies {
     // Specify the version of Minecraft to use. If this is any group other than 'net.minecraft' it is assumed
     // that the dep is a ForgeGradle 'patcher' dependency, and its patches will be applied.
     // The userdev artifact is a special name and will get all sorts of transformations applied to it.
-   minecraft 'net.minecraftforge:forge:1.19.2-43.1.47'
+   minecraft 'net.minecraftforge:forge:1.19.2-43.1.52'
 
     // Real mod deobf dependency examples - these get remapped to your current mappings
     // compileOnly fg.deobf("mezz.jei:jei-${mc_version}:${jei_version}:api") // Adds JEI API as a compile dependency
@@ -146,6 +149,13 @@ dependencies {
     //Xaero's Minimap
     compileOnly fg.deobf("curse.maven:xaeros-minimap-263420:4026493")
 //    implementation fg.deobf("curse.maven:xaeros-minimap-263420:4026493")
+
+    //FTB Chunks
+    implementation fg.deobf("curse.maven:ftb-library-forge-404465:3963543")
+    implementation fg.deobf("curse.maven:architectury-api-419699:4040977")
+    implementation fg.deobf("curse.maven:ftb-teams-forge-404468:3963573")
+    implementation fg.deobf("curse.maven:ftb-chunks-forge-314906:3981376")
+
 
     // Examples using mod jars from ./libs
     // implementation fg.deobf("blank:coolmod-${mc_version}:${coolmod_version}")
