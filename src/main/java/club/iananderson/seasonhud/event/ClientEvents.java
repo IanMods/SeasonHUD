@@ -2,6 +2,7 @@ package club.iananderson.seasonhud.event;
 
 import club.iananderson.seasonhud.SeasonHUD;
 import club.iananderson.seasonhud.client.DebugHUD;
+import club.iananderson.seasonhud.client.FTBChunks;
 import club.iananderson.seasonhud.client.SeasonHUDOverlay;
 import club.iananderson.seasonhud.client.SeasonMinimap;
 import net.minecraftforge.api.distmarker.Dist;
@@ -27,6 +28,11 @@ public class ClientEvents{
         @SubscribeEvent
         public static void registerMinimapOverlay(RegisterGuiOverlaysEvent event) {
             event.registerAbove(VanillaGuiOverlay.FROSTBITE.id(),"debug", DebugHUD.DEBUG_HUD);
+        }
+
+        @SubscribeEvent
+        public static void registerFTBChunksOverlay(RegisterGuiOverlaysEvent event) {
+            event.registerAbove(VanillaGuiOverlay.FROSTBITE.id(),"ftbchunks", FTBChunks.FTBCHUNKS_SEASON);
         }
 
     }

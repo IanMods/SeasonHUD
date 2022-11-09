@@ -1,19 +1,18 @@
 package club.iananderson.seasonhud.client;
 
 import club.iananderson.seasonhud.SeasonHUD;
-import club.iananderson.seasonhud.config.SeasonHUDClientConfigs;
-import com.mojang.blaze3d.vertex.PoseStack;
+import com.mojang.blaze3d.systems.RenderSystem;
 import dev.ftb.mods.ftbchunks.FTBChunksWorldConfig;
-import dev.ftb.mods.ftbchunks.client.FTBChunksClient;
 import dev.ftb.mods.ftbchunks.client.FTBChunksClientConfig;
 import dev.ftb.mods.ftbchunks.client.MinimapPosition;
 import dev.ftb.mods.ftbchunks.client.map.MapDimension;
 import dev.ftb.mods.ftbchunks.client.map.MapManager;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.GuiComponent;
+import net.minecraft.client.renderer.GameRenderer;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.FormattedCharSequence;
-import net.minecraft.util.Mth;
 import net.minecraftforge.client.gui.overlay.IGuiOverlay;
 import net.minecraftforge.fml.ModList;
 import sereneseasons.api.season.Season;
@@ -23,20 +22,35 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-public class FTBChunks extends FTBChunksClient {
+public class FTBChunks {
     public static boolean ftbChunksLoaded() {
         return ModList.get().isLoaded("ftbchunks");
     }
-    private static final List<Component> MINIMAP_TEXT_LIST = new ArrayList(3);
+    private static final List<Component> MINIMAP_TEXT_LIST = new ArrayList<>(3);
 
-    public void renderHUD(PoseStack matrixStack, float tickDelta) {
+    public static final IGuiOverlay FTBCHUNKS_SEASON = (ForgeGui, seasonStack, partialTick, width, height) -> {
         Minecraft mc = Minecraft.getInstance();
         if (ftbChunksLoaded()) {
+            MINIMAP_TEXT_LIST.clear();
+
+            boolean biome = FTBChunksClientConfig.MINIMAP_BIOME.get();
+            boolean xyz = FTBChunksClientConfig.MINIMAP_XYZ.get();
+
+            int i = 0;
+
+            if(biome){
+                i++;
+            }
+            if(xyz){
+                i++;
+            }
+
             //Season
             Season currentSeason = SeasonHelper.getSeasonState(Objects.requireNonNull(mc.level)).getSeason();
             String seasonCap = currentSeason.name();
             String seasonLower = seasonCap.toLowerCase();
             String seasonName = seasonLower.substring(0, 1).toUpperCase() + seasonLower.substring(1);
+            MINIMAP_TEXT_LIST.add(Component.literal(seasonName));
 
 
             //Icon chooser
@@ -51,26 +65,17 @@ public class FTBChunks extends FTBChunksClient {
                 if (dim != null) {
                     if (dim.dimension != mc.level.dimension()) {
                         MapDimension.updateCurrent();
-                        dim = MapDimension.getCurrent();
                     }
 
                     if (!mc.options.renderDebug && (Boolean) FTBChunksClientConfig.MINIMAP_ENABLED.get() && (Integer) FTBChunksClientConfig.MINIMAP_VISIBILITY.get() != 0 && !(Boolean) FTBChunksWorldConfig.FORCE_DISABLE_MINIMAP.get()) {
                         float scale = (float) ((Double) FTBChunksClientConfig.MINIMAP_SCALE.get() * 4.0 / guiScale);
-                        float minimapRotation = ((Boolean) FTBChunksClientConfig.MINIMAP_LOCKED_NORTH.get() ? 180.0F : -mc.player.getYRot()) % 360.0F;
                         int s = (int) (64.0 * (double) scale);
                         double s2d = (double) s / 2.0;
-                        float s2f = (float) s / 2.0F;
                         MinimapPosition minimapPosition = (MinimapPosition) FTBChunksClientConfig.MINIMAP_POSITION.get();
                         int x = minimapPosition.getX(ww, s);
                         int y = minimapPosition.getY(wh, s);
-                        int z = 0;
                         int offsetX = (Integer) FTBChunksClientConfig.MINIMAP_OFFSET_X.get();
                         int offsetY = (Integer) FTBChunksClientConfig.MINIMAP_OFFSET_Y.get();
-
-                        int i;
-                        double distance;
-                        float iconScale;
-
 
                         MinimapPosition.MinimapOffsetConditional offsetConditional = (MinimapPosition.MinimapOffsetConditional) FTBChunksClientConfig.MINIMAP_POSITION_OFFSET_CONDITION.get();
 
@@ -78,26 +83,29 @@ public class FTBChunks extends FTBChunksClient {
                             x += minimapPosition.posX == 0 ? offsetX : -offsetX;
                             y -= minimapPosition.posY > 1 ? offsetY : -offsetY;
                         }
-                        if ((Boolean)FTBChunksClientConfig.MINIMAP_BIOME.get()) {
 
-                            MINIMAP_TEXT_LIST.add(Component.literal(seasonName));
-                        }
                         if (!MINIMAP_TEXT_LIST.isEmpty()) {
-                            matrixStack.pushPose();
-                            matrixStack.translate((double)x + s2d, (double)(y + s) + 3.0, 0.0);
-                            matrixStack.scale((float)(0.5 * (double)scale), (float)(0.5 * (double)scale), 1.0F);
+                            seasonStack.pushPose();
+                            seasonStack.translate((double)x + s2d, (double)(y + s) + 3.0, 0.0);
+                            seasonStack.scale((float)(0.5 * (double)scale), (float)(0.5 * (double)scale), 1.0F);
 
-                            for(i = 0; i < MINIMAP_TEXT_LIST.size(); ++i) {
-                                FormattedCharSequence bs = ((Component)MINIMAP_TEXT_LIST.get(i)).getVisualOrderText();
-                                int bsw = mc.font.width(bs);
-                                mc.font.drawShadow(matrixStack, bs, (float)(-bsw) / 2.0F, (float)(i * 11), -1);
-                            }
 
-                            matrixStack.popPose();
+                            FormattedCharSequence bs = ((Component)MINIMAP_TEXT_LIST.get(0)).getVisualOrderText();
+                            int bsw = mc.font.width(bs);
+                            int iconDim = mc.font.lineHeight;
+
+                            mc.font.drawShadow(seasonStack, bs, (float)(-bsw) / 2.0F, (float)(i * 11), -1);
+
+                            RenderSystem.setShader(GameRenderer::getPositionTexShader);
+                            RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
+                            RenderSystem.setShaderTexture(0, SEASON);
+                            GuiComponent.blit(seasonStack,(int)((-bsw) / 2.0F)-iconDim-2, (int)(i * 11), 0, 0, iconDim, iconDim, iconDim, iconDim);
                         }
+                            seasonStack.popPose();
                     }
                 }
             }
         }
-    }
+    };
 }
+

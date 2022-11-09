@@ -125,6 +125,7 @@ repositories {
                 includeGroup "curse.maven"
             }
         }
+
     }
     flatDir {
          dir 'libs'
@@ -151,10 +152,23 @@ dependencies {
 //    implementation fg.deobf("curse.maven:xaeros-minimap-263420:4026493")
 
     //FTB Chunks
-    implementation fg.deobf("curse.maven:ftb-library-forge-404465:3963543")
-    implementation fg.deobf("curse.maven:architectury-api-419699:4040977")
-    implementation fg.deobf("curse.maven:ftb-teams-forge-404468:3963573")
-    implementation fg.deobf("curse.maven:ftb-chunks-forge-314906:3981376")
+    compileOnly fg.deobf("curse.maven:ftb-library-forge-404465:3963543")
+    compileOnly fg.deobf("curse.maven:architectury-api-419699:4040977")
+    compileOnly fg.deobf("curse.maven:ftb-teams-forge-404468:3963573")
+    compileOnly fg.deobf("curse.maven:ftb-chunks-forge-314906:3981376")
+
+//    implementation fg.deobf("curse.maven:ftb-library-forge-404465:3963543")
+//    implementation fg.deobf("curse.maven:architectury-api-419699:4040977")
+//    implementation fg.deobf("curse.maven:ftb-teams-forge-404468:3963573")
+//    implementation fg.deobf("curse.maven:ftb-chunks-forge-314906:3981376")
+
+
+    //FTB Chunks
+
+    //implementation fg.deobf("curse.maven:ftb-chunks-forge-314906:3981376")
+    //implementation fg.deobf("curse.maven:ftb-library-forge-404465:3963543")
+    //implementation fg.deobf("curse.maven:ftb-teams-forge-404468:3963573")
+    //implementation fg.deobf("curse.maven:architectury-api-419699:4040977")
 
 
     // Examples using mod jars from ./libs
@@ -184,4 +198,5 @@ jar.finalizedBy('reobfJar')
 
 tasks.withType(JavaCompile).configureEach {
     options.encoding = 'UTF-8' // Use the UTF-8 charset for Java compilation
+    //options.compilerArgs << "-Xlint:unchecked"
 }
