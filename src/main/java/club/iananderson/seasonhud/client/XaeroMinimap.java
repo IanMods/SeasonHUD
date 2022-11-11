@@ -4,7 +4,6 @@ package club.iananderson.seasonhud.client;
 import club.iananderson.seasonhud.SeasonHUD;
 import club.iananderson.seasonhud.config.SeasonHUDClientConfigs;
 import com.mojang.blaze3d.systems.RenderSystem;
-import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiComponent;
 import net.minecraft.client.gui.screens.ChatScreen;
 import net.minecraft.client.gui.screens.DeathScreen;
@@ -13,41 +12,35 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraftforge.client.gui.overlay.IGuiOverlay;
 import net.minecraftforge.fml.ModList;
-import sereneseasons.api.season.Season;
-import sereneseasons.api.season.SeasonHelper;
 import xaero.common.core.XaeroMinimapCore;
 import xaero.common.gui.IScreenBase;
 
 import java.util.ArrayList;
-import java.util.Objects;
 
+import static club.iananderson.seasonhud.CurrentSeason.getSeasonLower;
+import static club.iananderson.seasonhud.CurrentSeason.getSeasonName;
+import static club.iananderson.seasonhud.SeasonHUD.mc;
 import static xaero.common.settings.ModOptions.modMain;
 
 
 
-public class SeasonMinimap {
+public class XaeroMinimap {
     public static boolean minimapLoaded(){
         return ModList.get().isLoaded("xaerominimap");
     }
 
 
     public static final IGuiOverlay XAERO_SEASON = (ForgeGui, seasonStack, partialTick, width, height) -> {
-        Minecraft mc = Minecraft.getInstance();
         int hudPosition = SeasonHUDClientConfigs.hudPosition.get();
         ArrayList<Component> underText = new ArrayList<>();
+        underText.add(Component.literal(getSeasonName()));
+
 
 
         if (minimapLoaded()) {
-            //Season
-            Season currentSeason = SeasonHelper.getSeasonState(Objects.requireNonNull(mc.level)).getSeason();
-            String seasonCap = currentSeason.name();
-            String seasonLower = seasonCap.toLowerCase();
-            String seasonName = seasonLower.substring(0, 1).toUpperCase() + seasonLower.substring(1);
-            underText.add(Component.literal(seasonName));
-
             //Icon chooser
             ResourceLocation SEASON = new ResourceLocation(SeasonHUD.MODID,
-                    "textures/season/" + seasonLower + ".png");
+                    "textures/season/" + getSeasonLower() + ".png");
 
 
             //Data
@@ -89,30 +82,18 @@ public class SeasonMinimap {
 
             int trueCount = 0;
 
-            if (xBiome) {
-                trueCount++;
-            }
-            if (xDim) {
-                trueCount++;
-            }
-            if (xCoords) {
-                trueCount++;
-            }
-            if (xAngles) {
-                trueCount++;
-            }
-            if (xLight > 0) {
-                trueCount++;
-            }
-            if (xTime > 0) {
-                trueCount++;
-            }
+            if (xBiome) {trueCount++;}
+            if (xDim) {trueCount++;}
+            if (xCoords) {trueCount++;}
+            if (xAngles) {trueCount++;}
+            if (xLight > 0) {trueCount++;}
+            if (xTime > 0) {trueCount++;}
 
 
 
             //Icon
             int align = XaeroMinimapCore.currentSession.getModMain().getSettings().minimapTextAlign;
-            int stringWidth = Math.round(mc.font.width(seasonName)*fontScale);
+            int stringWidth = Math.round(mc.font.width(getSeasonName())*fontScale);
             int stringHeight = (int) Math.round((mc.font.lineHeight)+1);
             int scaledHeight = (int) ((fontScale) + (stringHeight));
 
@@ -121,16 +102,14 @@ public class SeasonMinimap {
             int offsetDim = (int)1;//maybe change to 2
 
             int totalWidth = stringWidth + iconDim + offsetDim;
-            //underText.add(Component.literal(String.valueOf(totalWidth)));
 
             int stringY = bottomCornerStartY + (trueCount * scaledHeight);
 
-            //int center = (Math.min(minimapFrameSize, halfFrame) / 2 ) + stringWidth/2 - (iconDim)/2+offsetDim;
 
-            int leftStringX = (align == 0 ? (Math.min(minimapFrameSize, halfFrame) / 2 ) + totalWidth/4: (align == 1 ? stringWidth + iconDim/2: Math.min(minimapFrameSize, halfFrame)- iconDim/2-offsetDim));
+            int center = (Math.min(minimapFrameSize, halfFrame) / 2) + totalWidth / 4;
 
-            int rightStringX = scaledX - (align == 0 ? (Math.min(minimapFrameSize, halfFrame) / 2 )+(totalWidth/4): (align == 1 ? Math.min(minimapFrameSize, halfFrame) - iconDim - offsetDim : stringWidth + iconDim/2-offsetDim));;
-
+            int leftStringX = (align == 0 ? center : (align == 1 ? stringWidth + iconDim/2: Math.min(minimapFrameSize, halfFrame)- iconDim/2-offsetDim));
+            int rightStringX = scaledX - (align == 0 ? center : (align == 1 ? Math.min(minimapFrameSize, halfFrame) - iconDim - offsetDim : stringWidth + iconDim/2-offsetDim));;
             int stringX = (hudPosition == 1 ? leftStringX : rightStringX);
 
 

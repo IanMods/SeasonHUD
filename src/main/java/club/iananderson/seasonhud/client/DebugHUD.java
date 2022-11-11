@@ -1,34 +1,24 @@
 package club.iananderson.seasonhud.client;
 
-import club.iananderson.seasonhud.config.SeasonHUDClientConfigs;
-import net.minecraft.client.Minecraft;
 import net.minecraftforge.client.gui.overlay.IGuiOverlay;
-import sereneseasons.api.season.Season;
-import sereneseasons.api.season.SeasonHelper;
 import xaero.common.core.XaeroMinimapCore;
 
-import java.util.Objects;
-
-import static club.iananderson.seasonhud.client.SeasonMinimap.minimapLoaded;
+import static club.iananderson.seasonhud.CurrentSeason.getSeasonName;
+import static club.iananderson.seasonhud.SeasonHUD.mc;
+import static club.iananderson.seasonhud.client.XaeroMinimap.minimapLoaded;
 import static xaero.common.settings.ModOptions.modMain;
 
 public class DebugHUD {
 
     public static boolean enableDebugHUD() {
-        return SeasonHUDClientConfigs.debugHUD.get();
+        return true;//SeasonHUDClientConfigs.debugHUD.get();
     }
 
     //Debug
     public static final IGuiOverlay DEBUG_HUD = (ForgeGui, seasonStack, partialTick, width, height) -> {
-        Minecraft mc = Minecraft.getInstance();
         int offset = 20;
 
         //Season
-        Season currentSeason = SeasonHelper.getSeasonState(Objects.requireNonNull(mc.level)).getSeason();
-        String seasonCap = currentSeason.name();
-        String seasonLower = seasonCap.toLowerCase();
-        String seasonName = seasonLower.substring(0,1).toUpperCase()+ seasonLower.substring(1);
-
         if (minimapLoaded()) {
 
             //Data
@@ -89,7 +79,7 @@ public class DebugHUD {
 
             //Icon
             int align = XaeroMinimapCore.currentSession.getModMain().getSettings().minimapTextAlign;
-            int stringWidth = Math.round(mc.font.width(seasonName)*fontScale);
+            int stringWidth = Math.round(mc.font.width(getSeasonName())*fontScale);
             int stringHeight = Math.round((mc.font.lineHeight+1));
 
             int iconDim = stringHeight+1;

@@ -4,7 +4,7 @@ import club.iananderson.seasonhud.SeasonHUD;
 import club.iananderson.seasonhud.client.DebugHUD;
 import club.iananderson.seasonhud.client.FTBChunks;
 import club.iananderson.seasonhud.client.SeasonHUDOverlay;
-import club.iananderson.seasonhud.client.SeasonMinimap;
+import club.iananderson.seasonhud.client.XaeroMinimap;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.client.event.RegisterGuiOverlaysEvent;
 import net.minecraftforge.client.gui.overlay.VanillaGuiOverlay;
@@ -22,7 +22,7 @@ public class ClientEvents{
 
         @SubscribeEvent
         public static void registerDebugOverlay(RegisterGuiOverlaysEvent event) {
-            event.registerAbove(VanillaGuiOverlay.FROSTBITE.id(),"xaero", SeasonMinimap.XAERO_SEASON);
+            event.registerAbove(VanillaGuiOverlay.FROSTBITE.id(),"xaero", XaeroMinimap.XAERO_SEASON);
         }
 
         @SubscribeEvent
