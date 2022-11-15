@@ -11,6 +11,7 @@ import net.minecraftforge.client.gui.overlay.IGuiOverlay;
 import static club.iananderson.seasonhud.CurrentSeason.getSeasonLower;
 import static club.iananderson.seasonhud.CurrentSeason.getSeasonName;
 import static club.iananderson.seasonhud.client.FTBChunks.ftbChunksLoaded;
+import static club.iananderson.seasonhud.client.JourneyMap.jouneymapLoaded;
 import static club.iananderson.seasonhud.client.XaeroMinimap.minimapLoaded;
 
 //HUD w/ no minimap installed
@@ -26,7 +27,7 @@ public class SeasonHUDOverlay {
                 "textures/season/" + getSeasonLower()+ ".png");
 
 
-        if (!minimapLoaded()&!ftbChunksLoaded()) {
+        if (!minimapLoaded()&!ftbChunksLoaded()&!jouneymapLoaded()) {
             seasonStack.pushPose();
             seasonStack.scale(1F, 1F, 1F);
 
