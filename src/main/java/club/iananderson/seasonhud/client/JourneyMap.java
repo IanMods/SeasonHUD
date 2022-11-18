@@ -185,6 +185,7 @@ public class JourneyMap extends TextProperties {
 }
 
 /*Todo
+ * Test only one formula
  * Need to make int for how many labels are displayed currently (x out of 4)
  * Setup if statement for each of top left and top right (on the drawShadow)
  * Add icon again next to season
