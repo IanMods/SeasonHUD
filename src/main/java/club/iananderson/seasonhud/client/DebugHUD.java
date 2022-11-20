@@ -1,5 +1,6 @@
 package club.iananderson.seasonhud.client;
 
+import club.iananderson.seasonhud.config.SeasonHUDClientConfigs;
 import net.minecraftforge.client.gui.overlay.IGuiOverlay;
 import xaero.common.core.XaeroMinimapCore;
 
@@ -11,7 +12,7 @@ import static xaero.common.settings.ModOptions.modMain;
 public class DebugHUD {
 
     public static boolean enableDebugHUD() {
-        return true;//SeasonHUDClientConfigs.debugHUD.get();
+        return SeasonHUDClientConfigs.debugHUD.get();
     }
 
     //Debug
@@ -19,7 +20,7 @@ public class DebugHUD {
         int offset = 20;
 
         //Season
-        if (minimapLoaded()) {
+        if (enableDebugHUD()&&minimapLoaded()) {
 
             //Data
             int mapSize = XaeroMinimapCore.currentSession.getMinimapProcessor().getMinimapSize();//Minimap Size
@@ -100,17 +101,16 @@ public class DebugHUD {
                     + " | " + "fontScale: " + fontScale;
             debug[4] =  "bufferSize: " + bufferSize + " | " + "sizeFix: " + sizeFix + " | " + "MinimapSize: " + mapSize;
 
-            if (enableDebugHUD()) {
-                seasonStack.pushPose();
-                seasonStack.scale(fontScale, fontScale, fontScale);
-                ForgeGui.getFont().drawShadow(seasonStack, debug[0], offset, offset, 0xffffffff);
-                ForgeGui.getFont().drawShadow(seasonStack, debug[1], offset, (offset * 2), 0xffffffff);
-                ForgeGui.getFont().drawShadow(seasonStack, debug[2], offset, (offset * 3), 0xffffffff);
-                ForgeGui.getFont().drawShadow(seasonStack, debug[3], offset, (offset * 4), 0xffffffff);
-                ForgeGui.getFont().drawShadow(seasonStack, debug[4], offset, (offset * 5), 0xffffffff);
 
-                seasonStack.popPose();
-            }
+            seasonStack.pushPose();
+            seasonStack.scale(fontScale, fontScale, fontScale);
+            ForgeGui.getFont().drawShadow(seasonStack, debug[0], offset, offset, 0xffffffff);
+            ForgeGui.getFont().drawShadow(seasonStack, debug[1], offset, (offset * 2), 0xffffffff);
+            ForgeGui.getFont().drawShadow(seasonStack, debug[2], offset, (offset * 3), 0xffffffff);
+            ForgeGui.getFont().drawShadow(seasonStack, debug[3], offset, (offset * 4), 0xffffffff);
+            ForgeGui.getFont().drawShadow(seasonStack, debug[4], offset, (offset * 5), 0xffffffff);
+
+            seasonStack.popPose();
         }
     };
 }
