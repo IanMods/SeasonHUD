@@ -22,6 +22,10 @@ import static club.iananderson.seasonhud.CurrentSeason.getSeasonLower;
 import static club.iananderson.seasonhud.CurrentSeason.getSeasonName;
 import static club.iananderson.seasonhud.SeasonHUD.mc;
 
+/* Todo
+    * Switch names over to translatable ones
+ */
+
 public class FTBChunks {
     public static boolean ftbChunksLoaded() {
         return ModList.get().isLoaded("ftbchunks");

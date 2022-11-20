@@ -153,7 +153,9 @@ dependencies {
 
 //    implementation fg.deobf("curse.maven:xaeros-minimap-263420:4075405")
 
-    //FTB Chunks
+
+
+    /FTB Chunks/
     compileOnly fg.deobf("curse.maven:ftb-library-forge-404465:3963543")
     compileOnly fg.deobf("curse.maven:architectury-api-419699:4040977")
     compileOnly fg.deobf("curse.maven:ftb-teams-forge-404468:3963573")
@@ -165,9 +167,9 @@ dependencies {
 //    implementation fg.deobf("curse.maven:ftb-chunks-forge-314906:3981376")
 
     //Journey Map
-//    compileOnly fg.deobf("curse.maven:journeymap-32274:3927230")
+    compileOnly fg.deobf("curse.maven:journeymap-32274:4097953")
 
-    implementation fg.deobf("curse.maven:journeymap-32274:3927230")
+//    implementation fg.deobf("curse.maven:journeymap-32274:4097953")
 
 
 

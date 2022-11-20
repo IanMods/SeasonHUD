@@ -1,6 +1,5 @@
 package club.iananderson.seasonhud.client;
 
-import com.mojang.blaze3d.platform.NativeImage;
 import com.mojang.blaze3d.systems.RenderSystem;
 import journeymap.client.JourneymapClient;
 import journeymap.client.io.ThemeLoader;
@@ -19,11 +18,9 @@ import static club.iananderson.seasonhud.CurrentSeason.getSeasonLower;
 import static club.iananderson.seasonhud.CurrentSeason.getSeasonName;
 import static club.iananderson.seasonhud.SeasonHUD.MODID;
 import static club.iananderson.seasonhud.SeasonHUD.mc;
-import static journeymap.client.texture.ImageUtil.getScaledImage;
 
-/** Todo
- * Add icon again next to season
- * make the background extend and factor in the iconSize to keep everything centered
+/*Todo
+    * Need to switch names over to translatable ones
  */
 
 public class JourneyMap {
@@ -63,7 +60,6 @@ public class JourneyMap {
             int textColor = currentTheme.foreground.getColor();
             float labelAlpha = currentTheme.background.alpha;
             float textAlpha = currentTheme.foreground.alpha;
-            double labelMargin = ThemeLoader.getCurrentTheme().minimap.square.margin/2.0;
             int frameWidth = ThemeLoader.getCurrentTheme().minimap.square.right.width/2;
 
             int infoLabelCount = 0;
@@ -96,17 +92,15 @@ public class JourneyMap {
 
                 double textureX = minimap.getDisplayVars().centerPoint.getX();
                 double textureY = minimap.getDisplayVars().centerPoint.getY();
-                double translateX = (double)(totalIconSize/2);
+                double translateX = totalIconSize/2;
                 double translateY = halfHeight + bgHeight+(fontScale < 1.0 ? 0.5 : 0.0);
 
 
                 double labelX = (textureX + translateX);
                 double labelY = (textureY + translateY);
 
-
-                double offsetLabelX = 0;//(2 + 0.5)*fontScale;
                 double totalRectWidth = labelWidth+totalIconSize;
-                double iconRectX = (double)((float)(textureX-Math.max(1.0,totalRectWidth)/2-(fontScale > 1.0 ? 0.0 : 0.5)));
+                double iconRectX = (float)(textureX-Math.max(1.0,totalRectWidth)/2-(fontScale > 1.0 ? 0.0 : 0.5));
                 //basically half the label width from the center
 
                 //double labelIconX = textureX;
@@ -114,10 +108,6 @@ public class JourneyMap {
                     //half the label width
                 double labelIconY = labelY+(labelHeight/2)-(iconDim/2.0);
                     //moves the icon to  the vertical center of the label
-
-                /*Todo
-                 * Need to get this alignment working
-                 */
 
                 DrawUtil.drawLabel(seasonStack, MINIMAP_TEXT_SEASON, labelX, labelY, DrawUtil.HAlign.Center, DrawUtil.VAlign.Below, labelColor, labelAlpha, textColor, textAlpha, fontScale, fontShadow);
                     //No touchy. Season label offset by icon+padding

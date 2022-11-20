@@ -22,7 +22,10 @@ import static club.iananderson.seasonhud.CurrentSeason.getSeasonName;
 import static club.iananderson.seasonhud.SeasonHUD.mc;
 import static xaero.common.settings.ModOptions.modMain;
 
-
+/* Todo
+    * Need to switch names to translatable ones
+    * Clean up code and improve the accuracy of the formulas
+ */
 
 public class XaeroMinimap {
     public static boolean minimapLoaded(){
