@@ -1,195 +1,137 @@
 package club.iananderson.seasonhud.client;
 
+import com.mojang.blaze3d.platform.NativeImage;
 import com.mojang.blaze3d.systems.RenderSystem;
 import journeymap.client.JourneymapClient;
-import journeymap.client.api.display.Context;
-import journeymap.client.api.model.TextProperties;
 import journeymap.client.io.ThemeLoader;
-import journeymap.client.properties.MiniMapProperties;
 import journeymap.client.render.draw.DrawUtil;
 import journeymap.client.ui.UIManager;
 import journeymap.client.ui.minimap.MiniMap;
-import journeymap.client.ui.minimap.Position;
 import journeymap.client.ui.theme.Theme;
-import journeymap.client.ui.theme.Theme.Minimap.MinimapSpec;
-import journeymap.client.ui.theme.ThemeLabelSource;
 import net.minecraft.client.gui.Font;
+import net.minecraft.client.gui.GuiComponent;
 import net.minecraft.client.renderer.GameRenderer;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraftforge.client.gui.overlay.IGuiOverlay;
 import net.minecraftforge.fml.ModList;
 
-import java.util.Arrays;
-import java.util.EnumSet;
-
 import static club.iananderson.seasonhud.CurrentSeason.getSeasonLower;
 import static club.iananderson.seasonhud.CurrentSeason.getSeasonName;
 import static club.iananderson.seasonhud.SeasonHUD.MODID;
 import static club.iananderson.seasonhud.SeasonHUD.mc;
+import static journeymap.client.texture.ImageUtil.getScaledImage;
 
+/** Todo
+ * Add icon again next to season
+ * make the background extend and factor in the iconSize to keep everything centered
+ */
 
-public class JourneyMap extends TextProperties {
-    protected EnumSet<Context.UI> activeUIs;
-    protected EnumSet<Context.MapType> activeMapTypes;
-     protected float scale = getScale();
+public class JourneyMap {
 
-    //private static final List<Component> MINIMAP_TEXT_LIST = new ArrayList<>(3);
-
-    public static boolean jouneymapLoaded () {return ModList.get().isLoaded("journeymap");}
+    public static boolean journeymapLoaded() {return ModList.get().isLoaded("journeymap");}
 
     public static final IGuiOverlay JOURNEYMAP_SEASON = (ForgeGui, seasonStack, partialTick, scaledWidth, scaledHeight) -> {
-        if (jouneymapLoaded()) {
-            JourneyMap map = new JourneyMap();
+        if (journeymapLoaded()) {
             Theme.LabelSpec label = new Theme.LabelSpec();
-            Theme theme = new Theme();
-            TextProperties text = new TextProperties();
 
 
             JourneymapClient jm = JourneymapClient.getInstance();
             Font fontRenderer = mc.font;
             MiniMap minimap = UIManager.INSTANCE.getMiniMap();
-            Position positionName = jm.getActiveMiniMapProperties().position.get();
-            MinimapSpec minimapSpec = theme.minimap.square;
 
-
+            String emptyLabel = "jm.theme.labelsource.blank";
+            String info3Label = jm.getActiveMiniMapProperties().info3Label.get();
+            String info4Label = jm.getActiveMiniMapProperties().info4Label.get();
             String MINIMAP_TEXT_SEASON = getSeasonName();
 
             float fontScale = jm.getActiveMiniMapProperties().fontScale.get();
-            float compassScale = jm.getActiveMiniMapProperties().compassFontScale.get();
-            float guiSize = (float)mc.getWindow().getGuiScale();
-            float alpha = jm.getActiveMiniMapProperties().infoSlotAlpha.get();
-            float posX = jm.getActiveMiniMapProperties().positionX.get();
-            float posY = jm.getActiveMiniMapProperties().positionY.get();
+            float guiSize = (float) mc.getWindow().getGuiScale();
 
-            int infoLabelCount = 4; //Will be count of how many labels are currently on eventually
-            int labelColor = ThemeLoader.getCurrentTheme().fullscreen.statusLabel.highlight.getColor();
-            int labelWidth = mc.font.width((MINIMAP_TEXT_SEASON))-2;
-            int labelHeight = (int)((DrawUtil.getLabelHeight(fontRenderer, label.shadow)) * (fontScale));
 
-            int minimapSize = jm.getActiveMiniMapProperties().getSize();
-            int minimapWidth = minimap.getDisplayVars().minimapWidth;
+            boolean fontShadow = label.shadow;
+
+            double labelHeight = ((DrawUtil.getLabelHeight(fontRenderer, fontShadow)) * (fontScale));
+            double labelWidth = fontRenderer.width(MINIMAP_TEXT_SEASON)*fontScale;
+
             int minimapHeight = minimap.getDisplayVars().minimapHeight;
-            double centerPointX = minimap.getDisplayVars().centerPoint.getX();
-            double centerPointY = minimap.getDisplayVars().centerPoint.getY();
-
-            int halfHeight = minimapHeight/2;
-            int halfWidth = minimapWidth/2;
 
 
-            int marginX = minimap.getDisplayVars().marginX;
-            int marginY = minimap.getDisplayVars().marginY;
+            int halfHeight = minimapHeight / 2;
 
+            Theme.LabelSpec currentTheme = ThemeLoader.getCurrentTheme().minimap.square.labelBottom;
+            int labelColor = currentTheme.background.getColor();
+            int textColor = currentTheme.foreground.getColor();
+            float labelAlpha = currentTheme.background.alpha;
+            float textAlpha = currentTheme.foreground.alpha;
+            double labelMargin = ThemeLoader.getCurrentTheme().minimap.square.margin/2.0;
+            int frameWidth = ThemeLoader.getCurrentTheme().minimap.square.right.width/2;
 
-            int textColor = ThemeLoader.getCurrentTheme().minimap.square.bottom.getColor();
-            int screenWidth = mc.getWindow().getWidth();
-            int screenHeight = mc.getWindow().getHeight();
-            int textureX = 0;
-            int textureY = 0;
-            int translateX = 0;
-            int translateY = 0;
+            int infoLabelCount = 0;
+            if (!info3Label.equals(emptyLabel)) {
+                infoLabelCount++;
+            }
+            if (!info4Label.equals(emptyLabel)) {
+                infoLabelCount++;
+            }
 
+            int vPad = (int) (((labelHeight/fontScale) - 9) / 2.0);
+            double bgHeight = (labelHeight * infoLabelCount) + (vPad) + frameWidth;
 
-            boolean fontShadow = map.hasFontShadow();
-
-            double vPad = fontRenderer.isBidirectional() ? 0.0 : (fontShadow ? 6.0 : 4.0);
-            double bgHeight = (labelHeight * infoLabelCount)+(vPad)+(1*fontScale);//1 is to offset for lack of background alpha in size
-
-
-            MiniMapProperties miniMapProperties = new MiniMapProperties(jm.getActiveMinimapId());
-            //ThemeMinimapFrame minimapFrame = new ThemeMinimapFrame(theme, minimapSpec, miniMapProperties, minimapWidth, minimapHeight);
-
-            //double frameWidth = minimapFrame.getWidth();
-            //double frameBorder = frameWidth-minimapWidth;
-
-            //Season
-            //String MINIMAP_TEXT_SEASON = getSeasonName();
-
-            //String MINIMAP_TEXT_SEASON = String.valueOf(fontScale);
 
             //Icon chooser
+            int iconDim = (int) (mc.font.lineHeight*fontScale);
+            double labelPad = 1*fontScale;
+            double totalIconSize = (iconDim+(labelPad));
+
+
+
             ResourceLocation SEASON = new ResourceLocation(MODID,
                     "textures/season/" + getSeasonLower() + ".png");
 
 
             //Values
+            if (!mc.isPaused()) {
+                seasonStack.pushPose();
+                seasonStack.scale(1 / guiSize, 1 / guiSize, 1.0F);
 
-            if (!minimapSpec.labelBottomInside) {
-                marginY += labelHeight;
+                double textureX = minimap.getDisplayVars().centerPoint.getX();
+                double textureY = minimap.getDisplayVars().centerPoint.getY();
+                double translateX = (double)(totalIconSize/2);
+                double translateY = halfHeight + bgHeight+(fontScale < 1.0 ? 0.5 : 0.0);
+
+
+                double labelX = (textureX + translateX);
+                double labelY = (textureY + translateY);
+
+
+                double offsetLabelX = 0;//(2 + 0.5)*fontScale;
+                double totalRectWidth = labelWidth+totalIconSize;
+                double iconRectX = (double)((float)(textureX-Math.max(1.0,totalRectWidth)/2-(fontScale > 1.0 ? 0.0 : 0.5)));
+                //basically half the label width from the center
+
+                //double labelIconX = textureX;
+                double labelIconX = (float)(textureX - totalRectWidth / 2.0 - (fontScale > 1.0 ? 0.0 : 0.5));
+                    //half the label width
+                double labelIconY = labelY+(labelHeight/2)-(iconDim/2.0);
+                    //moves the icon to  the vertical center of the label
+
+                /*Todo
+                 * Need to get this alignment working
+                 */
+
+                DrawUtil.drawLabel(seasonStack, MINIMAP_TEXT_SEASON, labelX, labelY, DrawUtil.HAlign.Center, DrawUtil.VAlign.Below, labelColor, labelAlpha, textColor, textAlpha, fontScale, fontShadow);
+                    //No touchy. Season label offset by icon+padding
+
+                DrawUtil.drawRectangle(seasonStack,iconRectX-(2*labelPad),labelY,totalRectWidth-labelWidth,labelHeight,labelColor,labelAlpha);
+                    //Rectangle for the icon
+
+                RenderSystem.setShader(GameRenderer::getPositionTexShader);
+                RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
+                RenderSystem.setShaderTexture(0, SEASON);
+                GuiComponent.blit(seasonStack,(int)(labelIconX),(int)(labelIconY),0,0,iconDim,iconDim,iconDim,iconDim);
+                //DrawUtil.drawImage(seasonStack, 0,labelX,labelY,false,fontScale,0);
+                seasonStack.popPose();
             }
-
-            seasonStack.pushPose();
-            //seasonStack.translate(0,0,0);
-            //seasonStack.scale(1/fontScale*guiSize, 1/fontScale*guiSize, 1.0F);
-            seasonStack.scale(1/(float)guiSize, 1/(float)guiSize, 1.0F);
-
-
-           if(positionName == Position.TopRight) {
-               textureX = screenWidth;
-               textureY = 0;
-               translateX = halfWidth + marginX;
-               translateY = minimapHeight + marginY + (int) bgHeight;
-
-
-               float labelX = textureX-translateX;
-               float labelY = textureY + translateY;
-
-               DrawUtil.drawLabel(seasonStack, MINIMAP_TEXT_SEASON, labelX, (double)labelY, DrawUtil.HAlign.Center, DrawUtil.VAlign.Below, labelColor, alpha, textColor, alpha, fontScale, fontShadow);
-           }
-           else if(positionName == Position.TopLeft){
-               textureX = 0;
-               textureY = 0;
-               translateX = halfWidth + marginX;
-               translateY = minimapHeight + marginY+(int)bgHeight;
-
-               float labelX = textureX+translateX;
-               float labelY = textureY+translateY;
-
-               DrawUtil.drawLabel(seasonStack, MINIMAP_TEXT_SEASON, labelX, (double)labelY, DrawUtil.HAlign.Center, DrawUtil.VAlign.Below, labelColor, alpha, textColor, alpha, fontScale, fontShadow);
-           }
-           else if (positionName==Position.Custom) {
-//               textureX = (int)(screenWidth*posX);
-//               textureY = (int)(screenHeight*posY);
-//               translateX = halfWidth;
-//               translateY = minimapSize + (int)bgHeight - (2*labelHeight);
-
-               textureX = (int)centerPointX;
-               textureY = (int)centerPointY;
-               translateX = 0;
-               translateY = halfHeight + (int)bgHeight - (2*labelHeight);
-
-
-               float labelX = textureX+translateX;
-               float labelY = textureY+translateY;
-
-
-               DrawUtil.drawLabel(seasonStack, MINIMAP_TEXT_SEASON, labelX, (double)labelY, DrawUtil.HAlign.Center, DrawUtil.VAlign.Below, labelColor, alpha, textColor, alpha, fontScale, fontShadow);
-
-           }
-
-            //DrawUtil.drawLabel(seasonStack, Arrays.toString(MINIMAP_TEXT_LIST), labelX, (double)labelY, DrawUtil.HAlign.Center, DrawUtil.VAlign.Below, labelColor, alpha, textColor, alpha, fontScale, fontShadow);
-
-
-            // }
-            int iconDim = mc.font.lineHeight;
-            int offsetDim = 1;
-            //MINIMAP_TEXT_LIST.clear();
-
-
-            RenderSystem.setShader(GameRenderer::getPositionTexShader);
-            RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
-            RenderSystem.setShaderTexture(0, SEASON);
-            //DrawUtil.drawImage(seasonStack,SEASON,);
-            seasonStack.popPose();
         }
     };
 }
-
-/*Todo
- * Test only one formula
- * Need to make int for how many labels are displayed currently (x out of 4)
- * Setup if statement for each of top left and top right (on the drawShadow)
- * Add icon again next to season
- * Add background alpha color (float alpha?)
- * Need to figure out how to get color from theme????
-
- */
