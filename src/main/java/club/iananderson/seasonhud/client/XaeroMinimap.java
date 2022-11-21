@@ -32,13 +32,10 @@ public class XaeroMinimap {
         return ModList.get().isLoaded("xaerominimap");
     }
 
-
     public static final IGuiOverlay XAERO_SEASON = (ForgeGui, seasonStack, partialTick, width, height) -> {
         int hudPosition = SeasonHUDClientConfigs.hudPosition.get();
         ArrayList<Component> underText = new ArrayList<>();
         underText.add(Component.literal(getSeasonName()));
-
-
 
         if (minimapLoaded()) {
             //Icon chooser

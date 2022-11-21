@@ -57,6 +57,7 @@ ordering = "NONE"
 # Side this dependency is applied on - BOTH, CLIENT or SERVER
 side = "BOTH"
 # Here's another dependency
+
 [[dependencies.seasonhud]]
 modId = "minecraft"
 mandatory = true
@@ -64,3 +65,53 @@ mandatory = true
 versionRange = "[1.19.2,1.20)"
 ordering = "NONE"
 side = "BOTH"
+
+[[dependencies.seasonhud]]
+modId = "architectury"
+mandatory = false
+versionRange = "[6.2.43,)"
+ordering = "AFTER"
+side = "BOTH"
+
+[[dependencies.seasonhud]]
+modId = "ftblibrary"
+mandatory = false
+versionRange = "[1902.3.9-build.144,)"
+ordering = "AFTER"
+side = "BOTH"
+
+[[dependencies.seasonhud]]
+modId = "ftbteams"
+mandatory = false
+versionRange = "[1902.2.9-build.61,)"
+ordering = "AFTER"
+side = "BOTH"
+
+[[dependencies.seasonhud]]
+modId = "ftbranks"
+mandatory = false
+versionRange = "[1902.1.11-build.46,)"
+ordering = "AFTER"
+side = "BOTH"
+
+[[dependencies.seasonhud]]
+modId = "ftbchunks"
+mandatory = false
+version = "[1902.3.9-build.168,)"
+ordering = "AFTER"
+side = "BOTH"
+
+[[dependencies.seasonhud]]
+modId = "journeymap"
+mandatory = false
+version = "[5.9.0beta2,)"
+ordering = "AFTER"
+side = "BOTH"
+
+[[dependencies.seasonhud]]
+modId = "xaerominimap"
+mandatory = false
+version = "[22.16.0,)"
+ordering = "AFTER"
+side = "BOTH"
+
