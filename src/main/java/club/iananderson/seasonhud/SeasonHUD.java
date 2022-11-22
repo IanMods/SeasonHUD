@@ -26,7 +26,7 @@ public class  SeasonHUD{
     /** Cause of error
      * Look into Siding
      */
-    public static Minecraft mc = Minecraft.getInstance();
+
     // Define mod id in a common place for everything to reference
     public static final String MODID = "seasonhud";
     // Directly reference a slf4j logger

@@ -2,6 +2,7 @@ package club.iananderson.seasonhud.client;
 
 import club.iananderson.seasonhud.SeasonHUD;
 import com.mojang.blaze3d.systems.RenderSystem;
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiComponent;
 import net.minecraft.client.renderer.GameRenderer;
 import net.minecraft.resources.ResourceLocation;
@@ -17,6 +18,7 @@ import static club.iananderson.seasonhud.client.XaeroMinimap.minimapLoaded;
 //HUD w/ no minimap installed
 public class SeasonHUDOverlay {
     public static final IGuiOverlay HUD_SEASON = (ForgeGui, seasonStack, partialTick, screenWidth, screenHeight) -> {
+
         int x = 0;
         int y = 0;
         int iconDim = 10;

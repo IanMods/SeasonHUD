@@ -4,6 +4,7 @@ package club.iananderson.seasonhud.client;
 import club.iananderson.seasonhud.SeasonHUD;
 import club.iananderson.seasonhud.config.SeasonHUDClientConfigs;
 import com.mojang.blaze3d.systems.RenderSystem;
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiComponent;
 import net.minecraft.client.gui.screens.ChatScreen;
 import net.minecraft.client.gui.screens.DeathScreen;
@@ -19,7 +20,6 @@ import java.util.ArrayList;
 
 import static club.iananderson.seasonhud.CurrentSeason.getSeasonLower;
 import static club.iananderson.seasonhud.CurrentSeason.getSeasonName;
-import static club.iananderson.seasonhud.SeasonHUD.mc;
 import static xaero.common.settings.ModOptions.modMain;
 
 /* Todo
@@ -33,7 +33,9 @@ public class XaeroMinimap {
     }
 
     public static final IGuiOverlay XAERO_SEASON = (ForgeGui, seasonStack, partialTick, width, height) -> {
+        Minecraft mc = Minecraft.getInstance();
         int hudPosition = SeasonHUDClientConfigs.hudPosition.get();
+
         ArrayList<Component> underText = new ArrayList<>();
         underText.add(Component.literal(getSeasonName()));
 

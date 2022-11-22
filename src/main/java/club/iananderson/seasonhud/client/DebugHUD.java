@@ -1,11 +1,11 @@
 package club.iananderson.seasonhud.client;
 
 import club.iananderson.seasonhud.config.SeasonHUDClientConfigs;
+import net.minecraft.client.Minecraft;
 import net.minecraftforge.client.gui.overlay.IGuiOverlay;
 import xaero.common.core.XaeroMinimapCore;
 
 import static club.iananderson.seasonhud.CurrentSeason.getSeasonName;
-import static club.iananderson.seasonhud.SeasonHUD.mc;
 import static club.iananderson.seasonhud.client.XaeroMinimap.minimapLoaded;
 import static xaero.common.settings.ModOptions.modMain;
 
@@ -17,6 +17,7 @@ public class DebugHUD {
 
     //Debug
     public static final IGuiOverlay DEBUG_HUD = (ForgeGui, seasonStack, partialTick, width, height) -> {
+        Minecraft mc = Minecraft.getInstance();
         int offset = 20;
 
         //Season
