@@ -50,7 +50,7 @@ public class FTBChunks {
             }
 
             //Season
-            MINIMAP_TEXT_LIST.add(Component.literal(getSeasonName()));
+            MINIMAP_TEXT_LIST.add(Component.translatable(getSeasonName()));
 
 
             //Icon chooser
@@ -94,12 +94,12 @@ public class FTBChunks {
                             int bsw = mc.font.width(bs);
                             int iconDim = mc.font.lineHeight;
 
-                            mc.font.drawShadow(seasonStack, bs, (float)(-bsw) / 2.0F, (float)(i * 11), -1);
+                            mc.font.drawShadow(seasonStack, bs, (float)((-bsw) + iconDim/2)/ 2.0F, (float)(i * 11), -1);
 
                             RenderSystem.setShader(GameRenderer::getPositionTexShader);
                             RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
                             RenderSystem.setShaderTexture(0, SEASON);
-                            GuiComponent.blit(seasonStack,(int)((-bsw) / 2.0F)-iconDim-2, (int)(i * 11), 0, 0, iconDim, iconDim, iconDim, iconDim);
+                            GuiComponent.blit(seasonStack,(int)((-bsw) / 2.0F)-iconDim, (int)(i * 11), 0, 0, iconDim, iconDim, iconDim, iconDim);
                         }
                             seasonStack.popPose();
                     }

@@ -21,7 +21,7 @@ public class CurrentSeason {
 
    //Localized name for the hud
     public static String getSeasonName(){
-        return "desc.sereneseasons." + getSeasonLower();
+        return "desc.sereneseasons." +getSeasonLower();
     }
 
 }

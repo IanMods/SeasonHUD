@@ -2,9 +2,9 @@ package club.iananderson.seasonhud.client;
 
 import club.iananderson.seasonhud.SeasonHUD;
 import com.mojang.blaze3d.systems.RenderSystem;
-import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiComponent;
 import net.minecraft.client.renderer.GameRenderer;
+import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraftforge.client.gui.overlay.IGuiOverlay;
 
@@ -34,7 +34,7 @@ public class SeasonHUDOverlay {
             seasonStack.scale(1F, 1F, 1F);
 
             //Text
-            ForgeGui.getFont().draw(seasonStack, getSeasonName(), (float) (x + iconDim + offsetDim + 2), (float) (y + offsetDim + (.12 * iconDim)), 0xffffffff);
+            ForgeGui.getFont().draw(seasonStack, Component.translatable(getSeasonName()), (float) (x + iconDim + offsetDim + 2), (float) (y + offsetDim + (.12 * iconDim)), 0xffffffff);
 
             //Icon
             RenderSystem.setShader(GameRenderer::getPositionTexShader);

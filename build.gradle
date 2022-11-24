@@ -4,7 +4,7 @@ plugins {
 }
 
 group = 'club.iananderson'
-version = "1.1.4"
+version = "1.2.0"
 
 java {
     archivesBaseName = 'seasonhud-1.19.2'
@@ -149,9 +149,9 @@ dependencies {
     implementation "curse.maven:serene-seasons-291874:4037230-deobf-api"
 
     //Xaero's Minimap
-//    compileOnly fg.deobf("curse.maven:xaeros-minimap-263420:4075405")
+    compileOnly fg.deobf("curse.maven:xaeros-minimap-263420:4075405")
 
-    implementation fg.deobf("curse.maven:xaeros-minimap-263420:4075405")
+//    implementation fg.deobf("curse.maven:xaeros-minimap-263420:4075405")
 
 
 
