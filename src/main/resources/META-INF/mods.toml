@@ -6,6 +6,7 @@ license = "All Rights Reserved"
 modId = "seasonhud" #mandatory
 version = "${file.jarVersion}" #mandatory
 displayName = "SeasonHUD" #mandatory
+logoFile= "SeasonHUD.png"
 authors="IanAnderson" #optional
 description = '''
 '''

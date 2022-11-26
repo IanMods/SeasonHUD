@@ -149,9 +149,9 @@ dependencies {
     implementation "curse.maven:serene-seasons-291874:4037230-deobf-api"
 
     //Xaero's Minimap
-    compileOnly fg.deobf("curse.maven:xaeros-minimap-263420:4075405")
+//    compileOnly fg.deobf("curse.maven:xaeros-minimap-263420:4075405")
 
-//    implementation fg.deobf("curse.maven:xaeros-minimap-263420:4075405")
+    implementation fg.deobf("curse.maven:xaeros-minimap-263420:4075405")
 
 
 
