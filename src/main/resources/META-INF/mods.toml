@@ -6,10 +6,12 @@ license = "All Rights Reserved"
 modId = "seasonhud" #mandatory
 version = "${file.jarVersion}" #mandatory
 displayName = "SeasonHUD" #mandatory
-logoFile= "SeasonHUD.png"
+displayURL = "https://www.curseforge.com/minecraft/mc-mods/seasonhud"
+logoFile= "SeasonHud.png"
+logoBlur = true
 authors="IanAnderson" #optional
-description = '''
-'''
+description ='''
+This is an addon for SereneSeasons that displays the current season on the HUD or under a minimap'''
 
 # A dependency - use the . to indicate dependency for a specific modid. Dependencies are optional.
 [[dependencies.seasonhud]] #optional
