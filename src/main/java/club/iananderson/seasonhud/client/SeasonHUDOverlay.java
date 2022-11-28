@@ -24,7 +24,6 @@ public class SeasonHUDOverlay {
         int iconDim = 10;
         int offsetDim = 5;
 
-
         ResourceLocation SEASON = new ResourceLocation(SeasonHUD.MODID,
                 "textures/season/" + getSeasonLower()+ ".png");
 

@@ -33,7 +33,7 @@ public class CurrentSeason {
 
    //Localized name for the hud
     public static String getSeasonName(){
-        if (SeasonHUDClientConfigs.showSubSeason.get()){
+        if ((SeasonHUDClientConfigs.showSubSeason.get()) && (Minecraft.getInstance().getLanguageManager().getSelected().getName().equals("English"))){
             return "desc.sereneseasons." +getSubSeasonLower();
         }
         else return "desc.sereneseasons." +getSeasonLower();
