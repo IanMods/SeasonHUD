@@ -3,13 +3,30 @@ package club.iananderson.seasonhud;
 import club.iananderson.seasonhud.config.SeasonHUDClientConfigs;
 import net.minecraft.client.Minecraft;
 import net.minecraft.network.chat.Component;
+import net.minecraftforge.client.extensions.IForgeMinecraft;
+import net.minecraftforge.common.MinecraftForge;
 import sereneseasons.api.season.Season;
 import sereneseasons.api.season.SeasonHelper;
 
 import java.util.ArrayList;
+import java.util.List;
+import java.util.Locale;
 import java.util.Objects;
 
 public class CurrentSeason {
+    //Currently implemented languages
+    public static Locale getCurrentLocale(){
+        Minecraft mc = Minecraft.getInstance();
+        return mc.getLanguageManager().getSelected().getJavaLocale();
+    }
+
+    //Improve later, will work for now
+    public static List<String> supportedLanguages(){
+        List<String> language = new ArrayList<>();
+        language.add("en_us");
+        language.add("zh_cn");
+        return language;
+    }
 
     //Get the current season in Season type
     public static Season getCurrentSeason(){
@@ -54,19 +71,29 @@ public class CurrentSeason {
     }
 
    //Localized name for the hud
-    public static ArrayList<Component> getSeasonName(){
-        System.out.println(getSeasonLower());
+    public static ArrayList<Component> getSeasonName() {
+        //System.out.println(getCurrentLocale());
         ArrayList<Component> text = new ArrayList<>();
-        if (SeasonHUDClientConfigs.showSubSeason.get()){
-            if (isTropicalSeason()){
-                text.add(Component.translatable("desc.seasonhud.detailed", Component.translatable("desc.seasonhud." + getTropicalSeasonLowered()), getDate()));
+        if (supportedLanguages().contains(getCurrentLocale().toString().toLowerCase())) {
+            if (SeasonHUDClientConfigs.showSubSeason.get() && SeasonHUDClientConfigs.showDay.get()) {
+                if (isTropicalSeason()) {
+                    text.add(Component.translatable("desc.seasonhud.detailed", Component.translatable("desc.seasonhud." + getTropicalSeasonLowered()), getDate()));
+                } else {
+                    text.add(Component.translatable("desc.seasonhud.detailed", Component.translatable("desc.seasonhud." + getSubSeasonLower()), getDate()));
+                }
+            } else if (SeasonHUDClientConfigs.showSubSeason.get() && !SeasonHUDClientConfigs.showDay.get()) {
+                if (isTropicalSeason()) {
+                    text.add(Component.translatable("desc.seasonhud.summary", Component.translatable("desc.seasonhud." + getTropicalSeasonLowered())));
+                } else {
+                    text.add(Component.translatable("desc.seasonhud.summary", Component.translatable("desc.seasonhud." + getSubSeasonLower())));
+                }
             } else {
-                text.add(Component.translatable("desc.seasonhud.detailed", Component.translatable("desc.seasonhud." + getSubSeasonLower()), getDate()));
+                text.add(Component.translatable("desc.sereneseasons." + getSeasonLower()));
             }
         } else {
-            text.add(Component.translatable("desc.sereneseasons." +getSeasonLower()));
+            text.add(Component.translatable("desc.sereneseasons." + getSeasonLower()));
         }
         return text;
     }
-
 }
+
