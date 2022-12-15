@@ -21,6 +21,17 @@ public class CurrentSeason {
         return SeasonHelper.getSeasonState(Objects.requireNonNull(mc.level)).getSubSeason();
     }
 
+    public static Season.TropicalSeason getCurrentTropicalSeason(){
+        Minecraft mc = Minecraft.getInstance();
+        return SeasonHelper.getSeasonState(Objects.requireNonNull(mc.level)).getTropicalSeason();
+    }
+
+    //Get the current date of the season
+    public static int getDate(){
+        Minecraft mc = Minecraft.getInstance();
+        return (SeasonHelper.getSeasonState(Objects.requireNonNull(mc.level)).getDay() % 8) + 1;
+    }
+
     //Convert Season to lower case (for file names)
     public static String getSeasonLower(){
         return getCurrentSeason().name().toLowerCase();
@@ -29,6 +40,15 @@ public class CurrentSeason {
     //Convert to lower case (for file names)
     public static String getSubSeasonLower(){
         return getCurrentSubSeason().name().toLowerCase();
+    }
+
+    public static String getTropicalSeasonLowered(){
+        return getCurrentTropicalSeason().name().toLowerCase();
+    }
+
+    public static boolean isTropicalSeason(){
+        Minecraft mc = Minecraft.getInstance();
+        return SeasonHelper.usesTropicalSeasons(Objects.requireNonNull(mc.level).getBiome(Objects.requireNonNull(mc.player).getOnPos()));
     }
 
    //Localized name for the hud
