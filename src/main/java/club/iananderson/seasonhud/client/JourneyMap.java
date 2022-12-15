@@ -43,8 +43,7 @@ public class JourneyMap {
             String emptyLabel = "jm.theme.labelsource.blank";
             String info3Label = jm.getActiveMiniMapProperties().info3Label.get();
             String info4Label = jm.getActiveMiniMapProperties().info4Label.get();
-            ArrayList<Component> MINIMAP_TEXT_SEASON= new ArrayList<>();
-            MINIMAP_TEXT_SEASON.add(Component.translatable(getSeasonName()));
+            ArrayList<Component> MINIMAP_TEXT_SEASON= getSeasonName();
 
             float fontScale = jm.getActiveMiniMapProperties().fontScale.get();
             float guiSize = (float) mc.getWindow().getGuiScale();

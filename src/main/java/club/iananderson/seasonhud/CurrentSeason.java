@@ -2,9 +2,11 @@ package club.iananderson.seasonhud;
 
 import club.iananderson.seasonhud.config.SeasonHUDClientConfigs;
 import net.minecraft.client.Minecraft;
+import net.minecraft.network.chat.Component;
 import sereneseasons.api.season.Season;
 import sereneseasons.api.season.SeasonHelper;
 
+import java.util.ArrayList;
 import java.util.Objects;
 
 public class CurrentSeason {
@@ -52,11 +54,19 @@ public class CurrentSeason {
     }
 
    //Localized name for the hud
-    public static String getSeasonName(){
-        if ((SeasonHUDClientConfigs.showSubSeason.get()) && (Minecraft.getInstance().getLanguageManager().getSelected().getName().equals("English"))){
-            return "desc.sereneseasons." +getSubSeasonLower();
+    public static ArrayList<Component> getSeasonName(){
+        System.out.println(getSeasonLower());
+        ArrayList<Component> text = new ArrayList<>();
+        if (SeasonHUDClientConfigs.showSubSeason.get()){
+            if (isTropicalSeason()){
+                text.add(Component.translatable("desc.seasonhud.detailed", Component.translatable("desc.seasonhud." + getTropicalSeasonLowered()), getDate()));
+            } else {
+                text.add(Component.translatable("desc.seasonhud.detailed", Component.translatable("desc.seasonhud." + getSubSeasonLower()), getDate()));
+            }
+        } else {
+            text.add(Component.translatable("desc.sereneseasons." +getSeasonLower()));
         }
-        else return "desc.sereneseasons." +getSeasonLower();
+        return text;
     }
 
 }
