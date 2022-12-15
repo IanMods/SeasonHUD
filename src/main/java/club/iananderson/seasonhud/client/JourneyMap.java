@@ -18,8 +18,7 @@ import net.minecraftforge.fml.ModList;
 
 import java.util.ArrayList;
 
-import static club.iananderson.seasonhud.CurrentSeason.getSeasonLower;
-import static club.iananderson.seasonhud.CurrentSeason.getSeasonName;
+import static club.iananderson.seasonhud.CurrentSeason.*;
 import static club.iananderson.seasonhud.SeasonHUD.MODID;
 
 /*Todo
@@ -87,8 +86,18 @@ public class JourneyMap {
 
 
 
-            ResourceLocation SEASON = new ResourceLocation(MODID,
-                    "textures/season/" + getSeasonLower() + ".png");
+            ResourceLocation SEASON;
+            if (isTropicalSeason()){
+                //Tropical season haves no main season, convert here.
+                String season = getTropicalSeasonLowered();
+                season = season.substring(season.length() - 3);
+
+                SEASON = new ResourceLocation(MODID,
+                        "textures/season/" + season + ".png");
+            } else {
+                SEASON = new ResourceLocation(MODID,
+                        "textures/season/" + getSeasonLower() + ".png");
+            }
 
 
             //Values

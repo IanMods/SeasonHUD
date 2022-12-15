@@ -40,8 +40,18 @@ public class XaeroMinimap {
 
         if (minimapLoaded()) {
             //Icon chooser
-            ResourceLocation SEASON = new ResourceLocation(SeasonHUD.MODID,
-                    "textures/season/" + getSeasonLower() + ".png");
+            ResourceLocation SEASON;
+            if (isTropicalSeason()){
+                //Tropical season haves no main season, convert here.
+                String season = getTropicalSeasonLowered();
+                season = season.substring(season.length() - 3);
+
+                SEASON = new ResourceLocation(SeasonHUD.MODID,
+                        "textures/season/" + season + ".png");
+            } else {
+                SEASON = new ResourceLocation(SeasonHUD.MODID,
+                        "textures/season/" + getSeasonLower() + ".png");
+            }
 
 
             //Data
