@@ -81,7 +81,7 @@ public class DebugHUD {
 
             //Icon
             int align = XaeroMinimapCore.currentSession.getModMain().getSettings().minimapTextAlign;
-            int stringWidth = Math.round(mc.font.width(getSeasonName())*fontScale);
+            int stringWidth = Math.round(mc.font.width(getSeasonName().get(0))*fontScale);
             int stringHeight = Math.round((mc.font.lineHeight+1));
 
             int iconDim = stringHeight+1;

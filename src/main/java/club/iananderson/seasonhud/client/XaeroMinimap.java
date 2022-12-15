@@ -34,8 +34,7 @@ public class XaeroMinimap {
     public static final IGuiOverlay XAERO_SEASON = (ForgeGui, seasonStack, partialTick, width, height) -> {
         Minecraft mc = Minecraft.getInstance();
 
-        ArrayList<Component> underText = new ArrayList<>();
-        underText.add(Component.translatable(getSeasonName()));
+        ArrayList<Component> underText = getSeasonName();
 
 
         if (minimapLoaded()) {

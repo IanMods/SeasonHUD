@@ -49,7 +49,7 @@ public class FTBChunks {
             }
 
             //Season
-            MINIMAP_TEXT_LIST.add(Component.translatable(getSeasonName()));
+            MINIMAP_TEXT_LIST.add(getSeasonName().get(0));
 
 
             //Icon chooser
