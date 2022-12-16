@@ -5,7 +5,7 @@ import net.minecraft.client.Minecraft;
 import net.minecraftforge.client.gui.overlay.IGuiOverlay;
 import xaero.common.core.XaeroMinimapCore;
 
-import static club.iananderson.seasonhud.CurrentSeason.getSeasonName;
+import static club.iananderson.seasonhud.data.CurrentSeason.getSeasonName;
 import static club.iananderson.seasonhud.client.XaeroMinimap.minimapLoaded;
 import static xaero.common.settings.ModOptions.modMain;
 

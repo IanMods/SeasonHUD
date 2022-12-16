@@ -18,7 +18,7 @@ import xaero.common.gui.IScreenBase;
 
 import java.util.ArrayList;
 
-import static club.iananderson.seasonhud.CurrentSeason.*;
+import static club.iananderson.seasonhud.data.CurrentSeason.*;
 import static xaero.common.settings.ModOptions.modMain;
 
 
@@ -38,14 +38,14 @@ public class XaeroMinimap {
             ResourceLocation SEASON;
             if (isTropicalSeason()){
                 //Tropical season haves no main season, convert here.
-                String season = getTropicalSeasonLowered();
+                String season = getSeasonFileName();
                 season = season.substring(season.length() - 3);
 
                 SEASON = new ResourceLocation(SeasonHUD.MODID,
                         "textures/season/" + season + ".png");
             } else {
                 SEASON = new ResourceLocation(SeasonHUD.MODID,
-                        "textures/season/" + getSeasonLower() + ".png");
+                        "textures/season/" + getSeasonFileName() + ".png");
             }
 
 

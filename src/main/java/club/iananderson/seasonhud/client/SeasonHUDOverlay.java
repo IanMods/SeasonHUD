@@ -8,7 +8,7 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraftforge.client.gui.overlay.IGuiOverlay;
 
 
-import static club.iananderson.seasonhud.CurrentSeason.*;
+import static club.iananderson.seasonhud.data.CurrentSeason.*;
 import static club.iananderson.seasonhud.client.FTBChunks.ftbChunksLoaded;
 import static club.iananderson.seasonhud.client.JourneyMap.journeymapLoaded;
 import static club.iananderson.seasonhud.client.XaeroMinimap.minimapLoaded;
@@ -25,14 +25,14 @@ public class SeasonHUDOverlay {
         ResourceLocation SEASON;
         if (isTropicalSeason()){
             //Tropical season haves no main season, convert here.
-            String season = getTropicalSeasonLowered();
+            String season = getSeasonFileName();
             season = season.substring(season.length() - 3);
 
             SEASON = new ResourceLocation(SeasonHUD.MODID,
                     "textures/season/" + season + ".png");
         } else {
             SEASON = new ResourceLocation(SeasonHUD.MODID,
-                    "textures/season/" + getSeasonLower() + ".png");
+                    "textures/season/" + getSeasonFileName() + ".png");
         }
 
 
