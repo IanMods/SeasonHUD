@@ -19,7 +19,7 @@ import net.minecraftforge.fml.ModList;
 import java.util.ArrayList;
 import java.util.List;
 
-import static club.iananderson.seasonhud.CurrentSeason.*;
+import static club.iananderson.seasonhud.data.CurrentSeason.*;
 
 /* Todo
     * Switch names over to translatable ones
@@ -56,14 +56,14 @@ public class FTBChunks {
             ResourceLocation SEASON;
             if (isTropicalSeason()){
                 //Tropical season haves no main season, convert here.
-                String season = getTropicalSeasonLowered();
+                String season = getSeasonFileName();
                 season = season.substring(season.length() - 3);
 
                 SEASON = new ResourceLocation(SeasonHUD.MODID,
                         "textures/season/" + season + ".png");
             } else {
                 SEASON = new ResourceLocation(SeasonHUD.MODID,
-                        "textures/season/" + getSeasonLower() + ".png");
+                        "textures/season/" + getSeasonFileName() + ".png");
             }
 
             if (mc.player != null && mc.level != null && MapManager.inst != null) {
