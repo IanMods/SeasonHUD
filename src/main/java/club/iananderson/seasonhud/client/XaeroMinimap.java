@@ -83,6 +83,7 @@ public class XaeroMinimap {
             if (xAngles) {trueCount++;}
             if (xLight > 0) {trueCount++;}
             if (xTime > 0) {trueCount++;}
+            if (mapSize < 61) {trueCount++;}
 
 
             //Icon
