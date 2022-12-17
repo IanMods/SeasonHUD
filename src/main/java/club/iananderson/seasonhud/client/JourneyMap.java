@@ -5,7 +5,7 @@ import journeymap.client.JourneymapClient;
 import journeymap.client.io.ThemeLoader;
 import journeymap.client.render.draw.DrawUtil;
 import journeymap.client.ui.UIManager;
-import journeymap.client.ui.minimap.MiniMap;
+import journeymap.client.ui.minimap.DisplayVars;
 import journeymap.client.ui.theme.Theme;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
@@ -34,11 +34,11 @@ public class JourneyMap {
 
         if (journeymapLoaded()) {
             Theme.LabelSpec label = new Theme.LabelSpec();
-
+            DisplayVars vars = UIManager.INSTANCE.getMiniMap().getDisplayVars();
 
             JourneymapClient jm = JourneymapClient.getInstance();
             Font fontRenderer = mc.font;
-            MiniMap minimap = UIManager.INSTANCE.getMiniMap();
+            //MiniMap minimap = UIManager.INSTANCE.getMiniMap();
 
             String emptyLabel = "jm.theme.labelsource.blank";
             String info3Label = jm.getActiveMiniMapProperties().info3Label.get();
@@ -54,10 +54,12 @@ public class JourneyMap {
             double labelHeight = ((DrawUtil.getLabelHeight(fontRenderer, fontShadow)) * (fontScale));
             double labelWidth = fontRenderer.width(MINIMAP_TEXT_SEASON.get(0))*fontScale;
 
-            int minimapHeight = minimap.getDisplayVars().minimapHeight;
+            int minimapHeight = vars.minimapHeight;
+            //int minimapWidth = vars.minimapWidth;
 
 
             int halfHeight = minimapHeight / 2;
+            //int halfWidth = minimapWidth / 2;
 
             Theme.LabelSpec currentTheme = ThemeLoader.getCurrentTheme().minimap.square.labelBottom;
             int labelColor = currentTheme.background.getColor();
@@ -74,7 +76,7 @@ public class JourneyMap {
                 infoLabelCount++;
             }
 
-            int vPad = (int) (((labelHeight/fontScale) - 9) / 2.0);
+            int vPad = (int)(((labelHeight/fontScale) - 8) / 2.0);
             double bgHeight = (labelHeight * infoLabelCount) + (vPad) + frameWidth;
 
 
@@ -104,8 +106,8 @@ public class JourneyMap {
                 seasonStack.pushPose();
                 seasonStack.scale(1 / guiSize, 1 / guiSize, 1.0F);
 
-                double textureX = minimap.getDisplayVars().centerPoint.getX();
-                double textureY = minimap.getDisplayVars().centerPoint.getY();
+                double textureX = vars.centerPoint.getX();
+                double textureY = vars.centerPoint.getY();
                 double translateX = totalIconSize/2;
                 double translateY = halfHeight + bgHeight+(fontScale < 1.0 ? 0.5 : 0.0);
 
