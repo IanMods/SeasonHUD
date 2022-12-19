@@ -1,4 +1,4 @@
-package club.iananderson.seasonhud.client;
+package club.iananderson.seasonhud.client.minimaps;
 
 import com.mojang.blaze3d.systems.RenderSystem;
 import journeymap.client.JourneymapClient;

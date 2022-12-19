@@ -1,4 +1,7 @@
 {
+  "key.categories.seasonhud": "SeasonHUD",
+  "key.seasonhud.seasonhudOptions": "SeasonHUD Options",
+
   "desc.seasonhud.early_spring": "Early Spring",
   "desc.seasonhud.mid_spring": "Mid Spring",
   "desc.seasonhud.late_spring": "Late Spring",
