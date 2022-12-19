@@ -9,9 +9,9 @@ import net.minecraftforge.client.gui.overlay.IGuiOverlay;
 
 
 import static club.iananderson.seasonhud.data.CurrentSeason.*;
-import static club.iananderson.seasonhud.client.FTBChunks.ftbChunksLoaded;
-import static club.iananderson.seasonhud.client.JourneyMap.journeymapLoaded;
-import static club.iananderson.seasonhud.client.XaeroMinimap.minimapLoaded;
+import static club.iananderson.seasonhud.client.minimaps.FTBChunks.ftbChunksLoaded;
+import static club.iananderson.seasonhud.client.minimaps.JourneyMap.journeymapLoaded;
+import static club.iananderson.seasonhud.client.minimaps.XaeroMinimap.minimapLoaded;
 
 //HUD w/ no minimap installed
 public class SeasonHUDOverlay {
