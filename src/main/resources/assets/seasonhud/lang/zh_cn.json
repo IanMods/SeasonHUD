@@ -2,6 +2,8 @@
   "key.categories.seasonhud": "SeasonHUD",
   "key.seasonhud.seasonhudOptions": "SeasonHUD Options",
 
+  "menu.seasonhud.title": "SeasonHUD",
+
   "desc.seasonhud.early_spring": "早春",
   "desc.seasonhud.mid_spring": "仲春",
   "desc.seasonhud.late_spring": "晚春",
