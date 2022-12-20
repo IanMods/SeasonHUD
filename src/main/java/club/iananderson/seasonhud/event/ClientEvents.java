@@ -15,6 +15,8 @@ import net.minecraftforge.client.gui.overlay.VanillaGuiOverlay;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 
+import static club.iananderson.seasonhud.event.SeasonHUDScreen.seasonScreen;
+
 
 public class ClientEvents{
     @Mod.EventBusSubscriber(modid = SeasonHUD.MODID, value = Dist.CLIENT)
@@ -27,7 +29,7 @@ public class ClientEvents{
         @SubscribeEvent
         public static void onKeyInput(InputEvent.Key Event) {
             if (KeyBindings.seasonhudOptionsKeyMapping.consumeClick()) {
-                Minecraft.getInstance().player.sendSystemMessage(Component.literal("Test"));
+                Minecraft.getInstance().setScreen(new SeasonHUDScreen(seasonScreen));
             }
         }
     }

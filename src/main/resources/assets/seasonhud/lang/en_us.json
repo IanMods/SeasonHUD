@@ -2,12 +2,16 @@
   "key.categories.seasonhud": "SeasonHUD",
   "key.seasonhud.seasonhudOptions": "SeasonHUD Options",
 
-  "menu.seasonhud.title": "SeasonHUD",
+  "menu.seasonhud.title": "SeasonHUD Options",
 
   "menu.seasonhud.button.done":"Done",
   "menu.seasonhud.button.cancel":"Cancel",
-  "menu.seasonhud.button.showDay":"Show Day of Current Season",
-  "menu.seasonhud.button.showSubSeason":"Replace the Season With the Sub-Season",
+
+  "menu.seasonhud.button.showDay":"Show Day Value",
+  "menu.seasonhud.button.showSubSeason":"Show Sub-Season",
+
+  "menu.seasonhud.button.desc.showDay":"Show the day of of the current Season/Sub-Season on the HUD",
+  "menu.seasonhud.button.desc.showSubSeason":"Replace the Season with the current Sub-Season",
 
   "desc.seasonhud.early_spring": "Early Spring",
   "desc.seasonhud.mid_spring": "Mid Spring",
