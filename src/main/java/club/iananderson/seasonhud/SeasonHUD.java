@@ -1,7 +1,6 @@
 package club.iananderson.seasonhud;
 
-import club.iananderson.seasonhud.config.SeasonHUDClientConfigs;
-import com.mojang.logging.LogUtils;
+import club.iananderson.seasonhud.config.Config;
 import net.minecraft.client.Minecraft;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
@@ -18,7 +17,8 @@ import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
-import org.slf4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 // The value here should match an entry in the META-INF/mods.toml file
 @Mod(SeasonHUD.MODID)
@@ -27,7 +27,8 @@ public class  SeasonHUD{
     // Define mod id in a common place for everything to reference
     public static final String MODID = "seasonhud";
     // Directly reference a slf4j logger
-    private static final Logger LOGGER = LogUtils.getLogger();
+    //private static final Logger LOGGER = LogUtils.getLogger();
+    public static final Logger LOGGER = LogManager.getLogger("seasonhud");
     // Create a Deferred Register to hold Blocks which will all be registered under the "seasonhud" namespace
     public static final DeferredRegister<Block> BLOCKS = DeferredRegister.create(ForgeRegistries.BLOCKS, MODID);
     // Create a Deferred Register to hold Items which will all be registered under the "seasonhud" namespace
@@ -49,12 +50,11 @@ public class  SeasonHUD{
         // Register the Deferred Register to the mod event bus so items get registered
         ITEMS.register(modEventBus);
 
-        ModLoadingContext.get().registerConfig(ModConfig.Type.CLIENT, SeasonHUDClientConfigs.GENERAL_SPEC,
+        ModLoadingContext.get().registerConfig(ModConfig.Type.CLIENT, Config.GENERAL_SPEC,
                 "SeasonHUD-client.toml");
 
         // Register ourselves for server and other game events we are interested in
         MinecraftForge.EVENT_BUS.register(this);
-
     }
 
     private void commonSetup(final FMLCommonSetupEvent event) {

@@ -1,29 +1,30 @@
 package club.iananderson.seasonhud.event;
 
+
+import club.iananderson.seasonhud.config.Config;
 import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.components.Button;
 import net.minecraft.client.gui.components.CycleButton;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.network.chat.Component;
 
+import static club.iananderson.seasonhud.config.Config.*;
 
 public class SeasonHUDScreen extends Screen{
-    private static final int COLUMNS = 2;
+    //private static final int COLUMNS = 2;
     private static final int MENU_PADDING_FULL = 50;
     private static final int MENU_PADDING_HALF = MENU_PADDING_FULL/2;
     private static final int PADDING = 8;
     private static final int BUTTON_WIDTH_FULL = 200;
     private static final int BUTTON_WIDTH_HALF = BUTTON_WIDTH_FULL/2;
     private static final int BUTTON_HEIGHT = 20;
+
+    private final int BUTTON_START_Y = MENU_PADDING_FULL;
+    private final int Y_OFFSET = BUTTON_HEIGHT+PADDING;
     public static Screen seasonScreen;
 
     private final Screen lastScreen;
-    private CycleButton<Boolean> showDay, showSubSeason;
-    private boolean showDayInHUD = true;
-    private boolean showSubSeasonInHUD = true;
-    private Button doneButton, cancelButton;
 
     private static final Component title = Component.translatable("menu.seasonhud.title");
 
@@ -31,55 +32,56 @@ public class SeasonHUDScreen extends Screen{
         super(title);
         this.lastScreen = seasonScreen;
     }
+    public boolean isPauseScreen() {
+        return true;
+    }
 
     public int getGuiScale(){
         return (int) minecraft.getWindow().getGuiScale();
-    }
-    public Font getFont() {
-        return super.font;
     }
 
     public void render(PoseStack stack, int mouseX, int mouseY, float partialTicks){
         this.renderDirtBackground(0);
         super.render(stack, mouseX, mouseY, partialTicks);
-        drawCenteredString(stack, this.font, this.title, this.width / 2, PADDING, 16777215);
-
+        drawCenteredString(stack, font, title, this.width / 2, PADDING, 16777215);
     }
-
-    public boolean isPauseScreen() {
-        return true;
-    }
-
 
     public void init() {
         super.init();
-
+        int BUTTON_START_X = (this.width/2) - BUTTON_WIDTH_FULL+PADDING;
         //Buttons
-        showDay = CycleButton.onOffBuilder(this.showDayInHUD).create(this.width / 2 - BUTTON_WIDTH_FULL+PADDING, MENU_PADDING_FULL, BUTTON_WIDTH_FULL, BUTTON_HEIGHT,Component.translatable("menu.seasonhud.button.showDay"),
-            (True,False) -> {
-                this.showDayInHUD = false;
-                System.out.println(this.showDayInHUD);
-        });
+        CycleButton<Boolean> showDayButton = CycleButton.onOffBuilder(showDay.get())
+                .create(BUTTON_START_X, BUTTON_START_Y, BUTTON_WIDTH_FULL, BUTTON_HEIGHT,
+                Component.translatable("menu.seasonhud.button.showDay"),
+                (b, Off) -> {
+                    Config.setShowDay(Off);
+                });
 
-        showSubSeason = CycleButton.onOffBuilder(this.showSubSeasonInHUD).create(this.width / 2 - BUTTON_WIDTH_FULL+PADDING, (MENU_PADDING_FULL+BUTTON_HEIGHT+PADDING), BUTTON_WIDTH_FULL, BUTTON_HEIGHT,Component.translatable("menu.seasonhud.button.showSubSeason"),
-            (True,False)-> {
-                this.showSubSeasonInHUD = false;
-                System.out.println(this.showSubSeasonInHUD);
-        });
+        CycleButton<Boolean> showSubSeasonButton = CycleButton.onOffBuilder(showSubSeason.get())
+                .create(BUTTON_START_X, (BUTTON_START_Y + Y_OFFSET), BUTTON_WIDTH_FULL, BUTTON_HEIGHT,
+                Component.translatable("menu.seasonhud.button.showSubSeason"),
+                (b, Off) -> {
+                    Config.setShowSubSeason(Off);
+                });
 
-        doneButton = Button.builder(Component.translatable("menu.seasonhud.button.done"),b -> {
+        Button doneButton = Button.builder(Component.translatable("gui.done"), b -> {
             this.minecraft.options.save();
             this.minecraft.setScreen(this.lastScreen);
         }).bounds(this.width / 2 + PADDING, this.height - MENU_PADDING_HALF, BUTTON_WIDTH_HALF, BUTTON_HEIGHT).build();
 
-        cancelButton = Button.builder(Component.translatable("menu.seasonhud.button.cancel"),b -> {
+        Button cancelButton = Button.builder(Component.translatable("gui.cancel"), b -> {
             this.minecraft.setScreen(this.lastScreen);
-        }).bounds(this.width / 2 - (PADDING+BUTTON_WIDTH_HALF), this.height - MENU_PADDING_HALF, BUTTON_WIDTH_HALF, BUTTON_HEIGHT).build();
+        }).bounds(this.width / 2 - (PADDING + BUTTON_WIDTH_HALF), this.height - MENU_PADDING_HALF, BUTTON_WIDTH_HALF, BUTTON_HEIGHT).build();
 
-        addRenderableWidget(showDay);
-        addRenderableWidget(showSubSeason);
+        addRenderableWidget(showDayButton);
+        addRenderableWidget(showSubSeasonButton);
 
         addRenderableWidget(doneButton);
         addRenderableWidget(cancelButton);
     }
+
+    public static void open(){
+        Minecraft.getInstance().setScreen(new SeasonHUDScreen(seasonScreen));
+    }
+
 }
