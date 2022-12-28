@@ -50,7 +50,6 @@ public class CurrentSeason {
         return SeasonHelper.getSeasonState(Objects.requireNonNull(mc.level)).getSeason().name().toLowerCase();
     }
 
-
     //Get the current date of the season
     public static int getDate() {
         Minecraft mc = Minecraft.getInstance();
@@ -69,7 +68,6 @@ public class CurrentSeason {
             return subDate;
         }
         else return seasonDate;
-
     }
 
    //Localized name for the hud
@@ -85,8 +83,7 @@ public class CurrentSeason {
         } else if(Config.showDay.get()) {
             text.add(Component.translatable("desc.seasonhud.detailed", Component.translatable("desc.sereneseasons." + getCurrentSeasonNameLower()), getDate()));
         }
-        else
-            text.add(Component.translatable("desc.seasonhud.summary",Component.translatable("desc.sereneseasons."+ getCurrentSeasonNameLower())));
+        else text.add(Component.translatable("desc.seasonhud.summary",Component.translatable("desc.sereneseasons."+ getCurrentSeasonNameLower())));
 
         return text;
     }

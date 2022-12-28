@@ -20,11 +20,6 @@ public class ClientEvents{
     @Mod.EventBusSubscriber(modid = SeasonHUD.MODID, value = Dist.CLIENT)
     public static class ClientForgeEvents {
         @SubscribeEvent
-        public static void onKeyRegister(RegisterKeyMappingsEvent event) {
-            event.register(KeyBindings.seasonhudOptionsKeyMapping);
-        }
-
-        @SubscribeEvent
         public static void onKeyInput(InputEvent.Key Event) {
             if (KeyBindings.seasonhudOptionsKeyMapping.consumeClick()) {
                 SeasonHUDScreen.open();
@@ -57,6 +52,5 @@ public class ClientEvents{
         public static void onKeyRegister(RegisterKeyMappingsEvent event){
             event.register(KeyBindings.seasonhudOptionsKeyMapping);
         }
-
     }
 }
