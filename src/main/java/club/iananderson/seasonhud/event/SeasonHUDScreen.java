@@ -8,6 +8,7 @@ import net.minecraft.client.gui.components.Button;
 import net.minecraft.client.gui.components.CycleButton;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.network.chat.Component;
+import org.jetbrains.annotations.NotNull;
 
 import static club.iananderson.seasonhud.config.Config.*;
 
@@ -37,10 +38,11 @@ public class SeasonHUDScreen extends Screen{
     }
 
     public int getGuiScale(){
-        return (int) minecraft.getWindow().getGuiScale();
+        Minecraft mc = Minecraft.getInstance();
+        return (int) mc.getWindow().getGuiScale();
     }
 
-    public void render(PoseStack stack, int mouseX, int mouseY, float partialTicks){
+    public void render(@NotNull PoseStack stack, int mouseX, int mouseY, float partialTicks){
         this.renderDirtBackground(0);
         super.render(stack, mouseX, mouseY, partialTicks);
         drawCenteredString(stack, font, title, this.width / 2, PADDING, 16777215);
@@ -48,6 +50,7 @@ public class SeasonHUDScreen extends Screen{
 
     public void init() {
         super.init();
+        Minecraft mc = Minecraft.getInstance();
         int BUTTON_START_X = (this.width/2) - BUTTON_WIDTH_FULL+PADDING;
         //Buttons
         CycleButton<Boolean> showDayButton = CycleButton.onOffBuilder(showDay.get())
@@ -64,13 +67,16 @@ public class SeasonHUDScreen extends Screen{
                     Config.setShowSubSeason(Off);
                 });
 
+
+        //todo: Issue here with 1.19.2. Look for alternative
+
         Button doneButton = Button.builder(Component.translatable("gui.done"), b -> {
-            this.minecraft.options.save();
-            this.minecraft.setScreen(this.lastScreen);
+            mc.options.save();
+            mc.setScreen(this.lastScreen);
         }).bounds(this.width / 2 + PADDING, this.height - MENU_PADDING_HALF, BUTTON_WIDTH_HALF, BUTTON_HEIGHT).build();
 
         Button cancelButton = Button.builder(Component.translatable("gui.cancel"), b -> {
-            this.minecraft.setScreen(this.lastScreen);
+            mc.setScreen(this.lastScreen);
         }).bounds(this.width / 2 - (PADDING + BUTTON_WIDTH_HALF), this.height - MENU_PADDING_HALF, BUTTON_WIDTH_HALF, BUTTON_HEIGHT).build();
 
         addRenderableWidget(showDayButton);
