@@ -54,15 +54,15 @@ public class SeasonHUDScreen extends Screen{
         //Buttons
 
         CycleButton<Boolean> showDayButton = CycleButton.onOffBuilder(showDay.get())
-            .create(BUTTON_START_X, BUTTON_START_Y, BUTTON_WIDTH_FULL, BUTTON_HEIGHT,
-            Component.translatable("menu.seasonhud.button.showDay"),
-            (b, Off) -> Config.setShowDay(Off));
+                .create(BUTTON_START_X, BUTTON_START_Y, BUTTON_WIDTH_FULL, BUTTON_HEIGHT,
+                        Component.translatable("menu.seasonhud.button.showDay"),
+                        (b, Off) -> Config.setShowDay(Off));
 
 
         CycleButton<Boolean> showSubSeasonButton = CycleButton.onOffBuilder(showSubSeason.get())
-            .create(BUTTON_START_X, (BUTTON_START_Y + y_OFFSET), BUTTON_WIDTH_FULL, BUTTON_HEIGHT,
-            Component.translatable("menu.seasonhud.button.showSubSeason"),
-            (b, Off) -> Config.setShowSubSeason(Off));
+                .create(BUTTON_START_X, (BUTTON_START_Y + y_OFFSET), BUTTON_WIDTH_FULL, BUTTON_HEIGHT,
+                        Component.translatable("menu.seasonhud.button.showSubSeason"),
+                        (b, Off) -> Config.setShowSubSeason(Off));
 
         ExtendedButton doneButton = new ExtendedButton((this.width/2 + PADDING), (this.height - MENU_PADDING_HALF), BUTTON_WIDTH_HALF, BUTTON_HEIGHT, Component.translatable("gui.done"), b -> {
             mc.options.save();
