@@ -70,17 +70,17 @@ public class CurrentSeason {
         else return seasonDate;
     }
 
-   //Localized name for the hud
+    //Localized name for the hud
     public static ArrayList<Component> getSeasonName() {
         ArrayList<Component> text = new ArrayList<>();
         if (supportedLanguages().contains(getCurrentLocale())) {
             if (Config.showDay.get()) {
-                  text.add(Component.translatable("desc.seasonhud.detailed", Component.translatable("desc.seasonhud." + getSeasonStateLower()), getDate()));
-                }
-            else {
-                text.add(Component.translatable("desc.seasonhud.summary", Component.translatable("desc.seasonhud." + getSeasonStateLower())));
+                text.add(Component.translatable("desc.seasonhud.detailed", Component.translatable("desc.seasonhud." + getSeasonStateLower()), getDate()));
             }
-        } else if(Config.showDay.get()) {
+            else text.add(Component.translatable("desc.seasonhud.summary", Component.translatable("desc.seasonhud." + getSeasonStateLower())));
+        }
+
+        else if(Config.showDay.get()) {
             text.add(Component.translatable("desc.seasonhud.detailed", Component.translatable("desc.sereneseasons." + getCurrentSeasonNameLower()), getDate()));
         }
         else text.add(Component.translatable("desc.seasonhud.summary",Component.translatable("desc.sereneseasons."+ getCurrentSeasonNameLower())));

@@ -8,6 +8,7 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraftforge.client.gui.overlay.IGuiOverlay;
 
 
+import static club.iananderson.seasonhud.config.Config.enableMod;
 import static club.iananderson.seasonhud.data.CurrentSeason.*;
 import static club.iananderson.seasonhud.client.minimaps.FTBChunks.ftbChunksLoaded;
 import static club.iananderson.seasonhud.client.minimaps.JourneyMap.journeymapLoaded;
@@ -23,25 +24,26 @@ public class SeasonHUDOverlay {
         int offsetDim = 5;
 
         ResourceLocation SEASON;
+
+        //Tropical season haves no main season, convert here.
         if (isTropicalSeason()){
-            //Tropical season haves no main season, convert here.
             String season = getSeasonFileName();
             season = season.substring(season.length() - 3);
 
             SEASON = new ResourceLocation(SeasonHUD.MODID,
                     "textures/season/" + season + ".png");
-        } else {
+        }
+        else {
             SEASON = new ResourceLocation(SeasonHUD.MODID,
                     "textures/season/" + getSeasonFileName() + ".png");
         }
 
-
-        if (!minimapLoaded()&!ftbChunksLoaded()&!journeymapLoaded()) {
+        if (!minimapLoaded() && !ftbChunksLoaded() && !journeymapLoaded() && enableMod.get()) {
             seasonStack.pushPose();
             seasonStack.scale(1F, 1F, 1F);
 
             //Text
-            ForgeGui.getFont().draw(seasonStack, getSeasonName().get(0), (float) (x + iconDim + offsetDim + 2), (float) (y + offsetDim + (.12 * iconDim)), 0xffffffff);
+            ForgeGui.getFont().drawShadow(seasonStack, getSeasonName().get(0), (float) (x + iconDim + offsetDim + 2), (float) (y + offsetDim + (.12 * iconDim)), 0xffffffff);
 
             //Icon
             RenderSystem.setShader(GameRenderer::getPositionTexShader);
@@ -51,5 +53,5 @@ public class SeasonHUDOverlay {
             seasonStack.popPose();
         }
     };
-    
+
 }
