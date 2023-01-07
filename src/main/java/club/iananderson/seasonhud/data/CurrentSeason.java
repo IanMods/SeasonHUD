@@ -77,10 +77,10 @@ public class CurrentSeason {
             if (Config.showDay.get()) {
                   text.add(Component.translatable("desc.seasonhud.detailed", Component.translatable("desc.seasonhud." + getSeasonStateLower()), getDate()));
                 }
-            else {
-                text.add(Component.translatable("desc.seasonhud.summary", Component.translatable("desc.seasonhud." + getSeasonStateLower())));
-            }
-        } else if(Config.showDay.get()) {
+            else text.add(Component.translatable("desc.seasonhud.summary", Component.translatable("desc.seasonhud." + getSeasonStateLower())));
+        }
+
+        else if(Config.showDay.get()) {
             text.add(Component.translatable("desc.seasonhud.detailed", Component.translatable("desc.sereneseasons." + getCurrentSeasonNameLower()), getDate()));
         }
         else text.add(Component.translatable("desc.seasonhud.summary",Component.translatable("desc.sereneseasons."+ getCurrentSeasonNameLower())));

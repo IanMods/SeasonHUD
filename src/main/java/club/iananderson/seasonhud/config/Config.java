@@ -13,6 +13,7 @@ public class Config {
         setupConfig(BUILDER);
         GENERAL_SPEC = BUILDER.build();
     }
+    public static ForgeConfigSpec.BooleanValue enableMod;
     public static ForgeConfigSpec.BooleanValue showSubSeason;
     public static ForgeConfigSpec.BooleanValue showDay;
 
@@ -20,6 +21,10 @@ public class Config {
     private static void setupConfig(ForgeConfigSpec.Builder BUILDER){
         BUILDER.push("Configs for SeasonHUD");
         BUILDER.push("HUD:");
+
+        enableMod = BUILDER
+                .comment("Enable the mod? \n (true/false)")
+                .define("enable_mod",true);
 
         showSubSeason = BUILDER
                 .comment("Show sub-season (i.e. Early Winter, Late Autumn) instead of basic season? \n (true/false)")
@@ -40,4 +45,7 @@ public class Config {
         Config.showDay.set(showDay);
     }
 
+    public static void setEnableMod(boolean enableMod) {
+        Config.enableMod.set(enableMod);
+    }
 }
