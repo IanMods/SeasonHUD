@@ -2,13 +2,14 @@ package club.iananderson.seasonhud.client;
 
 import club.iananderson.seasonhud.SeasonHUD;
 import com.mojang.blaze3d.systems.RenderSystem;
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiComponent;
 import net.minecraft.client.renderer.GameRenderer;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraftforge.client.gui.overlay.IGuiOverlay;
 
 
-import static club.iananderson.seasonhud.config.Config.enableMod;
+import static club.iananderson.seasonhud.config.Config.*;
 import static club.iananderson.seasonhud.data.CurrentSeason.*;
 import static club.iananderson.seasonhud.client.minimaps.FTBChunks.ftbChunksLoaded;
 import static club.iananderson.seasonhud.client.minimaps.JourneyMap.journeymapLoaded;
@@ -17,9 +18,11 @@ import static club.iananderson.seasonhud.client.minimaps.XaeroMinimap.minimapLoa
 //HUD w/ no minimap installed
 public class SeasonHUDOverlay {
     public static final IGuiOverlay HUD_SEASON = (ForgeGui, seasonStack, partialTick, screenWidth, screenHeight) -> {
+        Minecraft mc = Minecraft.getInstance();
+        float guiSize = (float) mc.getWindow().getGuiScale();
 
-        int x = 0;
-        int y = 0;
+        int x = (int) (hudX.get()/guiSize);
+        int y = (int) ((hudY.get())/guiSize);
         int iconDim = 10;
         int offsetDim = 5;
 
