@@ -1,5 +1,6 @@
 package club.iananderson.seasonhud.config;
 
+import net.minecraft.network.chat.Component;
 import net.minecraftforge.common.ForgeConfigSpec;
 
 public class Config {
@@ -13,13 +14,7 @@ public class Config {
         setupConfig(BUILDER);
         GENERAL_SPEC = BUILDER.build();
     }
-    public enum Location{
-        TOP_LEFT,
-        TOP_CENTER,
-        TOP_RIGHT,
-        BOTTOM_LEFT,
-        BOTTOM_RIGHT
-    }
+
     public static ForgeConfigSpec.BooleanValue enableMod;
     public static ForgeConfigSpec.ConfigValue<Integer> hudX;
     public static ForgeConfigSpec.ConfigValue<Integer> hudY;
@@ -70,10 +65,10 @@ public class Config {
         Config.hudX.set(hudX);
     }
     public static void setHudY(int hudY) {
-        Config.hudX.set(hudY);
+        Config.hudY.set(hudY);
     }
-    public static void setHudLocation(Location hudLocation) {
-        Config.hudLocation.set(hudLocation);
+    public static void setHudLocation(Location location) {
+        Config.hudLocation.set(location);
     }
 
 

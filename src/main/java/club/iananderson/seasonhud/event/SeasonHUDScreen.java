@@ -1,9 +1,12 @@
 package club.iananderson.seasonhud.event;
 
 
+import club.iananderson.seasonhud.SeasonHUD;
 import club.iananderson.seasonhud.config.Config;
+import club.iananderson.seasonhud.config.Location;
 import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.components.Button;
 import net.minecraft.client.gui.components.CycleButton;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.network.chat.Component;
@@ -50,6 +53,8 @@ public class SeasonHUDScreen extends Screen{
         int BUTTON_START_Y = MENU_PADDING_FULL;
         int y_OFFSET = BUTTON_HEIGHT + PADDING;
 
+        Location defaultLocation = hudLocation.get();
+
         //Buttons
 
         CycleButton<Boolean> enableModButton = CycleButton.onOffBuilder(enableMod.get())
@@ -67,6 +72,13 @@ public class SeasonHUDScreen extends Screen{
                         Component.translatable("menu.seasonhud.button.showSubSeason"),
                         (b, Off) -> Config.setShowSubSeason(Off));
 
+        CycleButton<Location> hudLocationButton = CycleButton.builder(Location::getLocationName)
+                .withValues(Location.TOP_LEFT,Location.TOP_CENTER,Location.TOP_RIGHT,Location.BOTTOM_LEFT,Location.BOTTOM_RIGHT)
+                .withInitialValue(defaultLocation)
+                .create(BUTTON_START_X_RIGHT, (BUTTON_START_Y + y_OFFSET), BUTTON_WIDTH_HALF, BUTTON_HEIGHT,
+                        Component.translatable("menu.seasonhud.button.hudLocation"),
+                        (b, location) -> Config.setHudLocation(location));
+
         ExtendedButton doneButton = new ExtendedButton((this.width/2 - (BUTTON_WIDTH_FULL/2)), (this.height - BUTTON_HEIGHT - PADDING), BUTTON_WIDTH_FULL, BUTTON_HEIGHT, Component.translatable("gui.done"), b -> {
             mc.options.save();
             mc.setScreen(this.lastScreen);
@@ -77,6 +89,7 @@ public class SeasonHUDScreen extends Screen{
         addRenderableWidget(enableModButton);
         addRenderableWidget(showDayButton);
         addRenderableWidget(showSubSeasonButton);
+        addRenderableWidget(hudLocationButton);
 
         addRenderableWidget(doneButton);
         //addRenderableWidget(cancelButton);
