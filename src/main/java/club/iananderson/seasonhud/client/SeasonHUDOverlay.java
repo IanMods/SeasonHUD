@@ -1,13 +1,17 @@
 package club.iananderson.seasonhud.client;
 
 import club.iananderson.seasonhud.SeasonHUD;
+import club.iananderson.seasonhud.config.Config;
 import com.mojang.blaze3d.systems.RenderSystem;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiComponent;
 import net.minecraft.client.renderer.GameRenderer;
+import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraftforge.client.gui.overlay.IGuiOverlay;
 
+
+import java.util.ArrayList;
 
 import static club.iananderson.seasonhud.config.Config.*;
 import static club.iananderson.seasonhud.data.CurrentSeason.*;
@@ -21,10 +25,18 @@ public class SeasonHUDOverlay {
         Minecraft mc = Minecraft.getInstance();
         float guiSize = (float) mc.getWindow().getGuiScale();
 
-        int x = (int) (hudX.get()/guiSize);
-        int y = (int) ((hudY.get())/guiSize);
-        int iconDim = 10;
-        int offsetDim = 5;
+        int xOffset = (int) (hudX.get()/guiSize);
+        int yOffset = (int) ((hudY.get())/guiSize);
+        int x = 1;
+        int y = 1;
+
+        int stringHeight = (mc.font.lineHeight)+1;
+        int iconDim = stringHeight+3;
+        int offsetDim = 2;
+
+        ArrayList<Component> seasonName = getSeasonName();
+        int stringWidth = mc.font.width(seasonName.get(0)) + iconDim + offsetDim;// might need to take offsetDim out
+
 
 
         ResourceLocation SEASON;
@@ -43,19 +55,45 @@ public class SeasonHUDOverlay {
         }
 
         if (!minimapLoaded() && !ftbChunksLoaded() && !journeymapLoaded() && enableMod.get()) {
+            Location hudLoc = hudLocation.get();
+            switch (hudLoc) {
+                case TOP_LEFT -> {
+                    x = 0;
+                    y = 0;
+                }
+                case TOP_CENTER -> {
+                    x = screenWidth / 2 - stringWidth / 2;
+                    y = 0;
+                }
+                case TOP_RIGHT -> {
+                    x = screenWidth - stringWidth;
+                    y = 0;
+                }
+                case BOTTOM_LEFT -> {
+                    x = 0;
+                    y = screenHeight - stringHeight;
+                }
+                case BOTTOM_RIGHT -> {
+                    x = screenWidth - stringWidth;
+                    y = screenHeight - stringHeight;
+                }
+            }
+
             seasonStack.pushPose();
             seasonStack.scale(1F, 1F, 1F);
 
             //Text
-            float textX = (x + iconDim + offsetDim + 2);
-            float textY = (float)(y + offsetDim + (.12 * iconDim));
-            ForgeGui.getFont().drawShadow(seasonStack, getSeasonName().get(0),textX, textY, 0xffffffff);
+            int iconX = x + xOffset + offsetDim;
+            int iconY = y + yOffset + offsetDim;
+            float textX = (iconX + iconDim+offsetDim);
+            float textY =(iconY+(iconDim-stringHeight)); //double check this is exact
+            ForgeGui.getFont().drawShadow(seasonStack, seasonName.get(0),textX, textY, 0xffffffff);
 
             //Icon
             RenderSystem.setShader(GameRenderer::getPositionTexShader);
             RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
             RenderSystem.setShaderTexture(0, SEASON);
-            GuiComponent.blit(seasonStack, x + offsetDim, y + offsetDim, 0, 0, iconDim, iconDim, iconDim, iconDim);
+            GuiComponent.blit(seasonStack, iconX, iconY, 0, 0, iconDim, iconDim, iconDim, iconDim);
             seasonStack.popPose();
         }
     };
