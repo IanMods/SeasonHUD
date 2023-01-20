@@ -39,7 +39,8 @@ public class Calendar {
 
     private static int findCalendar(Inventory inv, Item item) {
         for(int i = 0; i < inv.items.size(); ++i) {
-            if (!inv.items.get(i).isEmpty() && (inv.items.get(i).is(item) || inv.offhand.get(0).is(item))) {
+            if ((!inv.items.get(i).isEmpty() && inv.items.get(i).is(item))
+                    || (!inv.offhand.get(0).isEmpty() && inv.offhand.get(0).is(item))) {
                 return i;
             }
         }
