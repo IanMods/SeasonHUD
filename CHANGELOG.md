@@ -1,12 +1,8 @@
 # Changelog
 
----
-
 All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
-
----
 
 ## [1.3.3] - 2023-01-11
 
@@ -52,9 +48,3 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 - Due to some changes from 1.19.2 -> 1.19.3, I had to change to separate builds for each, rather than a unified version 
 - Fixed an issue with tropical season dates. Should be accurate now.
-
-
----
-
-[1.3.2]:https://github.com/olivierlacan/keep-a-changelog/compare/v1.0.0...v1.1.0
-[1.3.1]:https://github.com/olivierlacan/keep-a-changelog/compare/v1.0.0...v1.1.0
