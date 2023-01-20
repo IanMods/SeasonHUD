@@ -1,7 +1,6 @@
 package club.iananderson.seasonhud.client;
 
 import club.iananderson.seasonhud.SeasonHUD;
-import club.iananderson.seasonhud.config.Config;
 import club.iananderson.seasonhud.config.Location;
 import com.mojang.blaze3d.systems.RenderSystem;
 import net.minecraft.client.Minecraft;
@@ -11,14 +10,14 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraftforge.client.gui.overlay.IGuiOverlay;
 
-
 import java.util.ArrayList;
 
-import static club.iananderson.seasonhud.config.Config.*;
-import static club.iananderson.seasonhud.data.CurrentSeason.*;
+import static club.iananderson.seasonhud.client.Calendar.calendar;
 import static club.iananderson.seasonhud.client.minimaps.FTBChunks.ftbChunksLoaded;
 import static club.iananderson.seasonhud.client.minimaps.JourneyMap.journeymapLoaded;
 import static club.iananderson.seasonhud.client.minimaps.XaeroMinimap.minimapLoaded;
+import static club.iananderson.seasonhud.config.Config.*;
+import static club.iananderson.seasonhud.data.CurrentSeason.*;
 
 //HUD w/ no minimap installed
 public class SeasonHUDOverlay {
@@ -55,7 +54,7 @@ public class SeasonHUDOverlay {
                     "textures/season/" + getSeasonFileName() + ".png");
         }
 
-        if (!minimapLoaded() && !ftbChunksLoaded() && !journeymapLoaded() && enableMod.get()) {
+        if (!minimapLoaded() && !ftbChunksLoaded() && !journeymapLoaded() && enableMod.get() && calendar()) {
             Location hudLoc = hudLocation.get();
             switch (hudLoc) {
                 case TOP_LEFT -> {
