@@ -4,9 +4,11 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
-## [1.3.3] - 2023-01-11
+## [1.3.4] - 2023-01-11
 
 ### Added
+
+- Added an option to show the HUD only if the player has the Calendar item in their inventory
 
 ## [1.3.3] - 2023-01-11
 
