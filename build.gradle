@@ -107,15 +107,15 @@ dependencies {
     implementation "curse.maven:serene-seasons-291874:4166546"
     compileOnly "curse.maven:serene-seasons-291874:4166547" //api
 
-    /Curios/
-    implementation "curse.maven:curios-309927:4325469"
-    implementation "curse.maven:curios-309927:4325470"
-    compileOnly "curse.maven:curios-309927:4325471" //api
+//    /Curios/
+//    implementation "curse.maven:curios-309927:4325469"
+//    implementation "curse.maven:curios-309927:4325470"
+//    compileOnly "curse.maven:curios-309927:4325471" //api
 
     /Xaero's Minimap/
-//    compileOnly fg.deobf("curse.maven:xaeros-minimap-263420:4181110")
+    compileOnly fg.deobf("curse.maven:xaeros-minimap-263420:4181110")
 
-    implementation fg.deobf("curse.maven:xaeros-minimap-263420:4181110")
+//    implementation fg.deobf("curse.maven:xaeros-minimap-263420:4181110")
 
 
     /FTB Chunks/

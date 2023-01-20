@@ -23,10 +23,6 @@ import static club.iananderson.seasonhud.client.Calendar.calendar;
 import static club.iananderson.seasonhud.config.Config.enableMod;
 import static club.iananderson.seasonhud.data.CurrentSeason.*;
 
-/* Todo
-    * Switch names over to translatable ones
- */
-
 public class FTBChunks {
     public static boolean ftbChunksLoaded() {
         return ModList.get().isLoaded("ftbchunks");
