@@ -15,6 +15,7 @@ public class Config {
     }
 
     public static ForgeConfigSpec.BooleanValue enableMod;
+    public static ForgeConfigSpec.BooleanValue needCalendar;
     public static ForgeConfigSpec.ConfigValue<Integer> hudX;
     public static ForgeConfigSpec.ConfigValue<Integer> hudY;
     public static ForgeConfigSpec.ConfigValue<Location> hudLocation;
@@ -29,6 +30,10 @@ public class Config {
         enableMod = BUILDER
                 .comment("Enable the mod? \n (true/false)")
                 .define("enable_mod",true);
+
+        needCalendar = BUILDER
+                .comment("Require the Calender item to be in the players inventory to show the HUD? \n (true/false)")
+                .define("need_calendar",false);
 
         hudX = BUILDER
                 .comment("The horizontal offset of the HUD when no minimap is installed (in pixels)\n Default is 0")
@@ -73,5 +78,8 @@ public class Config {
 
     public static void setEnableMod(boolean enableMod) {
         Config.enableMod.set(enableMod);
+    }
+    public static void setNeedCalendar(boolean needCalendar) {
+        Config.needCalendar.set(needCalendar);
     }
 }

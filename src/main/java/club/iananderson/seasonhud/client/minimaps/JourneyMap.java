@@ -18,12 +18,13 @@ import net.minecraftforge.fml.ModList;
 
 import java.util.ArrayList;
 
+import static club.iananderson.seasonhud.client.Calendar.calendar;
 import static club.iananderson.seasonhud.config.Config.enableMod;
 import static club.iananderson.seasonhud.data.CurrentSeason.*;
 import static club.iananderson.seasonhud.SeasonHUD.MODID;
 
 /*Todo
-    * Need to switch names over to translatable ones
+ * Need to switch names over to translatable ones
  */
 
 public class JourneyMap {
@@ -33,7 +34,7 @@ public class JourneyMap {
     public static final IGuiOverlay JOURNEYMAP_SEASON = (ForgeGui, seasonStack, partialTick, scaledWidth, scaledHeight) -> {
         Minecraft mc = Minecraft.getInstance();
 
-        if (journeymapLoaded() && enableMod.get()) {
+        if (journeymapLoaded() && enableMod.get() && calendar()) {
             Theme.LabelSpec label = new Theme.LabelSpec();
             DisplayVars vars = UIManager.INSTANCE.getMiniMap().getDisplayVars();
 
@@ -122,16 +123,16 @@ public class JourneyMap {
 
                 //double labelIconX = textureX;
                 double labelIconX = (float)(textureX - totalRectWidth / 2.0 - (fontScale > 1.0 ? 0.0 : 0.5));
-                    //half the label width
+                //half the label width
                 double labelIconY = labelY+(labelHeight/2)-(iconDim/2.0);
-                    //moves the icon to  the vertical center of the label
+                //moves the icon to  the vertical center of the label
 
                 for (Component s : MINIMAP_TEXT_SEASON) {
                     DrawUtil.drawLabel(seasonStack, s.getString(), labelX, labelY, DrawUtil.HAlign.Center, DrawUtil.VAlign.Below, labelColor, labelAlpha, textColor, textAlpha, fontScale, fontShadow);
                     //No touchy. Season label offset by icon+padding
                 }
                 DrawUtil.drawRectangle(seasonStack,iconRectX-(2*labelPad),labelY,totalRectWidth-labelWidth,labelHeight,labelColor,labelAlpha);
-                    //Rectangle for the icon
+                //Rectangle for the icon
 
                 RenderSystem.setShader(GameRenderer::getPositionTexShader);
                 RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
