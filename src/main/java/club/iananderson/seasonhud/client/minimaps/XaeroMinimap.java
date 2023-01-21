@@ -26,7 +26,7 @@ import static xaero.common.settings.ModOptions.modMain;
 
 public class XaeroMinimap {
     public static boolean minimapLoaded(){
-        return ModList.get().isLoaded("xaerominimap");
+        return (ModList.get().isLoaded("xaerominimap") || ModList.get().isLoaded("xaerominimapfair"));
     }
 
     public static final IGuiOverlay XAERO_SEASON = (ForgeGui, seasonStack, partialTick, width, height) -> {
@@ -112,7 +112,7 @@ public class XaeroMinimap {
 
 
             if ((!modMain.getSettings().hideMinimapUnderScreen || mc.screen == null || mc.screen instanceof IScreenBase || mc.screen instanceof ChatScreen || mc.screen instanceof DeathScreen)
-            && (!modMain.getSettings().hideMinimapUnderF3 || !mc.options.renderDebug)) {
+                    && (!modMain.getSettings().hideMinimapUnderF3 || !mc.options.renderDebug)) {
                 seasonStack.pushPose();
 
                 seasonStack.scale(fontScale, fontScale, 1.0F);

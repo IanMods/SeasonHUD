@@ -4,6 +4,13 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
+## [1.3.5] - 2023-01-20
+
+### Added
+
+- Added support for Xaero's Minimap Fair-play
+
+
 ## [1.3.4] - 2023-01-19
 
 ### Added
@@ -42,11 +49,11 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ### Added
 
-- Added am in-game config screen and a keybind for it. 
+- Added am in-game config screen and a keybind for it.
   - Default key is 'H'
 
 
 ### Changed
 
-- Due to some changes from 1.19.2 -> 1.19.3, I had to change to separate builds for each, rather than a unified version 
+- Due to some changes from 1.19.2 -> 1.19.3, I had to change to separate builds for each, rather than a unified version
 - Fixed an issue with tropical season dates. Should be accurate now.
