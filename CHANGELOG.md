@@ -4,7 +4,16 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
+## [1.4.0] - 2023-01-30
+
+### Added
+
+- Added optional support for CuriosAPI
+  - If CuriosAPI is loaded, then the Calendar item from SereneSeason can be equipped in the "Charm" slot.
+  - If the "Need Calendar" option is enabled, then a Calendar in the "Charm" slot will meet the requirement
+
 ## [1.3.6] - 2023-01-21
+
 ### Changed
 - Some code cleanup
 
@@ -13,7 +22,6 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 ### Added
 
 - Added support for Xaero's Minimap Fair-play
-
 
 ## [1.3.4] - 2023-01-19
 
