@@ -1,14 +1,14 @@
 package club.iananderson.seasonhud.impl.curios;
 
-import net.minecraft.client.Minecraft;
 import net.minecraft.core.Direction;
 import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.capabilities.ICapabilityProvider;
 import net.minecraftforge.common.util.LazyOptional;
 import net.minecraftforge.fml.InterModComms;
-import net.minecraftforge.fml.ModList;
-import top.theillusivec4.curios.api.*;
+import top.theillusivec4.curios.api.CuriosCapability;
+import top.theillusivec4.curios.api.SlotTypeMessage;
+import top.theillusivec4.curios.api.SlotTypePreset;
 import top.theillusivec4.curios.api.type.capability.ICurio;
 import top.theillusivec4.curios.api.type.capability.ICurioItem;
 
@@ -19,9 +19,6 @@ import static club.iananderson.seasonhud.impl.sereneseasons.Calendar.calendar;
 
 public class CuriosCalendar implements ICurioItem {
 
-    public static boolean curiosLoaded() {
-        return ModList.get().isLoaded("curios");
-    }
 
     public static void registerSlots() {
         InterModComms.sendTo("curios", SlotTypeMessage.REGISTER_TYPE, () -> SlotTypePreset.CHARM.getMessageBuilder().build());  //new SlotTypeMessage.Builder("calendar").build());
@@ -48,23 +45,5 @@ public class CuriosCalendar implements ICurioItem {
                 return CuriosCapability.ITEM.orEmpty(cap, curioOpt);
             }
         };
-    }
-
-    public static boolean isInCharmSlot() {
-        if (curiosLoaded()) {
-            Minecraft mc = Minecraft.getInstance();
-
-            return CuriosApi.getCuriosHelper().getEquippedCurios(mc.player).map(curios -> {
-
-                for (int i = 0; i < curios.getSlots(); i++) {
-                    ItemStack stack = curios.getStackInSlot(i);
-
-                    if (stack.getItem() == calendar) {
-                        return true;
-                    }
-                }
-                return false;
-            }).orElse(false);
-        } else return false;
     }
 }

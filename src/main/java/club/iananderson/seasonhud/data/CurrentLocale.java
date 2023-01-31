@@ -4,7 +4,6 @@ import net.minecraft.client.Minecraft;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Locale;
 
 public class CurrentLocale {
     //Currently implemented languages
