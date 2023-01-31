@@ -4,7 +4,7 @@ plugins {
 }
 
 group = 'club.iananderson'
-version = "1.3.5"
+version = "1.4.0"
 
 java {
     archivesBaseName = 'seasonhud-1.19.2'
@@ -94,11 +94,13 @@ repositories {
                 includeGroup "curse.maven"
             }
         }
-
+        maven {
+            url = "https://maven.theillusivec4.top/"
+        }
     }
     flatDir {
-         dir 'libs'
-     }
+        dir 'libs'
+    }
 }
 
 dependencies {
@@ -109,8 +111,11 @@ dependencies {
     /Serene Seasons/
     implementation "curse.maven:serene-seasons-291874:4037228"
     implementation "curse.maven:serene-seasons-291874:4037230"
-    compileOnly "curse.maven:serene-seasons-291874:4037231"
+    //compileOnly "curse.maven:serene-seasons-291874:4037231"
 
+    /Curios/
+    //runtimeOnly fg.deobf("top.theillusivec4.curios:curios-forge:1.19.2-5.1.1.0")
+    compileOnly fg.deobf("top.theillusivec4.curios:curios-forge:1.19.2-5.1.1.0:api")
 
     /Xaero's Minimap/
     compileOnly fg.deobf("curse.maven:xaeros-minimap-263420:4075405")

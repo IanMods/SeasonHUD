@@ -1,4 +1,4 @@
-package club.iananderson.seasonhud.data;
+package club.iananderson.seasonhud.impl.sereneseasons;
 
 import club.iananderson.seasonhud.config.Config;
 import net.minecraft.client.Minecraft;
@@ -70,13 +70,13 @@ public class CurrentSeason {
         else return seasonDate;
     }
 
-    //Localized name for the hud
+   //Localized name for the hud
     public static ArrayList<Component> getSeasonName() {
         ArrayList<Component> text = new ArrayList<>();
         if (supportedLanguages().contains(getCurrentLocale())) {
             if (Config.showDay.get()) {
-                text.add(Component.translatable("desc.seasonhud.detailed", Component.translatable("desc.seasonhud." + getSeasonStateLower()), getDate()));
-            }
+                  text.add(Component.translatable("desc.seasonhud.detailed", Component.translatable("desc.seasonhud." + getSeasonStateLower()), getDate()));
+                }
             else text.add(Component.translatable("desc.seasonhud.summary", Component.translatable("desc.seasonhud." + getSeasonStateLower())));
         }
 

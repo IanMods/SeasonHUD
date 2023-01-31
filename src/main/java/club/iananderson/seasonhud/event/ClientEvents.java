@@ -1,12 +1,11 @@
 package club.iananderson.seasonhud.event;
 
 import club.iananderson.seasonhud.SeasonHUD;
-import club.iananderson.seasonhud.client.*;
+import club.iananderson.seasonhud.client.KeyBindings;
+import club.iananderson.seasonhud.client.SeasonHUDOverlay;
 import club.iananderson.seasonhud.client.minimaps.FTBChunks;
 import club.iananderson.seasonhud.client.minimaps.JourneyMap;
 import club.iananderson.seasonhud.client.minimaps.XaeroMinimap;
-import net.minecraft.client.Minecraft;
-import net.minecraft.network.chat.Component;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.client.event.InputEvent;
 import net.minecraftforge.client.event.RegisterGuiOverlaysEvent;

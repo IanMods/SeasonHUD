@@ -18,9 +18,9 @@ import xaero.common.gui.IScreenBase;
 
 import java.util.ArrayList;
 
-import static club.iananderson.seasonhud.client.Calendar.calendar;
+import static club.iananderson.seasonhud.impl.sereneseasons.Calendar.calendar;
 import static club.iananderson.seasonhud.config.Config.enableMod;
-import static club.iananderson.seasonhud.data.CurrentSeason.*;
+import static club.iananderson.seasonhud.impl.sereneseasons.CurrentSeason.*;
 import static xaero.common.settings.ModOptions.modMain;
 
 
@@ -92,7 +92,6 @@ public class XaeroMinimap {
             float stringWidth = mc.font.width(underText.get(0));
             float stringHeight = (mc.font.lineHeight)+1;
 
-
             int iconDim = (int)stringHeight-1;
             int offsetDim = 1;
 
@@ -106,17 +105,13 @@ public class XaeroMinimap {
             float left = 6 + iconDim;
             float right = (int)(mapSize+2+padding-stringWidth);
 
-
             float stringX = scaledX+(align == 0 ? center : (align == 1 ? left : right));
             float stringY = scaledY+(under ? mapSize+(2*padding) : -9)+(trueCount * stringHeight * (under ? 1 : -1));
-
 
             if ((!modMain.getSettings().hideMinimapUnderScreen || mc.screen == null || mc.screen instanceof IScreenBase || mc.screen instanceof ChatScreen || mc.screen instanceof DeathScreen)
                     && (!modMain.getSettings().hideMinimapUnderF3 || !mc.options.renderDebug)) {
                 seasonStack.pushPose();
-
                 seasonStack.scale(fontScale, fontScale, 1.0F);
-
 
                 //Font
                 for (Component s : underText) {
@@ -124,6 +119,8 @@ public class XaeroMinimap {
                 }
 
                 underText.clear();
+
+                //Icon
 
                 RenderSystem.setShader(GameRenderer::getPositionTexShader);
                 RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
