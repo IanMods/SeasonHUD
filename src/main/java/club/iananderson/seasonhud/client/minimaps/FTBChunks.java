@@ -7,6 +7,9 @@ import dev.ftb.mods.ftbchunks.client.FTBChunksClientConfig;
 import dev.ftb.mods.ftbchunks.client.MinimapPosition;
 import dev.ftb.mods.ftbchunks.client.map.MapDimension;
 import dev.ftb.mods.ftbchunks.client.map.MapManager;
+import dev.ftb.mods.ftbchunks.data.ClaimedChunk;
+import dev.ftb.mods.ftbchunks.data.ClaimedChunkManager;
+import dev.ftb.mods.ftblibrary.math.ChunkDimPos;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiComponent;
 import net.minecraft.client.renderer.GameRenderer;
@@ -19,8 +22,8 @@ import net.minecraftforge.fml.ModList;
 import java.util.ArrayList;
 import java.util.List;
 
-import static club.iananderson.seasonhud.impl.sereneseasons.Calendar.calendar;
 import static club.iananderson.seasonhud.config.Config.enableMod;
+import static club.iananderson.seasonhud.impl.sereneseasons.Calendar.calendar;
 import static club.iananderson.seasonhud.impl.sereneseasons.CurrentSeason.*;
 
 public class FTBChunks {
@@ -33,10 +36,16 @@ public class FTBChunks {
         Minecraft mc = Minecraft.getInstance();
         if (ftbChunksLoaded() && enableMod.get() && calendar()) {
             MINIMAP_TEXT_LIST.clear();
+            MapDimension dim = MapDimension.getCurrent();
+            ClaimedChunkManager chunkManager = dev.ftb.mods.ftbchunks.data.FTBChunksAPI.getManager();
 
             boolean biome = FTBChunksClientConfig.MINIMAP_BIOME.get();
             boolean xyz = FTBChunksClientConfig.MINIMAP_XYZ.get();
             boolean claimed = FTBChunksClientConfig.MINIMAP_ZONE.get();
+
+            ChunkDimPos chunk = new ChunkDimPos(mc.player);
+            ClaimedChunk playerChunk = chunkManager.getChunk(chunk);
+
 
             int i = 0;
 
@@ -46,9 +55,11 @@ public class FTBChunks {
             if(xyz){
                 i++;
             }
-            if(claimed){
+
+            if(claimed && (playerChunk != null)) {
                 i++;
             }
+
 
             //Season
             MINIMAP_TEXT_LIST.add(getSeasonName().get(0));
@@ -72,7 +83,7 @@ public class FTBChunks {
                 double guiScale = mc.getWindow().getGuiScale();
                 int ww = mc.getWindow().getGuiScaledWidth();
                 int wh = mc.getWindow().getGuiScaledHeight();
-                MapDimension dim = MapDimension.getCurrent();
+
                 if (dim != null) {
                     if (dim.dimension != mc.level.dimension()) {
                         MapDimension.updateCurrent();
