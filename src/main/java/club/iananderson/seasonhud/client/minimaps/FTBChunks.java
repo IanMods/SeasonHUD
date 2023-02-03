@@ -22,8 +22,8 @@ import net.minecraftforge.fml.ModList;
 import java.util.ArrayList;
 import java.util.List;
 
-import static club.iananderson.seasonhud.impl.sereneseasons.Calendar.calendar;
 import static club.iananderson.seasonhud.config.Config.enableMod;
+import static club.iananderson.seasonhud.impl.sereneseasons.Calendar.calendar;
 import static club.iananderson.seasonhud.impl.sereneseasons.CurrentSeason.*;
 
 public class FTBChunks {
@@ -60,6 +60,7 @@ public class FTBChunks {
                 i++;
             }
 
+
             //Season
             MINIMAP_TEXT_LIST.add(getSeasonName().get(0));
 
@@ -82,6 +83,7 @@ public class FTBChunks {
                 double guiScale = mc.getWindow().getGuiScale();
                 int ww = mc.getWindow().getGuiScaledWidth();
                 int wh = mc.getWindow().getGuiScaledHeight();
+
                 if (dim != null) {
                     if (dim.dimension != mc.level.dimension()) {
                         MapDimension.updateCurrent();
@@ -121,7 +123,7 @@ public class FTBChunks {
                             RenderSystem.setShaderTexture(0, SEASON);
                             GuiComponent.blit(seasonStack,(int)((-bsw) / 2.0F)-iconDim, (i * 11), 0, 0, iconDim, iconDim, iconDim, iconDim);
                         }
-                            seasonStack.popPose();
+                        seasonStack.popPose();
                     }
                 }
             }

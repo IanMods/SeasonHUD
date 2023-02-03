@@ -25,9 +25,9 @@ import top.theillusivec4.curios.api.SlotTypeMessage;
 
 // The value here should match an entry in the META-INF/mods.toml file
 @Mod(SeasonHUD.MODID)
-public class SeasonHUD{
+public class  SeasonHUD{
 
-    // Define mod id in an impl place for everything to reference
+    // Define mod id in a common place for everything to reference
     public static final String MODID = "seasonhud";
     // Directly reference a slf4j logger
     //private static final Logger LOGGER = LogUtils.getLogger();
@@ -49,7 +49,6 @@ public class SeasonHUD{
         modEventBus.addListener(this::enqueue);
         modEventBus.addListener(this::commonSetup);
 
-
         // Register the Deferred Register to the mod event bus so blocks get registered
         BLOCKS.register(modEventBus);
         // Register the Deferred Register to the mod event bus so items get registered
@@ -62,18 +61,17 @@ public class SeasonHUD{
         MinecraftForge.EVENT_BUS.register(this);
     }
     public void enqueue(InterModEnqueueEvent event) {
-            LOGGER.info("Talking to Curios");
-            InterModComms.sendTo("curios", SlotTypeMessage.REGISTER_TYPE, () -> new SlotTypeMessage.Builder("charm")
-                    .size(1)
-                    .build());
-        }
+        LOGGER.info("Talking to Curios");
+        InterModComms.sendTo("curios", SlotTypeMessage.REGISTER_TYPE, () -> new SlotTypeMessage.Builder("charm")
+                .size(1)
+                .build());
+    }
 
     private void commonSetup(final FMLCommonSetupEvent event) {
-        // Some impl setup code
+        // Some common setup code
         LOGGER.info("HELLO FROM COMMON SETUP");
         LOGGER.info("DIRT BLOCK >> {}", ForgeRegistries.BLOCKS.getKey(Blocks.DIRT));
     }
-
 
     // You can use SubscribeEvent and let the Event Bus discover methods to call
     @SubscribeEvent
