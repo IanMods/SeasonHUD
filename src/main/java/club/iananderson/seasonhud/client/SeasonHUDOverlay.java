@@ -12,11 +12,9 @@ import net.minecraftforge.client.gui.overlay.IGuiOverlay;
 
 import java.util.ArrayList;
 
-import static club.iananderson.seasonhud.impl.sereneseasons.Calendar.calendar;
-import static club.iananderson.seasonhud.client.minimaps.FTBChunks.ftbChunksLoaded;
-import static club.iananderson.seasonhud.client.minimaps.JourneyMap.journeymapLoaded;
-import static club.iananderson.seasonhud.client.minimaps.XaeroMinimap.minimapLoaded;
 import static club.iananderson.seasonhud.config.Config.*;
+import static club.iananderson.seasonhud.impl.minimaps.CurrentMinimap.noMinimap;
+import static club.iananderson.seasonhud.impl.sereneseasons.Calendar.calendar;
 import static club.iananderson.seasonhud.impl.sereneseasons.CurrentSeason.*;
 
 //HUD w/ no minimap installed
@@ -54,7 +52,7 @@ public class SeasonHUDOverlay {
                     "textures/season/" + getSeasonFileName() + ".png");
         }
 
-        if (!minimapLoaded() && !ftbChunksLoaded() && !journeymapLoaded() && enableMod.get() && calendar()) {
+        if (noMinimap() && enableMod.get() && calendar()) {
             Location hudLoc = hudLocation.get();
             switch (hudLoc) {
                 case TOP_LEFT -> {

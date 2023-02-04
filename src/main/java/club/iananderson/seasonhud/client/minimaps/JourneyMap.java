@@ -14,24 +14,19 @@ import net.minecraft.client.renderer.GameRenderer;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraftforge.client.gui.overlay.IGuiOverlay;
-import net.minecraftforge.fml.ModList;
 
 import java.util.ArrayList;
 
-import static club.iananderson.seasonhud.impl.sereneseasons.Calendar.calendar;
-import static club.iananderson.seasonhud.config.Config.enableMod;
-import static club.iananderson.seasonhud.impl.sereneseasons.CurrentSeason.*;
 import static club.iananderson.seasonhud.SeasonHUD.MODID;
+import static club.iananderson.seasonhud.impl.minimaps.CurrentMinimap.loadedMinimap;
+import static club.iananderson.seasonhud.impl.sereneseasons.CurrentSeason.*;
 
 
 public class JourneyMap {
-
-    public static boolean journeymapLoaded() {return ModList.get().isLoaded("journeymap");}
-
     public static final IGuiOverlay JOURNEYMAP_SEASON = (ForgeGui, seasonStack, partialTick, scaledWidth, scaledHeight) -> {
         Minecraft mc = Minecraft.getInstance();
 
-        if (journeymapLoaded() && enableMod.get() && calendar()) {
+        if (loadedMinimap("journeymap")) {
             Theme.LabelSpec label = new Theme.LabelSpec();
             DisplayVars vars = UIManager.INSTANCE.getMiniMap().getDisplayVars();
 
