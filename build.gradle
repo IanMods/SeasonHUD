@@ -4,7 +4,7 @@ plugins {
 }
 
 group = 'club.iananderson'
-version = "1.4.4"
+version = "1.4.5"
 
 java {
     archivesBaseName = 'seasonhud-1.19.2'
@@ -118,9 +118,9 @@ dependencies {
     compileOnly fg.deobf("top.theillusivec4.curios:curios-forge:1.19.2-5.1.1.0:api")
 
     /Xaero's Minimap/
-    compileOnly fg.deobf("curse.maven:xaeros-minimap-263420:4075405")
-    compileOnly fg.deobf("curse.maven:xaeros-minimap-fair-play-edition-263466:4135354")
-//    implementation fg.deobf("curse.maven:xaeros-minimap-263420:4075405")
+    compileOnly fg.deobf("curse.maven:xaeros-minimap-263420:4381124")
+//    compileOnly fg.deobf("curse.maven:xaeros-minimap-fair-play-edition-263466:4135354")
+//    implementation fg.deobf("curse.maven:xaeros-minimap-263420:4381124")
 //    implementation fg.deobf("curse.maven:xaeros-minimap-fair-play-edition-263466:4135354")
 
 
