@@ -13,15 +13,15 @@ import static net.minecraft.world.level.Level.OVERWORLD;
 
 public class CurrentMinimap {
     public static boolean loadedMinimap(String minimap){
-       if(enableMod.get() && calendar() && !hideMinimap()){
-        return ModList.get().isLoaded(minimap);
-       }
-       else return false;
+        if(enableMod.get() && calendar() && !hideMinimap()){
+            return ModList.get().isLoaded(minimap);
+        }
+        else return false;
     }
 
     public static boolean noMinimap(){
         if(!hideMinimap()) {
-            return !loadedMinimap("xaerominimap") && !loadedMinimap("xaerominimapfair")
+            return !loadedMinimap("xaerominimap") /* && !loadedMinimap("xaerominimapfair") */
                     && !loadedMinimap("journeymap") && !loadedMinimap("ftbchunks");
         }
         else return false;
