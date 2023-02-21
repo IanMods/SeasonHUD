@@ -26,21 +26,7 @@ public class XaeroMinimap {
         Minecraft mc = Minecraft.getInstance();
         ArrayList<Component> underText = getSeasonName();
 
-        if (loadedMinimap("xaerominimap")){ //|| loadedMinimap("xaerominimapfair")) {
-            //Icon chooser
-            ResourceLocation SEASON;
-            if (isTropicalSeason()) {
-                //Tropical season haves no main season, convert here.
-                String season = getSeasonFileName();
-                season = season.substring(season.length() - 3);
-
-                SEASON = new ResourceLocation(SeasonHUD.MODID,
-                        "textures/season/" + season + ".png");
-            } else {
-                SEASON = new ResourceLocation(SeasonHUD.MODID,
-                        "textures/season/" + getSeasonFileName() + ".png");
-            }
-
+        if (loadedMinimap("xaerominimap")) { //|| loadedMinimap("xaerominimapfair")) {
             //Data
             float mapSize = XaeroMinimapCore.currentSession.getModMain().getSettings().getMinimapSize();//Minimap Size
 
@@ -68,13 +54,27 @@ public class XaeroMinimap {
             int xTime = TIME.getState();
 
             int trueCount = 0;
-            if (xBiome) {trueCount++;}
-            if (xDim) {trueCount++;}
-            if (xCoords) {trueCount++;}
-            if (xAngles) {trueCount++;}
-            if (xWeather) {trueCount++;}
-            if (xLight > 0) {trueCount++;}
-            if (xTime > 0) {trueCount++;}
+            if (xBiome) {
+                trueCount++;
+            }
+            if (xDim) {
+                trueCount++;
+            }
+            if (xCoords) {
+                trueCount++;
+            }
+            if (xAngles) {
+                trueCount++;
+            }
+            if (xWeather) {
+                trueCount++;
+            }
+            if (xLight > 0) {
+                trueCount++;
+            }
+            if (xTime > 0) {
+                trueCount++;
+            }
 
             //Icon
             float stringWidth = mc.font.width(underText.get(0));
@@ -109,7 +109,7 @@ public class XaeroMinimap {
                 underText.clear();
 
                 //Icon
-
+                ResourceLocation SEASON = getSeasonResource();
                 RenderSystem.setShader(GameRenderer::getPositionTexShader);
                 RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
                 RenderSystem.setShaderTexture(0, SEASON);
