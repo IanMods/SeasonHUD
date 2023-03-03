@@ -4,7 +4,7 @@ plugins {
 }
 
 group = 'club.iananderson'
-version = "1.4.6"
+version = "1.4.7"
 
 java {
     archivesBaseName = 'seasonhud-1.19.3'
@@ -12,7 +12,7 @@ java {
 }
 
 minecraft {
-   mappings channel: 'parchment', version: '2022.12.18-1.19.3'
+   mappings channel: 'parchment', version: '2023.02.05-1.19.3'
 
     runs {
         client {
@@ -105,9 +105,9 @@ dependencies {
    minecraft 'net.minecraftforge:forge:1.19.3-44.1.0'
 
     /Serene Seasons/
-    implementation "curse.maven:serene-seasons-291874:4166545"
-    implementation "curse.maven:serene-seasons-291874:4166546"
-    //compileOnly "curse.maven:serene-seasons-291874:4166547" //api
+    implementation "curse.maven:serene-seasons-291874:4408359"
+    implementation "curse.maven:serene-seasons-291874:4408360"
+    //compileOnly "curse.maven:serene-seasons-291874:4408361" //api
 
     /Curios/
     //runtimeOnly fg.deobf("top.theillusivec4.curios:curios-forge:1.19.3-5.1.2.0")
