@@ -1,2 +1,2 @@
-- name: Publish Minecraft Mods
+- name: Publish on CurseForge and Modrinth
   uses: Kir-Antipov/mc-publish@v3.2
