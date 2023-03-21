@@ -1,7 +1,6 @@
 //Hud w/ Xaero's Minimap installed
 package club.iananderson.seasonhud.client.minimaps;
 
-import club.iananderson.seasonhud.SeasonHUD;
 import com.mojang.blaze3d.systems.RenderSystem;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiComponent;
@@ -54,27 +53,13 @@ public class XaeroMinimap {
             int xTime = TIME.getState();
 
             int trueCount = 0;
-            if (xBiome) {
-                trueCount++;
-            }
-            if (xDim) {
-                trueCount++;
-            }
-            if (xCoords) {
-                trueCount++;
-            }
-            if (xAngles) {
-                trueCount++;
-            }
-            if (xWeather) {
-                trueCount++;
-            }
-            if (xLight > 0) {
-                trueCount++;
-            }
-            if (xTime > 0) {
-                trueCount++;
-            }
+            if (xBiome) {trueCount++;}
+            if (xDim) {trueCount++;}
+            if (xCoords) {trueCount++;}
+            if (xAngles) {trueCount++;}
+            if (xWeather) {trueCount++;}
+            if (xLight > 0) {trueCount++;}
+            if (xTime > 0) {trueCount++;}
 
             //Icon
             float stringWidth = mc.font.width(underText.get(0));
