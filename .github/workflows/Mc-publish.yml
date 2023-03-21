@@ -1,7 +1,5 @@
 name: MC-Publish (CurseForge/Modrinth)
 
-uses: Kir-Antipov/mc-publish@v3.2
-
 on: [workflow_dispatch]
 
 env:                                              
