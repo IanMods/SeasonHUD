@@ -2,6 +2,8 @@ name: MC-Publish (CurseForge/Modrinth)
 
 uses: Kir-Antipov/mc-publish@v3.2
 
+on: [workflow_dispatch]
+
 env:                                              
   MINECRAFT_VERSION: 1.19.3
   MOD_VERSION: 1.4.8                   
