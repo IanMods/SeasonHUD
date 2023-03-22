@@ -1,6 +1,5 @@
 package club.iananderson.seasonhud.client;
 
-import club.iananderson.seasonhud.SeasonHUD;
 import club.iananderson.seasonhud.config.Location;
 import com.mojang.blaze3d.systems.RenderSystem;
 import net.minecraft.client.Minecraft;
@@ -80,5 +79,4 @@ public class SeasonHUDOverlay {
             seasonStack.popPose();
         }
     };
-
 }

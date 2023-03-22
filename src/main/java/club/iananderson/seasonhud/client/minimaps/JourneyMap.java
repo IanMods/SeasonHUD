@@ -17,10 +17,8 @@ import net.minecraftforge.client.gui.overlay.IGuiOverlay;
 
 import java.util.ArrayList;
 
-import static club.iananderson.seasonhud.SeasonHUD.MODID;
 import static club.iananderson.seasonhud.impl.minimaps.CurrentMinimap.loadedMinimap;
 import static club.iananderson.seasonhud.impl.sereneseasons.CurrentSeason.*;
-
 
 public class JourneyMap {
     public static final IGuiOverlay JOURNEYMAP_SEASON = (ForgeGui, seasonStack, partialTick, scaledWidth, scaledHeight) -> {
@@ -81,7 +79,6 @@ public class JourneyMap {
                 double textureY = vars.centerPoint.getY();
                 double translateX = totalIconSize/2;
                 double translateY = halfHeight + bgHeight+(fontScale < 1.0 ? 0.5 : 0.0);
-
 
                 double labelX = (textureX + translateX);
                 double labelY = (textureY + translateY);
