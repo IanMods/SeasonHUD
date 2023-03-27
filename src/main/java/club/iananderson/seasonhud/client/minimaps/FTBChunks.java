@@ -1,5 +1,6 @@
 package club.iananderson.seasonhud.client.minimaps;
 
+import club.iananderson.seasonhud.SeasonHUD;
 import com.mojang.blaze3d.systems.RenderSystem;
 import dev.ftb.mods.ftbchunks.FTBChunksWorldConfig;
 import dev.ftb.mods.ftbchunks.client.FTBChunksClientConfig;
