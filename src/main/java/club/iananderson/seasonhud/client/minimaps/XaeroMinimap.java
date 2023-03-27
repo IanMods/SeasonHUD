@@ -1,7 +1,6 @@
 //Hud w/ Xaero's Minimap installed
 package club.iananderson.seasonhud.client.minimaps;
 
-import club.iananderson.seasonhud.SeasonHUD;
 import com.mojang.blaze3d.systems.RenderSystem;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiComponent;
