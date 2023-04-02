@@ -4,7 +4,7 @@ on: [workflow_dispatch]
 
 env:                                              
   MINECRAFT_VERSION: 1.19.2
-  MOD_VERSION: ${{ build.gradle.version }}
+  MOD_VERSION: 1.4.9
   JAVA_VERSION: 17                   
 
 permissions:
@@ -43,8 +43,8 @@ jobs:
           modrinth-id: VNjUn3NA
           modrinth-token: ${{ secrets.MODRINTH_TOKEN }}
 
-          #curseforge-id: 690971
-          #curseforge-token: ${{ secrets.CURSEFORGE_TOKEN }}
+          curseforge-id: 690971
+          curseforge-token: ${{ secrets.CURSEFORGE_TOKEN }}
 
           files-primary: build/libs/!(*-@(dev|sources|javadoc)).jar
 
