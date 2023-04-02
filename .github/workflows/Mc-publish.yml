@@ -55,5 +55,13 @@ jobs:
 
           loaders: forge
           game-versions: "${{env.MINECRAFT_VERSION}}"
+          dependencies: |
+            curios | recommends | *
+            ftb-chunks-forge | recommends | *
+            journeymap | recommends | *
+            xaeros-minimap | recommends | *
+            xaeros-minimap-fair-play-edition | recommends | *
+            serene-seasons | depends | *
+
           java: "${{env.JAVA_VERSION}}"
 
