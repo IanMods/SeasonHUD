@@ -17,6 +17,7 @@ import net.minecraftforge.client.gui.overlay.IGuiOverlay;
 
 import java.util.ArrayList;
 
+import static club.iananderson.seasonhud.config.Config.journeyMapAboveMap;
 import static club.iananderson.seasonhud.impl.minimaps.CurrentMinimap.loadedMinimap;
 import static club.iananderson.seasonhud.impl.sereneseasons.CurrentSeason.*;
 
@@ -34,6 +35,8 @@ public class JourneyMap {
             //MiniMap minimap = UIManager.INSTANCE.getMiniMap();
 
             String emptyLabel = "jm.theme.labelsource.blank";
+            String info1Label = jm.getActiveMiniMapProperties().info1Label.get();
+            String info2Label = jm.getActiveMiniMapProperties().info2Label.get();
             String info3Label = jm.getActiveMiniMapProperties().info3Label.get();
             String info4Label = jm.getActiveMiniMapProperties().info4Label.get();
 
@@ -59,9 +62,24 @@ public class JourneyMap {
             int frameWidth = ThemeLoader.getCurrentTheme().minimap.square.right.width/2;
 
             int infoLabelCount = 0;
-            if (!info3Label.equals(emptyLabel)) {infoLabelCount++;}
-            if (!info4Label.equals(emptyLabel)) {infoLabelCount++;}
+            if (journeyMapAboveMap.get()){
+                infoLabelCount = 1;
 
+                if (!info1Label.equals(emptyLabel)) {
+                    infoLabelCount++;
+                }
+                if (!info2Label.equals(emptyLabel)) {
+                    infoLabelCount++;
+                }
+            }
+            else{
+                if (!info3Label.equals(emptyLabel)) {
+                    infoLabelCount++;
+                }
+                if (!info4Label.equals(emptyLabel)) {
+                    infoLabelCount++;
+                }
+            }
             int vPad = (int)(((labelHeight/fontScale) - 8) / 2.0);
             double bgHeight = (labelHeight * infoLabelCount) + (vPad) + frameWidth;
 
@@ -78,7 +96,7 @@ public class JourneyMap {
                 double textureX = vars.centerPoint.getX();
                 double textureY = vars.centerPoint.getY();
                 double translateX = totalIconSize/2;
-                double translateY = halfHeight + bgHeight+(fontScale < 1.0 ? 0.5 : 0.0);
+                double translateY = (journeyMapAboveMap.get() ? -1 : 1)*(halfHeight + bgHeight +(fontScale < 1.0 ? 0.5 : 0.0));
 
 
                 double labelX = (textureX + translateX);
