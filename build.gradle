@@ -133,8 +133,8 @@ dependencies {
 
 
     /JourneyMap/
-//    compileOnly fg.deobf("curse.maven:journeymap-32274:4160845")
-    implementation fg.deobf("curse.maven:journeymap-32274:4160845")
+    compileOnly fg.deobf("curse.maven:journeymap-32274:4160845")
+//    implementation fg.deobf("curse.maven:journeymap-32274:4160845")
 
 
 }
