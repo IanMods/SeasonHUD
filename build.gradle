@@ -4,7 +4,7 @@ plugins {
 }
 
 group = 'club.iananderson'
-version = "1.4.9"
+version = "1.4.10"
 
 java {
     archivesBaseName = 'seasonhud-1.19.2'
@@ -111,7 +111,7 @@ dependencies {
     /Serene Seasons/
     implementation "curse.maven:serene-seasons-291874:4037228"
     implementation "curse.maven:serene-seasons-291874:4037230"
-    //compileOnly "curse.maven:serene-seasons-291874:4037231"
+//    compileOnly "curse.maven:serene-seasons-291874:4037231"
 
     /Curios/
 //    runtimeOnly fg.deobf("top.theillusivec4.curios:curios-forge:1.19.2-5.1.1.0")
