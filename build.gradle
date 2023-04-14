@@ -7,12 +7,12 @@ group = 'club.iananderson'
 version = "1.4.10"
 
 java {
-    archivesBaseName = 'seasonhud-1.19.3'
+    archivesBaseName = 'seasonhud-1.19.4'
     toolchain.languageVersion = JavaLanguageVersion.of(17)
 }
 
 minecraft {
-   mappings channel: 'parchment', version: '2023.02.05-1.19.3'
+   mappings channel: 'official', version: '1.19.4'
 
     runs {
         client {
@@ -102,22 +102,22 @@ repositories {
 }
 
 dependencies {
-   minecraft 'net.minecraftforge:forge:1.19.3-44.1.0'
+   minecraft 'net.minecraftforge:forge:1.19.4-45.0.43'
 
     /Serene Seasons/
-    implementation "curse.maven:serene-seasons-291874:4408359"
-    implementation "curse.maven:serene-seasons-291874:4408360"
-//    compileOnly "curse.maven:serene-seasons-291874:4408361" //api
+    implementation "curse.maven:serene-seasons-291874:4442006"
+    implementation "curse.maven:serene-seasons-291874:4442007"
+//    compileOnly "curse.maven:serene-seasons-291874:4442008" //api
 
     /Curios/
-//    runtimeOnly fg.deobf("top.theillusivec4.curios:curios-forge:1.19.3-5.1.2.0")
-    compileOnly fg.deobf("top.theillusivec4.curios:curios-forge:1.19.3-5.1.2.0:api")
+//    runtimeOnly fg.deobf("top.theillusivec4.curios:curios-forge:1.19.4-5.1.4.3:api")
+    compileOnly fg.deobf("top.theillusivec4.curios:curios-forge:1.19.4-5.1.4.3:api")
 
     /Xaero's Minimap/
-    compileOnly fg.deobf("curse.maven:xaeros-minimap-263420:4381127")
-    compileOnly fg.deobf("curse.maven:xaeros-minimap-fair-play-edition-263466:4429592")
-//    implementation fg.deobf("curse.maven:xaeros-minimap-263420:4381127")
-//    implementation fg.deobf("curse.maven:xaeros-minimap-fair-play-edition-263466:4429592")
+    compileOnly fg.deobf("curse.maven:xaeros-minimap-263420:4470061")
+    compileOnly fg.deobf("curse.maven:xaeros-minimap-fair-play-edition-263466:4449136")
+//    implementation fg.deobf("curse.maven:xaeros-minimap-263420:4470061")
+//    implementation fg.deobf("curse.maven:xaeros-minimap-fair-play-edition-263466:4449136")
 
 
     /FTB Chunks/
@@ -133,8 +133,8 @@ dependencies {
 
 
     /JourneyMap/
-    compileOnly fg.deobf("curse.maven:journeymap-32274:4160845")
-//    implementation fg.deobf("curse.maven:journeymap-32274:4160845")
+    compileOnly fg.deobf("curse.maven:journeymap-32274:4473249")
+//    implementation fg.deobf("curse.maven:journeymap-32274:4473249")
 
 
 }
