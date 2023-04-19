@@ -4,7 +4,7 @@ plugins {
 }
 
 group = 'club.iananderson'
-version = "1.4.10"
+version = "1.4.11"
 
 java {
     archivesBaseName = 'seasonhud-1.19.2'
@@ -13,7 +13,7 @@ java {
 
 minecraft {
 
-    mappings channel: 'parchment', version: '2022.11.06-1.19.2'
+    mappings channel: 'parchment', version: '2022.11.27-1.19.2'
 
     runs {
         client {
@@ -105,7 +105,7 @@ repositories {
 
 dependencies {
 
-    minecraft 'net.minecraftforge:forge:1.19.2-43.2.0'
+    minecraft 'net.minecraftforge:forge:1.19.2-43.2.8'
 
 
     /Serene Seasons/
@@ -125,15 +125,15 @@ dependencies {
 
 
     /FTB Chunks/
-    compileOnly fg.deobf("curse.maven:ftb-library-forge-404465:3963543")
-    compileOnly fg.deobf("curse.maven:architectury-api-419699:4040977")
-    compileOnly fg.deobf("curse.maven:ftb-teams-forge-404468:3963573")
-    compileOnly fg.deobf("curse.maven:ftb-chunks-forge-314906:3981376")
+    compileOnly fg.deobf("curse.maven:ftb-library-forge-404465:4478919")
+    compileOnly fg.deobf("curse.maven:architectury-api-419699:4476084 -")
+    compileOnly fg.deobf("curse.maven:ftb-teams-forge-404468:4477315")
+    compileOnly fg.deobf("curse.maven:ftb-chunks-forge-314906:4478935")
 
-//    implementation fg.deobf("curse.maven:ftb-library-forge-404465:3963543")
-//    implementation fg.deobf("curse.maven:architectury-api-419699:4040977")
-//    implementation fg.deobf("curse.maven:ftb-teams-forge-404468:3963573")
-//    implementation fg.deobf("curse.maven:ftb-chunks-forge-314906:3981376")
+//    implementation fg.deobf("curse.maven:ftb-library-forge-404465:4478919")
+//    implementation fg.deobf("curse.maven:architectury-api-419699:4476084")
+//    implementation fg.deobf("curse.maven:ftb-teams-forge-404468:4477315")
+//    implementation fg.deobf("curse.maven:ftb-chunks-forge-314906:4478935")
 
     /JourneyMap/
     compileOnly fg.deobf("curse.maven:journeymap-32274:4097953")
