@@ -126,7 +126,7 @@ dependencies {
 
     /FTB Chunks/
     compileOnly fg.deobf("curse.maven:ftb-library-forge-404465:4478919")
-    compileOnly fg.deobf("curse.maven:architectury-api-419699:4476084 -")
+    compileOnly fg.deobf("curse.maven:architectury-api-419699:4476084")
     compileOnly fg.deobf("curse.maven:ftb-teams-forge-404468:4477315")
     compileOnly fg.deobf("curse.maven:ftb-chunks-forge-314906:4478935")
 
