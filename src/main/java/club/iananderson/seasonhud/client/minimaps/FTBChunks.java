@@ -23,7 +23,7 @@ import java.util.List;
 import java.util.Objects;
 
 import static club.iananderson.seasonhud.impl.minimaps.CurrentMinimap.loadedMinimap;
-import static club.iananderson.seasonhud.impl.sereneseasons.CurrentSeason.*;
+import static club.iananderson.seasonhud.impl.sereneseasons.CurrentSeason.getSeasonName;
 import static club.iananderson.seasonhud.impl.sereneseasons.CurrentSeason.getSeasonResource;
 
 public class FTBChunks {
