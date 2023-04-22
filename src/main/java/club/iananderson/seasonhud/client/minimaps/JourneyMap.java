@@ -27,7 +27,6 @@ public class JourneyMap {
         ArrayList<Component> MINIMAP_TEXT_SEASON= getSeasonName();
 
         if (loadedMinimap("journeymap")) {
-            Theme.LabelSpec label = new Theme.LabelSpec();
             DisplayVars vars = UIManager.INSTANCE.getMiniMap().getDisplayVars();
 
             JourneymapClient jm = JourneymapClient.getInstance();
@@ -43,11 +42,6 @@ public class JourneyMap {
             float fontScale = jm.getActiveMiniMapProperties().fontScale.get();
             float guiSize = (float) mc.getWindow().getGuiScale();
 
-            boolean fontShadow = label.shadow;
-
-            double labelHeight = ((DrawUtil.getLabelHeight(fontRenderer, fontShadow)) * (fontScale));
-            double labelWidth = fontRenderer.width(MINIMAP_TEXT_SEASON.get(0))*fontScale;
-
             int minimapHeight = vars.minimapHeight;
             //int minimapWidth = vars.minimapWidth;
 
@@ -57,9 +51,13 @@ public class JourneyMap {
             Theme.LabelSpec currentTheme = ThemeLoader.getCurrentTheme().minimap.square.labelBottom;
             int labelColor = currentTheme.background.getColor();
             int textColor = currentTheme.foreground.getColor();
-            float labelAlpha = currentTheme.background.alpha;
+            float labelAlpha = jm.getActiveMiniMapProperties().infoSlotAlpha.get();
             float textAlpha = currentTheme.foreground.alpha;
             int frameWidth = ThemeLoader.getCurrentTheme().minimap.square.right.width/2;
+            boolean fontShadow = currentTheme.shadow;
+
+            double labelHeight = ((DrawUtil.getLabelHeight(fontRenderer, fontShadow)) * (fontScale));
+            double labelWidth = fontRenderer.width(MINIMAP_TEXT_SEASON.get(0))*fontScale;
 
             int infoLabelCount = 0;
             if (journeyMapAboveMap.get()){
