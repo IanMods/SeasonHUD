@@ -2,7 +2,7 @@ name: MC-Publish (CurseForge/Modrinth)
 
 on: 
   workflow_run:
-    workflows: [Mc-publish]
+    workflows: ["MC-Publish (CurseForge/Modrinth)"]
     branches: 
       - 1.18.2
     types: 
