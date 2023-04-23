@@ -1,12 +1,6 @@
 name: MC-Publish (CurseForge/Modrinth)
 
-on: 
-  workflow_run:
-    workflows: ["MC-Publish (CurseForge/Modrinth)"]
-    branches: 
-      - 1.18.2
-    types: 
-      - completed
+on: [workflow_dispatch]
 
 env:                                              
   MINECRAFT_VERSION: 1.19.2
