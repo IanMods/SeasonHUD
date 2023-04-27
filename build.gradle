@@ -120,6 +120,7 @@ dependencies {
     /Xaero's Minimap/
     compileOnly fg.deobf("curse.maven:xaeros-minimap-263420:4381124")
     compileOnly fg.deobf("curse.maven:xaeros-minimap-fair-play-edition-263466:4429590")
+
 //    implementation fg.deobf("curse.maven:xaeros-minimap-263420:4381124")
 //    implementation fg.deobf("curse.maven:xaeros-minimap-fair-play-edition-263466:4429590")
 
@@ -136,8 +137,8 @@ dependencies {
 //    implementation fg.deobf("curse.maven:ftb-chunks-forge-314906:4478935")
 
     /JourneyMap/
-    compileOnly fg.deobf("curse.maven:journeymap-32274:4097953")
-//    implementation fg.deobf("curse.maven:journeymap-32274:4097953")
+//    compileOnly fg.deobf("curse.maven:journeymap-32274:4097953")
+    implementation fg.deobf("curse.maven:journeymap-32274:4097953")
 
 }
 jar {

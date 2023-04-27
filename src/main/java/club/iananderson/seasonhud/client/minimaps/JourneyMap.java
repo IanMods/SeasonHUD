@@ -11,6 +11,7 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.GuiComponent;
 import net.minecraft.client.gui.screens.ChatScreen;
+import net.minecraft.client.gui.screens.DeathScreen;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.client.gui.screens.inventory.InventoryScreen;
 import net.minecraft.client.renderer.GameRenderer;
@@ -88,7 +89,7 @@ public class JourneyMap {
             double bgHeight = (labelHeight * infoLabelCount) + (vPad) + frameWidth;
 
             //Values
-            if (!mc.isPaused() && (mc.screen == null || mc.screen instanceof ChatScreen)) {
+            if ((mc.screen == null || mc.screen instanceof ChatScreen || mc.screen instanceof DeathScreen) && !mc.isPaused()) {
                 seasonStack.pushPose();
                 seasonStack.scale(1 / guiSize, 1 / guiSize, 1.0F);
 
