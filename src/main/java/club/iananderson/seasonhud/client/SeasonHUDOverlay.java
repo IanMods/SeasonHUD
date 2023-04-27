@@ -4,6 +4,8 @@ import club.iananderson.seasonhud.config.Location;
 import com.mojang.blaze3d.systems.RenderSystem;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiComponent;
+import net.minecraft.client.gui.screens.ChatScreen;
+import net.minecraft.client.gui.screens.DeathScreen;
 import net.minecraft.client.renderer.GameRenderer;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
@@ -51,32 +53,33 @@ public class SeasonHUDOverlay {
                 }
                 case BOTTOM_LEFT -> {
                     x = offsetDim;
-                    y = screenHeight - iconDim - (2*offsetDim);
+                    y = screenHeight - iconDim - (2 * offsetDim);
                 }
                 case BOTTOM_RIGHT -> {
                     x = screenWidth - stringWidth - offsetDim;
-                    y = screenHeight - iconDim - (2*offsetDim);
+                    y = screenHeight - iconDim - (2 * offsetDim);
                 }
             }
 
-            seasonStack.pushPose();
-            seasonStack.scale(1F, 1F, 1F);
+            if ((mc.screen == null || mc.screen instanceof ChatScreen || mc.screen instanceof DeathScreen) && !mc.options.renderDebug) {
+                seasonStack.pushPose();
+                seasonStack.scale(1F, 1F, 1F);
 
-            //Text
-            int iconX = x + xOffset;
-            int iconY = y + yOffset+offsetDim;
-            float textX = (iconX + iconDim + offsetDim);
-            float textY = iconY;//(iconY+(iconDim-stringHeight)); //double check this is exact
-            ForgeGui.getFont().drawShadow(seasonStack, seasonName.get(0),textX, textY, 0xffffffff);
+                //Text
+                int iconX = x + xOffset;
+                int iconY = y + yOffset + offsetDim;
+                float textX = (iconX + iconDim + offsetDim);
+                float textY = iconY;//(iconY+(iconDim-stringHeight)); //double check this is exact
+                ForgeGui.getFont().drawShadow(seasonStack, seasonName.get(0), textX, textY, 0xffffffff);
 
-            //Icon
-            ResourceLocation SEASON = getSeasonResource();
-            RenderSystem.setShader(GameRenderer::getPositionTexShader);
-            RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
-            RenderSystem.setShaderTexture(0, SEASON);
-            GuiComponent.blit(seasonStack, iconX, iconY, 0, 0, iconDim, iconDim, iconDim, iconDim);
-            seasonStack.popPose();
+                //Icon
+                ResourceLocation SEASON = getSeasonResource();
+                RenderSystem.setShader(GameRenderer::getPositionTexShader);
+                RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
+                RenderSystem.setShaderTexture(0, SEASON);
+                GuiComponent.blit(seasonStack, iconX, iconY, 0, 0, iconDim, iconDim, iconDim, iconDim);
+                seasonStack.popPose();
+            }
         }
     };
-
 }
