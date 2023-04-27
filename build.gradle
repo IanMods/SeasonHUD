@@ -137,8 +137,8 @@ dependencies {
 //    implementation fg.deobf("curse.maven:ftb-chunks-forge-314906:4478935")
 
     /JourneyMap/
-//    compileOnly fg.deobf("curse.maven:journeymap-32274:4097953")
-    implementation fg.deobf("curse.maven:journeymap-32274:4097953")
+    compileOnly fg.deobf("curse.maven:journeymap-32274:4097953")
+//    implementation fg.deobf("curse.maven:journeymap-32274:4097953")
 
 }
 jar {
