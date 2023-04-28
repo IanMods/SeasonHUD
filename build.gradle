@@ -4,7 +4,7 @@ plugins {
 }
 
 group = 'club.iananderson'
-version = "1.4.13"
+version = "1.4.14"
 
 java {
     archivesBaseName = 'seasonhud-1.19.3'
@@ -115,10 +115,15 @@ dependencies {
 
     /Xaero's Minimap/
     compileOnly fg.deobf("curse.maven:xaeros-minimap-263420:4381127")
-    compileOnly fg.deobf("curse.maven:xaeros-minimap-fair-play-edition-263466:4429592")
 //    implementation fg.deobf("curse.maven:xaeros-minimap-263420:4381127")
+
+    /Xaero's Minimap Fair Play/
+    compileOnly fg.deobf("curse.maven:xaeros-minimap-fair-play-edition-263466:4429592")
 //    implementation fg.deobf("curse.maven:xaeros-minimap-fair-play-edition-263466:4429592")
 
+    /Open Parties and Claims/
+    compileOnly fg.deobf("curse.maven:open-parties-and-claims-636608:4500820")
+//    implementation fg.deobf("curse.maven:open-parties-and-claims-636608:4500820")
 
     /FTB Chunks/
     compileOnly fg.deobf("curse.maven:ftb-library-forge-404465:4123392") //FTB Library
