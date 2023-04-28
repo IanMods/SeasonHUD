@@ -13,8 +13,10 @@ import xaero.common.core.XaeroMinimapCore;
 import xaero.common.gui.IScreenBase;
 
 import java.util.ArrayList;
+import java.util.Objects;
 
 import static club.iananderson.seasonhud.impl.minimaps.CurrentMinimap.loadedMinimap;
+import static club.iananderson.seasonhud.impl.opac.OpenPartiesAndClaims.inClaim;
 import static club.iananderson.seasonhud.impl.sereneseasons.CurrentSeason.*;
 import static xaero.common.minimap.info.BuiltInInfoDisplays.*;
 import static xaero.common.settings.ModOptions.modMain;
@@ -22,6 +24,10 @@ import static xaero.common.settings.ModOptions.modMain;
 public class XaeroMinimap {
     public static final IGuiOverlay XAERO_SEASON = (ForgeGui, seasonStack, partialTick, width, height) -> {
         Minecraft mc = Minecraft.getInstance();
+        ResourceLocation dim = Objects.requireNonNull(mc.level).dimension().location();
+        int chunkX = mc.player.chunkPosition().x;
+        int chunkZ = mc.player.chunkPosition().z;
+
         ArrayList<Component> underText = getSeasonName();
 
         if (loadedMinimap("xaerominimap") || loadedMinimap("xaerominimapfair")) {
@@ -43,13 +49,16 @@ public class XaeroMinimap {
             float scaledX = (x * mapScale);
             float scaledY = (y * mapScale);
 
-            boolean xBiome = BIOME.getState(); //Xaero Alpha Changes
+            boolean xBiome = BIOME.getState();
             boolean xDim = DIMENSION.getState();
             boolean xCoords = COORDINATES.getState();
             boolean xAngles = ANGLES.getState();
             boolean xWeather = WEATHER.getState();
+            boolean xClaim = HIGHLIGHTS.getState();
+            boolean XInClaim = inClaim(dim,chunkX,chunkZ);
             int xLight = LIGHT_LEVEL.getState();
             int xTime = TIME.getState();
+
 
             int trueCount = 0;
             if (xBiome) {trueCount++;}
@@ -57,6 +66,7 @@ public class XaeroMinimap {
             if (xCoords) {trueCount++;}
             if (xAngles) {trueCount++;}
             if (xWeather) {trueCount++;}
+            if (xClaim && XInClaim) {trueCount++;}
             if (xLight > 0) {trueCount++;}
             if (xTime > 0) {trueCount++;}
 
