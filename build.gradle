@@ -115,10 +115,15 @@ dependencies {
 
     /Xaero's Minimap/
     compileOnly fg.deobf("curse.maven:xaeros-minimap-263420:4470061")
-    compileOnly fg.deobf("curse.maven:xaeros-minimap-fair-play-edition-263466:4449136")
 //    implementation fg.deobf("curse.maven:xaeros-minimap-263420:4470061")
+
+    /Xaero's Minimap Fair Play/
+    compileOnly fg.deobf("curse.maven:xaeros-minimap-fair-play-edition-263466:4449136")
 //    implementation fg.deobf("curse.maven:xaeros-minimap-fair-play-edition-263466:4449136")
 
+    /Open Parties and Claims/
+    compileOnly fg.deobf("curse.maven:open-parties-and-claims-636608:4500812")
+//    implementation fg.deobf("curse.maven:open-parties-and-claims-636608:4500812")
 
     /FTB Chunks/
     compileOnly fg.deobf("curse.maven:ftb-library-forge-404465:4123392") //FTB Library
