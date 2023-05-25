@@ -17,8 +17,7 @@ import java.util.Objects;
 
 import static club.iananderson.seasonhud.impl.minimaps.CurrentMinimap.loadedMinimap;
 import static club.iananderson.seasonhud.impl.opac.OpenPartiesAndClaims.inClaim;
-import static club.iananderson.seasonhud.impl.sereneseasons.CurrentSeason.getSeasonName;
-import static club.iananderson.seasonhud.impl.sereneseasons.CurrentSeason.getSeasonResource;
+import static club.iananderson.seasonhud.impl.sereneseasons.CurrentSeason.*;
 import static xaero.common.minimap.info.BuiltInInfoDisplays.*;
 import static xaero.common.settings.ModOptions.modMain;
 

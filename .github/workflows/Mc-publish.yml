@@ -3,7 +3,7 @@ name: MC-Publish (CurseForge/Modrinth)
 on: [workflow_dispatch]
 
 env:                                              
-  MINECRAFT_VERSION: 1.19.3
+  MINECRAFT_VERSION: 1.19.2
   MOD_VERSION: 1.4.16
   JAVA_VERSION: 17                   
 

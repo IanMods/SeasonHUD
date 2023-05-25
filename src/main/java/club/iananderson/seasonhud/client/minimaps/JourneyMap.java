@@ -12,9 +12,14 @@ import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.GuiComponent;
 import net.minecraft.client.gui.screens.ChatScreen;
 import net.minecraft.client.gui.screens.DeathScreen;
+import net.minecraft.client.gui.screens.Screen;
+import net.minecraft.client.gui.screens.inventory.InventoryScreen;
 import net.minecraft.client.renderer.GameRenderer;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.inventory.ChestMenu;
+import net.minecraft.world.inventory.InventoryMenu;
+import net.minecraft.world.level.block.ChestBlock;
 import net.minecraftforge.client.gui.overlay.IGuiOverlay;
 
 import java.util.ArrayList;
@@ -97,7 +102,6 @@ public class JourneyMap {
                 double textureY = vars.centerPoint.getY();
                 double translateX = totalIconSize/2;
                 double translateY = (journeyMapAboveMap.get() ? -1 : 1)*(halfHeight + bgHeight +(fontScale < 1.0 ? 0.5 : 0.0));
-
 
                 double labelX = (textureX + translateX);
                 double labelY = (textureY + translateY);
