@@ -45,6 +45,6 @@ side = "BOTH"
 [[dependencies.seasonhud]]
 modId = "xaerominimap"
 mandatory = false
-versionRange = "[23.1.0,)"
+versionRange = "[23.3.3,)"
 ordering = "AFTER"
 side = "CLIENT"
