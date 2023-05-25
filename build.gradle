@@ -7,13 +7,12 @@ group = 'club.iananderson'
 version = "1.4.16"
 
 java {
-    archivesBaseName = 'seasonhud-1.19.2'
+    archivesBaseName = 'seasonhud-1.19.3'
     toolchain.languageVersion = JavaLanguageVersion.of(17)
 }
 
 minecraft {
-
-    mappings channel: 'parchment', version: '2022.11.27-1.19.2'
+   mappings channel: 'parchment', version: '2023.02.05-1.19.3'
 
     runs {
         client {
@@ -67,7 +66,7 @@ minecraft {
             workingDirectory project.file('run')
             property 'forge.logging.markers', 'REGISTRIES'
             property 'forge.logging.console.level', 'debug'
-            // Specify the modid for data generation, where to output the resulting resource, and where to look for existing resources.
+
             args '--mod', 'seasonhud', '--all', '--output', file('src/generated/resources/'), '--existing', file('src/main/resources/')
             mods {
                 seasonhud {
@@ -77,7 +76,6 @@ minecraft {
         }
     }
 }
-
 
 sourceSets.main.resources { srcDir 'src/generated/resources' }
 
@@ -99,52 +97,54 @@ repositories {
         }
     }
     flatDir {
-        dir 'libs'
-    }
+         dir 'libs'
+     }
 }
 
 dependencies {
-
-    minecraft 'net.minecraftforge:forge:1.19.2-43.2.8'
-
+   minecraft 'net.minecraftforge:forge:1.19.3-44.1.0'
 
     /Serene Seasons/
-    implementation "curse.maven:serene-seasons-291874:4037228"
-    implementation "curse.maven:serene-seasons-291874:4037230"
-//    compileOnly "curse.maven:serene-seasons-291874:4037231"
+    implementation "curse.maven:serene-seasons-291874:4408359"
+    implementation "curse.maven:serene-seasons-291874:4408360"
+//    compileOnly "curse.maven:serene-seasons-291874:4408361" //api
 
     /Curios/
-//    runtimeOnly fg.deobf("top.theillusivec4.curios:curios-forge:1.19.2-5.1.1.0")
-    compileOnly fg.deobf("top.theillusivec4.curios:curios-forge:1.19.2-5.1.1.0:api")
+//    runtimeOnly fg.deobf("top.theillusivec4.curios:curios-forge:1.19.3-5.1.2.0")
+    compileOnly fg.deobf("top.theillusivec4.curios:curios-forge:1.19.3-5.1.2.0:api")
 
     /Xaero's Minimap/
-    compileOnly fg.deobf("curse.maven:xaeros-minimap-263420:4492932")
-//    implementation fg.deobf("curse.maven:xaeros-minimap-263420:4492932")
+    compileOnly fg.deobf("curse.maven:xaeros-minimap-263420:4381127")
+//    implementation fg.deobf("curse.maven:xaeros-minimap-263420:4381127")
 
     /Xaero's Minimap Fair Play/
-    compileOnly fg.deobf("curse.maven:xaeros-minimap-fair-play-edition-263466:4503434")
-//    implementation fg.deobf("curse.maven:xaeros-minimap-fair-play-edition-263466:4503434")
+    compileOnly fg.deobf("curse.maven:xaeros-minimap-fair-play-edition-263466:4429592")
+//    implementation fg.deobf("curse.maven:xaeros-minimap-fair-play-edition-263466:4429592")
 
     /Open Parties and Claims/
-    compileOnly fg.deobf("curse.maven:open-parties-and-claims-636608:4500812")
-//    implementation fg.deobf("curse.maven:open-parties-and-claims-636608:4500812")
+    compileOnly fg.deobf("curse.maven:open-parties-and-claims-636608:4500820")
+//    implementation fg.deobf("curse.maven:open-parties-and-claims-636608:4500820")
 
     /FTB Chunks/
-    compileOnly fg.deobf("curse.maven:ftb-library-forge-404465:4478919")
-    compileOnly fg.deobf("curse.maven:architectury-api-419699:4476084")
-    compileOnly fg.deobf("curse.maven:ftb-teams-forge-404468:4477315")
-    compileOnly fg.deobf("curse.maven:ftb-chunks-forge-314906:4478935")
+    compileOnly fg.deobf("curse.maven:ftb-library-forge-404465:4123392") //FTB Library
+    compileOnly fg.deobf("curse.maven:architectury-api-419699:4147353") //Architectury
+    compileOnly fg.deobf("curse.maven:ftb-teams-forge-404468:4123418") //FTB Teams
+    compileOnly fg.deobf("curse.maven:ftb-chunks-forge-314906:4145659") //FTB Chunks
 
-//    implementation fg.deobf("curse.maven:ftb-library-forge-404465:4478919")
-//    implementation fg.deobf("curse.maven:architectury-api-419699:4476084")
-//    implementation fg.deobf("curse.maven:ftb-teams-forge-404468:4477315")
-//    implementation fg.deobf("curse.maven:ftb-chunks-forge-314906:4478935")
+//    implementation fg.deobf("curse.maven:ftb-library-forge-404465:4123392") //FTB Library
+//    implementation fg.deobf("curse.maven:architectury-api-419699:4147353") //Architectury
+//    implementation fg.deobf("curse.maven:ftb-teams-forge-404468:4123418") //FTB Teams
+//    implementation fg.deobf("curse.maven:ftb-chunks-forge-314906:4145659") //FTB Chunks
+
 
     /JourneyMap/
-    compileOnly fg.deobf("curse.maven:journeymap-32274:4097953")
-//    implementation fg.deobf("curse.maven:journeymap-32274:4097953")
+    compileOnly fg.deobf("curse.maven:journeymap-32274:4160845")
+//    implementation fg.deobf("curse.maven:journeymap-32274:4160845")
+
 
 }
+
+// Example for how to get properties into the manifest for reading at runtime.
 jar {
     manifest {
         attributes([
