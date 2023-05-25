@@ -33,7 +33,6 @@ public class JourneyMap {
 
             JourneymapClient jm = JourneymapClient.getInstance();
             Font fontRenderer = mc.font;
-            //MiniMap minimap = UIManager.INSTANCE.getMiniMap();
 
             String emptyLabel = "jm.theme.labelsource.blank";
             String info1Label = jm.getActiveMiniMapProperties().info1Label.get();
@@ -45,10 +44,7 @@ public class JourneyMap {
             float guiSize = (float) mc.getWindow().getGuiScale();
 
             int minimapHeight = vars.minimapHeight;
-            //int minimapWidth = vars.minimapWidth;
-
             int halfHeight = minimapHeight / 2;
-            //int halfWidth = minimapWidth / 2;
 
             Theme.LabelSpec currentTheme = ThemeLoader.getCurrentTheme().minimap.square.labelBottom;
             int labelColor = currentTheme.background.getColor();
@@ -103,28 +99,21 @@ public class JourneyMap {
                 double labelY = (textureY + translateY);
 
                 double totalRectWidth = labelWidth+totalIconSize;
-                double iconRectX = (float)(textureX-Math.max(1.0,totalRectWidth)/2-(fontScale > 1.0 ? 0.0 : 0.5));
-                //basically half the label width from the center
+                double iconRectX = (float)(textureX-Math.max(1.0,totalRectWidth)/2-(fontScale > 1.0 ? 0.0 : 0.5)); //basically half the label width from the center
 
-                //double labelIconX = textureX;
-                double labelIconX = (float)(textureX - totalRectWidth / 2.0 - (fontScale > 1.0 ? 0.0 : 0.5));
-                //half the label width
-                double labelIconY = labelY+(labelHeight/2)-(iconDim/2.0);
-                //moves the icon to  the vertical center of the label
+                double labelIconX = (float)(textureX - totalRectWidth / 2.0 - (fontScale > 1.0 ? 0.0 : 0.5)); //half the label width
+                double labelIconY = labelY+(labelHeight/2)-(iconDim/2.0); //moves the icon to  the vertical center of the label
 
                 for (Component s : MINIMAP_TEXT_SEASON) {
-                    DrawUtil.drawLabel(seasonStack, s.getString(), labelX, labelY, DrawUtil.HAlign.Center, DrawUtil.VAlign.Below, labelColor, labelAlpha, textColor, textAlpha, fontScale, fontShadow);
-                    //No touchy. Season label offset by icon+padding
+                    DrawUtil.drawLabel(seasonStack, s.getString(), labelX, labelY, DrawUtil.HAlign.Center, DrawUtil.VAlign.Below, labelColor, labelAlpha, textColor, textAlpha, fontScale, fontShadow); //No touchy. Season label offset by icon+padding
                 }
-                DrawUtil.drawRectangle(seasonStack,iconRectX-(2*labelPad),labelY,totalRectWidth-labelWidth,labelHeight,labelColor,labelAlpha);
-                //Rectangle for the icon
+                DrawUtil.drawRectangle(seasonStack,iconRectX-(2*labelPad),labelY,totalRectWidth-labelWidth,labelHeight,labelColor,labelAlpha); //Rectangle for the icon
 
                 ResourceLocation SEASON = getSeasonResource();
                 RenderSystem.setShader(GameRenderer::getPositionTexShader);
                 RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
                 RenderSystem.setShaderTexture(0, SEASON);
                 GuiComponent.blit(seasonStack,(int)(labelIconX),(int)(labelIconY),0,0,iconDim,iconDim,iconDim,iconDim);
-                //DrawUtil.drawImage(seasonStack, 0,labelX,labelY,false,fontScale,0);
                 seasonStack.popPose();
             }
         }
