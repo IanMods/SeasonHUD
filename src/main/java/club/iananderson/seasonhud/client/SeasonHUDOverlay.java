@@ -19,7 +19,6 @@ import static club.iananderson.seasonhud.impl.minimaps.CurrentMinimap.noMinimap;
 import static club.iananderson.seasonhud.impl.sereneseasons.Calendar.calendar;
 import static club.iananderson.seasonhud.impl.sereneseasons.CurrentSeason.*;
 
-//HUD w/ no minimap installed
 public class SeasonHUDOverlay {
     public static final IGuiOverlay HUD_SEASON = (ForgeGui, seasonStack, partialTick, screenWidth, screenHeight) -> {
         Minecraft mc = Minecraft.getInstance();
@@ -55,11 +54,11 @@ public class SeasonHUDOverlay {
                 }
                 case BOTTOM_LEFT -> {
                     x = offsetDim;
-                    y = screenHeight - iconDim - (2*offsetDim);
+                    y = screenHeight - iconDim - (2 * offsetDim);
                 }
                 case BOTTOM_RIGHT -> {
                     x = screenWidth - stringWidth - offsetDim;
-                    y = screenHeight - iconDim - (2*offsetDim);
+                    y = screenHeight - iconDim - (2 * offsetDim);
                 }
             }
 
