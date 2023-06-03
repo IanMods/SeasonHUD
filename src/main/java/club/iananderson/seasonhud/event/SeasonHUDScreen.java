@@ -9,6 +9,7 @@ import net.minecraft.client.gui.components.CycleButton;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.network.chat.Component;
 import net.minecraftforge.client.gui.widget.ExtendedButton;
+import org.jetbrains.annotations.NotNull;
 
 import static club.iananderson.seasonhud.config.Config.*;
 import static club.iananderson.seasonhud.impl.minimaps.CurrentMinimap.loadedMinimap;
@@ -38,8 +39,8 @@ public class SeasonHUDScreen extends Screen{
     }
 
     @Override
-    public void render(PoseStack stack, int mouseX, int mouseY, float partialTicks){
-        this.renderDirtBackground(0);
+    public void render(@NotNull PoseStack stack, int mouseX, int mouseY, float partialTicks){
+        this.renderDirtBackground(stack);
         drawCenteredString(stack, font, TITLE, this.width / 2, PADDING, 16777215);
         drawCenteredString(stack, font, JOURNEYMAP, this.width / 2, MENU_PADDING_FULL + (4 * (BUTTON_HEIGHT + PADDING)), 16777215);
         super.render(stack, mouseX, mouseY, partialTicks);
