@@ -3,15 +3,15 @@ loaderVersion = "[43,)" #mandatory This is typically bumped every Minecraft vers
 license = "All Rights Reserved"
 
 [[mods]] #mandatory
-modId = "seasonhud" #mandatory
-version = "${file.jarVersion}" #mandatory
-displayName = "SeasonHUD" #mandatory
-displayURL = "https://www.curseforge.com/minecraft/mc-mods/seasonhud"
-logoFile= "SeasonHud.png"
-logoBlur = true
-authors="IanAnderson" #optional
-description ='''
-This is an addon for SereneSeasons that displays the current season on the HUD or under a minimap'''
+    modId = "seasonhud" #mandatory
+    version = "${file.jarVersion}" #mandatory
+    displayName = "SeasonHUD" #mandatory
+    displayURL = "https://www.curseforge.com/minecraft/mc-mods/seasonhud"
+    logoFile= "SeasonHud.png"
+    logoBlur = true
+    authors="IanAnderson" #optional
+    description ='''
+    This is an addon for SereneSeasons that displays the current season on the HUD or under a minimap'''
 
 # A dependency - use the . to indicate dependency for a specific modid. Dependencies are optional.
 [[dependencies.seasonhud]] #optional
