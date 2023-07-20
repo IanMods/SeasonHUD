@@ -12,10 +12,14 @@ apply plugin: 'net.minecraftforge.gradle'
 apply plugin: 'eclipse'
 apply plugin: 'maven-publish'
 
+version = mod_version
+group = mod_group
+
 archivesBaseName = "${mod_name}-forge-${minecraft_version}"
 
+
 minecraft {
-    mappings channel: 'official', version: minecraft_version
+    mappings channel: mapping_channel, version: mapping_version
     
     if (project.hasProperty('forge_ats_enabled') && project.findProperty('forge_ats_enabled').toBoolean()) {
         // This location is hardcoded in Forge and can not be changed.
@@ -27,7 +31,9 @@ minecraft {
     runs {
         client {
             workingDirectory project.file('run')
+
             ideaModule "${rootProject.name}.${project.name}.main"
+
             taskName 'Client'
             property 'mixin.env.remapRefMap', 'true'
             property 'mixin.env.refMapRemappingFile', "${projectDir}/build/createSrgToMcp/output.srg"
@@ -41,7 +47,9 @@ minecraft {
 
         server {
             workingDirectory project.file('run')
+
             ideaModule "${rootProject.name}.${project.name}.main"
+
             taskName 'Server'
             property 'mixin.env.remapRefMap', 'true'
             property 'mixin.env.refMapRemappingFile', "${projectDir}/build/createSrgToMcp/output.srg"
@@ -55,8 +63,10 @@ minecraft {
 
         data {
             workingDirectory project.file('run')
+
             ideaModule "${rootProject.name}.${project.name}.main"
             args '--mod', mod_id, '--all', '--output', file('src/generated/resources/'), '--existing', file('src/main/resources/')
+
             taskName 'Data'
             property 'mixin.env.remapRefMap', 'true'
             property 'mixin.env.refMapRemappingFile', "${projectDir}/build/createSrgToMcp/output.srg"
