@@ -59,6 +59,7 @@ public class XaeroMinimap {
             boolean XInClaim = inClaim(dim,chunkX,chunkZ);
             int xLight = LIGHT_LEVEL.getState();
             int xTime = TIME.getState();
+            int xRealTime = REAL_TIME.getState();
 
 
             int trueCount = 0;
@@ -70,6 +71,7 @@ public class XaeroMinimap {
             if (xClaim && XInClaim) {trueCount++;}
             if (xLight > 0) {trueCount++;}
             if (xTime > 0) {trueCount++;}
+            if (xRealTime >0) {trueCount++;}
 
             //Icon
             float stringWidth = mc.font.width(underText.get(0));

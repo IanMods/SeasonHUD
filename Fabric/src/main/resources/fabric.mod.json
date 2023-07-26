@@ -36,6 +36,8 @@
       "seasons": "*"
     },
     "suggests": {
+      "xaerominimap": ">=23.4.0s"
+
     }
   }
   

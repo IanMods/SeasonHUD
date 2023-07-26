@@ -75,6 +75,10 @@ subprojects {
             name = "Ladysnake Libs"
             url = 'https://maven.ladysnake.org/releases'
         }
+        maven {
+            name = "Fuzs Mod Resources"
+            url = "https://raw.githubusercontent.com/Fuzss/modresources/main/maven/"
+        }
     }
 
     tasks.withType(JavaCompile).configureEach {
