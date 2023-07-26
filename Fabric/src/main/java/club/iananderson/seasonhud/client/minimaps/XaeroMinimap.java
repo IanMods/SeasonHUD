@@ -17,13 +17,15 @@ import org.lwjgl.opengl.GL11;
 import com.mojang.blaze3d.platform.GlStateManager;
 import xaero.common.core.XaeroMinimapCore;
 import xaero.common.gui.IScreenBase;
+import xaero.common.minimap.info.BuiltInInfoDisplays;
+import xaero.common.minimap.info.InfoDisplayManager;
 
 import java.util.ArrayList;
 import java.util.Objects;
 
 import static club.iananderson.seasonhud.impl.minimaps.CurrentMinimap.loadedMinimap;
 import static club.iananderson.seasonhud.impl.fabricseasons.CurrentSeason.*;
-import static club.iananderson.seasonhud.impl.minimaps.XaeroInfoDisplays.manager;
+import static club.iananderson.seasonhud.impl.minimaps.XaeroInfoDisplays.SEASON;
 import static club.iananderson.seasonhud.impl.opac.OpenPartiesAndClaims.inClaim;
 import static xaero.common.minimap.info.BuiltInInfoDisplays.*;
 import static xaero.common.settings.ModOptions.modMain;
@@ -56,11 +58,12 @@ public class XaeroMinimap implements HudRenderCallback {
     @Override
     public void onHudRender(PoseStack seasonStack, float alpha)
     {
-        XaeroInfoDisplays.addToManager(manager);
+        InfoDisplayManager xaeroManager = XaeroMinimapCore.currentSession.getModMain().getInterfaces().getMinimapInterface().getInfoDisplayManager();
         Minecraft mc = Minecraft.getInstance();
         ResourceLocation dim = Objects.requireNonNull(mc.level).dimension().location();
         int chunkX = mc.player.chunkPosition().x;
         int chunkZ = mc.player.chunkPosition().z;
+        xaeroManager.add(SEASON);
 
         ArrayList<Component> underText = getSeasonName();
 
