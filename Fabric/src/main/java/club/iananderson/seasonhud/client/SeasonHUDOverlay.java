@@ -60,18 +60,16 @@ public class SeasonHUDOverlay implements HudRenderCallback{
         int screenWidth = mc.getWindow().getGuiScaledWidth();
         int screenHeight = mc.getWindow().getGuiScaledHeight();
 
-
         int xOffset = (int) (INSTANCE.hudX / guiSize);
         int yOffset = (int) ((INSTANCE.hudY) / guiSize);
         int x = 1;
         int y = 1;
+        int offsetDim = 2;
 
         Font font = mc.font;
         int stringHeight = (font.lineHeight);
-        int iconDim = stringHeight-1;
-        int offsetDim = 2;
-
-        int stringWidth = font.width(seasonName.get(0)) + iconDim + offsetDim;// might need to take offsetDim out
+        int stringWidth = font.width(seasonName.get(0)) + offsetDim;// might need to take offsetDim out
+        int iconDim = stringHeight;
 
         if (noMinimap() && INSTANCE.enableMod && calendar()) {
             Location hudLoc = INSTANCE.hudLocation;
@@ -98,17 +96,17 @@ public class SeasonHUDOverlay implements HudRenderCallback{
                 }
             }
 
+            //Draw Text + Icon
             enableAlpha(alpha);
             RenderSystem.setShaderTexture(0, Screen.GUI_ICONS_LOCATION);
             seasonStack.pushPose();
-
             seasonStack.scale(1F, 1F, 1F);
 
             //Text
             int iconX = x + xOffset;
-            int iconY = y + yOffset+offsetDim;
-            float textX = (iconX + iconDim + offsetDim);
-            float textY = iconY;//(iconY+(iconDim-stringHeight)); //double check this is exact
+            int iconY = y + yOffset + offsetDim;
+            float textX = iconX;
+            float textY = iconY + 1;
             font.drawShadow(seasonStack, seasonName.get(0),textX, textY, 0xffffffff);
 
             //Icon
