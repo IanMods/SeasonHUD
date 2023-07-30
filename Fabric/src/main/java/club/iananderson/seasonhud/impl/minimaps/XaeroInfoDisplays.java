@@ -3,6 +3,7 @@ package club.iananderson.seasonhud.impl.minimaps;
 import net.minecraft.client.gui.GuiComponent;
 import net.minecraft.network.chat.Component;
 import xaero.common.minimap.info.InfoDisplay;
+import xaero.common.minimap.info.InfoDisplayManager;
 import xaero.common.minimap.info.codec.InfoDisplayCommonStateCodecs;
 import xaero.common.minimap.info.widget.InfoDisplayCommonWidgetFactories;
 
@@ -11,6 +12,7 @@ import java.util.List;
 
 import static club.iananderson.seasonhud.impl.fabricseasons.CurrentSeason.getSeasonName;
 import static club.iananderson.seasonhud.impl.minimaps.CurrentMinimap.hideMinimap;
+import static xaero.common.settings.ModOptions.modMain;
 
 
 public class XaeroInfoDisplays {
@@ -26,5 +28,12 @@ public class XaeroInfoDisplays {
                     compiler.addLine(s);}
             }
         },ALL);
+    }
+
+    public static boolean aboveSeason(InfoDisplay<?> infoDisplay){
+        List<InfoDisplay<?>> managerList = modMain.getInterfaces().getMinimapInterface().getInfoDisplayManager().getStream().toList();
+        int seasonIndex = managerList.indexOf(SEASON);
+        int infoIndex = managerList.indexOf(infoDisplay);
+        return infoIndex < seasonIndex;
     }
 }
