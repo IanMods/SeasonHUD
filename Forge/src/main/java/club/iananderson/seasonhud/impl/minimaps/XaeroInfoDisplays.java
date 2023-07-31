@@ -8,8 +8,8 @@ import xaero.common.minimap.info.widget.InfoDisplayCommonWidgetFactories;
 import java.util.ArrayList;
 import java.util.List;
 
-import static club.iananderson.seasonhud.impl.fabricseasons.CurrentSeason.getSeasonName;
 import static club.iananderson.seasonhud.impl.minimaps.CurrentMinimap.dimensionHideHUD;
+import static club.iananderson.seasonhud.impl.sereneseasons.CurrentSeason.getSeasonName;
 import static xaero.common.settings.ModOptions.modMain;
 
 

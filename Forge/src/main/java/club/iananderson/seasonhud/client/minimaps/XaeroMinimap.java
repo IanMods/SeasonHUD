@@ -1,5 +1,6 @@
 package club.iananderson.seasonhud.client.minimaps;
 
+import com.google.common.primitives.Booleans;
 import com.mojang.blaze3d.systems.RenderSystem;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiComponent;
@@ -11,11 +12,18 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraftforge.client.gui.overlay.IGuiOverlay;
 import xaero.common.core.XaeroMinimapCore;
 import xaero.common.gui.IScreenBase;
+import xaero.common.minimap.MinimapInterface;
+import xaero.common.minimap.MinimapProcessor;
+import xaero.common.minimap.info.InfoDisplayManager;
+import xaero.common.minimap.waypoints.WaypointsManager;
+import xaero.common.settings.ModSettings;
 
 import java.util.ArrayList;
 import java.util.Objects;
 
 import static club.iananderson.seasonhud.impl.minimaps.CurrentMinimap.loadedMinimap;
+import static club.iananderson.seasonhud.impl.minimaps.XaeroInfoDisplays.SEASON;
+import static club.iananderson.seasonhud.impl.minimaps.XaeroInfoDisplays.aboveSeason;
 import static club.iananderson.seasonhud.impl.opac.OpenPartiesAndClaims.inClaim;
 import static club.iananderson.seasonhud.impl.sereneseasons.CurrentSeason.getSeasonName;
 import static club.iananderson.seasonhud.impl.sereneseasons.CurrentSeason.getSeasonResource;
@@ -25,96 +33,88 @@ import static xaero.common.settings.ModOptions.modMain;
 public class XaeroMinimap {
     public static final IGuiOverlay XAERO_SEASON = (ForgeGui, seasonStack, partialTick, width, height) -> {
         Minecraft mc = Minecraft.getInstance();
-        ResourceLocation dim = Objects.requireNonNull(mc.level).dimension().location();
-        int chunkX = mc.player.chunkPosition().x;
-        int chunkZ = mc.player.chunkPosition().z;
-
         ArrayList<Component> underText = getSeasonName();
 
         if (loadedMinimap("xaerominimap") || loadedMinimap("xaerominimapfair")) {
             //Data
-            float mapSize = XaeroMinimapCore.currentSession.getModMain().getSettings().getMinimapSize();//Minimap Size
+            ResourceLocation dim = Objects.requireNonNull(mc.level).dimension().location();
 
+            ModSettings modSettings = modMain.getSettings();
+            MinimapInterface minimapInterface = modMain.getInterfaces().getMinimapInterface();
+            MinimapProcessor minimapProcessor = XaeroMinimapCore.currentSession.getMinimapProcessor();
+            InfoDisplayManager infoDisplayManager = minimapInterface.getInfoDisplayManager();
+            WaypointsManager waypointsManager = XaeroMinimapCore.currentSession.getWaypointsManager();
+
+            // Correct position if InfoDisplay is hidden
+            boolean overworldCoordState = OVERWORLD_COORDINATES.getState()
+                    && mc.level.dimensionType().coordinateScale() == 1.0
+                    && aboveSeason(OVERWORLD_COORDINATES);
+            boolean weatherState = WEATHER.getState()
+                    && !(mc.level.isRaining() || mc.level.isThundering())
+                    && aboveSeason(WEATHER);
+            boolean highlightsState = HIGHLIGHTS.getState()
+                    && !inClaim(dim, mc.player.chunkPosition().x, mc.player.chunkPosition().z)
+                    && aboveSeason(HIGHLIGHTS);
+            boolean lightOverlayState = LIGHT_OVERLAY_INDICATOR.getState()
+                    && (modSettings.lightOverlayType == 0)
+                    && aboveSeason(LIGHT_OVERLAY_INDICATOR);
+            boolean manualCaveModeState = MANUAL_CAVE_MODE_INDICATOR.getState()
+                    && !minimapProcessor.isManualCaveMode()
+                    && aboveSeason(MANUAL_CAVE_MODE_INDICATOR);
+            boolean customSubWorldState = CUSTOM_SUB_WORLD.getState()
+                    && !(waypointsManager.getCurrentWorld() != null && waypointsManager.getAutoWorld() != waypointsManager.getCurrentWorld())
+                    && aboveSeason(CUSTOM_SUB_WORLD);
+
+            boolean[] hiddenIndexes = {overworldCoordState, weatherState, highlightsState, lightOverlayState, manualCaveModeState, customSubWorldState};
+
+            int filteredIndexSeason = infoDisplayManager.getStream()
+                    .filter(s -> !s.getState().equals(0))
+                    .filter(s -> !s.getState().equals(false))
+                    .toList().indexOf(SEASON) - Booleans.countTrue(hiddenIndexes);
+
+            //Icon
             double scale = mc.getWindow().getGuiScale();
 
-            float minimapScale = XaeroMinimapCore.currentSession.getModMain().getSettings().getMinimapScale();
+            float stringWidth = mc.font.width(underText.get(0));
+            float stringHeight = (mc.font.lineHeight);
+            float mapSize = modSettings.getMinimapSize();
+
+            float minimapScale = modSettings.getMinimapScale();
             float mapScale = ((float) (scale / (double) minimapScale));
             float fontScale = 1 / mapScale;
 
-            int padding = 9;
+            int iconDim = (int) stringHeight;
+            int size = (int) mapSize;
+            int framesize = 4;
+            int scaledHeight = (int) ((float) height * mapScale);
+            int align = modSettings.minimapTextAlign;
+            int yOffset = (int) (((framesize * 2) + 9) + (filteredIndexSeason * (stringHeight + 1)));
 
-            float x = XaeroMinimapCore.currentSession.getModMain().getInterfaces().getMinimapInterface().getX();
-            float y = XaeroMinimapCore.currentSession.getModMain().getInterfaces().getMinimapInterface().getY();
-            float halfSize = mapSize / 2;
-
+            float x = minimapInterface.getX();
+            float y = minimapInterface.getY();
             float scaledX = (x * mapScale);
             float scaledY = (y * mapScale);
 
-            boolean xBiome = BIOME.getState();
-            boolean xDim = DIMENSION.getState();
-            boolean xCoords = COORDINATES.getState();
-            boolean xAngles = ANGLES.getState();
-            boolean xWeather = WEATHER.getState();
-            boolean xClaim = HIGHLIGHTS.getState();
-            boolean XInClaim = inClaim(dim,chunkX,chunkZ);
-            int xLight = LIGHT_LEVEL.getState();
-            int xTime = TIME.getState();
-            int xRealTime = REAL_TIME.getState();
+            boolean under = ((int) scaledY + size / 2) < scaledHeight / 2;
 
+            int stringX = (int) (scaledX + (align == 0 ? size / 2 - stringWidth / 2 + iconDim + 1 : (align == 1 ? 6 : iconDim + size - stringWidth + framesize)));
+            int stringY = (int) ((scaledY) + (under ? size + yOffset : -yOffset + 7));
 
-            int trueCount = 0;
-            if (xBiome) {trueCount++;}
-            if (xDim) {trueCount++;}
-            if (xCoords) {trueCount++;}
-            if (xAngles) {trueCount++;}
-            if (xWeather) {trueCount++;}
-            if (xClaim && XInClaim) {trueCount++;}
-            if (xLight > 0) {trueCount++;}
-            if (xTime > 0) {trueCount++;}
-            if (xRealTime >0) {trueCount++;}
-
-            //Icon
-            float stringWidth = mc.font.width(underText.get(0));
-            float stringHeight = (mc.font.lineHeight) + 1;
-
-            int iconDim = (int) stringHeight - 1;
-            int offsetDim = 1;
-
-            float totalWidth = (stringWidth + iconDim + offsetDim);
-
-            int align = XaeroMinimapCore.currentSession.getModMain().getSettings().minimapTextAlign;
-            float scaledHeight = (int) ((float) height * mapScale);
-            boolean under = scaledY + mapSize / 2 < scaledHeight / 2;
-
-            float center = (float) (padding - 0.5 + halfSize + iconDim + offsetDim - totalWidth / 2);
-            float left = 6 + iconDim;
-            float right = (int) (mapSize + 2 + padding - stringWidth);
-
-            float stringX = scaledX + (align == 0 ? center : (align == 1 ? left : right));
-            float stringY = scaledY + (under ? mapSize + (2 * padding) : -9) + (trueCount * stringHeight * (under ? 1 : -1));
-
-            if ((!modMain.getSettings().hideMinimapUnderScreen || mc.screen == null || mc.screen instanceof IScreenBase || mc.screen instanceof ChatScreen || mc.screen instanceof DeathScreen)
-                    && (!modMain.getSettings().hideMinimapUnderF3 || !mc.options.renderDebug) && modMain.getSettings().getMinimap()) {
+            //Icon Draw
+            if ((!modSettings.hideMinimapUnderScreen || mc.screen == null || mc.screen instanceof IScreenBase || mc.screen instanceof ChatScreen || mc.screen instanceof DeathScreen)
+                    && (!modSettings.hideMinimapUnderF3 || !mc.options.renderDebug)) {
                 seasonStack.pushPose();
                 seasonStack.scale(fontScale, fontScale, 1.0F);
-
-                //Font
-                for (Component s : underText) {
-                    mc.font.drawShadow(seasonStack, s, stringX, stringY, -1);
-                }
-
-                underText.clear();
 
                 //Icon
                 ResourceLocation SEASON = getSeasonResource();
                 RenderSystem.setShader(GameRenderer::getPositionTexShader);
                 RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
                 RenderSystem.setShaderTexture(0, SEASON);
-                GuiComponent.blit(seasonStack, (int) (stringX - iconDim - offsetDim), (int) stringY, 0, 0, iconDim, iconDim, iconDim, iconDim);
+                GuiComponent.blit(seasonStack, (int) (stringX), (int) stringY, 0, 0, iconDim, iconDim, iconDim, iconDim);
                 seasonStack.popPose();
             }
         }
-
     };
 }
 

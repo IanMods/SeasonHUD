@@ -21,25 +21,24 @@ dependencies {
     modCompileOnly "curse.maven:xaeros-minimap-263420:4492931"
 //    modImplementation "curse.maven:xaeros-minimap-263420:4492931"
 
+    /Xaero's Minimap Fair Play/
     modCompileOnly "curse.maven:xaeros-minimap-fair-play-edition-263466:4503433"
 //    modImplementation "curse.maven:xaeros-minimap-fair-play-edition-263466:4503433"
-
-
 
     /Open Parties and Claims/
     modCompileOnly "curse.maven:open-parties-and-claims-636608:4500810"
 //    modImplementation "curse.maven:open-parties-and-claims-636608:4500810"
 
     /FTB Chunks/
-    modCompileOnly "curse.maven:ftb-library-fabric-438495:4478917"
-    modCompileOnly "curse.maven:architectury-api-419699:4476083"
-    modCompileOnly "curse.maven:ftb-teams-fabric-438497:4477313"
-    modCompileOnly "curse.maven:ftb-chunks-fabric-472657:4478934"
+//    modCompileOnly "curse.maven:ftb-library-fabric-438495:4478917"
+//    modCompileOnly "curse.maven:architectury-api-419699:4476083"
+//    modCompileOnly "curse.maven:ftb-teams-fabric-438497:4477313"
+//    modCompileOnly "curse.maven:ftb-chunks-fabric-472657:4478934"
 
-//    modImplementation "curse.maven:ftb-library-fabric-438495:4478917"
-//    modImplementation "curse.maven:architectury-api-419699:4476083"
-//    modImplementation "curse.maven:ftb-teams-fabric-438497:4477313"
-//    modImplementation "curse.maven:ftb-chunks-fabric-472657:4478934"
+    modImplementation "curse.maven:ftb-library-fabric-438495:4478917"
+    modImplementation "curse.maven:architectury-api-419699:4476083"
+    modImplementation "curse.maven:ftb-teams-fabric-438497:4477313"
+    modImplementation "curse.maven:ftb-chunks-fabric-472657:4478934"
 
     /JourneyMap/
     modCompileOnly "curse.maven:journeymap-32274:4473102"

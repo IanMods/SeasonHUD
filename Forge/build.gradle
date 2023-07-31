@@ -1,16 +1,21 @@
 buildscript {
     repositories {
         maven { url = 'https://maven.minecraftforge.net' }
+        maven { url = 'https://repo.spongepowered.org/repository/maven-public/' }
+
         mavenCentral()
     }
     dependencies {
         classpath group: 'net.minecraftforge.gradle', name: 'ForgeGradle', version: '5.1.+', changing: true
+        classpath group: 'org.spongepowered', name: 'mixingradle', version: '0.7-SNAPSHOT'
     }
 }
 apply plugin: 'java'
 apply plugin: 'net.minecraftforge.gradle'
 apply plugin: 'eclipse'
 apply plugin: 'maven-publish'
+apply plugin: 'org.spongepowered.mixin'
+
 
 version = mod_version
 group = mod_group
@@ -80,6 +85,12 @@ minecraft {
     }
 }
 
+mixin {
+    add sourceSets.main, "seasonhud.refmap.json"
+
+    config "seasonhud.mixins.json"
+}
+
 sourceSets.main.resources.srcDir 'src/generated/resources'
 
 dependencies {
@@ -96,8 +107,8 @@ dependencies {
     compileOnly fg.deobf("top.theillusivec4.curios:curios-forge:1.19.2-5.1.1.0:api")
 
     /Xaero's Minimap/
-//    compileOnly fg.deobf("curse.maven:xaeros-minimap-263420:4492932")
-    implementation fg.deobf("curse.maven:xaeros-minimap-263420:4492932")
+    compileOnly fg.deobf("curse.maven:xaeros-minimap-263420:4492932")
+//    implementation fg.deobf("curse.maven:xaeros-minimap-263420:4492932")
 
     /Xaero's Minimap Fair Play/
     compileOnly fg.deobf("curse.maven:xaeros-minimap-fair-play-edition-263466:4503434")
