@@ -1,6 +1,7 @@
 package club.iananderson.seasonhud.impl.fabricseasons;
 
 import club.iananderson.seasonhud.SeasonHUD;
+import club.iananderson.seasonhud.config.Config;
 import net.minecraft.client.Minecraft;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
@@ -11,7 +12,6 @@ import java.util.Objects;
 
 import static club.iananderson.seasonhud.data.CurrentLocale.getCurrentLocale;
 import static club.iananderson.seasonhud.data.CurrentLocale.supportedLanguages;
-import static club.iananderson.seasonhud.config.ModConfig.*;
 import static io.github.lucaargolo.seasons.FabricSeasons.CONFIG;
 
 
@@ -54,12 +54,12 @@ public class CurrentSeason {
     public static ArrayList<Component> getSeasonName() {
         ArrayList<Component> text = new ArrayList<>();
         if (supportedLanguages().contains(getCurrentLocale())) {
-            if (INSTANCE.showDay) {
+            if (Config.showDay.get()) {
                 text.add(Component.translatable("desc.seasonhud.detailed", Component.translatable("desc.seasonhud." + getSeasonStateLower()), getDate()));
             } else
                 text.add(Component.translatable("desc.seasonhud.summary", Component.translatable("desc.seasonhud." + getSeasonStateLower())));
         }
-       else if(INSTANCE.showDay) {
+       else if(Config.showDay.get()) {
             text.add(Component.translatable("desc.seasonhud.detailed", Component.translatable("tooltip.seasons." + getCurrentSeasonNameLower()), getDate()));
         }
         else text.add(Component.translatable("desc.seasonhud.summary",Component.translatable("tooltip.seasons."+ getCurrentSeasonNameLower())));
@@ -68,7 +68,7 @@ public class CurrentSeason {
     }
 
     public static ResourceLocation getSeasonResource() {
-        return new ResourceLocation(SeasonHUD.MODID, "textures/season/" + getSeasonFileName() + ".png");
+        return new ResourceLocation(SeasonHUD.MOD_ID, "textures/season/" + getSeasonFileName() + ".png");
         }
 }
 

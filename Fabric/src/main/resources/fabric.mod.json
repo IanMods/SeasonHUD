@@ -1,6 +1,6 @@
 {
     "schemaVersion": 1,
-    "id": "modid",
+    "id": "seasonhud",
     "version": "${version}",
 
     "name": "SeasonHUD",
@@ -11,11 +11,10 @@
     "contact": {
       "repo": "https://github.com/lanAnderson/SeasonHUD-Fabric"
     },
-
     "license": "All-Rights-Reserved",
     "icon": "assets/seasonhud/icon.png",
-
     "environment": "client",
+
     "entrypoints": {
       "client": [
         "club.iananderson.seasonhud.client.SeasonHUDClient"
@@ -24,10 +23,12 @@
         "club.iananderson.seasonhud.SeasonHUD"
       ]
     },
+
     "mixins": [
       "seasonhud.mixins.json"
     ],
-  
+
+
     "depends": {
       "fabricloader": ">=0.14",
       "fabric": "*",
@@ -35,9 +36,9 @@
       "java": ">=17",
       "seasons": "*"
     },
+
     "suggests": {
       "xaerominimap": ">=23.4.0s"
-
     }
   }
   

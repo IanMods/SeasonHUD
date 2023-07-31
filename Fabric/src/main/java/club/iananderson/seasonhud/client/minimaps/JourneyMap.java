@@ -1,5 +1,6 @@
 //package club.iananderson.seasonhud.client.minimaps;
 //
+//import com.mojang.blaze3d.platform.GlStateManager;
 //import com.mojang.blaze3d.systems.RenderSystem;
 //import com.mojang.blaze3d.vertex.PoseStack;
 //import journeymap.client.JourneymapClient;
@@ -8,12 +9,8 @@
 //import journeymap.client.ui.UIManager;
 //import journeymap.client.ui.minimap.DisplayVars;
 //import journeymap.client.ui.theme.Theme;
-//import journeymap.common.properties.config.StringField;
-//import net.minecraft.client.Minecraft;
-//import club.iananderson.seasonhud.config.Location;
-//import com.mojang.blaze3d.platform.GlStateManager;
-//import com.mojang.blaze3d.systems.RenderSystem;
 //import net.fabricmc.fabric.api.client.rendering.v1.HudRenderCallback;
+//import net.minecraft.client.Minecraft;
 //import net.minecraft.client.gui.Font;
 //import net.minecraft.client.gui.GuiComponent;
 //import net.minecraft.client.gui.screens.Screen;
@@ -22,19 +19,16 @@
 //import net.minecraft.resources.ResourceLocation;
 //import org.lwjgl.opengl.GL11;
 //
-//
 //import java.util.ArrayList;
 //
-//import static club.iananderson.seasonhud.config.ModConfig.*;
-//import static club.iananderson.seasonhud.impl.minimaps.CurrentMinimap.noMinimap;
-//import static club.iananderson.seasonhud.impl.fabricseasons.Calendar.calendar;
-//import static club.iananderson.seasonhud.impl.fabricseasons.CurrentSeason.*;
-//
+//import static club.iananderson.seasonhud.impl.fabricseasons.CurrentSeason.getSeasonName;
+//import static club.iananderson.seasonhud.impl.fabricseasons.CurrentSeason.getSeasonResource;
 //import static club.iananderson.seasonhud.impl.minimaps.CurrentMinimap.loadedMinimap;
 //
 //
 //public class JourneyMap implements HudRenderCallback{
 //    public static JourneyMap HUD_INSTANCE;
+//
 //    private boolean needDisableBlend = false;
 //
 //    public static void init()

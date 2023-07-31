@@ -1,5 +1,6 @@
 package club.iananderson.seasonhud.impl.fabricseasons;
 
+import club.iananderson.seasonhud.config.Config;
 import dev.emi.trinkets.api.TrinketComponent;
 import dev.emi.trinkets.api.TrinketsApi;
 import net.fabricmc.loader.api.FabricLoader;
@@ -15,9 +16,6 @@ import net.minecraft.world.item.Item;
 
 import java.util.Optional;
 
-import static club.iananderson.seasonhud.config.ModConfig.*;
-
-
 public class Calendar {
     public static boolean invCalendar;
 
@@ -27,7 +25,7 @@ public class Calendar {
 
     public static Item calendar = Registry.ITEM.get(new ResourceLocation("seasons","season_calendar"));
     public static boolean calendar() {
-        if (INSTANCE.needCalendar) {
+        if (Config.needCalendar.get()) {
             Minecraft mc = Minecraft.getInstance();
             LocalPlayer player = mc.player;
 

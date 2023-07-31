@@ -1,5 +1,6 @@
 package club.iananderson.seasonhud.client;
 
+import club.iananderson.seasonhud.config.Config;
 import club.iananderson.seasonhud.config.Location;
 import com.mojang.blaze3d.platform.GlStateManager;
 import com.mojang.blaze3d.systems.RenderSystem;
@@ -16,7 +17,6 @@ import org.lwjgl.opengl.GL11;
 
 import java.util.ArrayList;
 
-import static club.iananderson.seasonhud.config.ModConfig.INSTANCE;
 import static club.iananderson.seasonhud.impl.fabricseasons.Calendar.calendar;
 import static club.iananderson.seasonhud.impl.fabricseasons.CurrentSeason.getSeasonName;
 import static club.iananderson.seasonhud.impl.fabricseasons.CurrentSeason.getSeasonResource;
@@ -60,8 +60,8 @@ public class SeasonHUDOverlay implements HudRenderCallback{
         int screenWidth = mc.getWindow().getGuiScaledWidth();
         int screenHeight = mc.getWindow().getGuiScaledHeight();
 
-        int xOffset = (int) (INSTANCE.hudX / guiSize);
-        int yOffset = (int) ((INSTANCE.hudY) / guiSize);
+        int xOffset = (int) (Config.hudX.get() / guiSize);
+        int yOffset = (int) ((Config.hudY.get()) / guiSize);
         int x = 1;
         int y = 1;
         int offsetDim = 2;
@@ -71,8 +71,8 @@ public class SeasonHUDOverlay implements HudRenderCallback{
         int stringWidth = font.width(seasonName.get(0)) + offsetDim;// might need to take offsetDim out
         int iconDim = stringHeight;
 
-        if (noMinimap() && INSTANCE.enableMod && calendar()) {
-            Location hudLoc = INSTANCE.hudLocation;
+        if (noMinimap() && Config.enableMod.get() && calendar()) {
+            Location hudLoc = Config.hudLocation.get();
             switch (hudLoc) {
                 case TOP_LEFT -> {
                     x = offsetDim;
