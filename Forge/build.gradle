@@ -133,10 +133,6 @@ dependencies {
     compileOnly fg.deobf("curse.maven:journeymap-32274:4097953")
 //    implementation fg.deobf("curse.maven:journeymap-32274:4097953")
 
-    /Cold Sweat/
-//    compileOnly fg.deobf("curse.maven:cold-sweat-506194:4634385")
-    implementation fg.deobf("curse.maven:cold-sweat-506194:4634385")
-
 }
 
 tasks.withType(JavaCompile) {

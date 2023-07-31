@@ -41,8 +41,8 @@ dependencies {
     modImplementation "curse.maven:ftb-chunks-fabric-472657:4478934"
 
     /JourneyMap/
-    modCompileOnly "curse.maven:journeymap-32274:4473102"
-//    modImplementation "curse.maven:journeymap-32274:4473102"
+    modCompileOnly "curse.maven:journeymap-32274:4532890"
+//    modImplementation "curse.maven:journeymap-32274:4532890"
 
     /Trinkets/
     modCompileOnly "dev.emi:trinkets:3.4.1"
