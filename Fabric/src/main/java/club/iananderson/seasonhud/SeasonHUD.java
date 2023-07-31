@@ -2,7 +2,6 @@ package club.iananderson.seasonhud;
 
 import club.iananderson.seasonhud.client.SeasonHUDOverlay;
 import club.iananderson.seasonhud.client.minimaps.FTBChunks;
-import club.iananderson.seasonhud.client.minimaps.JourneyMap;
 import club.iananderson.seasonhud.client.minimaps.XaeroMinimap;
 import net.fabricmc.api.ModInitializer;
 

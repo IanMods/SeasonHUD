@@ -124,7 +124,7 @@ public class FTBChunks implements HudRenderCallback{
                         RenderSystem.setShader(GameRenderer::getPositionTexShader);
                         RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
                         RenderSystem.setShaderTexture(0, SEASON);
-                        GuiComponent.blit(seasonStack,(int)((-bsw) / 2.0F)-iconDim, (i * 11), 0, 0, iconDim, iconDim, iconDim, iconDim);
+                        GuiComponent.blit(seasonStack,(int)(((-bsw) + iconDim / 2) / 2.0F), (i * 11), 0, 0, iconDim, iconDim, iconDim, iconDim);
                         seasonStack.popPose();
                         RenderSystem.setShaderTexture(0, Screen.GUI_ICONS_LOCATION);
                         disableAlpha(alpha);
