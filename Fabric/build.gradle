@@ -4,6 +4,9 @@ plugins {
     id 'idea'
 }
 
+version = mod_version
+group = mod_group
+
 archivesBaseName = "${mod_name}-fabric-${minecraft_version}"
 
 dependencies {
