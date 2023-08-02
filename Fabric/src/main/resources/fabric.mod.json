@@ -34,7 +34,8 @@
       "fabric": "*",
       "minecraft": "1.19.x",
       "java": ">=17",
-      "seasons": "*"
+      "seasons": "*",
+      "fabric-key-binding-api-v1": "*"
     },
 
     "suggests": {

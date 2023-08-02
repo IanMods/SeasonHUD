@@ -11,6 +11,7 @@ import net.minecraft.network.chat.Component;
 import net.minecraftforge.client.gui.widget.ExtendedButton;
 import org.jetbrains.annotations.NotNull;
 
+
 import static club.iananderson.seasonhud.config.Config.*;
 
 public class SeasonHUDScreen extends Screen{
