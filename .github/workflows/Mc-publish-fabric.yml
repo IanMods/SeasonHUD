@@ -1,4 +1,4 @@
-name: MC-Publish (CurseForge/Modrinth)
+name: MC-Publish-Fabric (CurseForge/Modrinth)
 
 on: [workflow_dispatch]
 
