@@ -57,6 +57,7 @@ public class SeasonHUDOverlay implements HudRenderCallback{
         ArrayList<Component> seasonName = getSeasonName();
 
         float guiSize = (float) mc.getWindow().getGuiScale();
+
         int screenWidth = mc.getWindow().getGuiScaledWidth();
         int screenHeight = mc.getWindow().getGuiScaledHeight();
 

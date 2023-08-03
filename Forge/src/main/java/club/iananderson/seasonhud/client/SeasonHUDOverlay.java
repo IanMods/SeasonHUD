@@ -3,6 +3,7 @@ package club.iananderson.seasonhud.client;
 import club.iananderson.seasonhud.config.Location;
 import com.mojang.blaze3d.systems.RenderSystem;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.GuiComponent;
 import net.minecraft.client.gui.screens.ChatScreen;
 import net.minecraft.client.gui.screens.DeathScreen;
@@ -31,12 +32,12 @@ public class SeasonHUDOverlay {
         int yOffset = (int) ((hudY.get())/guiSize);
         int x = 1;
         int y = 1;
-
-        int stringHeight = (mc.font.lineHeight);
-        int iconDim = stringHeight-1;
         int offsetDim = 2;
 
-        int stringWidth = mc.font.width(seasonName.get(0)) + iconDim + offsetDim;// might need to take offsetDim out
+        Font font = mc.font;
+        int stringHeight = (font.lineHeight);
+        int stringWidth = font.width(seasonName.get(0)) + offsetDim;// might need to take offsetDim out
+        int iconDim = stringHeight;
 
         if ((noMinimap() || (minimapHidden() && showMinimapHidden.get())) && enableMod.get() && calendar()) {
             Location hudLoc = hudLocation.get();
@@ -55,11 +56,11 @@ public class SeasonHUDOverlay {
                 }
                 case BOTTOM_LEFT -> {
                     x = offsetDim;
-                    y = screenHeight - iconDim - (2 * offsetDim);
+                    y = screenHeight - iconDim - (2*offsetDim);
                 }
                 case BOTTOM_RIGHT -> {
                     x = screenWidth - stringWidth - offsetDim;
-                    y = screenHeight - iconDim - (2 * offsetDim);
+                    y = screenHeight - iconDim - (2*offsetDim);
                 }
             }
 
@@ -70,9 +71,9 @@ public class SeasonHUDOverlay {
                 //Text
                 int iconX = x + xOffset;
                 int iconY = y + yOffset + offsetDim;
-                float textX = (iconX + iconDim + offsetDim);
-                float textY = iconY;//(iconY+(iconDim-stringHeight)); //double check this is exact
-                ForgeGui.getFont().drawShadow(seasonStack, seasonName.get(0), textX, textY, 0xffffffff);
+                float textX = iconX;
+                float textY = iconY + 1;
+                ForgeGui.getFont().drawShadow(seasonStack, seasonName.get(0),textX, textY, 0xffffffff);
 
                 //Icon
                 ResourceLocation SEASON = getSeasonResource();
