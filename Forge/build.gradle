@@ -20,7 +20,7 @@ apply plugin: 'org.spongepowered.mixin'
 version = mod_version
 group = mod_group
 
-archivesBaseName = "${mod_name}-forge-${minecraft_version}"
+archivesBaseName = mod_id + "-forge-" + minecraft_version
 
 
 minecraft {
