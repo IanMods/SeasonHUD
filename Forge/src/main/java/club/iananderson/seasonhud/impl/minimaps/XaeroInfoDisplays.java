@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static club.iananderson.seasonhud.impl.minimaps.CurrentMinimap.dimensionHideHUD;
+import static club.iananderson.seasonhud.impl.sereneseasons.Calendar.calendar;
 import static club.iananderson.seasonhud.impl.sereneseasons.CurrentSeason.getSeasonName;
 import static xaero.common.settings.ModOptions.modMain;
 
@@ -19,7 +20,7 @@ public class XaeroInfoDisplays {
 
     static{
         SEASON = new InfoDisplay("season", Component.translatable("menu.seasonhud.infodisplay.season"), true, InfoDisplayCommonStateCodecs.BOOLEAN, InfoDisplayCommonWidgetFactories.OFF_ON, (displayInfo, compiler, session, processor, x, y, w, h, scale, size, playerBlockX, playerBlockY, playerBlockZ, playerPos) -> {
-            if ((Boolean)displayInfo.getState() && !dimensionHideHUD()) {
+            if ((Boolean)displayInfo.getState() && !dimensionHideHUD() && calendar()) {
                 ArrayList<Component> seasonName = getSeasonName();
 
                 for (Component s : seasonName) {
