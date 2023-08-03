@@ -19,11 +19,9 @@ jobs:
 
       - name: Checkout Repository
         uses: actions/checkout@v3
-        with:
-          submodules: true
 
       - name: Setup Java
-        uses: actions/setup-java@v2
+        uses: actions/setup-java@v3
         with:
           distribution: "temurin"
           java-version: 17
@@ -35,7 +33,7 @@ jobs:
       - name: Build
         run: ./gradlew clean build
 
-      - name: Publish on Curseforge and Modrinth
+      - name: Publish on Curseforge and Modrinth (Fabric)
         uses: Kir-Antipov/mc-publish@v3.3
         with:
 
@@ -63,3 +61,4 @@ jobs:
           loaders: fabric
           game-versions: "${{env.MINECRAFT_VERSION}}"
           java: "${{env.JAVA_VERSION}}"
+
