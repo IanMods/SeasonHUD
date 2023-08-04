@@ -110,6 +110,7 @@ public class SeasonHUDOverlay implements HudRenderCallback{
             float textY = iconY + 1;
             font.drawShadow(seasonStack, seasonName.get(0),textX, textY, 0xffffffff);
 
+
             //Icon
             ResourceLocation SEASON = getSeasonResource();
             RenderSystem.setShader(GameRenderer::getPositionTexShader);

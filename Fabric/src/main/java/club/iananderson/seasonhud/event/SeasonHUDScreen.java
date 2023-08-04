@@ -40,7 +40,7 @@ public class SeasonHUDScreen extends Screen{
 
     @Override
     public void render(@NotNull PoseStack stack, int mouseX, int mouseY, float partialTicks){
-        this.renderDirtBackground(0);
+        this.renderDirtBackground(stack);
         drawCenteredString(stack, font, TITLE, this.width / 2, PADDING, 16777215);
         drawCenteredString(stack, font, JOURNEYMAP, this.width / 2, MENU_PADDING_FULL + (5 * (BUTTON_HEIGHT + PADDING)), 16777215);
         super.render(stack, mouseX, mouseY, partialTicks);
@@ -108,11 +108,12 @@ public class SeasonHUDScreen extends Screen{
                         Component.translatable("menu.seasonhud.button.journeyMapAboveMap"),
                         (b, Off) -> Config.setJourneyMapAboveMap(Off));
 
-
-        Button doneButton = new Button((this.width / 2 - (BUTTON_WIDTH_FULL / 2)), (this.height - BUTTON_HEIGHT - PADDING), BUTTON_WIDTH_FULL, BUTTON_HEIGHT, Component.translatable("gui.done"), b -> {
+        Button doneButton = Button.builder(Component.translatable("gui.done"), button -> {
             mc.options.save();
             mc.setScreen(this.lastScreen);
-        });
+        })
+                .bounds(this.width / 2 - (BUTTON_WIDTH_FULL / 2), (this.height - BUTTON_HEIGHT - PADDING),BUTTON_WIDTH_FULL, BUTTON_HEIGHT)
+                .build();
 
         //ExtendedButton cancelButton = new ExtendedButton((this.width / 2 - (PADDING + BUTTON_WIDTH_HALF)), this.height - MENU_PADDING_HALF, BUTTON_WIDTH_HALF, BUTTON_HEIGHT, Component.translatable("gui.cancel"), b -> mc.setScreen(this.lastScreen));
 

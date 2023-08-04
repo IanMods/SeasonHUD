@@ -40,7 +40,7 @@ public class SeasonHUDScreen extends Screen{
 
     @Override
     public void render(@NotNull PoseStack stack, int mouseX, int mouseY, float partialTicks){
-        this.renderDirtBackground(0);
+        this.renderDirtBackground(stack);
         drawCenteredString(stack, font, TITLE, this.width / 2, PADDING, 16777215);
         drawCenteredString(stack, font, JOURNEYMAP, this.width / 2, MENU_PADDING_FULL + (5 * (BUTTON_HEIGHT + PADDING)), 16777215);
         super.render(stack, mouseX, mouseY, partialTicks);
