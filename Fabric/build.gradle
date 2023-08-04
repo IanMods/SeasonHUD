@@ -18,19 +18,19 @@ dependencies {
     implementation project(":Common")
 
     /Fabric Seasons/
-    modImplementation "curse.maven:fabric-seasons-413523:3841956"
+    modImplementation "curse.maven:fabric-seasons-413523:4560140"
 
     /Xaero's Minimap/
-    modCompileOnly "curse.maven:xaeros-minimap-263420:4492931"
-//    modImplementation "curse.maven:xaeros-minimap-263420:4492931"
+    modCompileOnly "curse.maven:xaeros-minimap-263420:4658319"
+//    modImplementation "curse.maven:xaeros-minimap-263420:4658319"
 
     /Xaero's Minimap Fair Play/
-    modCompileOnly "curse.maven:xaeros-minimap-fair-play-edition-263466:4503433"
-//    modImplementation "curse.maven:xaeros-minimap-fair-play-edition-263466:4503433"
+    modCompileOnly "curse.maven:xaeros-minimap-fair-play-edition-263466:4503440"
+//    modImplementation "curse.maven:xaeros-minimap-fair-play-edition-263466:4503440"
 
     /Open Parties and Claims/
-    modCompileOnly "curse.maven:open-parties-and-claims-636608:4500810"
-//    modImplementation "curse.maven:open-parties-and-claims-636608:4500810"
+    modCompileOnly "curse.maven:open-parties-and-claims-636608:4663428"
+//    modImplementation "curse.maven:open-parties-and-claims-636608:4663428"
 
     /FTB Chunks/
     modCompileOnly "curse.maven:ftb-library-fabric-438495:4478917"
@@ -44,12 +44,12 @@ dependencies {
 //    modImplementation "curse.maven:ftb-chunks-fabric-472657:4478934"
 
     /JourneyMap/
-    modCompileOnly "curse.maven:journeymap-32274:4532890"
-//    modImplementation "curse.maven:journeymap-32274:4532890"
+    modCompileOnly "curse.maven:journeymap-32274:4532892"
+//    modImplementation "curse.maven:journeymap-32274:4532892"
 
     /Trinkets/
-    modCompileOnly "dev.emi:trinkets:3.4.1"
-//    modImplementation "dev.emi:trinkets:3.4.1"
+    modCompileOnly "dev.emi:trinkets:3.6.0"
+//    modImplementation "dev.emi:trinkets:3.6.0"
 
 
     modApi("me.shedaniel.cloth:cloth-config-fabric:${project.cloth_version}") {
@@ -59,7 +59,7 @@ dependencies {
     implementation 'com.electronwill.night-config:core:3.6.3'
     implementation 'com.electronwill.night-config:toml:3.6.3'
 
-    modImplementation "net.minecraftforge:forgeconfigapiport-fabric:4.2.11"//source: https://github.com/Fuzss/forgeconfigapiport-fabric
+    modImplementation "fuzs.forgeconfigapiport:forgeconfigapiport-fabric:6.0.2"//source: https://github.com/Fuzss/forgeconfigapiport-fabric
 
 //    modCompileOnlyApi group: 'info.journeymap', name: 'journeymap-api', version: project.journeymap_api_version_fabric, changing: true
 //    modCompileOnly "curse.maven:journeymap-${project.jm_project_id}:${project.jm_file_id_fabric}"
