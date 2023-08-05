@@ -4,17 +4,15 @@ import club.iananderson.seasonhud.config.Config;
 import dev.emi.trinkets.api.TrinketComponent;
 import dev.emi.trinkets.api.TrinketsApi;
 import net.fabricmc.loader.api.FabricLoader;
-
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.player.LocalPlayer;
-import net.minecraft.core.Registry;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Inventory;
-
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 
 import java.util.Optional;
+
+import static io.github.lucaargolo.seasonsextras.FabricSeasonsExtras.SEASON_CALENDAR_ITEM;
 
 public class Calendar {
     public static boolean invCalendar;
@@ -23,7 +21,7 @@ public class Calendar {
         return FabricLoader.getInstance().isModLoaded("trinkets");
     }
 
-    public static Item calendar = Registry.ITEM.get(new ResourceLocation("seasonsextras","season_calendar"));
+    public static Item calendar = SEASON_CALENDAR_ITEM;
     public static boolean calendar() {
         if (Config.needCalendar.get()) {
             Minecraft mc = Minecraft.getInstance();

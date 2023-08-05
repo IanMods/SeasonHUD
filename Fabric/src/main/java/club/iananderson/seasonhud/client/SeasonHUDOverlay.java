@@ -2,7 +2,6 @@ package club.iananderson.seasonhud.client;
 
 import club.iananderson.seasonhud.config.Config;
 import club.iananderson.seasonhud.config.Location;
-import com.mojang.blaze3d.platform.GlStateManager;
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.PoseStack;
 import net.fabricmc.fabric.api.client.rendering.v1.HudRenderCallback;
@@ -13,11 +12,9 @@ import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.client.renderer.GameRenderer;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
-import org.lwjgl.opengl.GL11;
 
 import java.util.ArrayList;
 
-import static club.iananderson.seasonhud.config.Config.enableMod;
 import static club.iananderson.seasonhud.config.Config.showMinimapHidden;
 import static club.iananderson.seasonhud.impl.fabricseasons.Calendar.calendar;
 import static club.iananderson.seasonhud.impl.fabricseasons.CurrentSeason.getSeasonName;
@@ -28,9 +25,7 @@ import static club.iananderson.seasonhud.impl.minimaps.HiddenMinimap.minimapHidd
 
 //HUD w/ no minimap installed
 public class SeasonHUDOverlay implements HudRenderCallback{
-
     public static SeasonHUDOverlay HUD_INSTANCE;
-    private boolean needDisableBlend = false;
 
     public static void init()
     {
@@ -60,7 +55,9 @@ public class SeasonHUDOverlay implements HudRenderCallback{
         int stringWidth = font.width(seasonName.get(0)) + offsetDim;// might need to take offsetDim out
         int iconDim = stringHeight;
 
-        if ((noMinimap() && (minimapHidden() && showMinimapHidden.get())) && enableMod.get() && calendar()) {            Location hudLoc = Config.hudLocation.get();
+        if ((noMinimap() || (minimapHidden() && showMinimapHidden.get())) && Config.enableMod.get() && calendar()){
+        //if ((noMinimap() && (minimapHidden() && showMinimapHidden.get())) && enableMod.get() && calendar()) {
+            Location hudLoc = Config.hudLocation.get();
             switch (hudLoc) {
                 case TOP_LEFT -> {
                     x = offsetDim;
@@ -95,8 +92,6 @@ public class SeasonHUDOverlay implements HudRenderCallback{
             float textX = iconX;
             float textY = iconY + 1;
             font.drawShadow(seasonStack, seasonName.get(0),textX, textY, 0xffffffff);
-
-
 
             //Icon
             ResourceLocation SEASON = getSeasonResource();
