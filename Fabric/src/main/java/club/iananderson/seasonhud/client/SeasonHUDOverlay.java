@@ -56,7 +56,6 @@ public class SeasonHUDOverlay implements HudRenderCallback{
         int iconDim = stringHeight;
 
         if ((noMinimap() || (minimapHidden() && showMinimapHidden.get())) && Config.enableMod.get() && calendar()){
-        //if ((noMinimap() && (minimapHidden() && showMinimapHidden.get())) && enableMod.get() && calendar()) {
             Location hudLoc = Config.hudLocation.get();
             switch (hudLoc) {
                 case TOP_LEFT -> {
