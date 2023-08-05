@@ -60,7 +60,8 @@ jobs:
             serene-seasons(required)
 
           loaders: forge
-          game-versions: "${{env.MINECRAFT_VERSION}}"
+          game-versions: |
+            [1.20,1.20.2)
           java: "${{env.JAVA_VERSION}}"
 
       - name: Publish on Curseforge and Modrinth (Fabric)
@@ -90,5 +91,6 @@ jobs:
             fabric-seasons-extras(required)
 
           loaders: fabric
-          game-versions: [1.20,1.20.2)
+          game-versions: |
+            [1.20,1.20.2)
           java: "${{env.JAVA_VERSION}}"
