@@ -23,7 +23,7 @@ public class Calendar {
         return FabricLoader.getInstance().isModLoaded("trinkets");
     }
 
-//    public static Item calendar = Registry.ITEM.get(new ResourceLocation("seasons","season_calendar"));
+    public static Item calendar = Registry.ITEM.get(new ResourceLocation("seasonsextras","season_calendar"));
     public static boolean calendar() {
         if (Config.needCalendar.get()) {
             Minecraft mc = Minecraft.getInstance();
@@ -31,9 +31,9 @@ public class Calendar {
 
             if (player != null) {
                 Inventory inv = player.getInventory();
-//                int slot = findCalendar(inv, calendar) + findCuriosCalendar(player,calendar);
+                int slot = findCalendar(inv, calendar) + findCuriosCalendar(player,calendar);
 
-//                invCalendar = (slot >= 0);
+                invCalendar = (slot >= 0);
 
             }
 
