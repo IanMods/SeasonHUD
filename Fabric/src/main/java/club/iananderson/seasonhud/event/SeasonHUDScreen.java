@@ -5,6 +5,7 @@ import club.iananderson.seasonhud.config.Config;
 import club.iananderson.seasonhud.config.Location;
 import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.components.Button;
 import net.minecraft.client.gui.components.CycleButton;
 import net.minecraft.client.gui.screens.Screen;
@@ -39,9 +40,9 @@ public class SeasonHUDScreen extends Screen{
     }
 
     @Override
-    public void render(@NotNull PoseStack stack, int mouseX, int mouseY, float partialTicks){
+    public void render(@NotNull GuiGraphics stack, int mouseX, int mouseY, float partialTicks){
         this.renderDirtBackground(stack);
-        drawCenteredString(stack, font, TITLE, this.width / 2, PADDING, 16777215);
+        stack.drawCenteredString(font, TITLE, this.width / 2, PADDING, 16777215);
 //        drawCenteredString(stack, font, JOURNEYMAP, this.width / 2, MENU_PADDING_FULL + (5 * (BUTTON_HEIGHT + PADDING)), 16777215);
         super.render(stack, mouseX, mouseY, partialTicks);
     }

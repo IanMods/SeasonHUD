@@ -3,7 +3,6 @@ package club.iananderson.seasonhud.client.minimaps;
 import com.google.common.primitives.Booleans;
 import com.mojang.blaze3d.systems.RenderSystem;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.GuiComponent;
 import net.minecraft.client.gui.screens.ChatScreen;
 import net.minecraft.client.gui.screens.DeathScreen;
 import net.minecraft.client.renderer.GameRenderer;
@@ -103,16 +102,16 @@ public class XaeroMinimap {
             //Icon Draw
             if ((!modSettings.hideMinimapUnderScreen || mc.screen == null || mc.screen instanceof IScreenBase || mc.screen instanceof ChatScreen || mc.screen instanceof DeathScreen)
                     && (!modSettings.hideMinimapUnderF3 || !mc.options.renderDebug)) {
-                seasonStack.pushPose();
-                seasonStack.scale(fontScale, fontScale, 1.0F);
+                seasonStack.pose().pushPose();
+                seasonStack.pose().scale(fontScale, fontScale, 1.0F);
 
                 //Icon
                 ResourceLocation SEASON = getSeasonResource();
                 RenderSystem.setShader(GameRenderer::getPositionTexShader);
                 RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
                 RenderSystem.setShaderTexture(0, SEASON);
-                GuiComponent.blit(seasonStack, (int) (stringX), (int) stringY, 0, 0, iconDim, iconDim, iconDim, iconDim);
-                seasonStack.popPose();
+                seasonStack.blit(SEASON, (int) (stringX), (int) stringY, 0, 0, iconDim, iconDim, iconDim, iconDim);
+                seasonStack.pose().popPose();
             }
         }
     };

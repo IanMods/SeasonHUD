@@ -3,7 +3,7 @@ name: MC-Publish Multiloader (CurseForge/Modrinth)
 on: [workflow_dispatch]
 
 env:
-  MINECRAFT_VERSION: 1.19.4
+  MINECRAFT_VERSION: 1.20, 1.20.1
   MOD_VERSION: 1.5.1
   JAVA_VERSION: 17
 
@@ -90,5 +90,5 @@ jobs:
             fabric-seasons-extras(required)
 
           loaders: fabric
-          game-versions: "${{env.MINECRAFT_VERSION}}"
+          game-versions: [1.20,1.20.2)
           java: "${{env.JAVA_VERSION}}"

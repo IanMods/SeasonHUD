@@ -8,9 +8,8 @@ import dev.ftb.mods.ftbchunks.client.map.MapDimension;
 import dev.ftb.mods.ftbchunks.client.map.MapManager;
 import dev.ftb.mods.ftbchunks.client.map.MapRegionData;
 import dev.ftb.mods.ftblibrary.math.XZ;
-import dev.ftb.mods.ftbteams.data.ClientTeam;
+import dev.ftb.mods.ftbteams.api.Team;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.GuiComponent;
 import net.minecraft.client.renderer.GameRenderer;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
@@ -43,10 +42,18 @@ public class FTBChunks {
             int i = 0;
 
             if (data != null) {
-                ClientTeam team = Objects.requireNonNull(data).getChunk(XZ.of(currentPlayerPos)).getTeam();
+                Team team = Objects.requireNonNull(data).getChunk(XZ.of(currentPlayerPos)).getTeam();
                 if (team != null && claimed) {
                     i++;
                 }
+            }
+
+            if (biome) {
+                i++;
+            }
+
+            if (xyz) {
+                i++;
             }
 
             if (biome) {i++;}
@@ -94,24 +101,25 @@ public class FTBChunks {
                             y -= minimapPosition.posY > 1 ? offsetY : -offsetY;
                         }
 
-                        seasonStack.pushPose();
-                        seasonStack.translate((double)x + halfSizeD, (double)((float)y + yOff), 0.0);
-                        seasonStack.scale(s1, s1, 1.0F);
+                        seasonStack.pose().pushPose();
+                        seasonStack.pose().translate((double)x + halfSizeD, (double)((float)y + yOff), 0.0);
+                        seasonStack.pose().scale(s1, s1, 1.0F);
 
 
                         FormattedCharSequence bs = (MINIMAP_TEXT_LIST.get(0)).getVisualOrderText();
                         int bsw = mc.font.width(bs);
+                        int bshw = -bsw/2;
                         int iconDim = mc.font.lineHeight;
 
-                        mc.font.drawShadow(seasonStack, bs, (float) ((-bsw) + iconDim / 2) / 2.0F, (float) (i * 11), -1);
+                        seasonStack.drawString(mc.font, bs, ((bshw + (iconDim / 2))), i * (9 + 2), -1, true);
 
                         //Icon
                         ResourceLocation SEASON = getSeasonResource();
                         RenderSystem.setShader(GameRenderer::getPositionTexShader);
                         RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
                         RenderSystem.setShaderTexture(0, SEASON);
-                        GuiComponent.blit(seasonStack, (int) (((-bsw) + iconDim / 2) / 2.0F), (i * 11), 0, 0, iconDim, iconDim, iconDim, iconDim);
-                        seasonStack.popPose();
+                        seasonStack.blit(SEASON, (int) (((-bsw) + iconDim / 2) / 2.0F), (i * 11), 0, 0, iconDim, iconDim, iconDim, iconDim);
+                        seasonStack.pose().popPose();
                     }
                 }
             }

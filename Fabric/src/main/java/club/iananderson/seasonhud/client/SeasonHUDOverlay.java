@@ -3,12 +3,10 @@ package club.iananderson.seasonhud.client;
 import club.iananderson.seasonhud.config.Config;
 import club.iananderson.seasonhud.config.Location;
 import com.mojang.blaze3d.systems.RenderSystem;
-import com.mojang.blaze3d.vertex.PoseStack;
 import net.fabricmc.fabric.api.client.rendering.v1.HudRenderCallback;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
-import net.minecraft.client.gui.GuiComponent;
-import net.minecraft.client.gui.screens.Screen;
+import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.renderer.GameRenderer;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
@@ -34,7 +32,7 @@ public class SeasonHUDOverlay implements HudRenderCallback{
     }
 
     @Override
-    public void onHudRender(PoseStack seasonStack, float alpha)
+    public void onHudRender(GuiGraphics seasonStack, float alpha)
     {
         Minecraft mc = Minecraft.getInstance();
         ArrayList<Component> seasonName = getSeasonName();
@@ -81,25 +79,25 @@ public class SeasonHUDOverlay implements HudRenderCallback{
             }
 
             //Draw Text + Icon
-            RenderSystem.setShaderTexture(0, Screen.GUI_ICONS_LOCATION);
-            seasonStack.pushPose();
-            seasonStack.scale(1F, 1F, 1F);
+            RenderSystem.enableDepthTest();
+            seasonStack.pose().pushPose();
+            seasonStack.pose().scale(1F, 1F, 1F);
 
             //Text
             int iconX = x + xOffset;
             int iconY = y + yOffset + offsetDim;
-            float textX = iconX;
-            float textY = iconY + 1;
-            font.drawShadow(seasonStack, seasonName.get(0),textX, textY, 0xffffffff);
+            int textX = iconX;
+            int textY = iconY + 1;
+            seasonStack.drawString(mc.font, seasonName.get(0), textX, textY, 0xffffffff);
 
             //Icon
             ResourceLocation SEASON = getSeasonResource();
             RenderSystem.setShader(GameRenderer::getPositionTexShader);
             RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
             RenderSystem.setShaderTexture(0, SEASON);
-            GuiComponent.blit(seasonStack, iconX, iconY, 0, 0, iconDim, iconDim, iconDim, iconDim);
-            seasonStack.popPose();
-            RenderSystem.setShaderTexture(0, Screen.GUI_ICONS_LOCATION);
+            seasonStack.blit(SEASON, iconX, iconY, 0, 0, iconDim, iconDim, iconDim, iconDim);
+            RenderSystem.disableDepthTest();
+            seasonStack.pose().popPose();
         }
     }
 }

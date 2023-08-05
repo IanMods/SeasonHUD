@@ -1,19 +1,16 @@
 package club.iananderson.seasonhud.client.minimaps;
 
 import com.google.common.primitives.Booleans;
-import com.mojang.blaze3d.platform.GlStateManager;
 import com.mojang.blaze3d.systems.RenderSystem;
-import com.mojang.blaze3d.vertex.PoseStack;
 import net.fabricmc.fabric.api.client.rendering.v1.HudRenderCallback;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.GuiComponent;
+import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.screens.ChatScreen;
 import net.minecraft.client.gui.screens.DeathScreen;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.client.renderer.GameRenderer;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
-import org.lwjgl.opengl.GL11;
 import xaero.common.core.XaeroMinimapCore;
 import xaero.common.gui.IScreenBase;
 import xaero.common.minimap.MinimapInterface;
@@ -36,29 +33,14 @@ import static xaero.common.settings.ModOptions.modMain;
 
 public class XaeroMinimap implements HudRenderCallback {
     public static XaeroMinimap HUD_INSTANCE;
-    private boolean needDisableBlend = false;
-
     public static void init()
     {
         HUD_INSTANCE = new XaeroMinimap();
         HudRenderCallback.EVENT.register(HUD_INSTANCE);
     }
 
-    private void enableAlpha(float alpha) {
-        needDisableBlend = !GL11.glIsEnabled(GL11.GL_BLEND);
-        RenderSystem.enableBlend();
-        RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, alpha);
-        RenderSystem.blendFunc(GlStateManager.SourceFactor.SRC_ALPHA, GlStateManager.DestFactor.ONE_MINUS_SRC_ALPHA);
-    }
-
-    private void disableAlpha(float alpha) {
-        RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
-        if (needDisableBlend)
-            RenderSystem.disableBlend();
-    }
-
     @Override
-    public void onHudRender(PoseStack seasonStack, float alpha) {
+    public void onHudRender(GuiGraphics seasonStack, float alpha) {
         Minecraft mc = Minecraft.getInstance();
         ArrayList<Component> underText = getSeasonName();
 
@@ -131,19 +113,18 @@ public class XaeroMinimap implements HudRenderCallback {
             //Icon Draw
             if ((!modSettings.hideMinimapUnderScreen || mc.screen == null || mc.screen instanceof IScreenBase || mc.screen instanceof ChatScreen || mc.screen instanceof DeathScreen)
                     && (!modSettings.hideMinimapUnderF3 || !mc.options.renderDebug)) {
-                    enableAlpha(alpha);
-                    RenderSystem.setShaderTexture(0, Screen.GUI_ICONS_LOCATION);
-                    seasonStack.pushPose();
-                    seasonStack.scale(fontScale, fontScale, 1.0F);
+                RenderSystem.enableDepthTest();
 
-                    ResourceLocation SEASON = getSeasonResource();
-                    RenderSystem.setShader(GameRenderer::getPositionTexShader);
-                    RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
-                    RenderSystem.setShaderTexture(0, SEASON);
-                    GuiComponent.blit(seasonStack, (int) (stringX), (int) stringY, 0, 0, iconDim, iconDim, iconDim, iconDim);
-                    seasonStack.popPose();
-                    RenderSystem.setShaderTexture(0, Screen.GUI_ICONS_LOCATION);
-                    disableAlpha(alpha);
+                seasonStack.pose().pushPose();
+                seasonStack.pose().scale(fontScale, fontScale, 1.0F);
+
+                ResourceLocation SEASON = getSeasonResource();
+                RenderSystem.setShader(GameRenderer::getPositionTexShader);
+                RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
+                RenderSystem.setShaderTexture(0, SEASON);
+                seasonStack.blit(SEASON, (int) (stringX), (int) stringY, 0, 0, iconDim, iconDim, iconDim, iconDim);
+                RenderSystem.disableDepthTest();
+                seasonStack.pose().popPose();
             }
         }
 

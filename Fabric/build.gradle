@@ -18,41 +18,41 @@ dependencies {
     implementation project(":Common")
 
     /Fabric Seasons/
-    modImplementation "curse.maven:fabric-seasons-413523:4560140"
+    modImplementation "curse.maven:fabric-seasons-413523:4576886"
 
     /Fabric Seasons Extras/
-    modImplementation "curse.maven:fabric-seasons-extras-839878:4533754"
+    modImplementation "curse.maven:fabric-seasons-extras-839878:4576902"
 
     /Xaero's Minimap/
-    modCompileOnly "curse.maven:xaeros-minimap-263420:4593184"
-//    modImplementation "curse.maven:xaeros-minimap-263420:4593184"
+//    modCompileOnly "curse.maven:xaeros-minimap-263420:4593188"
+    modImplementation "curse.maven:xaeros-minimap-263420:4593188"
 
     /Xaero's Minimap Fair Play/
-    modCompileOnly "curse.maven:xaeros-minimap-fair-play-edition-263466:4503440"
-//    modImplementation "curse.maven:xaeros-minimap-fair-play-edition-263466:4503440"
+    modCompileOnly "curse.maven:xaeros-minimap-fair-play-edition-263466:4586337"
+//    modImplementation "curse.maven:xaeros-minimap-fair-play-edition-263466:4586337"
 
     /Open Parties and Claims/
-//    modCompileOnly "curse.maven:open-parties-and-claims-636608:4663428"
-    modImplementation "curse.maven:open-parties-and-claims-636608:4663428"
+//    modCompileOnly "curse.maven:open-parties-and-claims-636608:4663429"
+    modImplementation "curse.maven:open-parties-and-claims-636608:4663429"
 
     /FTB Chunks/
-    modCompileOnly "curse.maven:ftb-library-fabric-438495:4478917"
-    modCompileOnly "curse.maven:architectury-api-419699:4476083"
-    modCompileOnly "curse.maven:ftb-teams-fabric-438497:4477313"
-    modCompileOnly "curse.maven:ftb-chunks-fabric-472657:4478934"
+    modCompileOnly "curse.maven:ftb-library-fabric-438495:4596510"
+    modCompileOnly "curse.maven:architectury-api-419699:4663009"
+    modCompileOnly "curse.maven:ftb-teams-fabric-438497:4623115"
+    modCompileOnly "curse.maven:ftb-chunks-fabric-472657:4654813"
 
-//    modImplementation "curse.maven:ftb-library-fabric-438495:4478917"
-//    modImplementation "curse.maven:architectury-api-419699:4476083"
-//    modImplementation "curse.maven:ftb-teams-fabric-438497:4477313"
-//    modImplementation "curse.maven:ftb-chunks-fabric-472657:4478934"
+//    modImplementation "curse.maven:ftb-library-fabric-438495:4596510"
+//    modImplementation "curse.maven:architectury-api-419699:4663009"
+//    modImplementation "curse.maven:ftb-teams-fabric-438497:4623115"
+//    modImplementation "curse.maven:ftb-chunks-fabric-472657:4654813"
 
     /JourneyMap/
-    modCompileOnly "curse.maven:journeymap-32274:4532892"
-//    modImplementation "curse.maven:journeymap-32274:4532892"
+    modCompileOnly "curse.maven:journeymap-32274:4655321"
+//    modImplementation "curse.maven:journeymap-32274:4655321"
 
     /Trinkets/
-    modCompileOnly "dev.emi:trinkets:3.6.0"
-//    modImplementation "dev.emi:trinkets:3.6.0"
+    modCompileOnly "dev.emi:trinkets:3.7.1"
+//    modImplementation "dev.emi:trinkets:3.7.1"
 
 
     modApi("me.shedaniel.cloth:cloth-config-fabric:${project.cloth_version}") {
@@ -62,7 +62,7 @@ dependencies {
     implementation 'com.electronwill.night-config:core:3.6.3'
     implementation 'com.electronwill.night-config:toml:3.6.3'
 
-    modImplementation "fuzs.forgeconfigapiport:forgeconfigapiport-fabric:6.0.2"//source: https://github.com/Fuzss/forgeconfigapiport-fabric
+    modImplementation "fuzs.forgeconfigapiport:forgeconfigapiport-fabric:8.0.0"//source: https://github.com/Fuzss/forgeconfigapiport-fabric
 
 //    modCompileOnlyApi group: 'info.journeymap', name: 'journeymap-api', version: project.journeymap_api_version_fabric, changing: true
 //    modCompileOnly "curse.maven:journeymap-${project.jm_project_id}:${project.jm_file_id_fabric}"
