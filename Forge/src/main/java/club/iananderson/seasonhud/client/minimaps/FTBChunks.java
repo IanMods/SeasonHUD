@@ -17,9 +17,7 @@ import net.minecraft.util.FormattedCharSequence;
 import net.minecraft.world.level.ChunkPos;
 import net.minecraftforge.client.gui.overlay.IGuiOverlay;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
 
 import static club.iananderson.seasonhud.impl.minimaps.CurrentMinimap.loadedMinimap;
 import static club.iananderson.seasonhud.impl.sereneseasons.CurrentSeason.getSeasonName;
@@ -29,20 +27,19 @@ public class FTBChunks {
     public static final IGuiOverlay FTBCHUNKS_SEASON = (ForgeGui, seasonStack, partialTick, width, height) -> {
         Minecraft mc = Minecraft.getInstance();
         List<Component> MINIMAP_TEXT_LIST = new ArrayList<>(3);
+        int i = 0;
 
         if (loadedMinimap("ftbchunks")) {
             ChunkPos currentPlayerPos = Objects.requireNonNull(mc.player).chunkPosition();
-            MapDimension dim = MapDimension.getCurrent();
+            MapDimension dim = MapDimension.getCurrent().get();
             MapRegionData data = Objects.requireNonNull(dim).getRegion(XZ.regionFromChunk(currentPlayerPos)).getData();
 
             boolean biome = FTBChunksClientConfig.MINIMAP_BIOME.get();
             boolean xyz = FTBChunksClientConfig.MINIMAP_XYZ.get();
             boolean claimed = FTBChunksClientConfig.MINIMAP_ZONE.get();
 
-            int i = 0;
-
             if (data != null) {
-                Team team = Objects.requireNonNull(data).getChunk(XZ.of(currentPlayerPos)).getTeam();
+                Team team = Objects.requireNonNull(data).getChunk(XZ.of(currentPlayerPos)).getTeam().orElse((Team) null);
                 if (team != null && claimed) {
                     i++;
                 }
@@ -56,20 +53,17 @@ public class FTBChunks {
                 i++;
             }
 
-            if (biome) {i++;}
-            if (xyz) {i++;}
-
             //Season
             MINIMAP_TEXT_LIST.add(getSeasonName().get(0));
 
-            if (mc.player != null && mc.level != null && MapManager.inst != null) {
+            if (mc.player != null && mc.level != null && !MapManager.getInstance().isEmpty() && !MapDimension.getCurrent().isEmpty()) {
                 double guiScale = mc.getWindow().getGuiScale();
                 int ww = mc.getWindow().getGuiScaledWidth();
                 int wh = mc.getWindow().getGuiScaledHeight();
 
                 if (dim != null) {
                     if (dim.dimension != mc.level.dimension()) {
-                        MapDimension.updateCurrent();
+                        MapDimension.getCurrent();
                     }
 
                     if (!mc.options.renderDebug && FTBChunksClientConfig.MINIMAP_ENABLED.get() && FTBChunksClientConfig.MINIMAP_VISIBILITY.get() != 0 && !(Boolean) FTBChunksWorldConfig.FORCE_DISABLE_MINIMAP.get()) {
@@ -80,8 +74,9 @@ public class FTBChunks {
                         } else {
                             scale = (float)((Double)FTBChunksClientConfig.MINIMAP_SCALE.get() * 4.0 / guiScale);
                         }
-                        int s = (int) (64.0 * (double) scale);
+
                         float s1 = Math.max(1.0F, (float)Math.round(scale)) / 2.0F;
+                        int s = (int) (64.0 * (double) scale);
                         double halfSizeD = (double) s / 2.0;
                         float halfSizeF = (float)s / 2.0F;
                         MinimapPosition minimapPosition = FTBChunksClientConfig.MINIMAP_POSITION.get();
@@ -111,7 +106,7 @@ public class FTBChunks {
                         int bshw = -bsw/2;
                         int iconDim = mc.font.lineHeight;
 
-                        seasonStack.drawString(mc.font, bs, ((bshw + (iconDim / 2))), i * (9 + 2), -1, true);
+                        seasonStack.drawString(mc.font, bs, (int) ((float) ((-bsw) + iconDim / 2) / 2.0F), (int) (i * 11), -1);
 
                         //Icon
                         ResourceLocation SEASON = getSeasonResource();
