@@ -21,16 +21,16 @@ dependencies {
     modImplementation "curse.maven:fabric-seasons-413523:4560140"
 
     /Xaero's Minimap/
-    modCompileOnly "curse.maven:xaeros-minimap-263420:4658319"
-//    modImplementation "curse.maven:xaeros-minimap-263420:4658319"
+    modCompileOnly "curse.maven:xaeros-minimap-263420:4593184"
+//    modImplementation "curse.maven:xaeros-minimap-263420:4593184"
 
     /Xaero's Minimap Fair Play/
     modCompileOnly "curse.maven:xaeros-minimap-fair-play-edition-263466:4503440"
 //    modImplementation "curse.maven:xaeros-minimap-fair-play-edition-263466:4503440"
 
     /Open Parties and Claims/
-    modCompileOnly "curse.maven:open-parties-and-claims-636608:4663428"
-//    modImplementation "curse.maven:open-parties-and-claims-636608:4663428"
+//    modCompileOnly "curse.maven:open-parties-and-claims-636608:4663428"
+    modImplementation "curse.maven:open-parties-and-claims-636608:4663428"
 
     /FTB Chunks/
     modCompileOnly "curse.maven:ftb-library-fabric-438495:4478917"
