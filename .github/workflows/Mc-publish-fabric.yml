@@ -61,6 +61,6 @@ jobs:
 
           loaders: fabric
           game-versions: |
-            [1.20,1.20.2)
+            [1.20,1.20.1]
           java: "${{env.JAVA_VERSION}}"
 
