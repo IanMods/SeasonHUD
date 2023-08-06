@@ -5,7 +5,7 @@ on: [workflow_dispatch]
 env:
   MINECRAFT_VERSION: |
     [1.20,1.20.2)
-  MOD_VERSION: 1.5.1
+  MOD_VERSION: 1.4.19
   JAVA_VERSION: 17
 
 permissions:
@@ -27,7 +27,7 @@ jobs:
         uses: actions/setup-java@v2
         with:
           distribution: "temurin"
-          java-version: "${{env.JAVA_VERSION}}"
+          java-version: 17
 
       - name: Make Gradle Wrapper Executable
         if: ${{ runner.os != 'Windows' }}
@@ -47,7 +47,7 @@ jobs:
           curseforge-id: 690971
           curseforge-token: ${{ secrets.CURSEFORGE_TOKEN }}
 
-          files: Forge/build/libs/!(*-@(dev|sources|javadoc)).jar
+          files: forge/build/libs/!(*-@(dev|sources|javadoc)).jar
 
           name: ""
           version: "forge-1.20.1-${{env.MOD_VERSION}}"
@@ -64,8 +64,7 @@ jobs:
 
           loaders: forge
           game-versions: |
-            1.20
-            1.20.1
+            [1.20,1.20.2)
           java: "${{env.JAVA_VERSION}}"
 
       - name: Publish on Curseforge and Modrinth (Fabric)
@@ -79,7 +78,7 @@ jobs:
           curseforge-id: 848022
           curseforge-token: ${{ secrets.CURSEFORGE_TOKEN }}
 
-          files: Fabric/build/libs/!(*-@(dev|sources|javadoc)).jar
+          files: fabric/build/libs/!(*-@(dev|sources|javadoc)).jar
 
           name: ""
           version: "fabric-1.20.1-${{env.MOD_VERSION}}"
@@ -96,6 +95,5 @@ jobs:
 
           loaders: fabric
           game-versions: |
-            1.20
-            1.20.1
+            [1.20,1.20.2)
           java: "${{env.JAVA_VERSION}}"
