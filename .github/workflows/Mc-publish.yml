@@ -3,7 +3,8 @@ name: MC-Publish Multiloader (CurseForge/Modrinth)
 on: [workflow_dispatch]
 
 env:
-  MINECRAFT_VERSION: 1.20, 1.20.1
+  MINECRAFT_VERSION: |
+    [1.20,1.20.2)
   MOD_VERSION: 1.5.1
   JAVA_VERSION: 17
 
@@ -19,12 +20,14 @@ jobs:
 
       - name: Checkout Repository
         uses: actions/checkout@v3
+        with:
+          submodules: true
 
       - name: Setup Java
-        uses: actions/setup-java@v3
+        uses: actions/setup-java@v2
         with:
           distribution: "temurin"
-          java-version: 17
+          java-version: "${{env.JAVA_VERSION}}"
 
       - name: Make Gradle Wrapper Executable
         if: ${{ runner.os != 'Windows' }}
@@ -47,7 +50,7 @@ jobs:
           files: Forge/build/libs/!(*-@(dev|sources|javadoc)).jar
 
           name: ""
-          version: "1.20.1-${{env.MOD_VERSION}}"
+          version: "forge-1.20.1-${{env.MOD_VERSION}}"
           version-type: release
           changelog-file: CHANGELOG.md
 
@@ -61,7 +64,8 @@ jobs:
 
           loaders: forge
           game-versions: |
-            [1.20,1.20.2)
+            1.20
+            1.20.1
           java: "${{env.JAVA_VERSION}}"
 
       - name: Publish on Curseforge and Modrinth (Fabric)
@@ -78,7 +82,7 @@ jobs:
           files: Fabric/build/libs/!(*-@(dev|sources|javadoc)).jar
 
           name: ""
-          version: "1.20.1-${{env.MOD_VERSION}}"
+          version: "fabric-1.20.1-${{env.MOD_VERSION}}"
           version-type: release
           changelog-file: CHANGELOG.md
 
@@ -91,5 +95,7 @@ jobs:
             fabric-seasons-extras(required)
 
           loaders: fabric
-          game-versions: 1.20, 1.20.1
+          game-versions: |
+            1.20
+            1.20.1
           java: "${{env.JAVA_VERSION}}"
