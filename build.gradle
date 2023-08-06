@@ -1,5 +1,11 @@
+plugins {
+    id 'fabric-loom' version '1.2-SNAPSHOT' apply(false)
+    id 'net.minecraftforge.gradle' version '[6.0,6.2)' apply(false)
+    id 'org.spongepowered.gradle.vanilla' version '0.2.1-SNAPSHOT' apply(false)
+    id("org.spongepowered.mixin") version "0.7-SNAPSHOT" apply(false)
+}
+
 subprojects {
-    
     apply plugin: 'java'
     
     java.toolchain.languageVersion = JavaLanguageVersion.of(17)
@@ -47,9 +53,11 @@ subprojects {
             url = "https://maven.theillusivec4.top/"
         }
         maven {
-            url "https://maven.shedaniel.me/" }
+            url "https://maven.shedaniel.me/"
+        }
         maven {
-            url "https://maven.terraformersmc.com/releases/" }
+            url "https://maven.terraformersmc.com/releases/"
+        }
         maven {
             name = 'ParchmentMC'
             url = 'https://maven.parchmentmc.org'
@@ -76,6 +84,12 @@ subprojects {
     
         it.options.encoding = 'UTF-8'
         it.options.release = 17
+    }
+
+    processResources {
+        filesMatching(['pack.mcmeta', 'fabric.mod.json', 'mods.toml', '*.mixins.json']) {
+            expand project.properties
+        }
     }
 
     // Disables Gradle's custom module metadata from being published to maven. The

@@ -1,13 +1,13 @@
 plugins {
-    id 'fabric-loom' version '0.12-SNAPSHOT'
-    id 'maven-publish'
+    id 'java'
     id 'idea'
+    id 'maven-publish'
+    id 'fabric-loom'
 }
 
-version = mod_version
-group = mod_group
-
-archivesBaseName = mod_id + "-fabric-" + minecraft_version
+base {
+    archivesName = mod_id + "-fabric-" + minecraft_version
+}
 
 dependencies {
     minecraft "com.mojang:minecraft:${minecraft_version}"
@@ -15,7 +15,7 @@ dependencies {
     modImplementation "net.fabricmc:fabric-loader:${fabric_loader_version}"
     modImplementation "net.fabricmc.fabric-api:fabric-api:${fabric_version}"
     implementation group: 'com.google.code.findbugs', name: 'jsr305', version: '3.0.1'
-    implementation project(":Common")
+    implementation project(":common")
 
     /Fabric Seasons/
     modImplementation "curse.maven:fabric-seasons-413523:4576886"
@@ -24,27 +24,27 @@ dependencies {
     modImplementation "curse.maven:fabric-seasons-extras-839878:4576902"
 
     /Xaero's Minimap/
-//    modCompileOnly "curse.maven:xaeros-minimap-263420:4593188"
-    modImplementation "curse.maven:xaeros-minimap-263420:4593188"
+    modCompileOnly "curse.maven:xaeros-minimap-263420:4593188"
+//    modImplementation "curse.maven:xaeros-minimap-263420:4593188"
 
     /Xaero's Minimap Fair Play/
     modCompileOnly "curse.maven:xaeros-minimap-fair-play-edition-263466:4586337"
 //    modImplementation "curse.maven:xaeros-minimap-fair-play-edition-263466:4586337"
 
     /Open Parties and Claims/
-//    modCompileOnly "curse.maven:open-parties-and-claims-636608:4663429"
-    modImplementation "curse.maven:open-parties-and-claims-636608:4663429"
+    modCompileOnly "curse.maven:open-parties-and-claims-636608:4663429"
+//    modImplementation "curse.maven:open-parties-and-claims-636608:4663429"
 
     /FTB Chunks/
-    modCompileOnly "curse.maven:ftb-library-fabric-438495:4596510"
-    modCompileOnly "curse.maven:architectury-api-419699:4663009"
-    modCompileOnly "curse.maven:ftb-teams-fabric-438497:4623115"
-    modCompileOnly "curse.maven:ftb-chunks-fabric-472657:4654813"
+//    modCompileOnly "curse.maven:ftb-library-fabric-438495:4596510"
+//    modCompileOnly "curse.maven:architectury-api-419699:4663009"
+//    modCompileOnly "curse.maven:ftb-teams-fabric-438497:4623115"
+//    modCompileOnly "curse.maven:ftb-chunks-fabric-472657:4654813"
 
-//    modImplementation "curse.maven:ftb-library-fabric-438495:4596510"
-//    modImplementation "curse.maven:architectury-api-419699:4663009"
-//    modImplementation "curse.maven:ftb-teams-fabric-438497:4623115"
-//    modImplementation "curse.maven:ftb-chunks-fabric-472657:4654813"
+    modImplementation "curse.maven:ftb-library-fabric-438495:4596510"
+    modImplementation "curse.maven:architectury-api-419699:4663009"
+    modImplementation "curse.maven:ftb-teams-fabric-438497:4623115"
+    modImplementation "curse.maven:ftb-chunks-fabric-472657:4654813"
 
     /JourneyMap/
     modCompileOnly "curse.maven:journeymap-32274:4655321"
@@ -69,6 +69,12 @@ dependencies {
 }
 
 loom {
+    if (project(":common").file("src/main/resources/${mod_id}.accesswidener").exists()) {
+        accessWidenerPath.set(project(":common").file("src/main/resources/${mod_id}.accesswidener"))
+    }
+    mixin {
+        defaultRefmapName.set("${mod_id}.refmap.json")
+    }
     runs {
         client {
             client()
@@ -85,18 +91,12 @@ loom {
     }
 }
 
-
-processResources {
-    from project(":Common").sourceSets.main.resources
-    inputs.property "version", project.version
-
-    filesMatching("fabric.mod.json") {
-        expand "version": project.version
-    }
+tasks.withType(JavaCompile).configureEach {
+    source(project(":common").sourceSets.main.allSource)
 }
 
-tasks.withType(JavaCompile) {
-    source(project(":Common").sourceSets.main.allSource)
+processResources {
+    from project(":common").sourceSets.main.resources
 }
 
 publishing {
