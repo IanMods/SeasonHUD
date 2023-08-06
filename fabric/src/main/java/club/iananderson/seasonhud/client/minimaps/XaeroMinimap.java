@@ -7,7 +7,6 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.screens.ChatScreen;
 import net.minecraft.client.gui.screens.DeathScreen;
-import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.client.renderer.GameRenderer;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
@@ -25,6 +24,7 @@ import java.util.Objects;
 import static club.iananderson.seasonhud.impl.fabricseasons.CurrentSeason.getSeasonName;
 import static club.iananderson.seasonhud.impl.fabricseasons.CurrentSeason.getSeasonResource;
 import static club.iananderson.seasonhud.impl.minimaps.CurrentMinimap.loadedMinimap;
+import static club.iananderson.seasonhud.impl.minimaps.HiddenMinimap.minimapHidden;
 import static club.iananderson.seasonhud.impl.minimaps.XaeroInfoDisplays.SEASON;
 import static club.iananderson.seasonhud.impl.minimaps.XaeroInfoDisplays.aboveSeason;
 import static club.iananderson.seasonhud.impl.opac.OpenPartiesAndClaims.inClaim;
@@ -111,7 +111,7 @@ public class XaeroMinimap implements HudRenderCallback {
             int stringY = (int) ((scaledY) + (under ? size + yOffset : -yOffset + 7));
 
             //Icon Draw
-            if ((!modSettings.hideMinimapUnderScreen || mc.screen == null || mc.screen instanceof IScreenBase || mc.screen instanceof ChatScreen || mc.screen instanceof DeathScreen)
+            if (!minimapHidden() && (!modSettings.hideMinimapUnderScreen || mc.screen == null || mc.screen instanceof IScreenBase || mc.screen instanceof ChatScreen || mc.screen instanceof DeathScreen)
                     && (!modSettings.hideMinimapUnderF3 || !mc.options.renderDebug)) {
                 seasonStack.pose().pushPose();
                 seasonStack.pose().scale(fontScale, fontScale, 1.0F);

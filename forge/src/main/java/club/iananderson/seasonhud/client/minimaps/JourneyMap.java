@@ -20,6 +20,7 @@ import java.util.ArrayList;
 
 import static club.iananderson.seasonhud.config.Config.journeyMapAboveMap;
 import static club.iananderson.seasonhud.impl.minimaps.CurrentMinimap.loadedMinimap;
+import static club.iananderson.seasonhud.impl.minimaps.HiddenMinimap.minimapHidden;
 import static club.iananderson.seasonhud.impl.sereneseasons.CurrentSeason.getSeasonName;
 import static club.iananderson.seasonhud.impl.sereneseasons.CurrentSeason.getSeasonResource;
 
@@ -80,7 +81,7 @@ public class JourneyMap {
             double bgHeight = (labelHeight * infoLabelCount) + (vPad) + frameWidth;
 
             //Values
-            if ((mc.screen == null || mc.screen instanceof ChatScreen || mc.screen instanceof DeathScreen) && !mc.isPaused() && jm.getActiveMiniMapProperties().enabled.get()) {
+            if (!minimapHidden() && ((mc.screen == null || mc.screen instanceof ChatScreen || mc.screen instanceof DeathScreen) && !mc.isPaused() && jm.getActiveMiniMapProperties().enabled.get())) {
                 seasonStack.pose().pushPose();
                 seasonStack.pose().scale(1 / guiSize, 1 / guiSize, 1.0F);
 

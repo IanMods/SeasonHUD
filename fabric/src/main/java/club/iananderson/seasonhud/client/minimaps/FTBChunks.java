@@ -25,6 +25,7 @@ import java.util.Objects;
 import static club.iananderson.seasonhud.impl.fabricseasons.CurrentSeason.getSeasonName;
 import static club.iananderson.seasonhud.impl.fabricseasons.CurrentSeason.getSeasonResource;
 import static club.iananderson.seasonhud.impl.minimaps.CurrentMinimap.loadedMinimap;
+import static club.iananderson.seasonhud.impl.minimaps.HiddenMinimap.minimapHidden;
 
 
 public class FTBChunks implements HudRenderCallback {
@@ -68,7 +69,7 @@ public class FTBChunks implements HudRenderCallback {
             //Season
             MINIMAP_TEXT_LIST.add(getSeasonName().get(0));
 
-            if (mc.player != null && mc.level != null && !MapManager.getInstance().isEmpty() && !MapDimension.getCurrent().isEmpty()) {
+            if (!minimapHidden() && (mc.player != null && mc.level != null && !MapManager.getInstance().isEmpty() && !MapDimension.getCurrent().isEmpty())) {
                 double guiScale = mc.getWindow().getGuiScale();
                 int ww = mc.getWindow().getGuiScaledWidth();
                 int wh = mc.getWindow().getGuiScaledHeight();

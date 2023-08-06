@@ -5,6 +5,9 @@ plugins {
     id 'fabric-loom'
 }
 
+version = mod_version
+group = mod_group
+
 base {
     archivesName = mod_id + "-fabric-" + minecraft_version
 }
@@ -103,9 +106,9 @@ publishing {
     publications {
         mavenJava(MavenPublication) {
             groupId project.group
-            artifactId project.archivesBaseName
+            artifactId base.archivesName.get()
             version project.version
-            from components.java
+            artifact jar
         }
     }
 

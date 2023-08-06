@@ -5,6 +5,9 @@ plugins {
     id 'org.spongepowered.mixin'
 }
 
+version = mod_version
+group = mod_group
+
 base {
     archivesName = mod_id + "-forge-" + minecraft_version
 }
@@ -129,9 +132,10 @@ jar.finalizedBy('reobfJar')
 publishing {
     publications {
         mavenJava(MavenPublication) {
+            groupId project.group
             artifactId base.archivesName.get()
-            from components.java
-            fg.component(it)
+            version project.version
+            artifact jar
         }
     }
     repositories {

@@ -20,6 +20,7 @@ import net.minecraftforge.client.gui.overlay.IGuiOverlay;
 import java.util.*;
 
 import static club.iananderson.seasonhud.impl.minimaps.CurrentMinimap.loadedMinimap;
+import static club.iananderson.seasonhud.impl.minimaps.HiddenMinimap.minimapHidden;
 import static club.iananderson.seasonhud.impl.sereneseasons.CurrentSeason.getSeasonName;
 import static club.iananderson.seasonhud.impl.sereneseasons.CurrentSeason.getSeasonResource;
 
@@ -56,7 +57,7 @@ public class FTBChunks {
             //Season
             MINIMAP_TEXT_LIST.add(getSeasonName().get(0));
 
-            if (mc.player != null && mc.level != null && !MapManager.getInstance().isEmpty() && !MapDimension.getCurrent().isEmpty()) {
+            if (!minimapHidden() && (mc.player != null && mc.level != null && !MapManager.getInstance().isEmpty() && !MapDimension.getCurrent().isEmpty())) {
                 double guiScale = mc.getWindow().getGuiScale();
                 int ww = mc.getWindow().getGuiScaledWidth();
                 int wh = mc.getWindow().getGuiScaledHeight();
