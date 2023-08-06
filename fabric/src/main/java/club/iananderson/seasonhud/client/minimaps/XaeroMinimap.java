@@ -74,7 +74,7 @@ public class XaeroMinimap implements HudRenderCallback {
                     && !(waypointsManager.getCurrentWorld() != null && waypointsManager.getAutoWorld() != waypointsManager.getCurrentWorld())
                     && aboveSeason(CUSTOM_SUB_WORLD);
 
-            boolean[] hiddenIndexes = {overworldCoordState, weatherState, highlightsState, lightOverlayState, manualCaveModeState,customSubWorldState};
+            boolean[] hiddenIndexes = {overworldCoordState, weatherState, highlightsState, lightOverlayState, manualCaveModeState, customSubWorldState};
 
             int filteredIndexSeason = infoDisplayManager.getStream()
                     .filter(s -> !s.getState().equals(0))
@@ -96,34 +96,32 @@ public class XaeroMinimap implements HudRenderCallback {
             int size = (int) mapSize;
             int framesize = 4;
             int height = mc.getWindow().getGuiScaledHeight();
-            int scaledHeight = (int)((float)height * mapScale);
+            int scaledHeight = (int) ((float) height * mapScale);
             int align = modSettings.minimapTextAlign;
-            int yOffset = (int) (((framesize * 2) + 9) + (filteredIndexSeason * (stringHeight+1)));
+            int yOffset = (int) (((framesize * 2) + 9) + (filteredIndexSeason * (stringHeight + 1)));
 
             float x = minimapInterface.getX();
             float y = minimapInterface.getY();
             float scaledX = (x * mapScale);
             float scaledY = (y * mapScale);
 
-            boolean under = ((int)scaledY + size / 2) < scaledHeight / 2;
+            boolean under = ((int) scaledY + size / 2) < scaledHeight / 2;
 
-            int stringX = (int) (scaledX + (align == 0 ? size / 2 - stringWidth / 2 + iconDim + 1: (align == 1 ? 6 : iconDim + size - stringWidth + framesize )));
-            int stringY = (int) ((scaledY) + (under ? size + yOffset:-yOffset + 7));
+            int stringX = (int) (scaledX + (align == 0 ? size / 2 - stringWidth / 2 + iconDim + 1 : (align == 1 ? 6 : iconDim + size - stringWidth + framesize)));
+            int stringY = (int) ((scaledY) + (under ? size + yOffset : -yOffset + 7));
 
             //Icon Draw
             if ((!modSettings.hideMinimapUnderScreen || mc.screen == null || mc.screen instanceof IScreenBase || mc.screen instanceof ChatScreen || mc.screen instanceof DeathScreen)
                     && (!modSettings.hideMinimapUnderF3 || !mc.options.renderDebug)) {
-                RenderSystem.enableDepthTest();
-
                 seasonStack.pose().pushPose();
                 seasonStack.pose().scale(fontScale, fontScale, 1.0F);
 
+                //Icon
                 ResourceLocation SEASON = getSeasonResource();
                 RenderSystem.setShader(GameRenderer::getPositionTexShader);
                 RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
                 RenderSystem.setShaderTexture(0, SEASON);
                 seasonStack.blit(SEASON, (int) (stringX), (int) stringY, 0, 0, iconDim, iconDim, iconDim, iconDim);
-                RenderSystem.disableDepthTest();
                 seasonStack.pose().popPose();
             }
         }
