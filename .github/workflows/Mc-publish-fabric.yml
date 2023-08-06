@@ -47,7 +47,7 @@ jobs:
           curseforge-id: 848022
           curseforge-token: ${{ secrets.CURSEFORGE_TOKEN }}
 
-          files: Fabric/build/libs/!(*-@(dev|sources|javadoc)).jar
+          files: fabric/build/libs/!(*-@(dev|sources|javadoc)).jar
 
           name: ""
           version: "fabric-1.20.1-${{env.MOD_VERSION}}"
@@ -64,7 +64,6 @@ jobs:
 
           loaders: fabric
           game-versions: |
-            1.20
-            1.20.1
+            [1.20,1.20.2)
           java: "${{env.JAVA_VERSION}}"
 

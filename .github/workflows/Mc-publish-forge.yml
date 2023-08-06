@@ -47,7 +47,7 @@ jobs:
           curseforge-id: 690971
           curseforge-token: ${{ secrets.CURSEFORGE_TOKEN }}
 
-          files: Forge/build/libs/!(*-@(dev|sources|javadoc)).jar
+          files: forge/build/libs/!(*-@(dev|sources|javadoc)).jar
 
           name: ""
           version: "forge-1.20.1-${{env.MOD_VERSION}}"
@@ -64,6 +64,5 @@ jobs:
 
           loaders: forge
           game-versions: |
-            1.20
-            1.20.1
+            [1.20,1.20.2)
           java: "${{env.JAVA_VERSION}}"
