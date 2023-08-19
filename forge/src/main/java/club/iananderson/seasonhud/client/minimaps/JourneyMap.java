@@ -42,6 +42,7 @@ public class JourneyMap {
             String info4Label = jm.getActiveMiniMapProperties().info4Label.get();
 
             float fontScale = jm.getActiveMiniMapProperties().fontScale.get();
+            float stringWidth = fontRenderer.width(MINIMAP_TEXT_SEASON.get(0));
             float guiSize = (float) mc.getWindow().getGuiScale();
 
             int minimapHeight = vars.minimapHeight;
@@ -56,7 +57,6 @@ public class JourneyMap {
             boolean fontShadow = currentTheme.shadow;
 
             double labelHeight = ((DrawUtil.getLabelHeight(fontRenderer, fontShadow)) * (fontScale));
-            double labelWidth = fontRenderer.width(MINIMAP_TEXT_SEASON.get(0))*fontScale;
 
             int infoLabelCount = 0;
             if (journeyMapAboveMap.get()){
@@ -87,27 +87,27 @@ public class JourneyMap {
 
                 //Icon
                 int iconDim = (int) (mc.font.lineHeight*fontScale);
-                double labelPad = 1*fontScale;
-                double totalIconSize = (iconDim+(labelPad));
+                double labelPad = 2*fontScale;
 
                 double textureX = vars.centerPoint.getX();
                 double textureY = vars.centerPoint.getY();
-                double translateX = totalIconSize/2;
-                double translateY = (journeyMapAboveMap.get() ? -1 : 1)*(halfHeight + bgHeight +(fontScale < 1.0 ? 0.5 : 0.0));
+                double translateY = (journeyMapAboveMap.get() ? -1 : 1)*(halfHeight + bgHeight +(fontScale > 1.0 ? 0.0 : journeyMapAboveMap.get() ? -0.5 : 0.5)+ (journeyMapAboveMap.get() ? -labelPad : labelPad));
 
-                double labelX = (textureX + translateX);
+                double labelWidth = stringWidth*fontScale;
+                double labelX = (textureX);
                 double labelY = (textureY + translateY);
 
-                double totalRectWidth = labelWidth+totalIconSize;
-                double iconRectX = (float)(textureX-Math.max(1.0,totalRectWidth)/2-(fontScale > 1.0 ? 0.0 : 0.5)); //basically half the label width from the center
+                double totalRectWidth = labelWidth + (2*labelPad);
+                double labelRectX = (float)(labelX-(Math.max(1.0,totalRectWidth)/2)-(fontScale > 1.0 ? 0.0 : 0.5)); //basically half the label width from the center
+                double labelRectY = labelY-(fontScale > 1.0 ? 0.0 : 0.5)-labelPad;
 
-                double labelIconX = (float)(textureX - totalRectWidth / 2.0 - (fontScale > 1.0 ? 0.0 : 0.5)); //half the label width
-                double labelIconY = labelY+(labelHeight/2)-(iconDim/2.0); //moves the icon to  the vertical center of the label
+                double labelIconX = (float)(textureX - totalRectWidth / 2.0 - (fontScale > 1.0 ? 0.0 : 0.5)+(1.5*labelPad)); //half the label width
+                double labelIconY = labelY;
 
                 for (Component s : MINIMAP_TEXT_SEASON) {
-                    DrawUtil.drawLabel(seasonStack, s.getString(), labelX, labelY, DrawUtil.HAlign.Center, DrawUtil.VAlign.Below, labelColor, labelAlpha, textColor, textAlpha, fontScale, fontShadow); //No touchy. Season label offset by icon+padding
+                    DrawUtil.drawLabel(seasonStack, s.getString(), labelX, labelY, DrawUtil.HAlign.Center, DrawUtil.VAlign.Below, labelColor, 0, textColor, textAlpha, fontScale, fontShadow); //No touchy. Season label offset by icon+padding
                 }
-                DrawUtil.drawRectangle(seasonStack.pose(),iconRectX-(2*labelPad),labelY,totalRectWidth-labelWidth,labelHeight,labelColor,labelAlpha); //Rectangle for the icon
+                DrawUtil.drawRectangle(seasonStack.pose(),labelRectX,labelRectY,totalRectWidth,labelHeight,labelColor,labelAlpha); //Rectangle for the icon
 
                 ResourceLocation SEASON = getSeasonResource();
                 RenderSystem.setShader(GameRenderer::getPositionTexShader);
