@@ -86,6 +86,7 @@ jobs:
           dependencies: |
             trinkets(recommended)
             ftb-chunks-fabric(recommended)
+            journeymap(recommended)
             xaeros-minimap(recommended)
             xaeros-minimap-fair-play-edition(recommended)
             fabric-seasons(required)
