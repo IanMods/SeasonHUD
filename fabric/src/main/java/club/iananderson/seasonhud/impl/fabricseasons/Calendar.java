@@ -21,9 +21,19 @@ public class Calendar {
         return FabricLoader.getInstance().isModLoaded("trinkets");
     }
 
-    public static Item calendar = SEASON_CALENDAR_ITEM;
+    public static boolean extrasLoaded() {
+        return FabricLoader.getInstance().isModLoaded("seasonsextras");
+    }
+
+    public static Item calendar;
+
     public static boolean calendar() {
-        if (Config.needCalendar.get()) {
+        if(extrasLoaded()){
+            calendar = SEASON_CALENDAR_ITEM;
+        }
+        else calendar = null;
+
+        if (Config.needCalendar.get() & extrasLoaded()) {
             Minecraft mc = Minecraft.getInstance();
             LocalPlayer player = mc.player;
 
