@@ -3,6 +3,8 @@ plugins {
     id 'idea'
     id 'maven-publish'
     id 'fabric-loom'
+    id 'net.darkhax.curseforgegradle' version '1.1.16'
+    id "com.modrinth.minotaur" version "2.+"
 }
 
 version = mod_version
@@ -116,5 +118,31 @@ publishing {
         maven {
             url "file://" + System.getenv("local_maven")
         }
+    }
+}
+
+String changelogText = projectDir.toPath().getParent().resolve("CHANGELOG.md").getText('UTF-8')
+
+modrinth {
+    token = System.getenv("MODRINTH_TOKEN")
+    projectId = modrinth_fabric_id
+    versionNumber = mod_version
+    versionType = "release"
+    uploadFile = jar
+    gameVersions = [modrinth_gameVersions]
+
+    String modrinthChangelogText = changelogText.substring(changelogText.indexOf("## ["),changelogText.indexOf("## [")+1)
+    changelog = modrinthChangelogText
+    System.out.println(modrinthChangelogText)
+
+    dependencies {
+        required.project "fabric-seasons"
+        required.project "forge-config-api-port-fabric"
+        optional.project "trinkets"
+        optional.project "ftb-chunks-fabric\n"
+        optional.project "journeymap"
+        optional.project "xaeros-minimap"
+        optional.project "xaeros-minimap-fair-play-edition"
+        optional.project "fabric-seasons-extras"
     }
 }
