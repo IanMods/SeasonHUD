@@ -14,6 +14,55 @@ base {
     archivesName = mod_id + "-fabric-" + minecraft_version
 }
 
+repositories {
+    maven {
+        name = "CurseMaven"
+        url "https://cursemaven.com"
+        content {
+            includeGroup "curse.maven"
+        }
+    }
+
+    maven {
+        name = 'Sponge / Mixin'
+        url = 'https://repo.spongepowered.org/repository/maven-public/'
+    }
+
+    maven {
+        name = 'ParchmentMC'
+        url = 'https://maven.parchmentmc.org'
+    }
+
+    maven {
+        name = "JourneyMap (Public)"
+        url = "https://jm.gserv.me/repository/maven-public/"
+    }
+
+    maven {
+        url "https://maven.shedaniel.me/"
+    }
+
+    maven {
+        name = 'BlameJared Maven (CrT / Bookshelf)'
+        url = 'https://maven.blamejared.com'
+    }
+
+    maven {
+        name = "TerraformersMC"
+        url = "https://maven.terraformersmc.com/"
+    }
+
+    maven {
+        name = "Ladysnake Libs"
+        url = 'https://maven.ladysnake.org/releases'
+    }
+
+    maven {
+        name = "Fuzs Mod Resources"
+        url = "https://raw.githubusercontent.com/Fuzss/modresources/main/maven/"
+    }
+}
+
 dependencies {
     minecraft "com.mojang:minecraft:${minecraft_version}"
     mappings loom.officialMojangMappings()
@@ -124,6 +173,7 @@ publishing {
 String changelogText = projectDir.toPath().getParent().resolve("CHANGELOG.md").getText('UTF-8')
 
 modrinth {
+    debugMode = true
     token = System.getenv("MODRINTH_TOKEN")
     projectId = modrinth_fabric_id
     versionNumber = mod_version
@@ -131,18 +181,17 @@ modrinth {
     uploadFile = jar
     gameVersions = [modrinth_gameVersions]
 
-    String modrinthChangelogText = changelogText.substring(changelogText.indexOf("## ["),changelogText.indexOf("## [")+1)
+    String modrinthChangelogText = changelogText.substring(changelogText.indexOf("## ["),changelogText.indexOf("## [")+1) /* todo: Test changelog */
     changelog = modrinthChangelogText
     System.out.println(modrinthChangelogText)
 
     dependencies {
         required.project "fabric-seasons"
-        required.project "forge-config-api-port-fabric"
-        optional.project "trinkets"
-        optional.project "ftb-chunks-fabric\n"
-        optional.project "journeymap"
-        optional.project "xaeros-minimap"
-        optional.project "xaeros-minimap-fair-play-edition"
         optional.project "fabric-seasons-extras"
+        required.project "forge-config-api-port"
+        optional.project "journeymap"
+        optional.project "trinkets"
+        optional.project "xaeros-minimap"
+        optional.project "xaeros-minimap-fair"
     }
 }

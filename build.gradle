@@ -32,17 +32,8 @@ subprojects {
     }
 
     repositories {
-
         mavenCentral()
 
-        maven {
-            name = 'Sponge / Mixin'
-            url = 'https://repo.spongepowered.org/repository/maven-public/'
-        }
-        maven {
-            name = 'BlameJared Maven (CrT / Bookshelf)'
-            url = 'https://maven.blamejared.com'
-        }
         maven {
             name = "CurseMaven"
             url "https://cursemaven.com"
@@ -50,34 +41,15 @@ subprojects {
                 includeGroup "curse.maven"
             }
         }
+
         maven {
-            url = "https://maven.theillusivec4.top/"
+            name = 'Sponge / Mixin'
+            url = 'https://repo.spongepowered.org/repository/maven-public/'
         }
+
         maven {
-            url "https://maven.shedaniel.me/"
-        }
-        maven {
-            url "https://maven.terraformersmc.com/releases/"
-        }
-        maven {
-            name = 'ParchmentMC'
-            url = 'https://maven.parchmentmc.org'
-        }
-        maven {
-            name = "TerraformersMC"
-            url = "https://maven.terraformersmc.com/"
-        }
-        maven {
-            name = "Ladysnake Libs"
-            url = 'https://maven.ladysnake.org/releases'
-        }
-        maven {
-            name = "Fuzs Mod Resources"
-            url = "https://raw.githubusercontent.com/Fuzss/modresources/main/maven/"
-        }
-        maven {
-            name = "JourneyMap (Public)"
-            url = "https://jm.gserv.me/repository/maven-public/"
+            name = 'BlameJared Maven (CrT / Bookshelf)'
+            url = 'https://maven.blamejared.com'
         }
     }
 
