@@ -173,17 +173,22 @@ publishing {
 String changelogText = projectDir.toPath().getParent().resolve("CHANGELOG.md").getText('UTF-8')
 
 modrinth {
-    debugMode = true
+    int firstHeading = changelogText.indexOf("## [")
+    int nextHeading = changelogText.indexOf("## [", firstHeading+1)
+    String recentChangelogText = changelogText.substring(firstHeading,nextHeading)
+
+    debugMode = false
     token = System.getenv("MODRINTH_TOKEN")
     projectId = modrinth_fabric_id
     versionNumber = mod_version
+    versionName = base.archivesName.get() + "-" + mod_version
     versionType = "release"
     uploadFile = jar
-    gameVersions = [modrinth_gameVersions]
 
-    String modrinthChangelogText = changelogText.substring(changelogText.indexOf("## ["),changelogText.indexOf("## [")+1) /* todo: Test changelog */
-    changelog = modrinthChangelogText
-    System.out.println(modrinthChangelogText)
+    List<String> mcVersions = modrinth_gameVersions.split(",")
+    gameVersions = mcVersions
+
+    changelog = recentChangelogText
 
     dependencies {
         required.project "fabric-seasons"
