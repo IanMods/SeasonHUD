@@ -180,13 +180,14 @@ modrinth {
     debugMode = false
     token = System.getenv("MODRINTH_TOKEN")
     projectId = modrinth_fabric_id
-    versionNumber = mod_version
-    versionName = base.archivesName.get() + "-" + mod_version
+    versionNumber = minecraft_version + "-" + version
+    versionName = base.archivesName.get() + "-" + version
     versionType = "release"
     uploadFile = remapJar
 
     List<String> mcVersions = modrinth_gameVersions.split(",")
     gameVersions = mcVersions
+    loaders = ["fabric"]
 
     changelog = recentChangelogText
 
@@ -199,4 +200,33 @@ modrinth {
         optional.project "xaeros-minimap"
         optional.project "xaeros-minimap-fair"
     }
+}
+
+task publishCurseForge(type: net.darkhax.curseforgegradle.TaskPublishCurseForge){
+    int firstHeading = changelogText.indexOf("## [")
+    int nextHeading = changelogText.indexOf("## [", firstHeading+1)
+    String recentChangelogText = changelogText.substring(firstHeading,nextHeading)
+
+    debugMode = false
+    disableVersionDetection()
+    apiToken = System.getenv("CURSEFORGE_TOKEN")
+
+    def mainFile = upload(curseforge_fabric_id, file("${project.buildDir}/libs/${archivesBaseName}-${version}.jar"))
+    mainFile.changelogType = "markdown"
+    mainFile.changelog = recentChangelogText
+    mainFile.releaseType = "release"
+
+    List<String> mcVersions = curseforge_gameVersions.split(",")
+    mainFile.gameVersions = mcVersions
+    mainFile.addGameVersion("Fabric")
+    mainFile.addGameVersion("Java 17")
+
+    mainFile.addRequirement("fabric-seasons")
+    mainFile.addRequirement("forge-config-api-port-fabric")
+    mainFile.addOptional("fabric-seasons-extras")
+    mainFile.addOptional("ftb-chunks-fabric")
+    mainFile.addOptional("journeymap")
+    mainFile.addOptional("trinkets")
+    mainFile.addOptional("xaeros-minimap")
+    mainFile.addOptional("xaeros-minimap-fair-play-edition")
 }

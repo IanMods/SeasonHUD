@@ -191,13 +191,14 @@ modrinth {
     debugMode = false
     token = System.getenv("MODRINTH_TOKEN")
     projectId = modrinth_forge_id
-    versionNumber = mod_version
+    versionNumber = minecraft_version + "-" + version
     versionName = base.archivesName.get() + "-" + mod_version
     versionType = "release"
     uploadFile = jar
 
     List<String> mcVersions = modrinth_gameVersions.split(",")
     gameVersions = mcVersions
+    loaders = ["forge","neoforge"]
 
     changelog = recentChangelogText
 
@@ -207,4 +208,32 @@ modrinth {
         optional.project "xaeros-minimap"
         optional.project "xaeros-minimap-fair"
     }
+}
+
+task publishCurseForge(type: net.darkhax.curseforgegradle.TaskPublishCurseForge){
+    int firstHeading = changelogText.indexOf("## [")
+    int nextHeading = changelogText.indexOf("## [", firstHeading+1)
+    String recentChangelogText = changelogText.substring(firstHeading,nextHeading)
+
+    debugMode = false
+    disableVersionDetection()
+    apiToken = System.getenv("CURSEFORGE_TOKEN")
+
+    def mainFile = upload(curseforge_forge_id, jar)
+    mainFile.changelogType = "markdown"
+    mainFile.changelog = recentChangelogText
+    mainFile.releaseType = "release"
+
+    List<String> mcVersions = curseforge_gameVersions.split(",")
+    mainFile.gameVersions = mcVersions
+    mainFile.addGameVersion("Forge")
+    mainFile.addGameVersion("NeoForge")
+    mainFile.addGameVersion("Java 17")
+
+    mainFile.addRequirement("serene-seasons")
+    mainFile.addOptional("curios")
+    mainFile.addOptional("ftb-chunks-forge")
+    mainFile.addOptional("journeymap")
+    mainFile.addOptional("xaeros-minimap")
+    mainFile.addOptional("xaeros-minimap-fair-play-edition")
 }
