@@ -8,6 +8,8 @@ import net.minecraft.client.gui.screens.DeathScreen;
 import net.minecraft.client.renderer.GameRenderer;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.effect.MobEffect;
+import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraftforge.client.gui.overlay.IGuiOverlay;
 import xaero.common.core.XaeroMinimapCore;
 import xaero.common.gui.IScreenBase;
@@ -18,6 +20,7 @@ import xaero.common.minimap.waypoints.WaypointsManager;
 import xaero.common.settings.ModSettings;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Objects;
 
 import static club.iananderson.seasonhud.impl.minimaps.CurrentMinimap.loadedMinimap;
@@ -44,6 +47,8 @@ public class XaeroMinimap {
             MinimapProcessor minimapProcessor = XaeroMinimapCore.currentSession.getMinimapProcessor();
             InfoDisplayManager infoDisplayManager = minimapInterface.getInfoDisplayManager();
             WaypointsManager waypointsManager = XaeroMinimapCore.currentSession.getWaypointsManager();
+            Collection<MobEffectInstance> potionEffect = Objects.requireNonNull(mc.player).getActiveEffects();
+
 
             // Correct position if InfoDisplay is hidden
             boolean overworldCoordState = OVERWORLD_COORDINATES.getState()
@@ -72,10 +77,6 @@ public class XaeroMinimap {
                     .filter(s -> !s.getState().equals(false))
                     .toList().indexOf(SEASON) - Booleans.countTrue(hiddenIndexes);
 
-            float potionY = 0;
-            if(modMain.getInterfaces().normalPotionEffectsPushBox.isActive()){
-                potionY = modMain.getInterfaces().normalPotionEffectsPushBox.getH(width,height);
-            }
             float mapY = modMain.getInterfaces().getMinimapInterface().getY();
 
             //Icon
@@ -106,13 +107,21 @@ public class XaeroMinimap {
             int stringX = (int) (scaledX + (align == 0 ? size / 2 - stringWidth / 2 + iconDim + 1 : (align == 1 ? 6 : iconDim + size - stringWidth + framesize)));
             int stringY = (int) ((scaledY) + (under ? size + yOffset : -yOffset + 7));
 
+            int potionY = 0;
+
+            if(modMain.getInterfaces().normalPotionEffectsPushBox.isActive() && mc.player != null && !potionEffect.isEmpty()){
+                if(mc.player.getActiveEffects().iterator().next().showIcon()){
+                    potionY = (int) (modMain.getInterfaces().normalPotionEffectsPushBox.getH(width,height) * mapScale);
+                }
+            }
+
             //Icon Draw
             if (!minimapHidden() && (!modSettings.hideMinimapUnderScreen || mc.screen == null || mc.screen instanceof IScreenBase || mc.screen instanceof ChatScreen || mc.screen instanceof DeathScreen)
                     && (!modSettings.hideMinimapUnderF3 || !mc.options.renderDebug)) {
                 seasonStack.pose().pushPose();
                 seasonStack.pose().scale(fontScale, fontScale, 1.0F);
 
-                String debugString = String.valueOf(mapY) + " || " + String.valueOf(potionY);
+                String debugString = String.valueOf(scale) + " || " + String.valueOf(potionY);
                 seasonStack.drawString(mc.font, debugString, 20, 20, 0xffffffff);
 
 
