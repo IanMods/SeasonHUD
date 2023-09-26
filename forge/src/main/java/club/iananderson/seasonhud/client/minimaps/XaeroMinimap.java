@@ -72,6 +72,12 @@ public class XaeroMinimap {
                     .filter(s -> !s.getState().equals(false))
                     .toList().indexOf(SEASON) - Booleans.countTrue(hiddenIndexes);
 
+            float potionY = 0;
+            if(modMain.getInterfaces().normalPotionEffectsPushBox.isActive()){
+                potionY = modMain.getInterfaces().normalPotionEffectsPushBox.getH(width,height);
+            }
+            float mapY = modMain.getInterfaces().getMinimapInterface().getY();
+
             //Icon
             double scale = mc.getWindow().getGuiScale();
 
@@ -106,12 +112,16 @@ public class XaeroMinimap {
                 seasonStack.pose().pushPose();
                 seasonStack.pose().scale(fontScale, fontScale, 1.0F);
 
+                String debugString = String.valueOf(mapY) + " || " + String.valueOf(potionY);
+                seasonStack.drawString(mc.font, debugString, 20, 20, 0xffffffff);
+
+
                 //Icon
                 ResourceLocation SEASON = getSeasonResource();
                 RenderSystem.setShader(GameRenderer::getPositionTexShader);
                 RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
                 RenderSystem.setShaderTexture(0, SEASON);
-                seasonStack.blit(SEASON, (int) (stringX), (int) stringY, 0, 0, iconDim, iconDim, iconDim, iconDim);
+                seasonStack.blit(SEASON, (int) (stringX), (int) (stringY+potionY), 0, 0, iconDim, iconDim, iconDim, iconDim);
                 seasonStack.pose().popPose();
             }
         }
