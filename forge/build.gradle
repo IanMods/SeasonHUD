@@ -117,8 +117,8 @@ dependencies {
     annotationProcessor("org.spongepowered:mixin:0.8.5-SNAPSHOT:processor")
 
     /Serene Seasons/
-    implementation "curse.maven:serene-seasons-291874:${project.serene_seasons_file_id}-deobf"
-    implementation "curse.maven:serene-seasons-291874:${project.serene_seasons_deobf_file_id}-deobf"
+    implementation "curse.maven:serene-seasons-291874:${project.serene_seasons_file_id}"
+    implementation "curse.maven:serene-seasons-291874:${project.serene_seasons_deobf_file_id}"
 
 
 
