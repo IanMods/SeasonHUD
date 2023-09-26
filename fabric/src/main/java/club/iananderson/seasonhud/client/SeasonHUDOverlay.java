@@ -25,6 +25,7 @@ import static club.iananderson.seasonhud.impl.minimaps.HiddenMinimap.minimapHidd
 
 //HUD w/ no minimap installed
 public class SeasonHUDOverlay implements HudRenderCallback{
+
     public static SeasonHUDOverlay HUD_INSTANCE;
 
     public static void init()
