@@ -117,40 +117,39 @@ dependencies {
     annotationProcessor("org.spongepowered:mixin:0.8.5-SNAPSHOT:processor")
 
     /Serene Seasons/
-    implementation "curse.maven:serene-seasons-291874:4611121"
-    implementation "curse.maven:serene-seasons-291874:4611122"
-//    compileOnly "curse.maven:serene-seasons-291874:4611123" //api
+    implementation "curse.maven:serene-seasons-291874:${project.serene_seasons_file_id}-deobf"
+
 
     /Curios/
-//    runtimeOnly fg.deobf("top.theillusivec4.curios:curios-forge:5.2.0-beta.3+1.20.1:api")
-    compileOnly fg.deobf("top.theillusivec4.curios:curios-forge:5.2.0-beta.3+1.20.1:api")
+//    runtimeOnly fg.deobf("top.theillusivec4.curios:curios-forge:${project.curios_file_id}:api)
+    compileOnly fg.deobf("top.theillusivec4.curios:curios-forge:${project.curios_file_id}:api")
 
     /Xaero's Minimap/
-    compileOnly fg.deobf("curse.maven:xaeros-minimap-263420:4593190")
-//    implementation fg.deobf("curse.maven:xaeros-minimap-263420:4593190")
+    compileOnly fg.deobf("curse.maven:xaeros-minimap-263420:${project.xaeros_forge_file_id}")
+//    implementation fg.deobf("curse.maven:xaeros-minimap-263420:263420:${project.xaeros_forge_file_id}")
 
     /Xaero's Minimap Fair Play/
-    compileOnly fg.deobf("curse.maven:xaeros-minimap-fair-play-edition-263466:4586338")
-//    implementation fg.deobf("curse.maven:xaeros-minimap-fair-play-edition-263466:4586338")
+    compileOnly fg.deobf("curse.maven:xaeros-minimap-fair-play-edition-263466:${project.xaeros_fairplay_forge_file_id}")
+//    implementation fg.deobf("curse.maven:xaeros-minimap-fair-play-edition-263466:${project.xaeros_fairplay_forge_file_id}")
 
     /Open Parties and Claims/
-    compileOnly fg.deobf("curse.maven:open-parties-and-claims-636608:4603080")
-//    implementation fg.deobf("curse.maven:open-parties-and-claims-636608:4603080")
+    compileOnly fg.deobf("curse.maven:open-parties-and-claims-636608:${project.opac_forge_file_id}")
+//    implementation fg.deobf("curse.maven:open-parties-and-claims-636608:${project.opac_forge_file_id}")
 
     /FTB Chunks/
-    compileOnly fg.deobf("curse.maven:ftb-library-forge-404465:4596511") //FTB Library
-    compileOnly fg.deobf("curse.maven:architectury-api-419699:4663010") //Architectury
-    compileOnly fg.deobf("curse.maven:ftb-teams-forge-404468:4623116") //FTB Teams
-    compileOnly fg.deobf("curse.maven:ftb-chunks-forge-314906:4654814") //FTB Chunks
+    compileOnly fg.deobf("curse.maven:ftb-library-forge-404465:${project.ftb_lib_forge_file_id}") //FTB Library
+    compileOnly fg.deobf("curse.maven:architectury-api-419699:${project.architectury_forge_file_id}") //Architectury
+    compileOnly fg.deobf("curse.maven:ftb-teams-forge-404468:${project.ftb_teams_forge_file_id}") //FTB Teams
+    compileOnly fg.deobf("curse.maven:ftb-chunks-forge-314906:${project.ftb_chunks_forge_file_id}") //FTB Chunks
 
-//    implementation fg.deobf("curse.maven:ftb-library-forge-404465:4596511") //FTB Library
-//    implementation fg.deobf("curse.maven:architectury-api-419699:4663010") //Architectury
-//    implementation fg.deobf("curse.maven:ftb-teams-forge-404468:4623116") //FTB Teams
-//    implementation fg.deobf("curse.maven:ftb-chunks-forge-314906:4654814") //FTB Chunks
+//    implementation fg.deobf("curse.maven:ftb-library-forge-404465:${project.ftb_lib_forge_file_id}") //FTB Library
+//    implementation fg.deobf("curse.maven:architectury-api-419699:${project.architectury_forge_file_id}") //Architectury
+//    implementation fg.deobf("curse.maven:ftb-teams-forge-404468:${project.ftb_teams_forge_file_id}") //FTB Teams
+//    implementation fg.deobf("curse.maven:ftb-chunks-forge-314906:${project.ftb_chunks_forge_file_id}") //FTB Chunks
 
     /JourneyMap/
-    compileOnly fg.deobf("curse.maven:journeymap-32274:4580627")
-//    implementation fg.deobf("curse.maven:journeymap-32274:4580627")
+    compileOnly fg.deobf("curse.maven:journeymap-32274:${project.journeymap_forge_file_id}")
+//    implementation fg.deobf("curse.maven:journeymap-32274:${project.journeymap_forge_file_id}")
 
 }
 
