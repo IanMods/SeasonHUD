@@ -77,8 +77,6 @@ public class XaeroMinimap {
                     .filter(s -> !s.getState().equals(false))
                     .toList().indexOf(SEASON) - Booleans.countTrue(hiddenIndexes);
 
-            float mapY = modMain.getInterfaces().getMinimapInterface().getY();
-
             //Icon
             double scale = mc.getWindow().getGuiScale();
 
@@ -120,10 +118,6 @@ public class XaeroMinimap {
                     && (!modSettings.hideMinimapUnderF3 || !mc.options.renderDebug)) {
                 seasonStack.pose().pushPose();
                 seasonStack.pose().scale(fontScale, fontScale, 1.0F);
-
-                String debugString = String.valueOf(scale) + " || " + String.valueOf(potionY);
-                seasonStack.drawString(mc.font, debugString, 20, 20, 0xffffffff);
-
 
                 //Icon
                 ResourceLocation SEASON = getSeasonResource();
