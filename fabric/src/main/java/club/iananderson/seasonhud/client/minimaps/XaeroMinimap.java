@@ -10,8 +10,10 @@ import net.minecraft.client.gui.screens.DeathScreen;
 import net.minecraft.client.renderer.GameRenderer;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.effect.MobEffectInstance;
 import xaero.common.core.XaeroMinimapCore;
 import xaero.common.gui.IScreenBase;
+import xaero.common.interfaces.pushbox.PotionEffectsPushBox;
 import xaero.common.minimap.MinimapInterface;
 import xaero.common.minimap.MinimapProcessor;
 import xaero.common.minimap.info.InfoDisplayManager;
@@ -19,6 +21,7 @@ import xaero.common.minimap.waypoints.WaypointsManager;
 import xaero.common.settings.ModSettings;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Objects;
 
 import static club.iananderson.seasonhud.impl.fabricseasons.CurrentSeason.getSeasonName;
@@ -44,6 +47,9 @@ public class XaeroMinimap implements HudRenderCallback {
         Minecraft mc = Minecraft.getInstance();
         ArrayList<Component> underText = getSeasonName();
 
+        int height = mc.getWindow().getGuiScaledHeight();
+        int width = mc.getWindow().getGuiScaledWidth();
+
         if (loadedMinimap("xaerominimap") || loadedMinimap("xaerominimapfair")) {
             //Data
             ResourceLocation dim = Objects.requireNonNull(mc.level).dimension().location();
@@ -53,6 +59,8 @@ public class XaeroMinimap implements HudRenderCallback {
             MinimapProcessor minimapProcessor = XaeroMinimapCore.currentSession.getMinimapProcessor();
             InfoDisplayManager infoDisplayManager = minimapInterface.getInfoDisplayManager();
             WaypointsManager waypointsManager = XaeroMinimapCore.currentSession.getWaypointsManager();
+            PotionEffectsPushBox potionPushBox = modMain.getInterfaces().normalPotionEffectsPushBox;
+            Collection<MobEffectInstance> potionEffect = Objects.requireNonNull(mc.player).getActiveEffects();
 
             // Correct position if InfoDisplay is hidden
             boolean overworldCoordState = OVERWORLD_COORDINATES.getState()
@@ -95,7 +103,6 @@ public class XaeroMinimap implements HudRenderCallback {
             int iconDim = (int) stringHeight;
             int size = (int) mapSize;
             int framesize = 4;
-            int height = mc.getWindow().getGuiScaledHeight();
             int scaledHeight = (int) ((float) height * mapScale);
             int align = modSettings.minimapTextAlign;
             int yOffset = (int) (((framesize * 2) + 9) + (filteredIndexSeason * (stringHeight + 1)));
@@ -104,6 +111,17 @@ public class XaeroMinimap implements HudRenderCallback {
             float y = minimapInterface.getY();
             float scaledX = (x * mapScale);
             float scaledY = (y * mapScale);
+
+            int potionY = 0;
+            int potionPushBoxHeight = potionPushBox.getH(width,height);
+            int potionPushBoxWidth = potionPushBox.getW(width,height);
+
+            if(potionPushBox.isActive() && mc.player != null && !potionEffect.isEmpty()){
+                if(((y - potionPushBoxHeight) < 0) && ((x + mapSize) > width-potionPushBoxWidth)){
+                    scaledY = 0;
+                    potionY = (int) (potionPushBoxHeight * mapScale);
+                }
+            }
 
             boolean under = ((int) scaledY + size / 2) < scaledHeight / 2;
 
@@ -121,12 +139,9 @@ public class XaeroMinimap implements HudRenderCallback {
                 RenderSystem.setShader(GameRenderer::getPositionTexShader);
                 RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
                 RenderSystem.setShaderTexture(0, SEASON);
-                seasonStack.blit(SEASON, (int) (stringX), (int) stringY, 0, 0, iconDim, iconDim, iconDim, iconDim);
+                seasonStack.blit(SEASON, (int) (stringX), (int) (stringY+potionY), 0, 0, iconDim, iconDim, iconDim, iconDim);
                 seasonStack.pose().popPose();
             }
         }
-
     }
 }
-
-
