@@ -48,6 +48,9 @@ public class XaeroMinimap implements HudRenderCallback {
         Minecraft mc = Minecraft.getInstance();
         ArrayList<Component> underText = getSeasonName();
 
+        int height = mc.getWindow().getGuiScaledHeight();
+        int width = mc.getWindow().getGuiScaledWidth();
+
         if (loadedMinimap("xaerominimap") || loadedMinimap("xaerominimapfair")) {
             //Data
             ResourceLocation dim = Objects.requireNonNull(mc.level).dimension().location();
@@ -101,8 +104,6 @@ public class XaeroMinimap implements HudRenderCallback {
             int iconDim = (int) stringHeight;
             int size = (int) mapSize;
             int framesize = 4;
-            int height = mc.getWindow().getGuiScaledHeight();
-            int width = mc.getWindow().getGuiScaledWidth();
             int scaledHeight = (int) ((float) height * mapScale);
             int align = modSettings.minimapTextAlign;
             int yOffset = (int) (((framesize * 2) + 9) + (filteredIndexSeason * (stringHeight + 1)));
