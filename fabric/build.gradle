@@ -138,6 +138,9 @@ loom {
             runDir("run")
         }
     }
+    mixin {
+        defaultRefmapName = "seasonhud.refmap.json"
+    }
 }
 
 
