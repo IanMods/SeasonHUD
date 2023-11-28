@@ -117,10 +117,12 @@ public class SeasonHUDScreen extends Screen{
             addRenderableWidget(journeyMapAboveMapButton);
         }
 
-        Button doneButton = new Button((this.width / 2 - (BUTTON_WIDTH_FULL / 2)), (this.height - BUTTON_HEIGHT - PADDING), BUTTON_WIDTH_FULL, BUTTON_HEIGHT, Component.translatable("gui.done"), b -> {
-            mc.options.save();
-            mc.setScreen(this.lastScreen);
-        });
+        Button doneButton = Button.builder(Component.translatable("gui.done"), button -> {
+                    mc.options.save();
+                    mc.setScreen(this.lastScreen);
+                })
+                .bounds(this.width / 2 - (BUTTON_WIDTH_FULL / 2), (this.height - BUTTON_HEIGHT - PADDING),BUTTON_WIDTH_FULL, BUTTON_HEIGHT)
+                .build();
 
         addRenderableWidget(enableModButton);
         addRenderableWidget(needCalendarButton);
