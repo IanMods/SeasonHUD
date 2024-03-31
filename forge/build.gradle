@@ -31,6 +31,7 @@ minecraft {
     runs {
         client {
             workingDirectory project.file('run')
+            jvmArg "-XX:+AllowEnhancedClassRedefinition"
             ideaModule "${rootProject.name}.${project.name}.main"
             taskName 'Client'
             property 'mixin.env.remapRefMap', 'true'
