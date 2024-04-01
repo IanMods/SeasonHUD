@@ -87,7 +87,7 @@ public class SeasonHUDScreen extends Screen{
 
         row = 2;
         CycleButton<ShowDay> showDayButton = CycleButton.builder(ShowDay::getDayDisplayName)
-                .withValues(ShowDay.NONE,ShowDay.SHOW_DAY,ShowDay.SHOW_WITH_TOTAL_DAYS)
+                .withValues(ShowDay.NONE,ShowDay.SHOW_DAY,ShowDay.SHOW_WITH_TOTAL_DAYS,ShowDay.SHOW_WITH_MONTH)
                 .withInitialValue(showDay.get())
                 .create(BUTTON_START_X_LEFT, (BUTTON_START_Y + (row * y_OFFSET)), BUTTON_WIDTH_HALF, BUTTON_HEIGHT,
                         Component.translatable("menu.seasonhud.button.showDay"),

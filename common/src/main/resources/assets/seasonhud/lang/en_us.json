@@ -21,6 +21,7 @@
 
   "menu.seasonhud.button.desc.showDay": "Show the day of of the current Season/Sub-Season on the HUD",
   "menu.seasonhud.button.desc.showSubSeason": "Replace the Season with the current Sub-Season",
+  "menu.seasonhud.button.desc.showMonth": "Show the current month, requires enabling isSeasonTiedWithSystemTime in the FabricSeasons config",
 
   "location.seasonhud.topLeft": "Top Left",
   "location.seasonhud.topCenter": "Top Center",
@@ -31,6 +32,7 @@
   "showday.seasonhud.none": "OFF",
   "showday.seasonhud.showDay": "Day #",
   "showday.seasonhud.totalDays": "Day #/#",
+  "showday.seasonhud.showMonth": "(Month), #",
 
   "desc.seasonhud.spring": "Spring",
   "desc.seasonhud.early_spring": "Early Spring",
@@ -69,6 +71,20 @@
   "desc.seasonhud.detailed": "%s, Day %s",
   "desc.seasonhud.detailed.total": "%s, Day %s/%s",
   "desc.seasonhud.combined": "%s%s",
+  "desc.seasonhud.month": "%s, %s %s",
+
+  "desc.seasonhud.january": "January",
+  "desc.seasonhud.february": "February",
+  "desc.seasonhud.march": "March",
+  "desc.seasonhud.april": "April",
+  "desc.seasonhud.may": "May",
+  "desc.seasonhud.june": "June",
+  "desc.seasonhud.july": "July",
+  "desc.seasonhud.august": "August",
+  "desc.seasonhud.september": "September",
+  "desc.seasonhud.october": "October",
+  "desc.seasonhud.november": "November",
+  "desc.seasonhud.december": "December",
 
   "item.calendar.tooltip": "Slot: Charm"
 }

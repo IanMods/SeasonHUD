@@ -77,7 +77,7 @@ public class Config {
                 showDay = BUILDER
                         .comment("""
                                 Show the current day of the season/sub-season?
-                                NONE, SHOW_DAY, SHOW_WITH_TOTAL_DAYS
+                                NONE, SHOW_DAY, SHOW_WITH_TOTAL_DAYS, SHOW_WITH_MONTH
                                 Default is SHOW_DAY.""")
                         .defineEnum("enable_show_day",ShowDay.SHOW_DAY);
             BUILDER.pop();
