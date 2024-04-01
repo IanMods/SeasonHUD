@@ -95,21 +95,13 @@ public class CurrentSeason {
         return null;
     }
 
-    public static int getSeasonLength() {
-        if(FabricSeasons.CONFIG.isSeasonTiedWithSystemTime()) {
-            LocalDateTime now = LocalDateTime.now();
-            return now.plusDays(/*FabricSeasons.getTimeToNextSystemSeason()*/0).getDayOfMonth();
-        }
-        return CONFIG.getSeasonLength() / 24000;
-    }
-
    //Localized name for the hud
     public static ArrayList<Component> getSeasonName() {
         ArrayList<Component> text = new ArrayList<>();
         ShowDay showDay = Config.showDay.get();
+        boolean isSeasonTiedWithSystemTime = FabricSeasons.CONFIG.isSeasonTiedWithSystemTime();
 
-        int seasonDuration = getSeasonLength();
-        LocalDateTime now = LocalDateTime.now();
+        int seasonDuration = CONFIG.getSeasonLength() / 24000;
 
         switch(showDay){
             case NONE ->{
@@ -129,8 +121,8 @@ public class CurrentSeason {
 
             case SHOW_WITH_MONTH -> {
                 text.add(Component.translatable("desc.seasonhud.icon", getSeasonIcon(getSeasonFileName())).withStyle(SEASON_STYLE));
-                if(FabricSeasons.CONFIG.isSeasonTiedWithSystemTime()) {
-                    text.add(Component.translatable("desc.seasonhud.month", Component.translatable("desc.seasonhud." + getSeasonStateLower()), Component.translatable("desc.seasonhud." + now.getMonth().name().toLowerCase()), getDate()));
+                if(isSeasonTiedWithSystemTime) {
+                    text.add(Component.translatable("desc.seasonhud.month", Component.translatable("desc.seasonhud." + getSeasonStateLower()), Component.translatable("desc.seasonhud." + getCurrentMonth().name().toLowerCase()), getDate()));
                 } else {
                     text.add(Component.translatable("desc.seasonhud.detailed", Component.translatable("desc.seasonhud." + getSeasonStateLower()), getDate()));
                 }
