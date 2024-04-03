@@ -21,6 +21,8 @@
 
   "menu.seasonhud.button.desc.showDay": "显示当前季节/子季节",
   "menu.seasonhud.button.desc.showSubSeason": "用子季节替换季节",
+  "menu.seasonhud.button.desc.showMonth": "Show the current month, requires enabling isSeasonTiedWithSystemTime in the FabricSeasons config",
+
 
   "location.seasonhud.topLeft": "左上",
   "location.seasonhud.topCenter": "正上",
@@ -69,6 +71,20 @@
   "desc.seasonhud.detailed": "%s, 第 %s 天",
   "desc.seasonhud.detailed.total": "%s, 第 %s/%s 天",
   "desc.seasonhud.combined": "%s%s",
+  "desc.seasonhud.month": "%s, %s %s",
+
+  "desc.seasonhud.january": "January",
+  "desc.seasonhud.february": "February",
+  "desc.seasonhud.march": "March",
+  "desc.seasonhud.april": "April",
+  "desc.seasonhud.may": "May",
+  "desc.seasonhud.june": "June",
+  "desc.seasonhud.july": "July",
+  "desc.seasonhud.august": "August",
+  "desc.seasonhud.september": "September",
+  "desc.seasonhud.october": "October",
+  "desc.seasonhud.november": "November",
+  "desc.seasonhud.december": "December",
 
   "item.calendar.tooltip": "Slot: Charm"
 }

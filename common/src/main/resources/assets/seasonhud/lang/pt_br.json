@@ -21,6 +21,7 @@
 
   "menu.seasonhud.button.desc.showDay": "Mostrar o dia da estação/subestação atual no HUD",
   "menu.seasonhud.button.desc.showSubSeason": "Substituir a estação pela subestação atual",
+  "menu.seasonhud.button.desc.showMonth": "Show the current month, requires enabling isSeasonTiedWithSystemTime in the FabricSeasons config",
 
   "location.seasonhud.topLeft": "Canto superior esquerdo",
   "location.seasonhud.topCenter": "Centro superior",
@@ -69,6 +70,21 @@
   "desc.seasonhud.detailed": "%s, Dia %s",
   "desc.seasonhud.detailed.total": "%s, Dia %s/%s",
   "desc.seasonhud.combined": "%s%s",
+  "desc.seasonhud.month": "%s, %s %s",
+
+
+  "desc.seasonhud.january": "January",
+  "desc.seasonhud.february": "February",
+  "desc.seasonhud.march": "March",
+  "desc.seasonhud.april": "April",
+  "desc.seasonhud.may": "May",
+  "desc.seasonhud.june": "June",
+  "desc.seasonhud.july": "July",
+  "desc.seasonhud.august": "August",
+  "desc.seasonhud.september": "September",
+  "desc.seasonhud.october": "October",
+  "desc.seasonhud.november": "November",
+  "desc.seasonhud.december": "December",
 
   "item.calendar.tooltip": "Encaixe: Amuleto"
 }
