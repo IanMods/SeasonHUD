@@ -6,6 +6,8 @@ import io.github.lucaargolo.seasons.FabricSeasons;
 import net.minecraft.client.Minecraft;
 import net.minecraft.network.chat.Component;
 
+import java.time.LocalDateTime;
+import java.time.Month;
 import java.util.ArrayList;
 import java.util.Objects;
 
@@ -59,11 +61,28 @@ public class CurrentSeason {
 
     //Get the current date of the season
     public static int getDate() {
+
+        if(FabricSeasons.CONFIG.isSeasonTiedWithSystemTime()) {
+            int dayOfMonth = getSystemDayOfMonth();
+            return dayOfMonth;
+        }
         Minecraft mc = Minecraft.getInstance();
         int worldTime = Math.toIntExact(Objects.requireNonNull(mc.level).getDayTime());
         int seasonDate = ((int)(worldTime - (worldTime / (long)CONFIG.getSeasonLength() * (long)CONFIG.getSeasonLength())) % CONFIG.getSeasonLength() / 24000)+1;
 
         return seasonDate;
+    }
+
+    // Get the current day of month from the system; used with fabric seasons' system time tied with season option
+    public static int getSystemDayOfMonth() {
+        LocalDateTime now = LocalDateTime.now();
+        int dayOfMonth = now.getDayOfMonth();
+        return dayOfMonth;
+    }
+
+    public static Month getCurrentMonth() {
+        LocalDateTime now = LocalDateTime.now();
+        return now.getMonth();
     }
 
     //Get the current season and match it to the icon for the font
@@ -80,6 +99,7 @@ public class CurrentSeason {
     public static ArrayList<Component> getSeasonName() {
         ArrayList<Component> text = new ArrayList<>();
         ShowDay showDay = Config.showDay.get();
+        boolean isSeasonTiedWithSystemTime = FabricSeasons.CONFIG.isSeasonTiedWithSystemTime();
 
         int seasonDuration = CONFIG.getSeasonLength() / 24000;
 
@@ -97,6 +117,15 @@ public class CurrentSeason {
             case SHOW_WITH_TOTAL_DAYS ->{
                 text.add(Component.translatable("desc.seasonhud.icon",getSeasonIcon(getSeasonFileName())).withStyle(SEASON_STYLE));
                 text.add(Component.translatable("desc.seasonhud.detailed.total",Component.translatable("desc.seasonhud." + getSeasonStateLower()), getDate(), seasonDuration));
+            }
+
+            case SHOW_WITH_MONTH -> {
+                text.add(Component.translatable("desc.seasonhud.icon", getSeasonIcon(getSeasonFileName())).withStyle(SEASON_STYLE));
+                if(isSeasonTiedWithSystemTime) {
+                    text.add(Component.translatable("desc.seasonhud.month", Component.translatable("desc.seasonhud." + getSeasonStateLower()), Component.translatable("desc.seasonhud." + getCurrentMonth().name().toLowerCase()), getDate()));
+                } else {
+                    text.add(Component.translatable("desc.seasonhud.detailed", Component.translatable("desc.seasonhud." + getSeasonStateLower()), getDate()));
+                }
             }
         }
 
