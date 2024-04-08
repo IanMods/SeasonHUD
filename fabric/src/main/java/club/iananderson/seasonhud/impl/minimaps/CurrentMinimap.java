@@ -1,6 +1,7 @@
 package club.iananderson.seasonhud.impl.minimaps;
 
 import club.iananderson.seasonhud.platform.Services;
+import io.github.lucaargolo.seasons.FabricSeasons;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screens.ChatScreen;
 import net.minecraft.client.gui.screens.DeathScreen;
@@ -38,8 +39,7 @@ public class CurrentMinimap {
         Minecraft mc = Minecraft.getInstance();
         ResourceKey<Level> currentDim = Objects.requireNonNull(mc.level).dimension();
 
-        return currentDim != OVERWORLD;
-
+        return !FabricSeasons.CONFIG.isValidInDimension(currentDim);
     }
 
     public static boolean shouldDraw(){

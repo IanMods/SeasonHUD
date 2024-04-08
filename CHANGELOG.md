@@ -4,10 +4,17 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 
+## [1.7.18] - 2024-04-07
+
+### Changed
+- (Fabric) Changed the hud to show up in other dimensions if they are whitelisted in the FabricSeasons config file. 
+
+
 ## [1.7.17] - 2024-04-02
 
 ### Added
 - Added local time season support from FabricSeasons (via @Piecuuu)
+
 
 ## [1.7.16] - 2024-03-22
 
