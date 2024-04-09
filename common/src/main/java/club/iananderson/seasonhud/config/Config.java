@@ -1,6 +1,10 @@
 package club.iananderson.seasonhud.config;
 
+import club.iananderson.seasonhud.platform.Services;
 import net.minecraftforge.common.ForgeConfigSpec;
+
+import java.util.Arrays;
+import java.util.Objects;
 
 public class Config {
     //Config Builder
@@ -56,7 +60,7 @@ public class Config {
             BUILDER.push("Season");
                 needCalendar = BUILDER
                         .comment("""
-                                Require the Calender item to be in the players inventory to show the HUD?
+                                Require the Calendar item to be in the players inventory to show the HUD?
                                 (true/false)
                                 Default is false.""")
                         .define("need_calendar",false);
@@ -74,43 +78,50 @@ public class Config {
                                 Default is true.""")
                         .define("enable_show_sub_season",true);
 
-                showDay = BUILDER
-                        .comment("""
-                                Show the current day of the season/sub-season?
-                                NONE, SHOW_DAY, SHOW_WITH_TOTAL_DAYS, SHOW_WITH_MONTH
-                                Default is SHOW_DAY.""")
-                        .defineEnum("enable_show_day",ShowDay.SHOW_DAY);
+                if(Objects.equals(Services.PLATFORM.getPlatformName(), "Forge")) {
+                    showDay = BUILDER
+                            .comment("""
+                                        Show the current day of the season/sub-season?
+                                        Default is SHOW_DAY.""")
+                            .defineEnum("enable_show_day", ShowDay.SHOW_DAY,Arrays.asList(ShowDay.NONE, ShowDay.SHOW_DAY, ShowDay.SHOW_WITH_TOTAL_DAYS));
+                }
+                if(Objects.equals(Services.PLATFORM.getPlatformName(), "Fabric")){
+                    showDay = BUILDER
+                            .comment("""
+                                        Show the current day of the season/sub-season?
+                                        Default is SHOW_DAY.""")
+                            .defineEnum("enable_show_day", ShowDay.SHOW_DAY,Arrays.asList(ShowDay.NONE, ShowDay.SHOW_DAY, ShowDay.SHOW_WITH_TOTAL_DAYS,ShowDay.SHOW_WITH_MONTH));
+                }
             BUILDER.pop();
-
             BUILDER.push("Minimap");
-                enableMinimapIntegration = BUILDER
-                    .comment("""
-                        Enable integration with minimap mods.
-                        (true/false)
-                        Default is true.""")
-                    .define("enable_minimap_integration",true);
-                showMinimapHidden = BUILDER
-                    .comment("""
-                            Show the default SeasonHUD display when the minimap is hidden.
+                    enableMinimapIntegration = BUILDER
+                        .comment("""
+                            Enable integration with minimap mods.
                             (true/false)
-                            Default is false.""")
-                    .define("enable_show_minimap_hidden",false);
+                            Default is true.""")
+                        .define("enable_minimap_integration",true);
+                    showMinimapHidden = BUILDER
+                        .comment("""
+                                Show the default SeasonHUD display when the minimap is hidden.
+                                (true/false)
+                                Default is false.""")
+                        .define("enable_show_minimap_hidden",false);
 
-                BUILDER.push("Journeymap");
-                    journeyMapAboveMap = BUILDER
-                            .comment("""
-                                    Show above the JourneyMap minimap, instead of below.
-                                    (true/false)
-                                    Default is false.""")
-                            .define("enable_above_map",false);
-                    journeyMapMacOS = BUILDER
-                            .comment("""
-                                    Toggle for macOS retina display scaling when using JourneyMap.
-                                    Enable if the season line is rendering around the halfway point of the screen.
-                                    (true/false)
-                                    Default is false.""")
-                            .define("enable_macOS",false);
-                BUILDER.pop();
+                    BUILDER.push("Journeymap");
+                        journeyMapAboveMap = BUILDER
+                                .comment("""
+                                        Show above the JourneyMap minimap, instead of below.
+                                        (true/false)
+                                        Default is false.""")
+                                .define("enable_above_map",false);
+                        journeyMapMacOS = BUILDER
+                                .comment("""
+                                        Toggle for macOS retina display scaling when using JourneyMap.
+                                        Enable if the season line is rendering around the halfway point of the screen.
+                                        (true/false)
+                                        Default is false.""")
+                                .define("enable_macOS",false);
+                    BUILDER.pop();
             BUILDER.pop();
         BUILDER.pop();
     }

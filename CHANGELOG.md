@@ -4,6 +4,13 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 
+## [1.7.19] - 2024-04-08
+
+### Fixed
+- (Forge) Removed the "SHOW_WITH_MONTH" option from showing in the Forge versions config, since it is a feature of FabricSeasons.
+- Fixed a typo in the config
+
+
 ## [1.7.18] - 2024-04-07
 
 ### Changed
