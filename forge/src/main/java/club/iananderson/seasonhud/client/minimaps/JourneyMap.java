@@ -1,5 +1,7 @@
 package club.iananderson.seasonhud.client.minimaps;
 
+import club.iananderson.seasonhud.Common;
+import club.iananderson.seasonhud.impl.minimaps.CurrentMinimap;
 import club.iananderson.seasonhud.platform.Services;
 import journeymap.client.JourneymapClient;
 import journeymap.client.io.ThemeLoader;
@@ -8,7 +10,6 @@ import journeymap.client.ui.UIManager;
 import journeymap.client.ui.minimap.DisplayVars;
 import journeymap.client.ui.theme.Theme;
 import journeymap.client.ui.theme.ThemeLabelSource;
-import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.network.chat.Component;
@@ -17,34 +18,33 @@ import net.minecraftforge.client.gui.overlay.ForgeGui;
 import net.minecraftforge.client.gui.overlay.IGuiOverlay;
 
 import static club.iananderson.seasonhud.Common.SEASON_STYLE;
-import static club.iananderson.seasonhud.SeasonHUD.MODID;
+import static club.iananderson.seasonhud.Common.mc;
 import static club.iananderson.seasonhud.config.Config.*;
-import static club.iananderson.seasonhud.impl.minimaps.CurrentMinimap.loadedMinimap;
-import static club.iananderson.seasonhud.impl.minimaps.CurrentMinimap.shouldDraw;
-import static club.iananderson.seasonhud.impl.seasons.CurrentSeason.getSeasonName;
+import static club.iananderson.seasonhud.impl.seasons.CurrentSeason.getSeasonHudName;
 
 public class JourneyMap implements IGuiOverlay{
+
+
     private static String getSeason(){
         MutableComponent seasonCombined = Component.translatable("desc.seasonhud.combined",
-                getSeasonName().get(0).copy().withStyle(SEASON_STYLE),
-                getSeasonName().get(1).copy());;
+                getSeasonHudName().get(0).copy().withStyle(SEASON_STYLE),
+                getSeasonHudName().get(1).copy());
 
         return seasonCombined.getString();
     }
 
     @Override
     public void render(ForgeGui gui, GuiGraphics seasonStack, float partialTick, int scaledWidth, int scaledHeight) {
-        Minecraft mc = Minecraft.getInstance();
         MutableComponent seasonCombined = Component.translatable("desc.seasonhud.combined",
-                getSeasonName().get(0).copy().withStyle(SEASON_STYLE),
-                getSeasonName().get(1).copy());
+                getSeasonHudName().get(0).copy().withStyle(SEASON_STYLE),
+                getSeasonHudName().get(1).copy());
 
         if(Services.PLATFORM.isModLoaded("journeymap") && !enableMod.get()) {
-            ThemeLabelSource.InfoSlot Season = ThemeLabelSource.create(MODID,"menu.seasonhud.infodisplay.season",1000L,1L, JourneyMap::getSeason);
+            ThemeLabelSource.InfoSlot Season = ThemeLabelSource.create(Common.MOD_ID,"menu.seasonhud.infodisplay.season",1000L,1L, JourneyMap::getSeason);
             // Should only show up if the "Enable Mod" option in the SeasonHUD menu/config is disabled. Icon currently doesn't work
         }
 
-        if (loadedMinimap("journeymap")) {
+        if (CurrentMinimap.minimapLoaded("journeymap")) {
             DisplayVars vars = UIManager.INSTANCE.getMiniMap().getDisplayVars();
             JourneymapClient jm = JourneymapClient.getInstance();
 
@@ -80,7 +80,7 @@ public class JourneyMap implements IGuiOverlay{
             int startX = (int) (textureX + halfWidth);
             int startY = (int) (textureY + (journeyMapAboveMap.get() ? - margin - labelHeight : minimapHeight + margin));
 
-            if (shouldDraw() && jm.getActiveMiniMapProperties().enabled.get()) {
+            if (CurrentMinimap.shouldDrawMinimapHud()) {
                 int labelX = (int) startX;
                 int labelY = startY + (journeyMapAboveMap.get() ? -topLabelHeight : bottomLabelHeight);
 

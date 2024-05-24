@@ -16,7 +16,7 @@ import java.util.List;
 import static club.iananderson.seasonhud.Common.SEASON_STYLE;
 import static club.iananderson.seasonhud.config.Config.enableMinimapIntegration;
 import static club.iananderson.seasonhud.config.Config.enableMod;
-import static club.iananderson.seasonhud.impl.seasons.CurrentSeason.getSeasonName;
+import static club.iananderson.seasonhud.impl.seasons.CurrentSeason.getSeasonHudName;
 import static dev.ftb.mods.ftbchunks.client.FTBChunksClientConfig.MINIMAP;
 
 @Mixin(FTBChunksClient.class)
@@ -32,8 +32,8 @@ public class FTBChunksClientMixin {
 
     private void buildMinimapTextData(Minecraft mc, double playerX, double playerY, double playerZ, MapDimension dim, CallbackInfoReturnable<List<Component>> cir) {
         MutableComponent seasonCombined = Component.translatable("desc.seasonhud.combined",
-                getSeasonName().get(0).copy().withStyle(SEASON_STYLE),
-                getSeasonName().get(1).copy());
+                getSeasonHudName().get(0).copy().withStyle(SEASON_STYLE),
+                getSeasonHudName().get(1).copy());
         List<Component>res = cir.getReturnValue();
 
         enableMod.set(MINIMAP_SEASON.get());

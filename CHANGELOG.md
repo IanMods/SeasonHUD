@@ -8,6 +8,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 
 ### Changed
 - Updated dependencies to the latest versions
+- Rewrote a bit to allow for more common code between Forge and Fabric
 
 
 

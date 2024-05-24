@@ -16,8 +16,8 @@ import pepjebs.mapatlases.client.MapAtlasesClient;
 import pepjebs.mapatlases.config.MapAtlasesClientConfig;
 
 import static club.iananderson.seasonhud.Common.SEASON_STYLE;
-import static club.iananderson.seasonhud.impl.minimaps.CurrentMinimap.loadedMinimap;
-import static club.iananderson.seasonhud.impl.seasons.CurrentSeason.getSeasonName;
+import static club.iananderson.seasonhud.impl.minimaps.CurrentMinimap.minimapLoaded;
+import static club.iananderson.seasonhud.impl.seasons.CurrentSeason.getSeasonHudName;
 
 public class MapAtlases implements HudRenderCallback {
     public static MapAtlases HUD_INSTANCE;
@@ -48,19 +48,19 @@ public class MapAtlases implements HudRenderCallback {
     }
 
     public static void drawMapComponentSeason(GuiGraphics poseStack, Font font, int x, int y, int targetWidth, float textScaling) {
-        if (loadedMinimap("map_atlases")) {
+        if (minimapLoaded("map_atlases")) {
             MutableComponent seasonCombined = Component.translatable("desc.seasonhud.combined",
-                    getSeasonName().get(0).copy().withStyle(SEASON_STYLE),
-                    getSeasonName().get(1).copy());
+                    getSeasonHudName().get(0).copy().withStyle(SEASON_STYLE),
+                    getSeasonHudName().get(1).copy());
 
             float globalScale = (float)(double)MapAtlasesClientConfig.miniMapScale.get();
-            //String seasonToDisplay = getSeasonName().get(0).getString();
+            //String seasonToDisplay = getSeasonHudName().get(0).getString();
             drawScaledComponent(poseStack, font, x, y, seasonCombined, textScaling / globalScale, targetWidth, (int)(targetWidth / globalScale));
         }
     }
 
     public static boolean shouldDraw(Minecraft mc) {
-        if (loadedMinimap("map_atlases")) {
+        if (minimapLoaded("map_atlases")) {
             if (mc.level == null || mc.player == null) {
                 return false;
             }
@@ -81,7 +81,7 @@ public class MapAtlases implements HudRenderCallback {
 
     @Override
     public void onHudRender(GuiGraphics seasonStack, float alpha) {
-        if(loadedMinimap("map_atlases") && shouldDraw(mc)) {
+        if(minimapLoaded("map_atlases") && shouldDraw(mc)) {
             int screenWidth = mc.getWindow().getScreenWidth();
             int screenHeight = mc.getWindow().getScreenHeight();
             float textScaling = (float) (double) MapAtlasesClientConfig.minimapCoordsAndBiomeScale.get();

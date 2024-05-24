@@ -108,10 +108,10 @@ public class SeasonHUDScreen extends Screen{
                         Component.translatable("menu.seasonhud.button.enableMinimapIntegration"),
                         (b, Off) -> Config.setEnableMinimapIntegration(Off));
 
-        CycleButton<Boolean> showMinimapHiddenButton = CycleButton.onOffBuilder(showMinimapHidden.get())
+        CycleButton<Boolean> showMinimapHiddenButton = CycleButton.onOffBuilder(showDefaultWhenMinimapHidden.get())
                 .create(BUTTON_START_X_RIGHT, (BUTTON_START_Y + (row * y_OFFSET)), BUTTON_WIDTH_HALF, BUTTON_HEIGHT,
                         Component.translatable("menu.seasonhud.button.showMinimapHidden"),
-                        (b, Off) -> Config.setShowMinimapHidden(Off));
+                        (b, Off) -> Config.setShowDefaultWhenMinimapHidden(Off));
 
 
         if(Services.PLATFORM.isModLoaded("journeymap")) {

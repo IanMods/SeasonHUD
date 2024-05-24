@@ -1,6 +1,7 @@
 package club.iananderson.seasonhud.client.minimaps;
 
 import club.iananderson.seasonhud.config.Config;
+import club.iananderson.seasonhud.impl.minimaps.CurrentMinimap;
 import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
@@ -9,7 +10,6 @@ import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.world.effect.MobEffect;
-import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.client.gui.overlay.ForgeGui;
 import net.minecraftforge.client.gui.overlay.IGuiOverlay;
 import pepjebs.mapatlases.MapAtlasesMod;
@@ -18,8 +18,7 @@ import pepjebs.mapatlases.client.MapAtlasesClient;
 import pepjebs.mapatlases.config.MapAtlasesClientConfig;
 
 import static club.iananderson.seasonhud.Common.SEASON_STYLE;
-import static club.iananderson.seasonhud.impl.minimaps.CurrentMinimap.loadedMinimap;
-import static club.iananderson.seasonhud.impl.seasons.CurrentSeason.getSeasonName;
+import static club.iananderson.seasonhud.impl.seasons.CurrentSeason.getSeasonHudName;
 
 public class MapAtlases implements IGuiOverlay{
     protected final int BG_SIZE = 64;
@@ -45,10 +44,10 @@ public class MapAtlases implements IGuiOverlay{
     }
 
     public static void drawMapComponentSeason(GuiGraphics poseStack, Font font, int x, int y, int targetWidth, float textScaling) {
-        if (loadedMinimap("map_atlases")) {
+        if (CurrentMinimap.minimapLoaded("map_atlases")) {
             MutableComponent seasonCombined = Component.translatable("desc.seasonhud.combined",
-                    getSeasonName().get(0).copy().withStyle(SEASON_STYLE),
-                    getSeasonName().get(1).copy());
+                    getSeasonHudName().get(0).copy().withStyle(SEASON_STYLE),
+                    getSeasonHudName().get(1).copy());
 
             float globalScale = (float)(double)MapAtlasesClientConfig.miniMapScale.get();
             drawScaledComponent(poseStack, font, x, y, seasonCombined, textScaling / globalScale, targetWidth, (int)(targetWidth / globalScale));
@@ -56,7 +55,7 @@ public class MapAtlases implements IGuiOverlay{
     }
 
     public static boolean shouldDraw(Minecraft mc) {
-        if (loadedMinimap("map_atlases")) {
+        if (CurrentMinimap.minimapLoaded("map_atlases")) {
             if (mc.level == null || mc.player == null) {
                 return false;
             }
@@ -77,7 +76,7 @@ public class MapAtlases implements IGuiOverlay{
 
     @Override
     public void render(ForgeGui gui, GuiGraphics seasonStack, float partialTick, int screenWidth, int screenHeight) {
-        if(loadedMinimap("map_atlases") && shouldDraw(mc)) {
+        if(CurrentMinimap.minimapLoaded("map_atlases") && shouldDraw(mc)) {
             float textScaling = (float) (double) MapAtlasesClientConfig.minimapCoordsAndBiomeScale.get();
 
             int textHeightOffset = 2;

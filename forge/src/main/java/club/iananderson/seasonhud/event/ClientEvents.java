@@ -1,5 +1,6 @@
 package club.iananderson.seasonhud.event;
 
+import club.iananderson.seasonhud.Common;
 import club.iananderson.seasonhud.SeasonHUD;
 import club.iananderson.seasonhud.client.KeyBindings;
 import club.iananderson.seasonhud.client.SeasonHUDOverlay;
@@ -14,7 +15,7 @@ import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 
 public class ClientEvents{
-    @Mod.EventBusSubscriber(modid = SeasonHUD.MODID, value = Dist.CLIENT)
+    @Mod.EventBusSubscriber(modid = Common.MOD_ID, value = Dist.CLIENT)
     public static class ClientForgeEvents {
         @SubscribeEvent
         public static void onKeyInput(InputEvent.Key Event) {
@@ -24,7 +25,7 @@ public class ClientEvents{
         }
     }
 
-    @Mod.EventBusSubscriber(modid = SeasonHUD.MODID, value = Dist.CLIENT, bus = Mod.EventBusSubscriber.Bus.MOD)
+    @Mod.EventBusSubscriber(modid = Common.MOD_ID, value = Dist.CLIENT, bus = Mod.EventBusSubscriber.Bus.MOD)
     public static class ClientModBusEvents {
         //Overlays
         @SubscribeEvent
