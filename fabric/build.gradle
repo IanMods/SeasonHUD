@@ -121,7 +121,7 @@ dependencies {
 
     /JourneyMap/
     modApi group: 'info.journeymap', name: 'journeymap-api', version: project.journeymap_api_version_fabric, changing: true
-    modCompileOnly  "curse.maven:journeymap-${project.jm_project_id}:${project.jm_file_id_fabric}"
+    modCompileOnly  "curse.maven:journeymap-${project.jm_project_id}:${project.journeymap_fabric_file_id}"
 
     /Map Atlases/
     modCompileOnly "curse.maven:map-atlases-436298:${project.map_atlases_fabric_file_id}"
