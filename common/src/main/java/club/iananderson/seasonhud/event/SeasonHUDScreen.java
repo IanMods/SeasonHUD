@@ -88,7 +88,7 @@ public class SeasonHUDScreen extends Screen{
         row = 2;
         ShowDay[] showDayValuesForge = { ShowDay.NONE,ShowDay.SHOW_DAY,ShowDay.SHOW_WITH_TOTAL_DAYS };
         ShowDay[] showDayValuesFabric = { ShowDay.NONE,ShowDay.SHOW_DAY,ShowDay.SHOW_WITH_TOTAL_DAYS,ShowDay.SHOW_WITH_MONTH };
-        boolean isForge = Services.PLATFORM.getPlatformName() == "Forge";
+        boolean isForge = Services.PLATFORM.getPlatformName().equals("Forge");
         CycleButton<ShowDay> showDayButton = CycleButton.builder(ShowDay::getDayDisplayName)
                 .withValues(isForge ? showDayValuesForge : showDayValuesFabric)
                 .withInitialValue(showDay.get())
@@ -108,10 +108,10 @@ public class SeasonHUDScreen extends Screen{
                         Component.translatable("menu.seasonhud.button.enableMinimapIntegration"),
                         (b, Off) -> Config.setEnableMinimapIntegration(Off));
 
-        CycleButton<Boolean> showMinimapHiddenButton = CycleButton.onOffBuilder(showMinimapHidden.get())
+        CycleButton<Boolean> showMinimapHiddenButton = CycleButton.onOffBuilder(showDefaultWhenMinimapHidden.get())
                 .create(BUTTON_START_X_RIGHT, (BUTTON_START_Y + (row * y_OFFSET)), BUTTON_WIDTH_HALF, BUTTON_HEIGHT,
                         Component.translatable("menu.seasonhud.button.showMinimapHidden"),
-                        (b, Off) -> Config.setShowMinimapHidden(Off));
+                        (b, Off) -> Config.setShowDefaultWhenMinimapHidden(Off));
 
 
         if(Services.PLATFORM.isModLoaded("journeymap")) {

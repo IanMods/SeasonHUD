@@ -16,13 +16,15 @@ import pepjebs.mapatlases.client.MapAtlasesClient;
 import pepjebs.mapatlases.config.MapAtlasesClientConfig;
 
 import static club.iananderson.seasonhud.Common.SEASON_STYLE;
-import static club.iananderson.seasonhud.impl.minimaps.CurrentMinimap.loadedMinimap;
-import static club.iananderson.seasonhud.impl.seasons.CurrentSeason.getSeasonName;
+import static club.iananderson.seasonhud.Common.mc;
+import static club.iananderson.seasonhud.impl.minimaps.CurrentMinimap.minimapLoaded;
+import static club.iananderson.seasonhud.impl.seasons.CurrentSeason.getSeasonHudName;
 
 public class MapAtlases implements HudRenderCallback {
     public static MapAtlases HUD_INSTANCE;
-    private static final Minecraft mc = Minecraft.getInstance();
+
     protected final int BG_SIZE = 64;
+
     public static void init() {
         HUD_INSTANCE = new MapAtlases();
         HudRenderCallback.EVENT.register(HUD_INSTANCE);
@@ -48,19 +50,19 @@ public class MapAtlases implements HudRenderCallback {
     }
 
     public static void drawMapComponentSeason(GuiGraphics poseStack, Font font, int x, int y, int targetWidth, float textScaling) {
-        if (loadedMinimap("map_atlases")) {
+        if (minimapLoaded("map_atlases")) {
             MutableComponent seasonCombined = Component.translatable("desc.seasonhud.combined",
-                    getSeasonName().get(0).copy().withStyle(SEASON_STYLE),
-                    getSeasonName().get(1).copy());
+                    getSeasonHudName().get(0).copy().withStyle(SEASON_STYLE),
+                    getSeasonHudName().get(1).copy());
 
             float globalScale = (float)(double)MapAtlasesClientConfig.miniMapScale.get();
-            //String seasonToDisplay = getSeasonName().get(0).getString();
+            //String seasonToDisplay = getSeasonHudName().get(0).getString();
             drawScaledComponent(poseStack, font, x, y, seasonCombined, textScaling / globalScale, targetWidth, (int)(targetWidth / globalScale));
         }
     }
 
     public static boolean shouldDraw(Minecraft mc) {
-        if (loadedMinimap("map_atlases")) {
+        if (minimapLoaded("map_atlases")) {
             if (mc.level == null || mc.player == null) {
                 return false;
             }
@@ -81,12 +83,12 @@ public class MapAtlases implements HudRenderCallback {
 
     @Override
     public void onHudRender(GuiGraphics seasonStack, float alpha) {
-        if(loadedMinimap("map_atlases") && shouldDraw(mc)) {
+        if(minimapLoaded("map_atlases") && shouldDraw(mc)) {
             int screenWidth = mc.getWindow().getScreenWidth();
             int screenHeight = mc.getWindow().getScreenHeight();
             float textScaling = (float) (double) MapAtlasesClientConfig.minimapCoordsAndBiomeScale.get();
 
-            int textHeightOffset = 2;
+            float textHeightOffset = 2.0F;
             float globalScale = (float) (double) MapAtlasesClientConfig.miniMapScale.get();
             int actualBgSize = (int) (BG_SIZE * globalScale);
 
@@ -96,8 +98,9 @@ public class MapAtlases implements HudRenderCallback {
             seasonStack.pose().scale(globalScale, globalScale, 1);
 
             Anchoring anchorLocation = MapAtlasesClientConfig.miniMapAnchoring.get();
-            int x = anchorLocation.isLeft ? 0 : (int) (screenWidth / globalScale) - BG_SIZE;
-            int y = anchorLocation.isUp ? 0 : (int) (screenHeight / globalScale) - BG_SIZE;
+            int offset = 5;
+            int x = anchorLocation.isLeft ? offset : (int) (screenWidth / globalScale) - (BG_SIZE + offset);
+            int y = anchorLocation.isUp ? offset : (int) (screenHeight / globalScale) - (BG_SIZE + offset);
             x += (int) (MapAtlasesClientConfig.miniMapHorizontalOffset.get() / globalScale);
             y += (int) (MapAtlasesClientConfig.miniMapVerticalOffset.get() / globalScale);
 
@@ -123,18 +126,18 @@ public class MapAtlases implements HudRenderCallback {
 
             if (Config.enableMod.get()) {
                 if (MapAtlasesClientConfig.drawMinimapCoords.get()) {
-                    textHeightOffset += (10 * textScaling);
+                    textHeightOffset = (textHeightOffset + 10.0F * textScaling);
                 }
 
                 if (MapAtlasesClientConfig.drawMinimapChunkCoords.get()) {
-                    textHeightOffset += (10 * textScaling);
+                    textHeightOffset = (textHeightOffset + 10.0F * textScaling);
                 }
 
                 if (MapAtlasesClientConfig.drawMinimapBiome.get()) {
-                    textHeightOffset += (10 * textScaling);
+                    textHeightOffset = (textHeightOffset + 10.0F * textScaling);
                 }
 
-                drawMapComponentSeason(seasonStack, font, (int) (x), (int) (y + BG_SIZE + (textHeightOffset / globalScale)), actualBgSize, textScaling);
+                drawMapComponentSeason(seasonStack, font, x, (int)(y + BG_SIZE + (textHeightOffset / globalScale)), actualBgSize, textScaling);
                 seasonStack.pose().popPose();
             }
         }

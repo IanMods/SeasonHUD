@@ -1,11 +1,10 @@
 package club.iananderson.seasonhud.impl.minimaps;
 
-import club.iananderson.seasonhud.SeasonHUD;
+import club.iananderson.seasonhud.Common;
 import journeymap.client.JourneymapClient;
 import journeymap.client.api.IClientAPI;
 import journeymap.client.api.IClientPlugin;
 import journeymap.client.api.event.ClientEvent;
-import journeymap.client.api.option.OptionCategory;
 
 import javax.annotation.ParametersAreNonnullByDefault;
 import java.util.EnumSet;
@@ -27,7 +26,7 @@ public class JourneyMapAPI implements IClientPlugin {
 
     @Override
     public String getModId() {
-        return SeasonHUD.MOD_ID;
+        return Common.MOD_ID;
     }
 
     @Override

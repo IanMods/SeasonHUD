@@ -8,8 +8,8 @@
   "mixins": [
   ],
   "client": [
-    "xaero.XaeroBuiltInInfoDisplays",
-    "ftbchunks.FTBChunksClientMixin"
+    "ftbchunks.FTBChunksClientMixin",
+    "xaero.XaeroBuiltInInfoDisplays"
   ],
   "injectors": {
     "defaultRequire": 1

@@ -1,5 +1,6 @@
 package club.iananderson.seasonhud.impl.curios.item;
 
+import club.iananderson.seasonhud.Common;
 import club.iananderson.seasonhud.impl.curios.CuriosCalendar;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.sounds.SoundEvents;
@@ -14,8 +15,6 @@ import top.theillusivec4.curios.api.type.capability.ICurioItem;
 
 import javax.annotation.Nonnull;
 
-import static club.iananderson.seasonhud.impl.seasons.Calendar.curiosLoaded;
-
 public class CalendarSlot extends CalendarItem implements ICurioItem {
 
     public CalendarSlot(Properties p_41383_) {
@@ -24,13 +23,13 @@ public class CalendarSlot extends CalendarItem implements ICurioItem {
 
     @SubscribeEvent
     public static void sendImc(InterModEnqueueEvent event) {
-        if (curiosLoaded())
+        if (Common.curiosLoaded())
             CuriosCalendar.registerSlots();
     }
 
     @Override
     public ICapabilityProvider initCapabilities(final ItemStack stack, CompoundTag unused) {
-        if (curiosLoaded()) {
+        if (Common.curiosLoaded()) {
             return CuriosCalendar.initCapabilities();
         }
         return super.initCapabilities(stack, unused);

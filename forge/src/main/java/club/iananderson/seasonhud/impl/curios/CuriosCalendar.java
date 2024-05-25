@@ -1,5 +1,6 @@
 package club.iananderson.seasonhud.impl.curios;
 
+import club.iananderson.seasonhud.platform.Services;
 import net.minecraft.core.Direction;
 import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.common.capabilities.Capability;
@@ -15,8 +16,6 @@ import top.theillusivec4.curios.api.type.capability.ICurioItem;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
-import static club.iananderson.seasonhud.impl.seasons.Calendar.calendar;
-
 public class CuriosCalendar implements ICurioItem {
 
 
@@ -26,7 +25,7 @@ public class CuriosCalendar implements ICurioItem {
 
     public static ICapabilityProvider initCapabilities() {
         ICurio curio = new ICurio() {
-            final ItemStack stack = new ItemStack(calendar.asItem());
+            final ItemStack stack = new ItemStack(Services.SEASON.calendar().asItem());
 
             @Override
             public ItemStack getStack() {

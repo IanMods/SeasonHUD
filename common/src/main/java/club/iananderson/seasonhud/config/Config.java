@@ -1,10 +1,9 @@
 package club.iananderson.seasonhud.config;
 
-import club.iananderson.seasonhud.platform.Services;
+import club.iananderson.seasonhud.Common;
 import net.minecraftforge.common.ForgeConfigSpec;
 
 import java.util.Arrays;
-import java.util.Objects;
 
 public class Config {
     //Config Builder
@@ -26,7 +25,7 @@ public class Config {
     public static ForgeConfigSpec.ConfigValue<ShowDay> showDay;
     public static ForgeConfigSpec.BooleanValue enableMinimapIntegration;
 
-    public static ForgeConfigSpec.BooleanValue showMinimapHidden;
+    public static ForgeConfigSpec.BooleanValue showDefaultWhenMinimapHidden;
     public static ForgeConfigSpec.BooleanValue journeyMapAboveMap;
     public static ForgeConfigSpec.BooleanValue journeyMapMacOS;
 
@@ -78,14 +77,14 @@ public class Config {
                                 Default is true.""")
                         .define("enable_show_sub_season",true);
 
-                if(Objects.equals(Services.PLATFORM.getPlatformName(), "Forge")) {
+                if(Common.platformName().equals("Forge")) {
                     showDay = BUILDER
                             .comment("""
                                         Show the current day of the season/sub-season?
                                         Default is SHOW_DAY.""")
                             .defineEnum("enable_show_day", ShowDay.SHOW_DAY,Arrays.asList(ShowDay.NONE, ShowDay.SHOW_DAY, ShowDay.SHOW_WITH_TOTAL_DAYS));
                 }
-                if(Objects.equals(Services.PLATFORM.getPlatformName(), "Fabric")){
+                if(Common.platformName().equals( "Fabric")){
                     showDay = BUILDER
                             .comment("""
                                         Show the current day of the season/sub-season?
@@ -100,7 +99,7 @@ public class Config {
                             (true/false)
                             Default is true.""")
                         .define("enable_minimap_integration",true);
-                    showMinimapHidden = BUILDER
+                    showDefaultWhenMinimapHidden = BUILDER
                         .comment("""
                                 Show the default SeasonHUD display when the minimap is hidden.
                                 (true/false)
@@ -159,8 +158,8 @@ public class Config {
     public static void setEnableMinimapIntegration(boolean enableMinimapIntegration) {
         Config.enableMinimapIntegration.set(enableMinimapIntegration);
     }
-    public static void setShowMinimapHidden(boolean showMinimapHidden) {
-        Config.showMinimapHidden.set(showMinimapHidden);
+    public static void setShowDefaultWhenMinimapHidden(boolean showDefaultWhenMinimapHidden) {
+        Config.showDefaultWhenMinimapHidden.set(showDefaultWhenMinimapHidden);
     }
 
         //Journeymap
