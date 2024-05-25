@@ -12,7 +12,8 @@ public enum SeasonList {
 	private final int idNum;
 	private final String seasonFileName;
 	private final String seasonIconChar;
-	private SeasonList(int id,String fileName,String iconChar){
+
+	SeasonList(int id,String fileName,String iconChar){
 		this.idNum = id;
 		this.seasonFileName = fileName;
 		this.seasonIconChar = iconChar;

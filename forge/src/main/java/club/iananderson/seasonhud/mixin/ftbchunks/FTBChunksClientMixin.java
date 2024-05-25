@@ -7,6 +7,7 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
 import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
@@ -22,7 +23,8 @@ import static dev.ftb.mods.ftbchunks.client.FTBChunksClientConfig.MINIMAP;
 @Mixin(FTBChunksClient.class)
 public class FTBChunksClientMixin {
 
-    private static BooleanValue MINIMAP_SEASON = (BooleanValue)MINIMAP.addBoolean("season",true).comment(new String[]{"Show season under minimap"});
+    @Unique
+    private static BooleanValue MINIMAP_SEASON = MINIMAP.addBoolean("season",true).comment(new String[]{"Show season under minimap"});
 
     @Inject(
             method = "buildMinimapTextData",

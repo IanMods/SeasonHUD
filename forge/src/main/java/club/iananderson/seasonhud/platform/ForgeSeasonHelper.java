@@ -69,7 +69,7 @@ public class ForgeSeasonHelper implements ISeasonHelper {
 	@Override
 	public int getDate() {
 		ISeasonState seasonState = SeasonHelper.getSeasonState(Objects.requireNonNull(mc.level));
-		int subSeasonDuration = (Integer) ServerConfig.subSeasonDuration.get();
+		int subSeasonDuration = ServerConfig.subSeasonDuration.get();
 
 		int seasonDay = seasonState.getDay(); //total day out of 24 * 4 = 96
 

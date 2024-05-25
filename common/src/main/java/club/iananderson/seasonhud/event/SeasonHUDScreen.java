@@ -88,7 +88,7 @@ public class SeasonHUDScreen extends Screen{
         row = 2;
         ShowDay[] showDayValuesForge = { ShowDay.NONE,ShowDay.SHOW_DAY,ShowDay.SHOW_WITH_TOTAL_DAYS };
         ShowDay[] showDayValuesFabric = { ShowDay.NONE,ShowDay.SHOW_DAY,ShowDay.SHOW_WITH_TOTAL_DAYS,ShowDay.SHOW_WITH_MONTH };
-        boolean isForge = Services.PLATFORM.getPlatformName() == "Forge";
+        boolean isForge = Services.PLATFORM.getPlatformName().equals("Forge");
         CycleButton<ShowDay> showDayButton = CycleButton.builder(ShowDay::getDayDisplayName)
                 .withValues(isForge ? showDayValuesForge : showDayValuesFabric)
                 .withInitialValue(showDay.get())
