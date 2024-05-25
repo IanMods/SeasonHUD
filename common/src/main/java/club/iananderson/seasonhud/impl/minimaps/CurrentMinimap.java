@@ -3,8 +3,6 @@ package club.iananderson.seasonhud.impl.minimaps;
 import club.iananderson.seasonhud.Common;
 import club.iananderson.seasonhud.impl.seasons.Calendar;
 import club.iananderson.seasonhud.platform.Services;
-import net.minecraft.client.gui.screens.ChatScreen;
-import net.minecraft.client.gui.screens.DeathScreen;
 
 import static club.iananderson.seasonhud.Common.mc;
 import static club.iananderson.seasonhud.config.Config.enableMinimapIntegration;

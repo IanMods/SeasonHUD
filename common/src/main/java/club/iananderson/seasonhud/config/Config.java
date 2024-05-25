@@ -1,11 +1,9 @@
 package club.iananderson.seasonhud.config;
 
 import club.iananderson.seasonhud.Common;
-import club.iananderson.seasonhud.platform.Services;
 import net.minecraftforge.common.ForgeConfigSpec;
 
 import java.util.Arrays;
-import java.util.Objects;
 
 public class Config {
     //Config Builder

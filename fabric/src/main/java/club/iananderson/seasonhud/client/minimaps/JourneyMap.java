@@ -15,8 +15,8 @@ import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
 
-import static club.iananderson.seasonhud.Common.SEASON_STYLE;
 import static club.iananderson.seasonhud.Common.MOD_ID;
+import static club.iananderson.seasonhud.Common.SEASON_STYLE;
 import static club.iananderson.seasonhud.config.Config.*;
 import static club.iananderson.seasonhud.impl.minimaps.CurrentMinimap.minimapLoaded;
 import static club.iananderson.seasonhud.impl.minimaps.CurrentMinimap.shouldDrawMinimapHud;

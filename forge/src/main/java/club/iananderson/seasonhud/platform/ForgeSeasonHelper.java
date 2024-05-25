@@ -3,7 +3,6 @@ package club.iananderson.seasonhud.platform;
 import club.iananderson.seasonhud.Common;
 import club.iananderson.seasonhud.config.Config;
 import club.iananderson.seasonhud.platform.services.ISeasonHelper;
-import net.minecraft.client.Minecraft;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import sereneseasons.api.SSItems;

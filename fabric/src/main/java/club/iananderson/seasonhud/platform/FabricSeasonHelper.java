@@ -6,10 +6,8 @@ import dev.emi.trinkets.api.TrinketComponent;
 import dev.emi.trinkets.api.TrinketsApi;
 import io.github.lucaargolo.seasons.FabricSeasons;
 import io.github.lucaargolo.seasonsextras.FabricSeasonsExtras;
-import net.minecraft.client.Minecraft;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
-import net.minecraft.world.level.Level;
 
 import java.time.LocalDateTime;
 import java.util.Objects;
