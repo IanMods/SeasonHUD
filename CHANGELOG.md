@@ -4,14 +4,17 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 
-## [1.8.0] - 2024-05-24
+## [1.8.0] - 2024-05-26
 
 ### Changed
 - Updated dependencies to the latest versions
 - Rewrote a bit to allow for more common code between Forge and Fabric
+- (1.20.4 only) Added support for MapAtlases Fabric v2.6.1.
+  - This version of Map Atlases is only available on Modrinth currently and is different from the multiplat fork.
 
 ### Fixed
--Fixed position with latest version of MapAtlases
+- (1.20.1) Fixed position with latest version of MapAtlases
+- (1.20.6) Fixed the menu title appearing behind the background in the SeasonHUD option screen.
 
 
 ## [1.7.19] - 2024-04-08

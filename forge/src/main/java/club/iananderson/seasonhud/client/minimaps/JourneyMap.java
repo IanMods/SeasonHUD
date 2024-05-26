@@ -23,8 +23,6 @@ import static club.iananderson.seasonhud.config.Config.*;
 import static club.iananderson.seasonhud.impl.seasons.CurrentSeason.getSeasonHudName;
 
 public class JourneyMap implements IGuiOverlay{
-
-
     private static String getSeason(){
         MutableComponent seasonCombined = Component.translatable("desc.seasonhud.combined",
                 getSeasonHudName().get(0).copy().withStyle(SEASON_STYLE),

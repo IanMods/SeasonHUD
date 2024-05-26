@@ -92,7 +92,6 @@ dependencies {
 
     /Xaero's Minimap Fair Play/
 //    modCompileOnly "curse.maven:xaeros-minimap-fair-play-edition-263466:${project.xaeros_fairplay_fabric_file_id}"
-//    modImplementation "curse.maven:xaeros-minimap-fair-play-edition-263466:${project.xaeros_fairplay_fabric_file_id}"
 
     /FTB Chunks/
     modCompileOnly "curse.maven:ftb-library-fabric-438495:${project.ftb_lib_fabric_file_id}"
@@ -100,15 +99,8 @@ dependencies {
     modCompileOnly "curse.maven:ftb-teams-fabric-438497:${ftb_teams_fabric_file_id}"
     modCompileOnly "curse.maven:ftb-chunks-fabric-472657:${ftb_chunks_fabric_file_id}"
 
-//    modImplementation "curse.maven:ftb-library-fabric-438495:${project.ftb_lib_fabric_file_id}"
-//    modImplementation "curse.maven:architectury-api-419699:${project.architectury_fabric_file_id}"
-//    modImplementation "curse.maven:ftb-teams-fabric-438497:${ftb_teams_fabric_file_id}"
-//    modImplementation "curse.maven:ftb-chunks-fabric-472657:${ftb_chunks_fabric_file_id}"
-
     /Trinkets/
     modCompileOnly "dev.emi:trinkets:${project.trinkets_file_id}"
-//    modImplementation "dev.emi:trinkets:${project.trinkets_file_id}"
-
 
     modApi("me.shedaniel.cloth:cloth-config-fabric:${project.cloth_version}") {
         exclude(group: "net.fabricmc.fabric-api")
@@ -120,7 +112,7 @@ dependencies {
     modImplementation "fuzs.forgeconfigapiport:forgeconfigapiport-fabric:${forgeconfigapiport_file_id}"//source: https://github.com/Fuzss/forgeconfigapiport-fabric
 
     /JourneyMap/
-    modApi group: 'info.journeymap', name: 'journeymap-api', version: project.journeymap_api_version_fabric, changing: true
+    modCompileOnlyApi group: 'info.journeymap', name: 'journeymap-api', version: project.journeymap_api_version_fabric, changing: true
     modCompileOnly  "curse.maven:journeymap-${project.jm_project_id}:${project.journeymap_fabric_file_id}"
 
     /Map Atlases/
@@ -131,14 +123,6 @@ dependencies {
     modCompileOnly("curse.maven:selene-499980:5008352")
     include(compileOnly(annotationProcessor("io.github.llamalad7:mixinextras-fabric:0.2.1-beta.2")))
     modCompileOnly "curse.maven:immediatelyfast-686911:4937544"
-
-//    modImplementation "curse.maven:map-atlases-436298:${project.map_atlases_fabric_file_id}"
-//    modImplementation "dev.onyxstudios.cardinal-components-api:cardinal-components-base:5.2.1"
-//    modImplementation "dev.onyxstudios.cardinal-components-api:cardinal-components-item:5.2.1"
-//    modImplementation "dev.onyxstudios.cardinal-components-api:cardinal-components-entity:5.2.1"
-//    modImplementation("curse.maven:selene-499980:5008352")
-//    include(implementation(annotationProcessor("io.github.llamalad7:mixinextras-fabric:0.2.1-beta.2")))
-//    modImplementation "curse.maven:immediatelyfast-686911:4937544"
 }
 
 loom {

@@ -122,16 +122,13 @@ dependencies {
     implementation "curse.maven:serene-seasons-291874:${project.serene_seasons_deobf_file_id}"
 
     /Curios/
-//    runtimeOnly fg.deobf("top.theillusivec4.curios:curios-forge:${project.curios_file_id}:api)
     compileOnly fg.deobf("top.theillusivec4.curios:curios-forge:${project.curios_file_id}:api")
 
     /Xaero's Minimap/
     compileOnly fg.deobf("curse.maven:xaeros-minimap-263420:${project.xaeros_forge_file_id}")
-//    implementation fg.deobf("curse.maven:xaeros-minimap-263420:${project.xaeros_forge_file_id}")
 
     /Xaero's Minimap Fair Play/
 //    compileOnly fg.deobf("curse.maven:xaeros-minimap-fair-play-edition-263466:${project.xaeros_fairplay_forge_file_id}")
-//    implementation fg.deobf("curse.maven:xaeros-minimap-fair-play-edition-263466:${project.xaeros_fairplay_forge_file_id}")
 
     /FTB Chunks/
     compileOnly fg.deobf("curse.maven:ftb-library-forge-404465:${project.ftb_lib_forge_file_id}") //FTB Library
@@ -139,25 +136,14 @@ dependencies {
     compileOnly fg.deobf("curse.maven:ftb-teams-forge-404468:${project.ftb_teams_forge_file_id}") //FTB Teams
     compileOnly fg.deobf("curse.maven:ftb-chunks-forge-314906:${project.ftb_chunks_forge_file_id}") //FTB Chunks
 
-//    implementation fg.deobf("curse.maven:ftb-library-forge-404465:${project.ftb_lib_forge_file_id}") //FTB Library
-//    implementation fg.deobf("curse.maven:architectury-api-419699:${project.architectury_forge_file_id}") //Architectury
-//    implementation fg.deobf("curse.maven:ftb-teams-forge-404468:${project.ftb_teams_forge_file_id}") //FTB Teams
-//    implementation fg.deobf("curse.maven:ftb-chunks-forge-314906:${project.ftb_chunks_forge_file_id}") //FTB Chunks
-
     /JourneyMap/
     compileOnly fg.deobf("curse.maven:journeymap-32274:${project.journeymap_forge_file_id}")
-//    implementation fg.deobf("curse.maven:journeymap-32274:${project.journeymap_forge_file_id}")
 
     /Map Atlases/
     compileOnly fg.deobf("curse.maven:map-atlases-forge-519759:${project.map_atlases_forge_file_id}")
     compileOnly fg.deobf("curse.maven:selene-499980:5000808")
     compileOnly fg.deobf("curse.maven:supplementaries-412082:4865567")
     compileOnly fg.deobf("curse.maven:immediatelyfast-686911:4937545")
-
-//    implementation fg.deobf("curse.maven:map-atlases-forge-519759:${project.map_atlases_forge_file_id}")
-//    implementation fg.deobf("curse.maven:selene-499980:5000808")
-//    implementation fg.deobf("curse.maven:supplementaries-412082:4865567")
-//    implementation fg.deobf("curse.maven:immediatelyfast-686911:4937545")
 }
 
 tasks.withType(JavaCompile) {
