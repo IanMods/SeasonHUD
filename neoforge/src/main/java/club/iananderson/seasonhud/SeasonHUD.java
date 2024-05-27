@@ -1,7 +1,6 @@
 package club.iananderson.seasonhud;
 
 import club.iananderson.seasonhud.config.Config;
-import net.minecraft.resources.ResourceLocation;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.fml.ModLoadingContext;
 import net.neoforged.fml.common.Mod;
@@ -27,9 +26,5 @@ public class  SeasonHUD{
 
     private void commonSetup(final FMLCommonSetupEvent event) {
 //        CuriosApi.registerCurio(Calendar.calendar,new CuriosCalendar());
-    }
-
-    public static ResourceLocation location(String path) {
-        return new ResourceLocation(MODID, path);
     }
 }

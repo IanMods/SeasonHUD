@@ -1,0 +1,3 @@
+<component name="DependencyValidationManager">
+    <scope name="NeoForge" pattern="file[seasonhud.neoforge*]:*/||file[seasonhud.neoforge]:build.gradle||file[seasonhud]:neoforge/*" />
+</component>
