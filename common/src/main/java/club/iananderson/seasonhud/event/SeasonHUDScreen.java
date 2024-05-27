@@ -1,13 +1,11 @@
 package club.iananderson.seasonhud.event;
 
-
 import club.iananderson.seasonhud.config.Config;
 import club.iananderson.seasonhud.config.Location;
 import club.iananderson.seasonhud.config.ShowDay;
 import club.iananderson.seasonhud.platform.Services;
+import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.GuiGraphics;
-import net.minecraft.client.gui.components.Button;
 import net.minecraft.client.gui.components.CycleButton;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.network.chat.Component;
@@ -40,11 +38,11 @@ public class SeasonHUDScreen extends Screen{
     }
 
     @Override
-    public void render(@NotNull GuiGraphics stack, int mouseX, int mouseY, float partialTicks){
-        this.renderDirtBackground(stack);
-        stack.drawCenteredString(font, TITLE, this.width / 2, PADDING, 16777215);
+    public void render(@NotNull PoseStack stack, int mouseX, int mouseY, float partialTicks){
+        super.renderBackground(stack);
+        drawCenteredString(stack, font, TITLE, this.width / 2, PADDING, 16777215);
         if(Services.PLATFORM.isModLoaded("journeymap")) {
-            stack.drawCenteredString(font, JOURNEYMAP, this.width / 2, MENU_PADDING_FULL + (5 * (BUTTON_HEIGHT + PADDING)), 16777215);
+            drawCenteredString(stack, font, JOURNEYMAP, this.width / 2, MENU_PADDING_FULL + (5 * (BUTTON_HEIGHT + PADDING)), 16777215);
         }
         super.render(stack, mouseX, mouseY, partialTicks);
     }
@@ -131,12 +129,15 @@ public class SeasonHUDScreen extends Screen{
             addRenderableWidget(journeyMapMacOSButton);
         }
 
-        Button doneButton = Button.builder(Component.translatable("gui.done"), button -> {
-                    mc.options.save();
-                    mc.setScreen(this.lastScreen);
-                })
-                .bounds(this.width / 2 - (BUTTON_WIDTH_FULL / 2), (this.height - BUTTON_HEIGHT - PADDING),BUTTON_WIDTH_FULL, BUTTON_HEIGHT)
-                .build();
+        CycleButton<StupidButtonWorkAround> doneButton = CycleButton.builder(StupidButtonWorkAround::getSoDumb)
+                .withValues(StupidButtonWorkAround.DUMB)
+                .withInitialValue(StupidButtonWorkAround.DUMB)
+                .create((this.width / 2 - (BUTTON_WIDTH_FULL / 2)), (this.height - BUTTON_HEIGHT - PADDING), BUTTON_WIDTH_FULL, BUTTON_HEIGHT,
+                        Component.translatable("gui.done"),
+                        (b,loc) -> {
+                            mc.options.save();
+                            mc.setScreen(this.lastScreen);
+                        });
 
         addRenderableWidget(enableModButton);
         addRenderableWidget(hudLocationButton);

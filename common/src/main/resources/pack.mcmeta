@@ -1,6 +1,8 @@
 {
     "pack": {
-      "description": "seasonhud resources",
-      "pack_format": 8
+        "description": "seasonhud resources",
+        "pack_format": 13,
+        "forge:resource_pack_format": 13,
+        "forge:data_pack_format": 13
     }
 }

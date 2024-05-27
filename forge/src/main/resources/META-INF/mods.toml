@@ -1,5 +1,5 @@
 modLoader = "javafml" #mandatory
-loaderVersion = "[46,)" #mandatory This is typically bumped every Minecraft version by Forge. See our download page for lists of versions.
+loaderVersion = "[43,)" #mandatory This is typically bumped every Minecraft version by Forge. See our download page for lists of versions.
 license = "All Rights Reserved"
 
 [[mods]] #mandatory
@@ -17,21 +17,21 @@ license = "All Rights Reserved"
 [[dependencies.seasonhud]] #optional
     modId = "forge" #mandatory
     mandatory = true #mandatory
-    versionRange = "[46.0.1,)" #mandatory
+    versionRange = "[43,)" #mandatory
     ordering = "NONE"
     side = "BOTH"
 
 [[dependencies.seasonhud]]
     modId = "minecraft"
     mandatory = true
-    versionRange = "[1.20,1.21)"
+    versionRange = "[1.19.2,1.20)"
     ordering = "NONE"
     side = "BOTH"
 
 [[dependencies.seasonhud]]
     modId = "sereneseasons"
     mandatory = true
-    versionRange = "[1.20-9.0.0.41,)"
+    versionRange = "[1.19-8.0.0.19,)"
     ordering = "AFTER"
     side = "BOTH"
 
@@ -39,5 +39,12 @@ license = "All Rights Reserved"
     modId = "xaerominimap"
     mandatory = false
     versionRange = "[24.0.0,)"
+    ordering = "AFTER"
+    side = "CLIENT"
+
+[[dependencies.seasonhud]]
+    modId = "ftbchunks"
+    mandatory = false
+    versionRange = "[1902.3.22-build.271,)"
     ordering = "AFTER"
     side = "CLIENT"

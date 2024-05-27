@@ -3,6 +3,7 @@ package club.iananderson.seasonhud.client.minimaps;
 import club.iananderson.seasonhud.Common;
 import club.iananderson.seasonhud.impl.minimaps.CurrentMinimap;
 import club.iananderson.seasonhud.platform.Services;
+import com.mojang.blaze3d.vertex.PoseStack;
 import journeymap.client.JourneymapClient;
 import journeymap.client.io.ThemeLoader;
 import journeymap.client.render.draw.DrawUtil;
@@ -12,7 +13,6 @@ import journeymap.client.ui.theme.Theme;
 import journeymap.client.ui.theme.ThemeLabelSource;
 import net.fabricmc.fabric.api.client.rendering.v1.HudRenderCallback;
 import net.minecraft.client.gui.Font;
-import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
 
@@ -38,7 +38,7 @@ public class JourneyMap implements HudRenderCallback{
     }
 
     @Override
-    public void onHudRender(GuiGraphics seasonStack, float alpha) {
+    public void onHudRender(PoseStack seasonStack, float alpha) {
         MutableComponent seasonCombined = Component.translatable("desc.seasonhud.combined",
                 getSeasonHudName().get(0).copy().withStyle(SEASON_STYLE),
                 getSeasonHudName().get(1).copy());
@@ -96,13 +96,12 @@ public class JourneyMap implements HudRenderCallback{
                     screenHeight = screenHeight/2;
                 }
 
-                seasonStack.pose().pushPose();
-                seasonStack.pose().scale(1/fontScale,1/fontScale,0);
-                DrawUtil.sizeDisplay(seasonStack.pose(),screenWidth,screenHeight);
-                seasonStack.pose().popPose();
-                DrawUtil.drawBatchLabel(seasonStack.pose(), seasonCombined,seasonStack.bufferSource(), labelX, labelY, DrawUtil.HAlign.Center, DrawUtil.VAlign.Below, labelColor, labelAlpha, textColor, textAlpha, fontScale, fontShadow);
-                seasonStack.bufferSource().endBatch();
-                DrawUtil.sizeDisplay(seasonStack.pose(),scaledWidth,scaledHeight);
+                seasonStack.pushPose();
+                DrawUtil.sizeDisplay(seasonStack,screenWidth,screenHeight);
+                DrawUtil.drawBatchLabel(seasonStack, seasonCombined,mc.renderBuffers().bufferSource(), labelX, labelY, DrawUtil.HAlign.Center, DrawUtil.VAlign.Below, labelColor, labelAlpha, textColor, textAlpha, fontScale, fontShadow);
+                mc.renderBuffers().bufferSource().endBatch();
+                DrawUtil.sizeDisplay(seasonStack,scaledWidth,scaledHeight);
+                seasonStack.popPose();
             }
         }
     }

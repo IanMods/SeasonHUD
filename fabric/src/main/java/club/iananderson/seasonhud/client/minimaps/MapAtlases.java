@@ -4,141 +4,134 @@ import club.iananderson.seasonhud.config.Config;
 import com.mojang.blaze3d.vertex.PoseStack;
 import net.fabricmc.fabric.api.client.rendering.v1.HudRenderCallback;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.Font;
-import net.minecraft.client.gui.GuiGraphics;
-import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
-import net.minecraft.world.effect.MobEffect;
+import net.minecraft.world.item.ItemStack;
 import pepjebs.mapatlases.MapAtlasesMod;
-import pepjebs.mapatlases.client.Anchoring;
 import pepjebs.mapatlases.client.MapAtlasesClient;
-import pepjebs.mapatlases.config.MapAtlasesClientConfig;
+import pepjebs.mapatlases.utils.MapAtlasesAccessUtils;
+
+import java.util.Arrays;
 
 import static club.iananderson.seasonhud.Common.SEASON_STYLE;
-import static club.iananderson.seasonhud.Common.mc;
 import static club.iananderson.seasonhud.impl.minimaps.CurrentMinimap.minimapLoaded;
 import static club.iananderson.seasonhud.impl.seasons.CurrentSeason.getSeasonHudName;
 
 public class MapAtlases implements HudRenderCallback {
     public static MapAtlases HUD_INSTANCE;
 
-    protected final int BG_SIZE = 64;
-
     public static void init() {
         HUD_INSTANCE = new MapAtlases();
         HudRenderCallback.EVENT.register(HUD_INSTANCE);
     }
-    private static void drawStringWithLighterShadow(GuiGraphics context, Font font, MutableComponent text, int x, int y) {
-        context.drawString(font, text, x + 1, y + 1, 5855577, false);
-        context.drawString(font, text, x, y, 14737632, false);
+
+    private static final Minecraft mc = Minecraft.getInstance();
+
+    public static void drawScaledText(PoseStack poseStack, float x, float y, MutableComponent text, float textScaling, int originOffsetWidth, int originOffsetHeight) {
+        float textWidth = (float) mc.font.width(text) * textScaling;
+        float textX = (float) ((double) x + (double) originOffsetWidth / 2.0 - (double) textWidth / 2.0);
+        float textY = (float) (y + originOffsetHeight);
+        if (textX + textWidth >= (float) mc.getWindow().getGuiScaledWidth()) {
+            textX = (float) mc.getWindow().getGuiScaledWidth() - textWidth;
+        }
+
+        poseStack.pushPose();
+        poseStack.translate(textX, textY, 5.0F);
+        poseStack.scale(textScaling, textScaling, 1.0F);
+        mc.font.draw(poseStack, text, 1.0F, 1.0F, Integer.parseInt("595959", 16));
+        mc.font.draw(poseStack, text, 0.0F, 0.0F, Integer.parseInt("E0E0E0", 16));
+        poseStack.popPose();
     }
 
-    public static void drawScaledComponent(GuiGraphics context, Font font, int x, int y, MutableComponent text, float textScaling, int maxWidth, int targetWidth) {
-        PoseStack pose = context.pose();
-        float textWidth = (float)font.width(text);
-
-        float scale = Math.min(1.0F, (float)maxWidth * textScaling / textWidth);
-        scale *= textScaling;
-        float centerX = (float)x + (float)targetWidth / 2.0F;
-        pose.pushPose();
-        pose.translate(centerX, (float)(y + 4), 5.0F);
-        pose.scale(scale, scale, 1.0F);
-        pose.translate(-textWidth / 2.0F, -4.0F, 0.0F);
-        drawStringWithLighterShadow(context, font, text, 0, 0);
-        pose.popPose();
-    }
-
-    public static void drawMapComponentSeason(GuiGraphics poseStack, Font font, int x, int y, int targetWidth, float textScaling) {
+    public static void drawMapComponentSeason(PoseStack poseStack, int x, int y, int originOffsetWidth, int originOffsetHeight, float textScaling) {
         if (minimapLoaded("map_atlases")) {
             MutableComponent seasonCombined = Component.translatable("desc.seasonhud.combined",
                     getSeasonHudName().get(0).copy().withStyle(SEASON_STYLE),
                     getSeasonHudName().get(1).copy());
-
-            float globalScale = (float)(double)MapAtlasesClientConfig.miniMapScale.get();
-            //String seasonToDisplay = getSeasonHudName().get(0).getString();
-            drawScaledComponent(poseStack, font, x, y, seasonCombined, textScaling / globalScale, targetWidth, (int)(targetWidth / globalScale));
+            drawScaledText(poseStack, x, y, seasonCombined, textScaling, originOffsetWidth, originOffsetHeight);
         }
     }
 
     public static boolean shouldDraw(Minecraft mc) {
         if (minimapLoaded("map_atlases")) {
-            if (mc.level == null || mc.player == null) {
+            if (mc.player == null) {
                 return false;
-            }
-            else if (mc.options.renderDebug){
+            } else if (MapAtlasesMod.CONFIG != null && !MapAtlasesMod.CONFIG.drawMiniMapHUD) {
                 return false;
-            }
-            else if (!MapAtlasesClientConfig.drawMiniMapHUD.get()) {
+            } else if (mc.options.renderDebug) {
                 return false;
+            } else {
+                ItemStack atlas = MapAtlasesAccessUtils.getAtlasFromPlayerByConfig(mc.player);
+                if (atlas.isEmpty()) {
+                    return false;
+                } else if (MapAtlasesClient.currentMapStateId == null) {
+                    return false;
+                } else {
+                    return atlas.getTag() != null && atlas.getTag().contains("maps") && Arrays.stream(atlas.getTag().getIntArray("maps")).anyMatch((i) -> {
+                        return i == MapAtlasesAccessUtils.getMapIntFromString(MapAtlasesClient.currentMapStateId);
+                    });
+                }
             }
-            else if (MapAtlasesClientConfig.hideWhenInHand.get() && (mc.player.getMainHandItem().is(MapAtlasesMod.MAP_ATLAS.get()) ||
-                    mc.player.getOffhandItem().is(MapAtlasesMod.MAP_ATLAS.get()))) {
-                return false;
-            }
-            else return !MapAtlasesClient.getCurrentActiveAtlas().isEmpty();
-        }
-        else return false;
+        } else return false;
     }
 
     @Override
-    public void onHudRender(GuiGraphics seasonStack, float alpha) {
-        if(minimapLoaded("map_atlases") && shouldDraw(mc)) {
-            int screenWidth = mc.getWindow().getScreenWidth();
-            int screenHeight = mc.getWindow().getScreenHeight();
-            float textScaling = (float) (double) MapAtlasesClientConfig.minimapCoordsAndBiomeScale.get();
+    public void onHudRender(PoseStack seasonStack, float alpha) {
+        if (minimapLoaded("map_atlases")) {
+            if (mc.level != null && mc.player != null) {
+                int mapBgScaledSize = (int) Math.floor(0.2 * (double) mc.getWindow().getGuiScaledHeight());
+                if (MapAtlasesMod.CONFIG != null) {
+                    mapBgScaledSize = (int) Math.floor((double) MapAtlasesMod.CONFIG.forceMiniMapScaling / 100.0 * (double) mc.getWindow().getGuiScaledHeight());
+                }
 
-            float textHeightOffset = 2.0F;
-            float globalScale = (float) (double) MapAtlasesClientConfig.miniMapScale.get();
-            int actualBgSize = (int) (BG_SIZE * globalScale);
+                String anchorLocation = "UpperLeft";
+                if (MapAtlasesMod.CONFIG != null) {
+                    anchorLocation = MapAtlasesMod.CONFIG.miniMapAnchoring;
+                }
+                int x = anchorLocation.contains("Left") ? 0 : mc.getWindow().getGuiScaledWidth() - mapBgScaledSize;
+                int y = anchorLocation.contains("Lower") ? mc.getWindow().getGuiScaledHeight() - mapBgScaledSize : 0;
+                if (MapAtlasesMod.CONFIG != null) {
+                    x += MapAtlasesMod.CONFIG.miniMapHorizontalOffset;
+                    y += MapAtlasesMod.CONFIG.miniMapVerticalOffset;
+                }
 
-            LocalPlayer player = mc.player;
+                int textHeightOffset;
+                if (anchorLocation.contentEquals("UpperRight")) {
+                    boolean hasBeneficial = mc.player.getActiveEffects().stream().anyMatch((p) -> {
+                        return p.getEffect().isBeneficial();
+                    });
+                    boolean hasNegative = mc.player.getActiveEffects().stream().anyMatch((p) -> {
+                        return !p.getEffect().isBeneficial();
+                    });
+                    textHeightOffset = 26;
+                    if (MapAtlasesMod.CONFIG != null) {
+                        textHeightOffset = MapAtlasesMod.CONFIG.activePotionVerticalOffset;
+                    }
 
-            seasonStack.pose().pushPose();
-            seasonStack.pose().scale(globalScale, globalScale, 1);
-
-            Anchoring anchorLocation = MapAtlasesClientConfig.miniMapAnchoring.get();
-            int offset = 5;
-            int x = anchorLocation.isLeft ? offset : (int) (screenWidth / globalScale) - (BG_SIZE + offset);
-            int y = anchorLocation.isUp ? offset : (int) (screenHeight / globalScale) - (BG_SIZE + offset);
-            x += (int) (MapAtlasesClientConfig.miniMapHorizontalOffset.get() / globalScale);
-            y += (int) (MapAtlasesClientConfig.miniMapVerticalOffset.get() / globalScale);
-
-            if (anchorLocation.isUp && !anchorLocation.isLeft) {
-                boolean hasBeneficial = false;
-                boolean hasNegative = false;
-                for (var e : player.getActiveEffects()) {
-                    MobEffect effect = e.getEffect();
-                    if (effect.isBeneficial()) {
-                        hasBeneficial = true;
-                    } else {
-                        hasNegative = true;
+                    if (hasNegative && y < 2 * textHeightOffset) {
+                        y += 2 * textHeightOffset - y;
+                    } else if (hasBeneficial && y < textHeightOffset) {
+                        y += textHeightOffset - y;
                     }
                 }
-                int offsetForEffects = MapAtlasesClientConfig.activePotionVerticalOffset.get();
-                if (hasNegative && y < 2 * offsetForEffects) {
-                    y += (2 * offsetForEffects - y);
-                } else if (hasBeneficial && y < offsetForEffects) {
-                    y += (offsetForEffects - y);
-                }
-            }
-            Font font = mc.font;
 
-            if (Config.enableMod.get()) {
-                if (MapAtlasesClientConfig.drawMinimapCoords.get()) {
-                    textHeightOffset = (textHeightOffset + 10.0F * textScaling);
-                }
+                if (Config.enableMod.get() && shouldDraw(mc)) {
+                    float textScaling = MapAtlasesMod.CONFIG.minimapCoordsAndBiomeScale;
+                    textHeightOffset = mapBgScaledSize + 4;
+                    if (anchorLocation.contains("Lower")) {
+                        textHeightOffset = (int) (-24.0F * textScaling);
+                    }
 
-                if (MapAtlasesClientConfig.drawMinimapChunkCoords.get()) {
-                    textHeightOffset = (textHeightOffset + 10.0F * textScaling);
-                }
+                    if (MapAtlasesMod.CONFIG.drawMinimapCoords) {
+                        textHeightOffset = (int) ((float) textHeightOffset + 12.0F * textScaling);
+                    }
 
-                if (MapAtlasesClientConfig.drawMinimapBiome.get()) {
-                    textHeightOffset = (textHeightOffset + 10.0F * textScaling);
-                }
+                    if (MapAtlasesMod.CONFIG.drawMinimapBiome) {
+                        textHeightOffset = (int) ((float) textHeightOffset + 12.0F * textScaling);
+                    }
 
-                drawMapComponentSeason(seasonStack, font, x, (int)(y + BG_SIZE + (textHeightOffset / globalScale)), actualBgSize, textScaling);
-                seasonStack.pose().popPose();
+                    drawMapComponentSeason(seasonStack, x, y, mapBgScaledSize, textHeightOffset, textScaling);
+                }
             }
         }
     }

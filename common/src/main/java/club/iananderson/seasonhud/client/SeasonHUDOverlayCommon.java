@@ -7,7 +7,7 @@ import club.iananderson.seasonhud.impl.minimaps.CurrentMinimap;
 import club.iananderson.seasonhud.impl.seasons.Calendar;
 import club.iananderson.seasonhud.impl.seasons.CurrentSeason;
 import club.iananderson.seasonhud.platform.Services;
-import net.minecraft.client.gui.GuiGraphics;
+import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
 
@@ -15,7 +15,7 @@ import static club.iananderson.seasonhud.Common.SEASON_STYLE;
 import static club.iananderson.seasonhud.Common.mc;
 
 public class SeasonHUDOverlayCommon {
-	public static void render(GuiGraphics seasonStack) {
+	public static void render(PoseStack seasonStack) {
 		MutableComponent seasonCombined = Component.translatable("desc.seasonhud.combined",
 				CurrentSeason.getSeasonHudName().get(0).copy().withStyle(SEASON_STYLE),
 				CurrentSeason.getSeasonHudName().get(1).copy());
@@ -60,15 +60,14 @@ public class SeasonHUDOverlayCommon {
 			}
 
 			if (Common.vanillaShouldDrawHud() && !mc.player.isScoping() && Calendar.calendarFound()) {
-				seasonStack.pose().pushPose();
-				seasonStack.pose().scale(1F, 1F, 1F);
+				seasonStack.pushPose();
+				seasonStack.scale(1F, 1F, 1F);
 
 				//Text
 				int iconX = x + xOffset;
 				int iconY = y + yOffset + offsetDim;
-
-				seasonStack.drawString(mc.font, seasonCombined, iconX, iconY, 0xffffffff);
-				seasonStack.pose().popPose();
+				mc.font.drawShadow(seasonStack, seasonCombined, iconX, iconY, 0xffffffff);
+				seasonStack.popPose();
 			}
 		}
 	}

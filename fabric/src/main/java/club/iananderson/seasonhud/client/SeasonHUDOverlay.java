@@ -1,7 +1,7 @@
 package club.iananderson.seasonhud.client;
 
+import com.mojang.blaze3d.vertex.PoseStack;
 import net.fabricmc.fabric.api.client.rendering.v1.HudRenderCallback;
-import net.minecraft.client.gui.GuiGraphics;
 
 public class SeasonHUDOverlay implements HudRenderCallback{
 
@@ -16,7 +16,7 @@ public class SeasonHUDOverlay implements HudRenderCallback{
     }
 
     @Override
-    public void onHudRender(GuiGraphics seasonStack, float alpha) {
+    public void onHudRender(PoseStack seasonStack, float alpha) {
         SeasonHUDOverlayCommon.render(seasonStack);
     }
 }
