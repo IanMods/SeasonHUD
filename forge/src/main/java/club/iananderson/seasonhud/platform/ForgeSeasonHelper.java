@@ -8,7 +8,7 @@ import net.minecraft.world.item.Item;
 import sereneseasons.api.SSItems;
 import sereneseasons.api.season.ISeasonState;
 import sereneseasons.api.season.SeasonHelper;
-import sereneseasons.config.ServerConfig;
+import sereneseasons.init.ModConfig;
 import top.theillusivec4.curios.api.CuriosApi;
 import top.theillusivec4.curios.api.SlotResult;
 
@@ -69,7 +69,7 @@ public class ForgeSeasonHelper implements ISeasonHelper {
 	@Override
 	public int getDate() {
 		ISeasonState seasonState = SeasonHelper.getSeasonState(Objects.requireNonNull(mc.level));
-		int subSeasonDuration = ServerConfig.subSeasonDuration.get();
+		int subSeasonDuration = ModConfig.seasons.subSeasonDuration;
 
 		int seasonDay = seasonState.getDay(); //total day out of 24 * 4 = 96
 
@@ -91,7 +91,7 @@ public class ForgeSeasonHelper implements ISeasonHelper {
 
 	@Override
 	public int seasonDuration() {
-		int seasonDuration = ServerConfig.subSeasonDuration.get() * 3;
+		int seasonDuration = ModConfig.seasons.subSeasonDuration * 3;
 
 		if(isTropicalSeason()){
 			seasonDuration = seasonDuration * 2;
@@ -106,7 +106,7 @@ public class ForgeSeasonHelper implements ISeasonHelper {
 
 	@Override
 	public Item calendar() {
-		return SSItems.CALENDAR.get();
+		return SSItems.CALENDAR;
 	}
 
 	@Override

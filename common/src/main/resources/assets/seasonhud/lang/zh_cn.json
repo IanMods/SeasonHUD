@@ -11,7 +11,7 @@
   "menu.seasonhud.button.showSubSeason": "显示子季节",
   "menu.seasonhud.button.hudLocation": "HUD 位置",
   "menu.seasonhud.button.showTropicalSeason": "显示热带季节",
-  "menu.seasonhud.button.enableMinimapIntegration": "启用小地图集成",
+  "menu.seasonhud.button.enableMinimapIntegration": "Enable Minimap Integration",
   "menu.seasonhud.button.showMinimapHidden": "当小地图隐藏时显示",
   "menu.seasonhud.button.journeyMapAboveMap": "在小地图上方显示",
   "menu.seasonhud.button.journeyMapMacOS": "macOS Retina 显示器",
@@ -21,8 +21,6 @@
 
   "menu.seasonhud.button.desc.showDay": "显示当前季节/子季节",
   "menu.seasonhud.button.desc.showSubSeason": "用子季节替换季节",
-  "menu.seasonhud.button.desc.showMonth": "显示当前季节, 需要在 FabricSeasons 设置中启用 isSeasonTiedWithSystemTime",
-
 
   "location.seasonhud.topLeft": "左上",
   "location.seasonhud.topCenter": "正上",
@@ -30,10 +28,9 @@
   "location.seasonhud.bottomLeft": "左下",
   "location.seasonhud.bottomRight": "右下",
 
-  "showday.seasonhud.none": "关",
-  "showday.seasonhud.showDay": "第 # 天",
-  "showday.seasonhud.totalDays": "第 #/# 天",
-  "showday.seasonhud.showMonth": "(月份), #",
+  "showday.seasonhud.none": "OFF",
+  "showday.seasonhud.showDay": "Day #",
+  "showday.seasonhud.totalDays": "Day #/#",
 
   "desc.seasonhud.spring": "春季",
   "desc.seasonhud.early_spring": "早春",
@@ -72,20 +69,6 @@
   "desc.seasonhud.detailed": "%s, 第 %s 天",
   "desc.seasonhud.detailed.total": "%s, 第 %s/%s 天",
   "desc.seasonhud.combined": "%s%s",
-  "desc.seasonhud.month": "%s, %s %s",
-
-  "desc.seasonhud.january": "一月",
-  "desc.seasonhud.february": "二月",
-  "desc.seasonhud.march": "三月",
-  "desc.seasonhud.april": "四月",
-  "desc.seasonhud.may": "五月",
-  "desc.seasonhud.june": "六月",
-  "desc.seasonhud.july": "七月",
-  "desc.seasonhud.august": "八月",
-  "desc.seasonhud.september": "九月",
-  "desc.seasonhud.october": "十月",
-  "desc.seasonhud.november": "十一月",
-  "desc.seasonhud.december": "十二月",
 
   "item.calendar.tooltip": "Slot: Charm"
 }

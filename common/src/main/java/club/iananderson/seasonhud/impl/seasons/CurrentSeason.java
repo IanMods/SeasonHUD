@@ -46,18 +46,6 @@ public class CurrentSeason {
                 text.add(Component.translatable("desc.seasonhud.icon",getSeasonIcon(SEASON.getSeasonFileName())).withStyle(SEASON_STYLE));
                 text.add(Component.translatable("desc.seasonhud.detailed.total",Component.translatable("desc.seasonhud." + getSeasonStateLower()), SEASON.getDate(), SEASON.seasonDuration()));
             }
-
-            case SHOW_WITH_MONTH -> {
-                text.add(Component.translatable("desc.seasonhud.icon", getSeasonIcon(SEASON.getSeasonFileName())).withStyle(SEASON_STYLE));
-
-                if(SEASON.isSeasonTiedWithSystemTime()) {
-                    String currentMonth = LocalDateTime.now().getMonth().name().toLowerCase();
-                    text.add(Component.translatable("desc.seasonhud.month", Component.translatable("desc.seasonhud." + getSeasonStateLower()), Component.translatable("desc.seasonhud." + currentMonth), SEASON.getDate()));
-                }
-                else {
-                    text.add(Component.translatable("desc.seasonhud.detailed", Component.translatable("desc.seasonhud." + getSeasonStateLower()), SEASON.getDate()));
-                }
-            }
         }
 
         return text;

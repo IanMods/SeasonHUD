@@ -6,13 +6,11 @@ import journeymap.client.api.IClientAPI;
 import journeymap.client.api.IClientPlugin;
 import journeymap.client.api.event.ClientEvent;
 
-import javax.annotation.ParametersAreNonnullByDefault;
 import java.util.EnumSet;
 
 import static club.iananderson.seasonhud.config.Config.journeyMapAboveMap;
 import static journeymap.client.api.event.ClientEvent.Type.*;
 
-@ParametersAreNonnullByDefault
 public class JourneyMapAPI implements IClientPlugin {
     // API reference
     private IClientAPI jmAPI = null;

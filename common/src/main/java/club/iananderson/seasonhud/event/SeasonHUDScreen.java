@@ -86,16 +86,12 @@ public class SeasonHUDScreen extends Screen{
                         (b, Off) -> Config.setShowSubSeason(Off));
 
         row = 2;
-        ShowDay[] showDayValuesForge = { ShowDay.NONE,ShowDay.SHOW_DAY,ShowDay.SHOW_WITH_TOTAL_DAYS };
-        ShowDay[] showDayValuesFabric = { ShowDay.NONE,ShowDay.SHOW_DAY,ShowDay.SHOW_WITH_TOTAL_DAYS,ShowDay.SHOW_WITH_MONTH };
-        boolean isForge = Services.PLATFORM.getPlatformName().equals("Forge");
         CycleButton<ShowDay> showDayButton = CycleButton.builder(ShowDay::getDayDisplayName)
-                .withValues(isForge ? showDayValuesForge : showDayValuesFabric)
+                .withValues(ShowDay.NONE,ShowDay.SHOW_DAY,ShowDay.SHOW_WITH_TOTAL_DAYS)
                 .withInitialValue(showDay.get())
                 .create(BUTTON_START_X_LEFT, (BUTTON_START_Y + (row * y_OFFSET)), BUTTON_WIDTH_HALF, BUTTON_HEIGHT,
                         Component.translatable("menu.seasonhud.button.showDay"),
                         (b, showDay) -> Config.setShowDay(showDay));
-
 
         CycleButton<Boolean> needCalendarButton = CycleButton.onOffBuilder(needCalendar.get())
                 .create(BUTTON_START_X_RIGHT, (BUTTON_START_Y + (row * y_OFFSET)), BUTTON_WIDTH_HALF, BUTTON_HEIGHT,

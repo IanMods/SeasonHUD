@@ -1,0 +1,144 @@
+plugins {
+    id 'multiloader-loader'
+    id 'net.neoforged.gradle.userdev' version '7.0.107'
+    id 'net.darkhax.curseforgegradle' version '1.1.16'
+    id "com.modrinth.minotaur" version "2.+"
+}
+
+// Automatically enable neoforge AccessTransformers if the file exists
+// This location is hardcoded in FML and can not be changed.
+// https://github.com/neoforged/FancyModLoader/blob/a952595eaaddd571fbc53f43847680b00894e0c1/loader/src/main/java/net/neoforged/fml/loading/moddiscovery/ModFile.java#L118
+def at = file('src/main/resources/META-INF/accesstransformer.cfg')
+if (file('src/main/resources/META-INF/accesstransformer.cfg').exists()) {
+    minecraft.accessTransformers.file file('src/main/resources/META-INF/accesstransformer.cfg')
+}
+
+runs {
+    configureEach {
+        modSource project.sourceSets.main
+    }
+    client {
+        systemProperty 'neoforge.enabledGameTestNamespaces', project.mod_id
+    }
+    server {
+        systemProperty 'neoforge.enabledGameTestNamespaces', project.mod_id
+        programArgument '--nogui'
+    }
+
+    gameTestServer {
+        systemProperty 'neoforge.enabledGameTestNamespaces', project.mod_id
+    }
+
+    data {
+        programArguments.addAll '--mod', project.mod_id, '--all', '--output', file('src/generated/resources/').getAbsolutePath(), '--existing', file('src/main/resources/').getAbsolutePath()
+    }
+}
+
+sourceSets.main.resources { srcDir 'src/generated/resources' }
+
+dependencies {
+    implementation "net.neoforged:neoforge:${neoforge_version}"
+
+    /Serene Seasons/
+    implementation "curse.maven:serene-seasons-291874:${project.serene_seasons_neoforge_file_id}"
+    implementation 'com.github.glitchfiend:GlitchCore-neoforge:' + minecraft_version + '-' + glitchcore_version
+
+    /Curios/
+//    runtimeOnly "top.theillusivec4.curios:curios-neoforge:${project.curios_file_id}
+    compileOnly "top.theillusivec4.curios:curios-neoforge:${project.curios_file_id}:api"
+
+    api "fuzs.forgeconfigapiport:forgeconfigapiport-neoforge:${project.forgeconfigapiport_version}"
+
+    /Xaero's Minimap/
+    compileOnly "curse.maven:xaeros-minimap-263420:${project.xaeros_neoforge_file_id}"
+//    implementation "curse.maven:xaeros-minimap-263420:${project.xaeros_neoforge_file_id}"
+
+    /Xaero's Minimap Fair Play/
+    compileOnly "curse.maven:xaeros-minimap-fair-play-edition-263466:${project.xaeros_fairplay_neoforge_file_id}"
+//    implementation "curse.maven:xaeros-minimap-fair-play-edition-263466:${project.xaeros_fairplay_forge_file_id}"
+
+    /FTB Chunks/
+    compileOnly "curse.maven:ftb-library-forge-404465:${project.ftb_lib_neoforge_file_id}" //FTB Library
+    compileOnly "curse.maven:architectury-api-419699:${project.architectury_neoforge_file_id}" //Architectury
+    compileOnly "curse.maven:ftb-teams-forge-404468:${project.ftb_teams_neoforge_file_id}" //FTB Teams
+    compileOnly "curse.maven:ftb-chunks-forge-314906:${project.ftb_chunks_neoforge_file_id}" //FTB Chunks
+
+//    implementation "curse.maven:ftb-library-forge-404465:${project.ftb_lib_neoforge_file_id}" //FTB Library
+//    implementation "curse.maven:architectury-api-419699:${project.architectury_neoforge_file_id}" //Architectury
+//    implementation "curse.maven:ftb-teams-forge-404468:${project.ftb_teams_neoforge_file_id}" //FTB Teams
+//    implementation "curse.maven:ftb-chunks-forge-314906:${project.ftb_chunks_neoforge_file_id}" //FTB Chunks
+
+    /JourneyMap/
+    compileOnly "curse.maven:journeymap-32274:${project.journeymap_neoforge_file_id}"
+//    implementation "curse.maven:journeymap-32274:${project.journeymap_neoforge_file_id}"
+
+    /Map Atlases/
+    compileOnly "curse.maven:map-atlases-forge-519759:${project.map_atlases_forge_file_id}"
+    compileOnly "curse.maven:selene-499980:5061472"
+    compileOnly "curse.maven:supplementaries-412082:5053567"
+    compileOnly "curse.maven:immediatelyfast-686911:4937543"
+
+//    implementation "curse.maven:map-atlases-forge-519759:${project.map_atlases_forge_file_id}"
+//    implementation "curse.maven:selene-499980:5000808"
+//    implementation "curse.maven:supplementaries-412082:4865567"
+//    implementation "curse.maven:immediatelyfast-686911:4937545"
+}
+
+String changelogText = projectDir.toPath().getParent().resolve("CHANGELOG.md").getText('UTF-8')
+
+modrinth {
+    int firstHeading = changelogText.indexOf("## [")
+    int nextHeading = changelogText.indexOf("## [", firstHeading+1)
+    String recentChangelogText = changelogText.substring(firstHeading,nextHeading)
+
+    debugMode = false
+    token = System.getenv("MODRINTH_TOKEN")
+    projectId = modrinth_forge_id
+    versionNumber = minecraft_version + "-" + version
+    versionName = base.archivesName.get() + "-" + mod_version
+    versionType = "release"
+    uploadFile = jar
+
+    List<String> mcVersions = modrinth_gameVersions.split(",")
+    gameVersions = mcVersions
+    loaders = ["neoforge"]
+
+    changelog = recentChangelogText
+
+    dependencies {
+        required.project "serene-seasons"
+        optional.project "curios"
+        optional.project "journeymap"
+        optional.project "xaeros-minimap"
+        optional.project "xaeros-minimap-fair"
+        optional.project "map-atlases"
+    }
+}
+
+task publishCurseForge(type: net.darkhax.curseforgegradle.TaskPublishCurseForge){
+    int firstHeading = changelogText.indexOf("## [")
+    int nextHeading = changelogText.indexOf("## [", firstHeading+1)
+    String recentChangelogText = changelogText.substring(firstHeading,nextHeading)
+
+    debugMode = false
+    disableVersionDetection()
+    apiToken = System.getenv("CURSEFORGE_TOKEN")
+
+    def mainFile = upload(curseforge_forge_id, jar)
+    mainFile.changelogType = "markdown"
+    mainFile.changelog = recentChangelogText
+    mainFile.releaseType = "release"
+
+    List<String> mcVersions = curseforge_gameVersions.split(",")
+    mainFile.gameVersions = mcVersions
+    mainFile.addGameVersion("NeoForge")
+    mainFile.addGameVersion("Java 17")
+
+    mainFile.addRequirement("serene-seasons")
+    mainFile.addOptional("curios")
+    mainFile.addOptional("ftb-chunks-forge")
+    mainFile.addOptional("journeymap")
+    mainFile.addOptional("xaeros-minimap")
+    mainFile.addOptional("xaeros-minimap-fair-play-edition")
+    mainFile.addOptional("map-atlases-forge")
+}

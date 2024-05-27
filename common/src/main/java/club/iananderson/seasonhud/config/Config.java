@@ -1,35 +1,32 @@
 package club.iananderson.seasonhud.config;
 
-import club.iananderson.seasonhud.Common;
-import net.minecraftforge.common.ForgeConfigSpec;
-
-import java.util.Arrays;
+import net.neoforged.neoforge.common.ModConfigSpec;
 
 public class Config {
     //Config Builder
-    public static final ForgeConfigSpec GENERAL_SPEC;
+    public static final ModConfigSpec GENERAL_SPEC;
 
     static {
-        ForgeConfigSpec.Builder BUILDER = new ForgeConfigSpec.Builder();
+        ModConfigSpec.Builder BUILDER = new ModConfigSpec.Builder();
         setupConfig(BUILDER);
         GENERAL_SPEC = BUILDER.build();
     }
 
-    public static ForgeConfigSpec.BooleanValue enableMod;
-    public static ForgeConfigSpec.ConfigValue<Location> hudLocation;
-    public static ForgeConfigSpec.ConfigValue<Integer> hudX;
-    public static ForgeConfigSpec.ConfigValue<Integer> hudY;
-    public static ForgeConfigSpec.BooleanValue needCalendar;
-    public static ForgeConfigSpec.BooleanValue showTropicalSeason;
-    public static ForgeConfigSpec.BooleanValue showSubSeason;
-    public static ForgeConfigSpec.ConfigValue<ShowDay> showDay;
-    public static ForgeConfigSpec.BooleanValue enableMinimapIntegration;
+    public static ModConfigSpec.BooleanValue enableMod;
+    public static ModConfigSpec.ConfigValue<Location> hudLocation;
+    public static ModConfigSpec.ConfigValue<Integer> hudX;
+    public static ModConfigSpec.ConfigValue<Integer> hudY;
+    public static ModConfigSpec.BooleanValue needCalendar;
+    public static ModConfigSpec.BooleanValue showTropicalSeason;
+    public static ModConfigSpec.BooleanValue showSubSeason;
+    public static ModConfigSpec.ConfigValue<ShowDay> showDay;
+    public static ModConfigSpec.BooleanValue enableMinimapIntegration;
 
-    public static ForgeConfigSpec.BooleanValue showDefaultWhenMinimapHidden;
-    public static ForgeConfigSpec.BooleanValue journeyMapAboveMap;
-    public static ForgeConfigSpec.BooleanValue journeyMapMacOS;
+	public static ModConfigSpec.BooleanValue showDefaultWhenMinimapHidden;
+	public static ModConfigSpec.BooleanValue journeyMapAboveMap;
+	public static ModConfigSpec.BooleanValue journeyMapMacOS;
 
-    private static void setupConfig(ForgeConfigSpec.Builder BUILDER){
+    private static void setupConfig(ModConfigSpec.Builder BUILDER){
         BUILDER.push("SeasonHUD");
             enableMod = BUILDER
                     .comment("""
@@ -77,50 +74,43 @@ public class Config {
                                 Default is true.""")
                         .define("enable_show_sub_season",true);
 
-                if(Common.platformName().equals("Forge")) {
-                    showDay = BUILDER
-                            .comment("""
-                                        Show the current day of the season/sub-season?
-                                        Default is SHOW_DAY.""")
-                            .defineEnum("enable_show_day", ShowDay.SHOW_DAY,Arrays.asList(ShowDay.NONE, ShowDay.SHOW_DAY, ShowDay.SHOW_WITH_TOTAL_DAYS));
-                }
-                if(Common.platformName().equals( "Fabric")){
-                    showDay = BUILDER
-                            .comment("""
-                                        Show the current day of the season/sub-season?
-                                        Default is SHOW_DAY.""")
-                            .defineEnum("enable_show_day", ShowDay.SHOW_DAY,Arrays.asList(ShowDay.NONE, ShowDay.SHOW_DAY, ShowDay.SHOW_WITH_TOTAL_DAYS,ShowDay.SHOW_WITH_MONTH));
-                }
+                showDay = BUILDER
+                        .comment("""
+                                Show the current day of the season/sub-season?
+                                NONE, SHOW_DAY, SHOW_WITH_TOTAL_DAYS
+                                Default is SHOW_DAY.""")
+                        .defineEnum("enable_show_day",ShowDay.SHOW_DAY);
             BUILDER.pop();
-            BUILDER.push("Minimap");
-                    enableMinimapIntegration = BUILDER
-                        .comment("""
-                            Enable integration with minimap mods.
-                            (true/false)
-                            Default is true.""")
-                        .define("enable_minimap_integration",true);
-                    showDefaultWhenMinimapHidden = BUILDER
-                        .comment("""
-                                Show the default SeasonHUD display when the minimap is hidden.
-                                (true/false)
-                                Default is false.""")
-                        .define("enable_show_minimap_hidden",false);
 
-                    BUILDER.push("Journeymap");
-                        journeyMapAboveMap = BUILDER
-                                .comment("""
-                                        Show above the JourneyMap minimap, instead of below.
-                                        (true/false)
-                                        Default is false.""")
-                                .define("enable_above_map",false);
-                        journeyMapMacOS = BUILDER
-                                .comment("""
-                                        Toggle for macOS retina display scaling when using JourneyMap.
-                                        Enable if the season line is rendering around the halfway point of the screen.
-                                        (true/false)
-                                        Default is false.""")
-                                .define("enable_macOS",false);
-                    BUILDER.pop();
+            BUILDER.push("Minimap");
+                enableMinimapIntegration = BUILDER
+                    .comment("""
+                        Enable integration with minimap mods.
+                        (true/false)
+                        Default is true.""")
+                    .define("enable_minimap_integration",true);
+                showDefaultWhenMinimapHidden = BUILDER
+                    .comment("""
+                            Show the default SeasonHUD display when the minimap is hidden.
+                            (true/false)
+                            Default is false.""")
+                    .define("enable_show_minimap_hidden",false);
+
+                BUILDER.push("Journeymap");
+                    journeyMapAboveMap = BUILDER
+                            .comment("""
+                                    Show above the JourneyMap minimap, instead of below.
+                                    (true/false)
+                                    Default is false.""")
+                            .define("enable_above_map",false);
+                    journeyMapMacOS = BUILDER
+                            .comment("""
+                                    Toggle for macOS retina display scaling when using JourneyMap.
+                                    Enable if the season line is rendering around the halfway point of the screen.
+                                    (true/false)
+                                    Default is false.""")
+                            .define("enable_macOS",false);
+                BUILDER.pop();
             BUILDER.pop();
         BUILDER.pop();
     }

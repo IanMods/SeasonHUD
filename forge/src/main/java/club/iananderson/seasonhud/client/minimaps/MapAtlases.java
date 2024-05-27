@@ -17,8 +17,7 @@ import pepjebs.mapatlases.client.Anchoring;
 import pepjebs.mapatlases.client.MapAtlasesClient;
 import pepjebs.mapatlases.config.MapAtlasesClientConfig;
 
-import static club.iananderson.seasonhud.Common.SEASON_STYLE;
-import static club.iananderson.seasonhud.Common.mc;
+import static club.iananderson.seasonhud.Common.*;
 import static club.iananderson.seasonhud.impl.seasons.CurrentSeason.getSeasonHudName;
 
 public class MapAtlases implements IGuiOverlay{
@@ -59,7 +58,7 @@ public class MapAtlases implements IGuiOverlay{
             if (mc.level == null || mc.player == null) {
                 return false;
             }
-            else if (mc.options.renderDebug){
+            else if (mc.getDebugOverlay().showDebugScreen()){
                 return false;
             }
             else if (!MapAtlasesClientConfig.drawMiniMapHUD.get()) {

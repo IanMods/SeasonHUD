@@ -8,7 +8,7 @@ import journeymap.client.ui.UIManager;
 import net.minecraft.client.Minecraft;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.level.Level;
-import sereneseasons.config.ServerConfig;
+import sereneseasons.init.ModConfig;
 import xaero.common.HudMod;
 
 import java.util.Objects;
@@ -20,7 +20,7 @@ public class ForgeMinimapHelper implements IMinimapHelper {
 	public boolean hideHudInCurrentDimension() {
 		ResourceKey<Level> currentDim = Objects.requireNonNull(mc.level).dimension();
 
-		return !ServerConfig.isDimensionWhitelisted(currentDim);
+		return !ModConfig.seasons.isDimensionWhitelisted(currentDim);
 	}
 
 	@Override

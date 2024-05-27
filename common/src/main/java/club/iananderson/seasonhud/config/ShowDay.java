@@ -5,8 +5,7 @@ import net.minecraft.network.chat.Component;
 public enum ShowDay {
     NONE(0, "none"),
     SHOW_DAY(1, "showDay"),
-    SHOW_WITH_TOTAL_DAYS(2, "totalDays"),
-    SHOW_WITH_MONTH(3, "showMonth");
+    SHOW_WITH_TOTAL_DAYS(2, "totalDays");
 
     private final int idNum;
     private final String currentDayDisplay;
