@@ -30,9 +30,9 @@
   "location.seasonhud.bottomLeft": "左下",
   "location.seasonhud.bottomRight": "右下",
 
-  "showday.seasonhud.none": "OFF",
-  "showday.seasonhud.showDay": "Day #",
-  "showday.seasonhud.totalDays": "Day #/#",
+  "showday.seasonhud.none": "关",
+  "showday.seasonhud.showDay": "第 # 天",
+  "showday.seasonhud.totalDays": "第 #/# 天",
 
   "desc.seasonhud.spring": "春季",
   "desc.seasonhud.early_spring": "早春",
