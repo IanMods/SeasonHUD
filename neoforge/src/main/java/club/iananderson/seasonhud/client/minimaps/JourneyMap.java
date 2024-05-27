@@ -12,17 +12,16 @@ import journeymap.client.ui.theme.Theme;
 import journeymap.client.ui.theme.ThemeLabelSource;
 import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.LayeredDraw;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
-import net.neoforged.neoforge.client.gui.overlay.ExtendedGui;
-import net.neoforged.neoforge.client.gui.overlay.IGuiOverlay;
 
 import static club.iananderson.seasonhud.Common.SEASON_STYLE;
 import static club.iananderson.seasonhud.Common.mc;
 import static club.iananderson.seasonhud.config.Config.*;
 import static club.iananderson.seasonhud.impl.seasons.CurrentSeason.getSeasonHudName;
 
-public class JourneyMap implements IGuiOverlay{
+public class JourneyMap implements LayeredDraw.Layer{
     private static String getSeason(){
         MutableComponent seasonCombined = Component.translatable("desc.seasonhud.combined",
                 getSeasonHudName().get(0).copy().withStyle(SEASON_STYLE),
@@ -32,7 +31,10 @@ public class JourneyMap implements IGuiOverlay{
     }
 
     @Override
-    public void render(ExtendedGui gui, GuiGraphics seasonStack, float partialTick, int scaledWidth, int scaledHeight) {
+    public void render(GuiGraphics guiGraphics, float partialTick) {
+        int scaledWidth = guiGraphics.guiWidth();
+        int scaledHeight = guiGraphics.guiHeight();
+
         MutableComponent seasonCombined = Component.translatable("desc.seasonhud.combined",
                 getSeasonHudName().get(0).copy().withStyle(SEASON_STYLE),
                 getSeasonHudName().get(1).copy());
@@ -87,13 +89,13 @@ public class JourneyMap implements IGuiOverlay{
                     screenHeight = screenHeight/2;
                 }
 
-                seasonStack.pose().pushPose();
-                seasonStack.pose().scale(1/fontScale,1/fontScale,0);
-                DrawUtil.sizeDisplay(seasonStack.pose(),screenWidth,screenHeight);
-                seasonStack.pose().popPose();
-                DrawUtil.drawBatchLabel(seasonStack.pose(), seasonCombined,seasonStack.bufferSource(), labelX, labelY, DrawUtil.HAlign.Center, DrawUtil.VAlign.Below, labelColor, labelAlpha, textColor, textAlpha, fontScale, fontShadow);
-                seasonStack.bufferSource().endBatch();
-                DrawUtil.sizeDisplay(seasonStack.pose(),scaledWidth,scaledHeight);
+                guiGraphics.pose().pushPose();
+                guiGraphics.pose().scale(1/fontScale,1/fontScale,0);
+                DrawUtil.sizeDisplay(guiGraphics.pose(),screenWidth,screenHeight);
+                guiGraphics.pose().popPose();
+                DrawUtil.drawBatchLabel(guiGraphics.pose(), seasonCombined,guiGraphics.bufferSource(), labelX, labelY, DrawUtil.HAlign.Center, DrawUtil.VAlign.Below, labelColor, labelAlpha, textColor, textAlpha, fontScale, fontShadow);
+                guiGraphics.bufferSource().endBatch();
+                DrawUtil.sizeDisplay(guiGraphics.pose(),scaledWidth,scaledHeight);
             }
         }
     }

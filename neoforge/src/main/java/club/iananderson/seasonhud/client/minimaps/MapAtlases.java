@@ -6,12 +6,11 @@ import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.LayeredDraw;
 import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.world.effect.MobEffect;
-import net.neoforged.neoforge.client.gui.overlay.ExtendedGui;
-import net.neoforged.neoforge.client.gui.overlay.IGuiOverlay;
 import pepjebs.mapatlases.MapAtlasesMod;
 import pepjebs.mapatlases.client.Anchoring;
 import pepjebs.mapatlases.client.MapAtlasesClient;
@@ -21,7 +20,7 @@ import static club.iananderson.seasonhud.Common.SEASON_STYLE;
 import static club.iananderson.seasonhud.Common.mc;
 import static club.iananderson.seasonhud.impl.seasons.CurrentSeason.getSeasonHudName;
 
-public class MapAtlases implements IGuiOverlay{
+public class MapAtlases implements LayeredDraw.Layer{
     protected final int BG_SIZE = 64;
 
     private static void drawStringWithLighterShadow(GuiGraphics context, Font font, MutableComponent text, int x, int y) {
@@ -75,7 +74,10 @@ public class MapAtlases implements IGuiOverlay{
     }
 
     @Override
-    public void render(ExtendedGui gui, GuiGraphics seasonStack, float partialTick, int screenWidth, int screenHeight) {
+    public void render(GuiGraphics guiGraphics, float partialTick) {
+        int screenWidth = guiGraphics.guiWidth();
+        int screenHeight = guiGraphics.guiHeight();
+
         if(CurrentMinimap.minimapLoaded("map_atlases") && shouldDraw(mc)) {
             float textScaling = (float) (double) MapAtlasesClientConfig.minimapCoordsAndBiomeScale.get();
 
@@ -85,8 +87,8 @@ public class MapAtlases implements IGuiOverlay{
 
             LocalPlayer player = mc.player;
 
-            seasonStack.pose().pushPose();
-            seasonStack.pose().scale(globalScale, globalScale, 1);
+            guiGraphics.pose().pushPose();
+            guiGraphics.pose().scale(globalScale, globalScale, 1);
 
             Anchoring anchorLocation = MapAtlasesClientConfig.miniMapAnchoring.get();
             int offset = 5;
@@ -99,7 +101,7 @@ public class MapAtlases implements IGuiOverlay{
                 boolean hasBeneficial = false;
                 boolean hasNegative = false;
                 for (var e : player.getActiveEffects()) {
-                    MobEffect effect = e.getEffect();
+                    MobEffect effect = (MobEffect) e.getEffect();
                     if (effect.isBeneficial()) {
                         hasBeneficial = true;
                     } else {
@@ -128,8 +130,8 @@ public class MapAtlases implements IGuiOverlay{
                     textHeightOffset = (textHeightOffset + 10.0F * textScaling);
                 }
 
-                drawMapComponentSeason(seasonStack, font, x, (int)(y + BG_SIZE + (textHeightOffset / globalScale)), actualBgSize, textScaling);
-                seasonStack.pose().popPose();
+                drawMapComponentSeason(guiGraphics, font, x, (int)(y + BG_SIZE + (textHeightOffset / globalScale)), actualBgSize, textScaling);
+                guiGraphics.pose().popPose();
             }
         }
     }

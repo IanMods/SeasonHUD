@@ -9,6 +9,7 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.components.Button;
 import net.minecraft.client.gui.components.CycleButton;
+import net.minecraft.client.gui.layouts.HeaderAndFooterLayout;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.network.chat.Component;
 import org.jetbrains.annotations.NotNull;
@@ -23,30 +24,30 @@ public class SeasonHUDScreen extends Screen{
     private static final int BUTTON_WIDTH_FULL = 200;
     private static final int BUTTON_WIDTH_HALF = 180;
     private static final int BUTTON_HEIGHT = 20;
-    public static Screen seasonScreen;
 
+    public static Screen seasonScreen;
     private final Screen lastScreen;
 
     private static final Component TITLE = Component.translatable("menu.seasonhud.title");
     private static final Component JOURNEYMAP = Component.translatable("menu.seasonhud.journeymap");
+
+    final HeaderAndFooterLayout layout = new HeaderAndFooterLayout(this);
 
 
     public SeasonHUDScreen(Screen seasonScreen){
         super(TITLE);
         this.lastScreen = seasonScreen;
     }
-    public boolean isPauseScreen() {
-        return true;
-    }
 
     @Override
     public void render(@NotNull GuiGraphics stack, int mouseX, int mouseY, float partialTicks){
-        this.renderDirtBackground(stack);
-        stack.drawCenteredString(font, TITLE, this.width / 2, PADDING, 16777215);
-        if(Services.PLATFORM.isModLoaded("journeymap")) {
-            stack.drawCenteredString(font, JOURNEYMAP, this.width / 2, MENU_PADDING_FULL + (5 * (BUTTON_HEIGHT + PADDING)), 16777215);
-        }
         super.render(stack, mouseX, mouseY, partialTicks);
+        stack.drawCenteredString(this.font, this.title, this.width / 2, PADDING, 16777215);
+
+        this.layout.addTitleHeader(TITLE, font);
+        if(Services.PLATFORM.isModLoaded("journeymap")) {
+            stack.drawCenteredString(this.font, JOURNEYMAP, this.width / 2, MENU_PADDING_FULL + (5 * (BUTTON_HEIGHT + PADDING)), 16777215);
+        }
     }
 
     @Override

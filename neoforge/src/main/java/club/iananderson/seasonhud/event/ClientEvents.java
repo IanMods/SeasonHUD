@@ -1,5 +1,6 @@
 package club.iananderson.seasonhud.event;
 
+import club.iananderson.seasonhud.Common;
 import club.iananderson.seasonhud.SeasonHUD;
 import club.iananderson.seasonhud.client.KeyBindings;
 import club.iananderson.seasonhud.client.SeasonHUDOverlay;
@@ -7,16 +8,16 @@ import club.iananderson.seasonhud.client.minimaps.JourneyMap;
 import club.iananderson.seasonhud.client.minimaps.MapAtlases;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.bus.api.SubscribeEvent;
-import net.neoforged.fml.common.Mod;
+import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.client.event.InputEvent;
-import net.neoforged.neoforge.client.event.RegisterGuiOverlaysEvent;
+import net.neoforged.neoforge.client.event.RegisterGuiLayersEvent;
 import net.neoforged.neoforge.client.event.RegisterKeyMappingsEvent;
-import net.neoforged.neoforge.client.gui.overlay.VanillaGuiOverlay;
+import net.neoforged.neoforge.client.gui.VanillaGuiLayers;
 
-@Mod.EventBusSubscriber(value = Dist.CLIENT, modid = SeasonHUD.MODID, bus = Mod.EventBusSubscriber.Bus.FORGE)
+@EventBusSubscriber(value = Dist.CLIENT, modid = SeasonHUD.MODID, bus = EventBusSubscriber.Bus.GAME)
 public class ClientEvents{
 
-    @Mod.EventBusSubscriber(value = Dist.CLIENT, modid = SeasonHUD.MODID, bus = Mod.EventBusSubscriber.Bus.MOD)
+    @EventBusSubscriber(value = Dist.CLIENT, modid = SeasonHUD.MODID, bus = EventBusSubscriber.Bus.MOD)
     public static class ModBus {
         //Key Bindings
         @SubscribeEvent
@@ -26,10 +27,10 @@ public class ClientEvents{
 
         //Overlays
         @SubscribeEvent
-        public static void registerOverlay(RegisterGuiOverlaysEvent event) {
-            event.registerAbove(VanillaGuiOverlay.FROSTBITE.id(),SeasonHUD.location("seasonhud"),new SeasonHUDOverlay());
-            event.registerAbove(VanillaGuiOverlay.FROSTBITE.id(),SeasonHUD.location("journeymap"),new JourneyMap());
-            event.registerAbove(VanillaGuiOverlay.FROSTBITE.id(),SeasonHUD.location("mapatlases"),new MapAtlases());
+        public static void registerOverlay(RegisterGuiLayersEvent event) {
+            event.registerAbove(VanillaGuiLayers.CAMERA_OVERLAYS, Common.location("seasonhud"),new SeasonHUDOverlay());
+            event.registerAbove(VanillaGuiLayers.CAMERA_OVERLAYS,Common.location("journeymap"),new JourneyMap());
+            event.registerAbove(VanillaGuiLayers.CAMERA_OVERLAYS,Common.location("mapatlases"),new MapAtlases());
         }
     }
 

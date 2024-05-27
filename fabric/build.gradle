@@ -12,6 +12,10 @@ dependencies {
     modImplementation "net.fabricmc:fabric-loader:${fabric_loader_version}"
     modImplementation "net.fabricmc.fabric-api:fabric-api:${fabric_version}"
 
+    implementation ("com.electronwill.night-config:core:3.6.7")
+    implementation ("com.electronwill.night-config:toml:3.6.7")
+    include implementation("net.jodah:typetools:0.6.3")
+
     /Serene Seasons/
     modImplementation "curse.maven:serene-seasons-291874:${project.serene_seasons_fabric_file_id}"
     modImplementation "com.github.glitchfiend:GlitchCore-fabric:${minecraft_version}-${glitchcore_version}"
@@ -20,7 +24,7 @@ dependencies {
     modCompileOnly "curse.maven:xaeros-minimap-263420:${project.xaeros_fabric_file_id}"
 
     /Xaero's Minimap Fair Play/
-    modCompileOnly "curse.maven:xaeros-minimap-fair-play-edition-263466:${project.xaeros_fairplay_fabric_file_id}"
+//    modCompileOnly "curse.maven:xaeros-minimap-fair-play-edition-263466:${project.xaeros_fairplay_fabric_file_id}"
 
     /FTB Chunks/
     modCompileOnly "curse.maven:ftb-library-fabric-438495:${project.ftb_lib_fabric_file_id}"
@@ -40,11 +44,11 @@ dependencies {
     modImplementation "curse.maven:forge-config-api-port-fabric-547434:${project.forgeconfigapiport_fabric_file_id}"
 
     /JourneyMap/
-    modCompileOnlyApi group: 'info.journeymap', name: 'journeymap-api', version: journeymap_api_version_fabric, changing: true
+    modCompileOnlyApi  group: 'info.journeymap', name: 'journeymap-api', version: journeymap_api_version_fabric, changing: true
     modCompileOnly  "curse.maven:journeymap-${project.jm_project_id}:${project.journeymap_fabric_file_id}"
 
     /Map Atlases/
-    modCompileOnly "maven.modrinth:map-atlases:Cm1VPyWo"
+    modCompileOnly "maven.modrinth:map-atlases:Cm1VPyWo" //Fabric only version, only for 1.20.4 even though it is marked as 1.20.5 as well
     modCompileOnly "maven.modrinth:cloth-config:eBZiZ9NS"
 
 //    modCompileOnly "curse.maven:map-atlases-436298:${project.map_atlases_fabric_file_id}"
@@ -128,7 +132,7 @@ task publishCurseForge(type: net.darkhax.curseforgegradle.TaskPublishCurseForge)
     List<String> mcVersions = curseforge_gameVersions.split(",")
     mainFile.gameVersions = mcVersions
     mainFile.addGameVersion("Fabric")
-    mainFile.addGameVersion("Java 17")
+    mainFile.addGameVersion("Java 21")
 
     mainFile.addRequirement("serene-seasons")
     mainFile.addRequirement("forge-config-api-port-fabric")

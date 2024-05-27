@@ -1,15 +1,14 @@
 package club.iananderson.seasonhud.client;
 
 import net.minecraft.client.gui.GuiGraphics;
-import net.neoforged.neoforge.client.gui.overlay.ExtendedGui;
-import net.neoforged.neoforge.client.gui.overlay.IGuiOverlay;
+import net.minecraft.client.gui.LayeredDraw;
 
-public class SeasonHUDOverlay implements IGuiOverlay{
+public class SeasonHUDOverlay implements LayeredDraw.Layer{
     public SeasonHUDOverlay(){
     }
 
     @Override
-    public void render(ExtendedGui gui, GuiGraphics seasonStack, float partialTick, int screenWidth, int screenHeight) {
+    public void render(GuiGraphics seasonStack, float partialTick) {
         SeasonHUDOverlayCommon.render(seasonStack);
     }
 }

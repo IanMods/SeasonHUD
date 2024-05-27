@@ -16,6 +16,11 @@ public class Common {
 	public static Minecraft mc = Minecraft.getInstance();
 
 	public static final ResourceLocation SEASON_ICONS = new ResourceLocation(MOD_ID,"season_icons");
+
+	public static ResourceLocation location(String path) {
+		return new ResourceLocation(MOD_ID, path);
+	}
+
 	public static final Style SEASON_STYLE = Style.EMPTY.withFont(SEASON_ICONS);
 
 	private static boolean curiosLoaded;

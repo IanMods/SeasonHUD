@@ -32,7 +32,7 @@
       "fabricloader": ">=${fabric_loader_version}",
       "fabric-api": "*",
       "minecraft": "${minecraft_version}",
-      "java": ">=17",
+      "java": ">=21",
       "sereneseasons": ">=9.3.0.13",
       "fabric-key-binding-api-v1": "*",
       "forgeconfigapiport": ">=7.0.0"

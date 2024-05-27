@@ -1,11 +1,9 @@
 package club.iananderson.seasonhud.platform;
 
-import club.iananderson.seasonhud.client.minimaps.MapAtlases;
 import club.iananderson.seasonhud.impl.minimaps.CurrentMinimap;
 import club.iananderson.seasonhud.platform.services.IMinimapHelper;
 import dev.ftb.mods.ftbchunks.client.FTBChunksClientConfig;
 import journeymap.client.ui.UIManager;
-import net.minecraft.client.Minecraft;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.level.Level;
 import sereneseasons.init.ModConfig;
@@ -38,9 +36,9 @@ public class FabricMinimapHelper implements IMinimapHelper {
 		if (CurrentMinimap.minimapLoaded("xaerominimap") || CurrentMinimap.minimapLoaded("xaerominimapfair")) {
 			return !HudMod.INSTANCE.getSettings().getMinimap();
 		}
-		if (CurrentMinimap.minimapLoaded("map_atlases")) {
-			return !MapAtlases.shouldDraw(Minecraft.getInstance());
-		}
+//		if (CurrentMinimap.minimapLoaded("map_atlases")) {
+//			return !MapAtlases.shouldDraw(Minecraft.getInstance());
+//		}
 		else return false;
 	}
 }
