@@ -4,7 +4,6 @@ import club.iananderson.seasonhud.config.Config;
 import club.iananderson.seasonhud.config.ShowDay;
 import net.minecraft.network.chat.Component;
 
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 
 import static club.iananderson.seasonhud.Common.SEASON_STYLE;
