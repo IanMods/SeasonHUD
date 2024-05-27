@@ -33,6 +33,7 @@
   "showday.seasonhud.none": "关",
   "showday.seasonhud.showDay": "第 # 天",
   "showday.seasonhud.totalDays": "第 #/# 天",
+  "showday.seasonhud.showMonth": "(月份), #",
 
   "desc.seasonhud.spring": "春季",
   "desc.seasonhud.early_spring": "早春",
