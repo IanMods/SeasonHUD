@@ -59,7 +59,7 @@ public class MapAtlases implements IGuiOverlay{
             if (mc.level == null || mc.player == null) {
                 return false;
             }
-            else if (mc.options.renderDebug){
+            else if (mc.getDebugOverlay().showDebugScreen()){
                 return false;
             }
             else if (!MapAtlasesClientConfig.drawMiniMapHUD.get()) {
