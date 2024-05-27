@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="SharedFileColors">
-    <fileColor scope="Common" color="Blue" />
-    <fileColor scope="Fabric" color="4f4946" />
-    <fileColor scope="Forge" color="403027" />
+    <fileColor scope="Fabric" color="4a6153" />
+    <fileColor scope="Common" color="34384d" />
+    <fileColor scope="Forge" color="42354b" />
+    <fileColor scope="NeoForge" color="4b342f" />
   </component>
 </project>
