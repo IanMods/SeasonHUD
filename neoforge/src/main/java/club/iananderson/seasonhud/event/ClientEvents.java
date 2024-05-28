@@ -1,5 +1,6 @@
 package club.iananderson.seasonhud.event;
 
+import club.iananderson.seasonhud.Common;
 import club.iananderson.seasonhud.SeasonHUD;
 import club.iananderson.seasonhud.client.KeyBindings;
 import club.iananderson.seasonhud.client.SeasonHUDOverlay;
@@ -27,9 +28,9 @@ public class ClientEvents{
         //Overlays
         @SubscribeEvent
         public static void registerOverlay(RegisterGuiOverlaysEvent event) {
-            event.registerAbove(VanillaGuiOverlay.FROSTBITE.id(),SeasonHUD.location("seasonhud"),new SeasonHUDOverlay());
-            event.registerAbove(VanillaGuiOverlay.FROSTBITE.id(),SeasonHUD.location("journeymap"),new JourneyMap());
-            event.registerAbove(VanillaGuiOverlay.FROSTBITE.id(),SeasonHUD.location("mapatlases"),new MapAtlases());
+            event.registerAbove(VanillaGuiOverlay.FROSTBITE.id(), Common.location("seasonhud"),new SeasonHUDOverlay());
+            event.registerAbove(VanillaGuiOverlay.FROSTBITE.id(),Common.location("journeymap"),new JourneyMap());
+            event.registerAbove(VanillaGuiOverlay.FROSTBITE.id(),Common.location("mapatlases"),new MapAtlases());
         }
     }
 
