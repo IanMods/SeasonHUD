@@ -5,7 +5,8 @@ import club.iananderson.seasonhud.platform.services.ISeasonHelper;
 import dev.emi.trinkets.api.TrinketComponent;
 import dev.emi.trinkets.api.TrinketsApi;
 import io.github.lucaargolo.seasons.FabricSeasons;
-import io.github.lucaargolo.seasonsextras.FabricSeasonsExtras;
+import net.minecraft.core.Registry;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 
@@ -43,7 +44,7 @@ public class FabricSeasonHelper implements ISeasonHelper {
 			return LocalDateTime.now().getDayOfMonth();
 		}
 		else {
-			int seasonLength = FabricSeasons.CONFIG.getSpringLength();
+			int seasonLength = FabricSeasons.CONFIG.getSeasonLength();
 			int worldTime = Math.toIntExact(Objects.requireNonNull(mc.level).getDayTime());
 
 			return ((int) (worldTime - (worldTime / (long) seasonLength * (long) seasonLength)) % seasonLength / 24000) + 1;
@@ -52,15 +53,12 @@ public class FabricSeasonHelper implements ISeasonHelper {
 
 	@Override
 	public int seasonDuration() {
-		return FabricSeasons.CONFIG.getSpringLength() / 24000;
+		return FabricSeasons.CONFIG.getSeasonLength() / 24000;
 	}
 
 	@Override
 	public Item calendar() {
-		if(Common.extrasLoaded()){
-			return FabricSeasonsExtras.SEASON_CALENDAR_ITEM;
-		}
-		else return null;
+		return Registry.ITEM.get(new ResourceLocation("seasons","season_calendar"));
 	}
 
 	@Override

@@ -4,18 +4,18 @@ import club.iananderson.seasonhud.Common;
 import club.iananderson.seasonhud.impl.curios.CuriosCalendar;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.sounds.SoundEvents;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.common.capabilities.ICapabilityProvider;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.event.lifecycle.InterModEnqueueEvent;
-import sereneseasons.item.CalendarItem;
 import top.theillusivec4.curios.api.SlotContext;
 import top.theillusivec4.curios.api.type.capability.ICurio;
 import top.theillusivec4.curios.api.type.capability.ICurioItem;
 
 import javax.annotation.Nonnull;
 
-public class CalendarSlot extends CalendarItem implements ICurioItem {
+public class CalendarSlot extends Item implements ICurioItem {
 
     public CalendarSlot(Properties p_41383_) {
         super(p_41383_);

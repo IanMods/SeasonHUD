@@ -13,8 +13,8 @@ import journeymap.client.ui.theme.Theme;
 import journeymap.client.ui.theme.ThemeLabelSource;
 import net.fabricmc.fabric.api.client.rendering.v1.HudRenderCallback;
 import net.minecraft.client.gui.Font;
-import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
+import net.minecraft.network.chat.TranslatableComponent;
 
 import static club.iananderson.seasonhud.Common.SEASON_STYLE;
 import static club.iananderson.seasonhud.Common.mc;
@@ -30,7 +30,7 @@ public class JourneyMap implements HudRenderCallback{
     }
 
     private static String getSeason(){
-        MutableComponent seasonCombined = Component.translatable("desc.seasonhud.combined",
+        MutableComponent seasonCombined = new TranslatableComponent("desc.seasonhud.combined",
                 getSeasonHudName().get(0).copy().withStyle(SEASON_STYLE),
                 getSeasonHudName().get(1).copy());
 
@@ -39,16 +39,16 @@ public class JourneyMap implements HudRenderCallback{
 
     @Override
     public void onHudRender(PoseStack seasonStack, float alpha) {
-        MutableComponent seasonCombined = Component.translatable("desc.seasonhud.combined",
+        MutableComponent seasonCombined = new TranslatableComponent("desc.seasonhud.combined",
                 getSeasonHudName().get(0).copy().withStyle(SEASON_STYLE),
                 getSeasonHudName().get(1).copy());
 
-        if(Services.PLATFORM.isModLoaded("journeymap") && !enableMod.get()) {
+        if(Services.PLATFORM.isModLoaded("journeymap-fabric") && !enableMod.get()) {
             ThemeLabelSource.InfoSlot Season = ThemeLabelSource.create(Common.MOD_ID,"menu.seasonhud.infodisplay.season",1000L,1L, JourneyMap::getSeason);
             // Should only show up if the "Enable Mod" option in the SeasonHUD menu/config is disabled. Icon currently doesn't work
         }
 
-        if (CurrentMinimap.minimapLoaded("journeymap")) {
+        if (CurrentMinimap.minimapLoaded("journeymap-fabric")) {
             DisplayVars vars = UIManager.INSTANCE.getMiniMap().getDisplayVars();
             JourneymapClient jm = JourneymapClient.getInstance();
 

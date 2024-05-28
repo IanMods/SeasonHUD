@@ -106,7 +106,7 @@ public class ForgeSeasonHelper implements ISeasonHelper {
 
 	@Override
 	public Item calendar() {
-		return SSItems.CALENDAR.get();
+		return SSItems.calendar;
 	}
 
 	@Override

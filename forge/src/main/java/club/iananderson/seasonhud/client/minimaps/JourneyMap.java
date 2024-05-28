@@ -12,19 +12,19 @@ import journeymap.client.ui.minimap.DisplayVars;
 import journeymap.client.ui.theme.Theme;
 import journeymap.client.ui.theme.ThemeLabelSource;
 import net.minecraft.client.gui.Font;
-import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
-import net.minecraftforge.client.gui.overlay.ForgeGui;
-import net.minecraftforge.client.gui.overlay.IGuiOverlay;
+import net.minecraft.network.chat.TranslatableComponent;
+import net.minecraftforge.client.gui.ForgeIngameGui;
+import net.minecraftforge.client.gui.IIngameOverlay;
 
 import static club.iananderson.seasonhud.Common.SEASON_STYLE;
 import static club.iananderson.seasonhud.Common.mc;
 import static club.iananderson.seasonhud.config.Config.*;
 import static club.iananderson.seasonhud.impl.seasons.CurrentSeason.getSeasonHudName;
 
-public class JourneyMap implements IGuiOverlay{
+public class JourneyMap implements IIngameOverlay{
     private static String getSeason(){
-        MutableComponent seasonCombined = Component.translatable("desc.seasonhud.combined",
+        MutableComponent seasonCombined = new TranslatableComponent("desc.seasonhud.combined",
                 getSeasonHudName().get(0).copy().withStyle(SEASON_STYLE),
                 getSeasonHudName().get(1).copy());
 
@@ -32,8 +32,8 @@ public class JourneyMap implements IGuiOverlay{
     }
 
     @Override
-    public void render(ForgeGui gui, PoseStack seasonStack, float partialTick, int scaledWidth, int scaledHeight) {
-        MutableComponent seasonCombined = Component.translatable("desc.seasonhud.combined",
+    public void render(ForgeIngameGui gui, PoseStack seasonStack, float partialTick, int scaledWidth, int scaledHeight) {
+        MutableComponent seasonCombined = new TranslatableComponent("desc.seasonhud.combined",
                 getSeasonHudName().get(0).copy().withStyle(SEASON_STYLE),
                 getSeasonHudName().get(1).copy());
 

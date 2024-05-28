@@ -19,8 +19,6 @@ import static club.iananderson.seasonhud.Common.LOG;
 
 @Mod(Common.MOD_ID)
 public class  SeasonHUD{
-
-
     public SeasonHUD() {
         IEventBus modEventBus = FMLJavaModLoadingContext.get().getModEventBus();
         MinecraftForge.EVENT_BUS.register(this);

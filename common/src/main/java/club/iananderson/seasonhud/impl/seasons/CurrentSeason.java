@@ -3,6 +3,7 @@ package club.iananderson.seasonhud.impl.seasons;
 import club.iananderson.seasonhud.config.Config;
 import club.iananderson.seasonhud.config.ShowDay;
 import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.TranslatableComponent;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -33,29 +34,29 @@ public class CurrentSeason {
 
         switch(showDay){
             case NONE ->{
-                text.add(Component.translatable("desc.seasonhud.icon",getSeasonIcon(SEASON.getSeasonFileName())).withStyle(SEASON_STYLE));
-                text.add(Component.translatable("desc.seasonhud.summary", Component.translatable("desc.seasonhud." + getSeasonStateLower())));
+                text.add(new TranslatableComponent("desc.seasonhud.icon",getSeasonIcon(SEASON.getSeasonFileName())).withStyle(SEASON_STYLE));
+                text.add(new TranslatableComponent("desc.seasonhud.summary", new TranslatableComponent("desc.seasonhud." + getSeasonStateLower())));
             }
 
             case SHOW_DAY ->{
-                text.add(Component.translatable("desc.seasonhud.icon", getSeasonIcon(SEASON.getSeasonFileName())).withStyle(SEASON_STYLE));
-                text.add(Component.translatable("desc.seasonhud.detailed", Component.translatable("desc.seasonhud." + getSeasonStateLower()), SEASON.getDate()));
+                text.add(new TranslatableComponent("desc.seasonhud.icon", getSeasonIcon(SEASON.getSeasonFileName())).withStyle(SEASON_STYLE));
+                text.add(new TranslatableComponent("desc.seasonhud.detailed", new TranslatableComponent("desc.seasonhud." + getSeasonStateLower()), SEASON.getDate()));
             }
 
             case SHOW_WITH_TOTAL_DAYS ->{
-                text.add(Component.translatable("desc.seasonhud.icon",getSeasonIcon(SEASON.getSeasonFileName())).withStyle(SEASON_STYLE));
-                text.add(Component.translatable("desc.seasonhud.detailed.total",Component.translatable("desc.seasonhud." + getSeasonStateLower()), SEASON.getDate(), SEASON.seasonDuration()));
+                text.add(new TranslatableComponent("desc.seasonhud.icon",getSeasonIcon(SEASON.getSeasonFileName())).withStyle(SEASON_STYLE));
+                text.add(new TranslatableComponent("desc.seasonhud.detailed.total",new TranslatableComponent("desc.seasonhud." + getSeasonStateLower()), SEASON.getDate(), SEASON.seasonDuration()));
             }
 
             case SHOW_WITH_MONTH -> {
-                text.add(Component.translatable("desc.seasonhud.icon", getSeasonIcon(SEASON.getSeasonFileName())).withStyle(SEASON_STYLE));
+                text.add(new TranslatableComponent("desc.seasonhud.icon", getSeasonIcon(SEASON.getSeasonFileName())).withStyle(SEASON_STYLE));
 
                 if(SEASON.isSeasonTiedWithSystemTime()) {
                     String currentMonth = LocalDateTime.now().getMonth().name().toLowerCase();
-                    text.add(Component.translatable("desc.seasonhud.month", Component.translatable("desc.seasonhud." + getSeasonStateLower()), Component.translatable("desc.seasonhud." + currentMonth), SEASON.getDate()));
+                    text.add(new TranslatableComponent("desc.seasonhud.month", new TranslatableComponent("desc.seasonhud." + getSeasonStateLower()), new TranslatableComponent("desc.seasonhud." + currentMonth), SEASON.getDate()));
                 }
                 else {
-                    text.add(Component.translatable("desc.seasonhud.detailed", Component.translatable("desc.seasonhud." + getSeasonStateLower()), SEASON.getDate()));
+                    text.add(new TranslatableComponent("desc.seasonhud.detailed", new TranslatableComponent("desc.seasonhud." + getSeasonStateLower()), SEASON.getDate()));
                 }
             }
         }
