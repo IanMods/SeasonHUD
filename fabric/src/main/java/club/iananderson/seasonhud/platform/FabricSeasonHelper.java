@@ -33,7 +33,13 @@ public class FabricSeasonHelper implements ISeasonHelper {
 
 	@Override
 	public String getSeasonFileName() {
-		return getCurrentSeasonState().toLowerCase();
+		String fileName = getCurrentSeasonState().toLowerCase();
+
+		if (fileName.equals("fall")){
+			return "autumn";
+		}
+
+		else return fileName;
 	}
 
 	@Override

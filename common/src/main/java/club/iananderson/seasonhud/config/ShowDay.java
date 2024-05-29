@@ -12,8 +12,7 @@ public enum ShowDay {
     private final String currentDayDisplay;
     private final Component dayDisplayName;
 
-
-    private ShowDay(int id, String dayType) {
+    ShowDay(int id, String dayType) {
         this.idNum = id;
         this.currentDayDisplay = dayType;
         this.dayDisplayName = Component.translatable("showday.seasonhud."+ dayType);

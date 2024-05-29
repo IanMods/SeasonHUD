@@ -26,7 +26,7 @@ public class XaeroInfoDisplays {
                     getSeasonHudName().get(0).copy().withStyle(SEASON_STYLE),
                     getSeasonHudName().get(1).copy());
 
-            if ((Boolean) displayInfo.getState() && CurrentMinimap.shouldDrawMinimapHud()) {
+            if (displayInfo.getState() && CurrentMinimap.shouldDrawMinimapHud()) {
                 compiler.addLine(seasonCombined);
             }
         },ALL);

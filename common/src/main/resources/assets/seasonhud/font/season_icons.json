@@ -34,7 +34,7 @@
 
     {
       "type": "bitmap",
-      "file": "seasonhud:season/fall.png",
+      "file": "seasonhud:season/winter.png",
       "ascent": 8,
       "height": 9,
       "chars": ["\uEA03"]
@@ -42,7 +42,7 @@
 
     {
       "type": "bitmap",
-      "file": "seasonhud:season/winter.png",
+      "file": "seasonhud:season/dry.png",
       "ascent": 8,
       "height": 9,
       "chars": ["\uEA04"]
@@ -50,18 +50,10 @@
 
     {
       "type": "bitmap",
-      "file": "seasonhud:season/dry.png",
-      "ascent": 8,
-      "height": 9,
-      "chars": ["\uEA05"]
-    },
-
-    {
-      "type": "bitmap",
       "file": "seasonhud:season/wet.png",
       "ascent": 8,
       "height": 9,
-      "chars": ["\uEA06"]
+      "chars": ["\uEA05"]
     }
   ]
 }

@@ -67,7 +67,7 @@ public class SeasonHUDOverlayCommon {
 				int iconX = x + xOffset;
 				int iconY = y + yOffset + offsetDim;
 
-				seasonStack.drawString(mc.font, seasonCombined, iconX, iconY, 0xffffffff);
+				seasonStack.drawString(mc.font, seasonCombined, iconX, iconY, 0xffffff);
 				seasonStack.pose().popPose();
 			}
 		}

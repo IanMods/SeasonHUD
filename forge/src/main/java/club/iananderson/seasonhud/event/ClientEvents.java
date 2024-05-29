@@ -3,6 +3,7 @@ package club.iananderson.seasonhud.event;
 import club.iananderson.seasonhud.Common;
 import club.iananderson.seasonhud.client.KeyBindings;
 import club.iananderson.seasonhud.client.SeasonHUDOverlay;
+import club.iananderson.seasonhud.client.gui.screens.SeasonHUDScreen;
 import club.iananderson.seasonhud.client.minimaps.JourneyMap;
 import club.iananderson.seasonhud.client.minimaps.MapAtlases;
 import net.minecraftforge.api.distmarker.Dist;
