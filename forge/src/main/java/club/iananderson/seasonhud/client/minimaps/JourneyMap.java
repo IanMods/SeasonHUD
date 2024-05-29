@@ -18,7 +18,7 @@ import net.minecraftforge.client.gui.overlay.ForgeGui;
 import net.minecraftforge.client.gui.overlay.IGuiOverlay;
 
 import static club.iananderson.seasonhud.Common.SEASON_STYLE;
-import static club.iananderson.seasonhud.Common.mc;
+import static club.iananderson.seasonhud.client.SeasonHUDClient.mc;
 import static club.iananderson.seasonhud.config.Config.*;
 import static club.iananderson.seasonhud.impl.seasons.CurrentSeason.getSeasonHudName;
 
