@@ -15,7 +15,7 @@ import top.theillusivec4.curios.api.SlotResult;
 import java.util.List;
 import java.util.Objects;
 
-import static club.iananderson.seasonhud.Common.mc;
+import static club.iananderson.seasonhud.client.SeasonHUDClient.mc;
 
 public class ForgeSeasonHelper implements ISeasonHelper {
 	@Override

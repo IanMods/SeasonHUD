@@ -17,7 +17,7 @@
 
     "entrypoints": {
       "client": [
-        "club.iananderson.seasonhud.client.SeasonHUDClient"
+        "club.iananderson.seasonhud.client.SeasonHUDClientFabric"
       ],
       "main": [
         "club.iananderson.seasonhud.SeasonHUD"
