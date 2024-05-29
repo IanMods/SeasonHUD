@@ -14,6 +14,7 @@ import pepjebs.mapatlases.utils.MapAtlasesAccessUtils;
 import java.util.Arrays;
 
 import static club.iananderson.seasonhud.Common.SEASON_STYLE;
+import static club.iananderson.seasonhud.client.SeasonHUDClient.mc;
 import static club.iananderson.seasonhud.impl.minimaps.CurrentMinimap.minimapLoaded;
 import static club.iananderson.seasonhud.impl.seasons.CurrentSeason.getSeasonHudName;
 

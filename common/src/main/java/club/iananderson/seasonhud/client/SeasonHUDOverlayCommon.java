@@ -12,7 +12,7 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
 
 import static club.iananderson.seasonhud.Common.SEASON_STYLE;
-import static club.iananderson.seasonhud.Common.mc;
+import static club.iananderson.seasonhud.client.SeasonHUDClient.mc;
 
 public class SeasonHUDOverlayCommon {
 	public static void render(PoseStack seasonStack) {
