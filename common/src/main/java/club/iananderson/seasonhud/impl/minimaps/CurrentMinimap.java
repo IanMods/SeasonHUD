@@ -4,7 +4,7 @@ import club.iananderson.seasonhud.Common;
 import club.iananderson.seasonhud.impl.seasons.Calendar;
 import club.iananderson.seasonhud.platform.Services;
 
-import static club.iananderson.seasonhud.Common.mc;
+import static club.iananderson.seasonhud.client.SeasonHUDClient.mc;
 import static club.iananderson.seasonhud.config.Config.enableMinimapIntegration;
 import static club.iananderson.seasonhud.config.Config.enableMod;
 import static club.iananderson.seasonhud.platform.Services.MINIMAP;

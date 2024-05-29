@@ -7,7 +7,7 @@ import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.item.Item;
 
-import static club.iananderson.seasonhud.Common.mc;
+import static club.iananderson.seasonhud.client.SeasonHUDClient.mc;
 
 public class Calendar {
     public static boolean calendarLoaded = (Services.PLATFORM.getPlatformName().equals("Forge") || (Services.PLATFORM.getPlatformName().equals("Fabric") && Common.extrasLoaded()));

@@ -26,7 +26,6 @@ public class  SeasonHUD{
 
         NeoForgeConfigRegistry.INSTANCE.register(ModConfig.Type.CLIENT, Config.GENERAL_SPEC,
                 "SeasonHUD-client.toml");
-
     }
 
     public void enqueue(InterModEnqueueEvent event) {
@@ -44,6 +43,7 @@ public class  SeasonHUD{
     @Mod.EventBusSubscriber(modid = Common.MOD_ID, bus = Mod.EventBusSubscriber.Bus.MOD)
     public static class ClientModEvents {
         @SubscribeEvent
-        public static void onClientSetup(FMLClientSetupEvent event) {}
+        public static void onClientSetup(FMLClientSetupEvent event) {
+        }
     }
 }
