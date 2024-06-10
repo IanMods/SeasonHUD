@@ -13,7 +13,7 @@ import club.iananderson.seasonhud.impl.seasons.SeasonList;
 import club.iananderson.seasonhud.platform.Services;
 import club.iananderson.seasonhud.util.Rgb;
 import java.util.ArrayList;
-import java.util.Arrays;
+import java.util.EnumSet;
 import java.util.List;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.components.AbstractWidget;
@@ -33,7 +33,7 @@ public class ColorScreen extends Screen {
   public static final int WIDGET_PADDING = 6;
   private static final int BUTTON_WIDTH = 150;
   private static final int BUTTON_HEIGHT = 20;
-  public Button doneButton;
+  public static Button doneButton;
   private final Screen lastScreen;
   private static final Component TITLE = Component.translatable("menu.seasonhud.color.title");
   private static final Component ENABLE_SEASON_NAME_COLOR = Component.translatable(
@@ -46,10 +46,6 @@ public class ColorScreen extends Screen {
     super(TITLE);
     this.lastScreen = screen;
     this.widgets.toArray().clone();
-  }
-
-  public static ColorScreen getInstance() {
-    return instance;
   }
 
   public static void open(Screen screen) {
@@ -66,10 +62,6 @@ public class ColorScreen extends Screen {
 
   public int getHeight() {
     return mc.getWindow().getGuiScaledHeight();
-  }
-
-  public Button getDoneButton() {
-    return this.doneButton;
   }
 
   @Override
@@ -92,20 +84,19 @@ public class ColorScreen extends Screen {
     mc.setScreen(this.lastScreen);
   }
 
-  private List<SeasonList> seasons() {
-    List<SeasonList> seasons = new ArrayList<>(
-        Arrays.asList(SeasonList.SPRING, SeasonList.SUMMER, SeasonList.AUTUMN, SeasonList.WINTER));
+  private static EnumSet<SeasonList> seasonListSet() {
+    EnumSet<SeasonList> set = SeasonList.seasons.clone();
 
-    if (Config.showTropicalSeason.get() && Services.PLATFORM.getPlatformName().equals("Forge")) {
-      seasons.add(SeasonList.DRY);
-      seasons.add(SeasonList.WET);
+    if (!Config.showTropicalSeason.get() || !Services.PLATFORM.getPlatformName().equals("Forge")) {
+      set.remove(SeasonList.DRY);
+      set.remove(SeasonList.WET);
     }
 
-    return seasons;
+    return set;
   }
 
   public int getBoxWidth() {
-    int widgetCount = seasons().size();
+    int widgetCount = seasonListSet().size();
     int widgetTotalSize = ((80 + WIDGET_PADDING) * widgetCount);
     int scaledWidth = this.getWidth();
 
@@ -171,11 +162,11 @@ public class ColorScreen extends Screen {
     int BUTTON_X_LEFT = (getWidth() / 2) - (BUTTON_WIDTH + WIDGET_PADDING);
     int BUTTON_X_RIGHT = (getWidth() / 2) + WIDGET_PADDING;
     int WIDGET_WIDTH = getBoxWidth() + WIDGET_PADDING;
-    int TOP_WIDGET_WIDTH = (seasons().size() * WIDGET_WIDTH) - WIDGET_PADDING;
+    int TOP_WIDGET_WIDTH = (seasonListSet().size() * WIDGET_WIDTH) - WIDGET_PADDING;
 
     this.x = scaledWidth / 2 - TOP_WIDGET_WIDTH / 2;
     this.y = MENU_PADDING_FULL + BUTTON_HEIGHT + WIDGET_PADDING + BUTTON_HEIGHT;
-    this.seasons().forEach(season -> {
+    seasonListSet().forEach(season -> {
       this.widgets.addAll(seasonWidget(this.x, this.y, season));
       this.x += WIDGET_WIDTH;
     });
