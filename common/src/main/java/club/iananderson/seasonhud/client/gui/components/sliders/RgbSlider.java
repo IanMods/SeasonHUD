@@ -9,7 +9,6 @@ import club.iananderson.seasonhud.util.Rgb;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.components.AbstractSliderButton;
 import net.minecraft.network.chat.CommonComponents;
-import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
 import org.jetbrains.annotations.NotNull;
@@ -18,7 +17,6 @@ public class RgbSlider extends AbstractSliderButton {
 
   private static final ResourceLocation SLIDER_LOCATION = new ResourceLocation(
       "textures/gui/slider.png");
-  public Component sliderLabel;
   public SeasonList season;
   public ColorEditBox seasonBox;
   public static int SLIDER_PADDING = 2;
@@ -114,6 +112,7 @@ public class RgbSlider extends AbstractSliderButton {
   @Override
   public void renderWidget(@NotNull GuiGraphics graphics, int mouseX, int mouseY,
       float partialTick) {
+
     DrawUtil.blitWithBorder(graphics, SLIDER_LOCATION, this.getX(), this.getY(), 0,
         this.getTextureY(), this.width, this.height, 200, 20, 2, 3, 2, 2);
     DrawUtil.blitWithBorder(graphics, SLIDER_LOCATION,

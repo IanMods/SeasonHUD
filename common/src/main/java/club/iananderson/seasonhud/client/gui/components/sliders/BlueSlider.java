@@ -1,6 +1,7 @@
 package club.iananderson.seasonhud.client.gui.components.sliders;
 
 import club.iananderson.seasonhud.client.gui.components.ColorEditBox;
+import club.iananderson.seasonhud.config.Config;
 import club.iananderson.seasonhud.util.Rgb;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
@@ -14,7 +15,6 @@ public class BlueSlider extends RgbSlider {
     super(x, y, seasonBox);
     this.width = seasonBox.getWidth() + 2;
     this.seasonBox = seasonBox;
-    this.sliderLabel = Component.literal("b").withStyle(ChatFormatting.BLUE);
     this.maxValue = 255;
     this.initial = Rgb.getBlue(this.season);
     this.b = Rgb.rgbColor(Integer.parseInt(seasonBox.getValue())).getBlue();
@@ -24,8 +24,14 @@ public class BlueSlider extends RgbSlider {
 
   @Override
   protected void updateMessage() {
+    Component colorString = Component.literal(this.getValueString());
+
     if (this.drawString) {
-      this.setMessage(Component.literal(this.getValueString()).withStyle(ChatFormatting.BLUE));
+      this.setMessage(colorString.copy().withStyle(ChatFormatting.BLUE));
+
+      if (!Config.enableSeasonNameColor.get()) {
+        this.setMessage(colorString.copy().withStyle(ChatFormatting.GRAY));
+      }
     } else {
       this.setMessage(Component.empty());
     }
