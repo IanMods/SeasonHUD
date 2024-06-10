@@ -3,6 +3,7 @@ package club.iananderson.seasonhud.impl.seasons;
 import club.iananderson.seasonhud.config.Config;
 import club.iananderson.seasonhud.util.Rgb;
 import java.util.HashMap;
+import java.util.List;
 import net.minecraft.network.chat.Component;
 import net.minecraftforge.common.ForgeConfigSpec;
 
@@ -62,7 +63,7 @@ public enum SeasonList {
   private final String seasonIconChar;
   private final ForgeConfigSpec.ConfigValue<Integer> seasonColorConfig;
   private final int defaultColor;
-  private int seasonColor;
+  private final int seasonColor;
   private final HashMap<String, Integer> rgbMap;
 
   SeasonList(int id, Component seasonName, String fileName, String iconChar,
@@ -111,8 +112,9 @@ public enum SeasonList {
   }
 
   public void setColor(int rgb) {
-    this.seasonColor = rgb;
     this.seasonColorConfig.set(rgb);
     this.seasonColorConfig.save();
   }
+
+  public static final List<SeasonList> seasons = List.of(SeasonList.values());
 }

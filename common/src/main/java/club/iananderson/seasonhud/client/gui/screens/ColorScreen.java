@@ -1,6 +1,5 @@
 package club.iananderson.seasonhud.client.gui.screens;
 
-
 import static club.iananderson.seasonhud.client.SeasonHUDClient.mc;
 
 import club.iananderson.seasonhud.client.gui.components.ColorButton;
@@ -30,33 +29,27 @@ public class ColorScreen extends Screen {
 
   private int x;
   private int y;
-  private int widgetHeight;
-  private static final int MENU_PADDING_FULL = 50;
-  private static final int PADDING = 6;
+  private static final int MENU_PADDING_FULL = 25;
+  public static final int WIDGET_PADDING = 6;
   private static final int BUTTON_WIDTH = 150;
   private static final int BUTTON_HEIGHT = 20;
-  private static final int BOX_PADDING = ColorEditBox.PADDING;
-  private static final int BOX_WIDTH = ColorEditBox.BOX_WIDTH;
-  private static final int BOX_HEIGHT = ColorEditBox.BOX_HEIGHT;
-  private static final int SLIDER_PADDING = 2;
-  private static final int DEFAULT_BUTTON_HEIGHT = ColorButton.BUTTON_HEIGHT;
-  private static final int DEFAULT_BUTTON_ROW_SIZE = DEFAULT_BUTTON_HEIGHT + PADDING;
-  private static final int WIDGET_START_Y =
-      MENU_PADDING_FULL + DEFAULT_BUTTON_ROW_SIZE + BOX_PADDING + BOX_HEIGHT;
+  public Button doneButton;
   private final Screen lastScreen;
-  public static Button doneButton;
-  public static Button cancelButton;
-  public static CycleButton<Boolean> seasonNameColorButton;
   private static final Component TITLE = Component.translatable("menu.seasonhud.color.title");
   private static final Component ENABLE_SEASON_NAME_COLOR = Component.translatable(
       "menu.seasonhud.color.button.enableSeasonNameColor");
   private final List<ColorEditBox> seasonBoxes = new ArrayList<>();
   private final List<AbstractWidget> widgets = new ArrayList<>();
-
+  private static final ColorScreen instance = new ColorScreen(SeasonHUDScreen.getInstance());
 
   public ColorScreen(Screen screen) {
     super(TITLE);
     this.lastScreen = screen;
+    this.widgets.toArray().clone();
+  }
+
+  public static ColorScreen getInstance() {
+    return instance;
   }
 
   public static void open(Screen screen) {
@@ -75,6 +68,10 @@ public class ColorScreen extends Screen {
     return mc.getWindow().getGuiScaledHeight();
   }
 
+  public Button getDoneButton() {
+    return this.doneButton;
+  }
+
   @Override
   public void tick() {
     seasonBoxes.forEach(EditBox::tick);
@@ -82,9 +79,9 @@ public class ColorScreen extends Screen {
   }
 
   private void onDone() {
-    seasonBoxes.forEach(colorEditBox -> {
-      if (Integer.parseInt(colorEditBox.getValue()) != colorEditBox.getColor()) {
-        colorEditBox.save();
+    seasonBoxes.forEach(seasonBoxes -> {
+      if (Integer.parseInt(seasonBoxes.getValue()) != seasonBoxes.getColor()) {
+        seasonBoxes.save();
       }
     });
 
@@ -107,8 +104,21 @@ public class ColorScreen extends Screen {
     return seasons;
   }
 
+  public int getBoxWidth() {
+    int widgetCount = seasons().size();
+    int widgetTotalSize = ((80 + WIDGET_PADDING) * widgetCount);
+    int scaledWidth = this.getWidth();
 
-  //Todo fix size for small screens
+    int boxWidth;
+    if (scaledWidth < widgetTotalSize) {
+      boxWidth = 60;
+    } else {
+      boxWidth = 80;
+    }
+
+    return boxWidth;
+  }
+
   private List<AbstractWidget> seasonWidget(int x, int y, SeasonList season) {
     ColorEditBox colorBox;
     RedSlider redSlider;
@@ -116,27 +126,27 @@ public class ColorScreen extends Screen {
     BlueSlider blueSlider;
     List<AbstractWidget> seasonWidgetList = new ArrayList<>();
 
-    colorBox = new ColorEditBox(this.font, x, y, season);
+    colorBox = new ColorEditBox(this.font, x, y, getBoxWidth(), BUTTON_HEIGHT, season);
     seasonBoxes.add(colorBox);
     seasonWidgetList.add(colorBox);
-    y += ColorEditBox.BOX_HEIGHT + PADDING;
+    y += colorBox.getHeight() + WIDGET_PADDING;
 
     x -= 1;
-    y += ColorButton.BUTTON_HEIGHT + SLIDER_PADDING;
+    y += BUTTON_HEIGHT + RgbSlider.SLIDER_PADDING;
 
     redSlider = new RedSlider(x, y, colorBox);
     seasonWidgetList.add(redSlider);
-    y += RgbSlider.SLIDER_HEIGHT + SLIDER_PADDING;
+    y += redSlider.getHeight() + RgbSlider.SLIDER_PADDING;
 
     greenSlider = new GreenSlider(x, y, colorBox);
     seasonWidgetList.add(greenSlider);
-    y += RgbSlider.SLIDER_HEIGHT + SLIDER_PADDING;
+    y += greenSlider.getHeight() + RgbSlider.SLIDER_PADDING;
 
     blueSlider = new BlueSlider(x, y, colorBox);
     seasonWidgetList.add(blueSlider);
 
-    y -= (2 * (RgbSlider.SLIDER_HEIGHT + SLIDER_PADDING) + (ColorButton.BUTTON_HEIGHT
-        + SLIDER_PADDING));
+    y -= (greenSlider.getHeight() + redSlider.getHeight() + RgbSlider.SLIDER_PADDING + BUTTON_HEIGHT
+        + RgbSlider.SLIDER_PADDING);
     seasonWidgetList.add(new ColorButton(x, y, season, colorBox, button -> {
       int defaultColorInt = season.getDefaultColor();
 
@@ -156,66 +166,46 @@ public class ColorScreen extends Screen {
   @Override
   public void init() {
     this.widgets.clear();
+    int scaledWidth = this.getWidth();
 
-    int BUTTON_X_LEFT = (getWidth() / 2) - (BUTTON_WIDTH + PADDING);
-    int BUTTON_X_RIGHT = (getWidth() / 2) + PADDING;
-    int WIDGET_WIDTH = BOX_WIDTH + PADDING;
-    int TOP_WIDGET_WIDTH = (4 * WIDGET_WIDTH) - PADDING;
-    int BOTTOM_WIDGET_WIDTH = (2 * WIDGET_WIDTH) - PADDING;
+    int BUTTON_X_LEFT = (getWidth() / 2) - (BUTTON_WIDTH + WIDGET_PADDING);
+    int BUTTON_X_RIGHT = (getWidth() / 2) + WIDGET_PADDING;
+    int WIDGET_WIDTH = getBoxWidth() + WIDGET_PADDING;
+    int TOP_WIDGET_WIDTH = (seasons().size() * WIDGET_WIDTH) - WIDGET_PADDING;
 
-    widgetHeight = BOX_HEIGHT + PADDING + (3 * SLIDER_PADDING);
-    seasonWidget(0, 0, SeasonList.SPRING).forEach(widget -> {
-      widgetHeight += widget.getHeight();
-    });
-
-    this.x = this.getWidth() / 2 - TOP_WIDGET_WIDTH / 2;
-    this.y = WIDGET_START_Y;
+    this.x = scaledWidth / 2 - TOP_WIDGET_WIDTH / 2;
+    this.y = MENU_PADDING_FULL + BUTTON_HEIGHT + WIDGET_PADDING + BUTTON_HEIGHT;
     this.seasons().forEach(season -> {
-      if (season.getId() <= 3) {
-        this.widgets.addAll(seasonWidget(this.x, this.y, season));
-        this.x += WIDGET_WIDTH;
-      } else {
-        this.y = WIDGET_START_Y + widgetHeight;
-        this.widgets.addAll(
-            seasonWidget(this.x - TOP_WIDGET_WIDTH / 2 - BOTTOM_WIDGET_WIDTH / 2 - PADDING, this.y,
-                season));
-        this.x += WIDGET_WIDTH;
-      }
-
+      this.widgets.addAll(seasonWidget(this.x, this.y, season));
+      this.x += WIDGET_WIDTH;
     });
 
     //Buttons
-    seasonNameColorButton = CycleButton.onOffBuilder(Config.enableSeasonNameColor.get())
+    CycleButton<Boolean> seasonNameColorButton = CycleButton.onOffBuilder(
+            Config.enableSeasonNameColor.get())
         .create(BUTTON_X_LEFT, MENU_PADDING_FULL, BUTTON_WIDTH, BUTTON_HEIGHT,
             ENABLE_SEASON_NAME_COLOR,
             (b, enableColor) -> Config.setEnableSeasonNameColor(enableColor));
     this.widgets.add(seasonNameColorButton);
 
-    CycleButton<Boolean> dummy = CycleButton.onOffBuilder(Config.enableSeasonNameColor.get())
-        .create(BUTTON_X_RIGHT, MENU_PADDING_FULL, BUTTON_WIDTH, BUTTON_HEIGHT,
-            ENABLE_SEASON_NAME_COLOR,
-            (b, enableColor) -> Config.setEnableSeasonNameColor(enableColor));
-    this.widgets.add(dummy);
-
     doneButton = Button.builder(CommonComponents.GUI_DONE, button -> onDone())
-        .bounds(BUTTON_X_LEFT, (getHeight() - BUTTON_HEIGHT - PADDING), BUTTON_WIDTH, BUTTON_HEIGHT)
+        .bounds(BUTTON_X_LEFT, (getHeight() - BUTTON_HEIGHT - WIDGET_PADDING), BUTTON_WIDTH,
+            BUTTON_HEIGHT)
         .build();
     this.widgets.add(doneButton);
 
-    cancelButton = Button.builder(CommonComponents.GUI_CANCEL, button -> this.onCancel())
-        .bounds(BUTTON_X_RIGHT, (getHeight() - BUTTON_HEIGHT - PADDING), BUTTON_WIDTH,
+    Button cancelButton = Button.builder(CommonComponents.GUI_CANCEL, button -> this.onCancel())
+        .bounds(BUTTON_X_RIGHT, (getHeight() - BUTTON_HEIGHT - WIDGET_PADDING), BUTTON_WIDTH,
             BUTTON_HEIGHT)
         .build();
     this.widgets.add(cancelButton);
-
     this.widgets.forEach(this::addRenderableWidget);
   }
 
   @Override
-  public void render(@NotNull GuiGraphics guiGraphics, int mouseX, int mouseY, float partialTicks) {
-    this.renderBackground(guiGraphics);
-    guiGraphics.drawCenteredString(font, TITLE, getWidth() / 2, PADDING, 16777215);
-
-    super.render(guiGraphics, mouseX, mouseY, partialTicks);
+  public void render(@NotNull GuiGraphics graphics, int mouseX, int mouseY, float partialTicks) {
+    this.renderBackground(graphics);
+    graphics.drawCenteredString(font, TITLE, getWidth() / 2, WIDGET_PADDING, 16777215);
+    super.render(graphics, mouseX, mouseY, partialTicks);
   }
 }

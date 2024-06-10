@@ -10,11 +10,9 @@ import org.jetbrains.annotations.NotNull;
 
 public class ColorButton extends Button {
 
-  public static final int BUTTON_WIDTH = ColorEditBox.BOX_WIDTH + 2;
-  public static final int BUTTON_HEIGHT = ColorEditBox.BOX_HEIGHT - 2;
+  private ColorEditBox colorEditBox;
   private static final Component DEFAULT = Component.translatable(
       "menu.seasonhud.color.button.default");
-  private ColorEditBox colorEditBox;
   private int defaultColor;
 
   private ColorButton(int x, int y, int width, int height, Component component, OnPress onPress) {
@@ -22,7 +20,7 @@ public class ColorButton extends Button {
   }
 
   public ColorButton(int x, int y, SeasonList season, ColorEditBox colorEditBox, OnPress onPress) {
-    this(x, y, BUTTON_WIDTH, BUTTON_HEIGHT, DEFAULT, onPress);
+    this(x, y, colorEditBox.getWidth() + 2, colorEditBox.getHeight() - 2, DEFAULT, onPress);
     this.colorEditBox = colorEditBox;
     this.defaultColor = season.getDefaultColor();
   }
@@ -44,7 +42,7 @@ public class ColorButton extends Button {
   }
 
   @Override
-  public void render(@NotNull GuiGraphics stack, int mouseX, int mouseY, float partialTicks) {
+  public void render(@NotNull GuiGraphics graphics, int mouseX, int mouseY, float partialTicks) {
     refresh();
     String boxValue = this.colorEditBox.getValue();
 
@@ -54,12 +52,12 @@ public class ColorButton extends Button {
       }
     }
 
-    super.render(stack, mouseX, mouseY, partialTicks);
+    super.render(graphics, mouseX, mouseY, partialTicks);
   }
 
   private void refresh() {
-    HashMap<String, Integer> defaultColors = Rgb.defaultSeasonMap(this.colorEditBox.season);
-    HashMap<String, Integer> currentColors = this.colorEditBox.season.getRgbMap();
+    HashMap<String, Integer> defaultColors = Rgb.defaultSeasonMap(this.colorEditBox.getSeason());
+    HashMap<String, Integer> currentColors = this.colorEditBox.getSeason().getRgbMap();
 
     this.active = defaultColors != currentColors;
   }

@@ -12,6 +12,7 @@ public class GreenSlider extends RgbSlider {
 
   public GreenSlider(int x, int y, ColorEditBox seasonBox) {
     super(x, y, seasonBox);
+    this.width = seasonBox.getWidth() + 2;
     this.seasonBox = seasonBox;
     this.sliderLabel = Component.literal("g").withStyle(ChatFormatting.GREEN);
     this.maxValue = 255;

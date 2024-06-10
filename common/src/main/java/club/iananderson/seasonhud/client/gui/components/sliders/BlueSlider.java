@@ -12,6 +12,7 @@ public class BlueSlider extends RgbSlider {
 
   public BlueSlider(int x, int y, ColorEditBox seasonBox) {
     super(x, y, seasonBox);
+    this.width = seasonBox.getWidth() + 2;
     this.seasonBox = seasonBox;
     this.sliderLabel = Component.literal("b").withStyle(ChatFormatting.BLUE);
     this.maxValue = 255;

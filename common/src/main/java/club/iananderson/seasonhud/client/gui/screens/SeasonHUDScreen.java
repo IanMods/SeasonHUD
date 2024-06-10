@@ -27,16 +27,21 @@ import org.jetbrains.annotations.NotNull;
 
 public class SeasonHUDScreen extends Screen {
 
-  private int row;
   private static final int MENU_PADDING_FULL = 50;
   private static final int PADDING = 4;
   private static final int BUTTON_WIDTH = 180;
   private static final int BUTTON_HEIGHT = 20;
   private static final Component TITLE = Component.translatable("menu.seasonhud.title");
   private static final Component JOURNEYMAP = Component.translatable("menu.seasonhud.journeymap");
+  private static final SeasonHUDScreen instance = new SeasonHUDScreen();
+
 
   public SeasonHUDScreen() {
     super(TITLE);
+  }
+
+  public static SeasonHUDScreen getInstance() {
+    return instance;
   }
 
   public boolean isPauseScreen() {
@@ -75,7 +80,7 @@ public class SeasonHUDScreen extends Screen {
             BUTTON_WIDTH, BUTTON_HEIGHT)
         .build();
 
-    row = 0;
+    int row = 0;
     CycleButton<Boolean> enableModButton = CycleButton.onOffBuilder(enableMod.get())
         .create(BUTTON_X_LEFT, (BUTTON_START_Y + (row * y_OFFSET)),
             BUTTON_WIDTH, BUTTON_HEIGHT,

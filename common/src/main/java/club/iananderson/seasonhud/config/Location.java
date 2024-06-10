@@ -14,7 +14,7 @@ public enum Location {
   private final int idNum;
 
 
-  private Location(int id, String hudLocation) {
+  Location(int id, String hudLocation) {
     this.idNum = id;
     this.hudLocationName = hudLocation;
     this.locationName = Component.translatable("location.seasonhud." + hudLocation);
