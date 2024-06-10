@@ -2,18 +2,17 @@ package club.iananderson.seasonhud.client.gui.components.sliders;
 
 import static club.iananderson.seasonhud.client.SeasonHUDClient.mc;
 
-import club.iananderson.seasonhud.client.gui.components.ColorButton;
 import club.iananderson.seasonhud.client.gui.components.ColorEditBox;
 import club.iananderson.seasonhud.impl.seasons.SeasonList;
 import club.iananderson.seasonhud.util.DrawUtil;
 import club.iananderson.seasonhud.util.Rgb;
-import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.components.AbstractSliderButton;
 import net.minecraft.network.chat.CommonComponents;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
+import org.jetbrains.annotations.NotNull;
 
 public class RgbSlider extends AbstractSliderButton {
 
@@ -22,11 +21,7 @@ public class RgbSlider extends AbstractSliderButton {
   public Component sliderLabel;
   public SeasonList season;
   public ColorEditBox seasonBox;
-  public static int SLIDER_WIDTH = ColorButton.BUTTON_WIDTH;
-  ;
-  public static int SLIDER_HEIGHT = ColorEditBox.BOX_HEIGHT - 6;
-  ;
-  public static int SLIDER_TEXT_HEIGHT = mc.font.lineHeight;
+  public static int SLIDER_PADDING = 2;
   public int minValue;
   public int maxValue;
   public int stepSize;
@@ -36,7 +31,7 @@ public class RgbSlider extends AbstractSliderButton {
   public int rgb;
   public double initial;
   public boolean drawString;
-  private boolean canChangeValue;
+  public boolean canChangeValue;
 
   private RgbSlider(int x, int y, int width, int height, double initial) {
     super(x, y, width, height, CommonComponents.EMPTY, initial);
@@ -46,10 +41,11 @@ public class RgbSlider extends AbstractSliderButton {
   }
 
   public RgbSlider(int x, int y, ColorEditBox seasonBox) {
-    this(x, y, SLIDER_WIDTH, SLIDER_HEIGHT, Integer.parseInt(seasonBox.getValue()));
+    this(x, y, seasonBox.getWidth() + 2, seasonBox.getHeight() - 6,
+        Integer.parseInt(seasonBox.getValue()));
     this.minValue = 0;
     this.maxValue = 16777215;
-    this.season = seasonBox.season;
+    this.season = seasonBox.getSeason();
     this.rgb = Integer.parseInt(seasonBox.getValue());
     this.r = Rgb.rgbColor(this.rgb).getRed();
     this.g = Rgb.rgbColor(this.rgb).getGreen();
@@ -73,8 +69,8 @@ public class RgbSlider extends AbstractSliderButton {
   }
 
   public double snapToNearest(double value) {
-    return (double) ((Mth.clamp((float) value, this.minValue, this.maxValue) - this.minValue) / (
-        this.maxValue - this.minValue));
+    return (Mth.clamp((float) value, this.minValue, this.maxValue) - this.minValue) / (
+        this.maxValue - this.minValue);
   }
 
   public void setSliderValue(int newValue) {
@@ -116,14 +112,14 @@ public class RgbSlider extends AbstractSliderButton {
   }
 
   @Override
-  public void renderWidget(GuiGraphics guiGraphics, int mouseX, int mouseY, float partialTick) {
-    Minecraft mc = Minecraft.getInstance();
-    DrawUtil.blitWithBorder(guiGraphics, SLIDER_LOCATION, this.getX(), this.getY(), 0,
+  public void renderWidget(@NotNull GuiGraphics graphics, int mouseX, int mouseY,
+      float partialTick) {
+    DrawUtil.blitWithBorder(graphics, SLIDER_LOCATION, this.getX(), this.getY(), 0,
         this.getTextureY(), this.width, this.height, 200, 20, 2, 3, 2, 2);
-    DrawUtil.blitWithBorder(guiGraphics, SLIDER_LOCATION,
+    DrawUtil.blitWithBorder(graphics, SLIDER_LOCATION,
         this.getX() + (int) (this.value * (double) (this.width - 8)), this.getY(), 0,
         this.getHandleTextureY(), 8, this.height, 200, 20, 2, 3, 2, 2);
-    this.renderScrollingString(guiGraphics, mc.font, 2,
+    this.renderScrollingString(graphics, mc.font, 2,
         this.getFGColor() | Mth.ceil(this.alpha * 255.0F) << 24);
   }
 }

@@ -1,6 +1,8 @@
 package club.iananderson.seasonhud.impl.curios;
 
 import club.iananderson.seasonhud.platform.Services;
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 import net.minecraft.core.Direction;
 import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.common.capabilities.Capability;
@@ -13,36 +15,35 @@ import top.theillusivec4.curios.api.SlotTypePreset;
 import top.theillusivec4.curios.api.type.capability.ICurio;
 import top.theillusivec4.curios.api.type.capability.ICurioItem;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-
 public class CuriosCalendar implements ICurioItem {
 
 
-    public static void registerSlots() {
-        InterModComms.sendTo("curios", SlotTypeMessage.REGISTER_TYPE, () -> SlotTypePreset.CHARM.getMessageBuilder().build());  //new SlotTypeMessage.Builder("calendar").build());
-    }
+  public static void registerSlots() {
+    InterModComms.sendTo("curios", SlotTypeMessage.REGISTER_TYPE,
+        () -> SlotTypePreset.CHARM.getMessageBuilder()
+            .build());  //new SlotTypeMessage.Builder("calendar").build());
+  }
 
-    public static ICapabilityProvider initCapabilities() {
-        ICurio curio = new ICurio() {
-            final ItemStack stack = new ItemStack(Services.SEASON.calendar().asItem());
+  public static ICapabilityProvider initCapabilities() {
+    ICurio curio = new ICurio() {
+      final ItemStack stack = new ItemStack(Services.SEASON.calendar().asItem());
 
-            @Override
-            public ItemStack getStack() {
-                return stack;
-            }
+      @Override
+      public ItemStack getStack() {
+        return stack;
+      }
 
-        };
-        return new ICapabilityProvider() {
-            private final LazyOptional<ICurio> curioOpt = LazyOptional.of(() -> curio);
+    };
+    return new ICapabilityProvider() {
+      private final LazyOptional<ICurio> curioOpt = LazyOptional.of(() -> curio);
 
-            @Nonnull
-            @Override
-            public <T> LazyOptional<T> getCapability(@Nonnull Capability<T> cap,
-                                                     @Nullable Direction side) {
+      @Nonnull
+      @Override
+      public <T> LazyOptional<T> getCapability(@Nonnull Capability<T> cap,
+          @Nullable Direction side) {
 
-                return CuriosCapability.ITEM.orEmpty(cap, curioOpt);
-            }
-        };
-    }
+        return CuriosCapability.ITEM.orEmpty(cap, curioOpt);
+      }
+    };
+  }
 }

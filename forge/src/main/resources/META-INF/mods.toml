@@ -3,41 +3,41 @@ loaderVersion = "[46,)" #mandatory This is typically bumped every Minecraft vers
 license = "All Rights Reserved"
 
 [[mods]] #mandatory
-    modId = "seasonhud" #mandatory
-    version = "${file.jarVersion}" #mandatory
-    displayName = "SeasonHUD" #mandatory
-    displayURL = "https://www.curseforge.com/minecraft/mc-mods/seasonhud"
-    logoFile= "SeasonHUD.png"
-    logoBlur = true
-    authors="IanAnderson" #optional
-    description ='''
+modId = "seasonhud" #mandatory
+version = "${file.jarVersion}" #mandatory
+displayName = "SeasonHUD" #mandatory
+displayURL = "https://www.curseforge.com/minecraft/mc-mods/seasonhud"
+logoFile = "SeasonHUD.png"
+logoBlur = true
+authors = "IanAnderson" #optional
+description = '''
     This is an addon for SereneSeasons that displays the current season on the HUD or under a minimap'''
 
 # A dependency - use the . to indicate dependency for a specific modid. Dependencies are optional.
 [[dependencies.seasonhud]] #optional
-    modId = "forge" #mandatory
-    mandatory = true #mandatory
-    versionRange = "[46.0.1,)" #mandatory
-    ordering = "NONE"
-    side = "BOTH"
+modId = "forge" #mandatory
+mandatory = true #mandatory
+versionRange = "[46.0.1,)" #mandatory
+ordering = "NONE"
+side = "BOTH"
 
 [[dependencies.seasonhud]]
-    modId = "minecraft"
-    mandatory = true
-    versionRange = "[1.20,1.21)"
-    ordering = "NONE"
-    side = "BOTH"
+modId = "minecraft"
+mandatory = true
+versionRange = "[1.20,1.21)"
+ordering = "NONE"
+side = "BOTH"
 
 [[dependencies.seasonhud]]
-    modId = "sereneseasons"
-    mandatory = true
-    versionRange = "[1.20-9.0.0.41,)"
-    ordering = "AFTER"
-    side = "BOTH"
+modId = "sereneseasons"
+mandatory = true
+versionRange = "[1.20-9.0.0.41,)"
+ordering = "AFTER"
+side = "BOTH"
 
 [[dependencies.seasonhud]]
-    modId = "xaerominimap"
-    mandatory = false
-    versionRange = "[24.0.0,)"
-    ordering = "AFTER"
-    side = "CLIENT"
+modId = "xaerominimap"
+mandatory = false
+versionRange = "[24.0.0,)"
+ordering = "AFTER"
+side = "CLIENT"

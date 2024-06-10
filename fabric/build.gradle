@@ -71,7 +71,7 @@ repositories {
 dependencies {
     minecraft "com.mojang:minecraft:${minecraft_version}"
     annotationProcessor 'org.spongepowered:mixin:0.8.5:processor'
-    mappings loom.layered(){
+    mappings loom.layered() {
         officialMojangMappings()
         parchment("org.parchmentmc.data:parchment-${minecraft_version}:${mapping_version}@zip")
     }
@@ -106,14 +106,15 @@ dependencies {
         exclude(group: "net.fabricmc.fabric-api")
     }
 
-    implementation ("com.electronwill.night-config:core:3.6.3")
-    implementation ("com.electronwill.night-config:toml:3.6.3")
+    implementation("com.electronwill.night-config:core:3.6.3")
+    implementation("com.electronwill.night-config:toml:3.6.3")
 
-    modImplementation "fuzs.forgeconfigapiport:forgeconfigapiport-fabric:${forgeconfigapiport_file_id}"//source: https://github.com/Fuzss/forgeconfigapiport-fabric
+    modImplementation "fuzs.forgeconfigapiport:forgeconfigapiport-fabric:${forgeconfigapiport_file_id}"
+//source: https://github.com/Fuzss/forgeconfigapiport-fabric
 
     /JourneyMap/
     modCompileOnlyApi group: 'info.journeymap', name: 'journeymap-api', version: project.journeymap_api_version_fabric, changing: true
-    modCompileOnly  "curse.maven:journeymap-${project.jm_project_id}:${project.journeymap_fabric_file_id}"
+    modCompileOnly "curse.maven:journeymap-${project.jm_project_id}:${project.journeymap_fabric_file_id}"
 
     /Map Atlases/
     modCompileOnly "curse.maven:map-atlases-436298:${project.map_atlases_fabric_file_id}"
@@ -146,7 +147,7 @@ loom {
             runDir("run")
         }
     }
-    mixin{
+    mixin {
         defaultRefmapName = "seasonhud.refmap.json"
     }
 }
@@ -180,8 +181,8 @@ String changelogText = projectDir.toPath().getParent().resolve("CHANGELOG.md").g
 
 modrinth {
     int firstHeading = changelogText.indexOf("## [")
-    int nextHeading = changelogText.indexOf("## [", firstHeading+1)
-    String recentChangelogText = changelogText.substring(firstHeading,nextHeading)
+    int nextHeading = changelogText.indexOf("## [", firstHeading + 1)
+    String recentChangelogText = changelogText.substring(firstHeading, nextHeading)
 
     debugMode = false
     token = System.getenv("MODRINTH_TOKEN")
@@ -209,10 +210,10 @@ modrinth {
     }
 }
 
-task publishCurseForge(type: net.darkhax.curseforgegradle.TaskPublishCurseForge){
+task publishCurseForge(type: net.darkhax.curseforgegradle.TaskPublishCurseForge) {
     int firstHeading = changelogText.indexOf("## [")
-    int nextHeading = changelogText.indexOf("## [", firstHeading+1)
-    String recentChangelogText = changelogText.substring(firstHeading,nextHeading)
+    int nextHeading = changelogText.indexOf("## [", firstHeading + 1)
+    String recentChangelogText = changelogText.substring(firstHeading, nextHeading)
 
     debugMode = false
     disableVersionDetection()
