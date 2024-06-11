@@ -9,7 +9,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 ### Added
 
 - Added option to color the season text based on the current season.
-  - This can be disabled and edited in the menu (Default key H) or through the config.
+    - This can be disabled and edited in the menu (Default key H) or through the config.
 
 ## [1.8.2] - 2024-05-28
 

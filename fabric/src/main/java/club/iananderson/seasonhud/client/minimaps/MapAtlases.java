@@ -37,7 +37,7 @@ public class MapAtlases implements HudRenderCallback {
   }
 
   public static void drawScaledComponent(GuiGraphics context, Font font, int x, int y, MutableComponent text,
-                                         float textScaling, int maxWidth, int targetWidth) {
+      float textScaling, int maxWidth, int targetWidth) {
     PoseStack pose = context.pose();
     float textWidth = (float) font.width(text);
 
@@ -53,16 +53,15 @@ public class MapAtlases implements HudRenderCallback {
   }
 
   public static void drawMapComponentSeason(GuiGraphics poseStack, Font font, int x, int y, int targetWidth,
-                                            float textScaling) {
+      float textScaling) {
     if (minimapLoaded("map_atlases")) {
       MutableComponent seasonCombined = Component.translatable("desc.seasonhud.combined",
-                                                               getSeasonHudName().get(0).copy().withStyle(SEASON_STYLE),
-                                                               getSeasonHudName().get(1).copy());
+          getSeasonHudName().get(0).copy().withStyle(SEASON_STYLE), getSeasonHudName().get(1).copy());
 
       float globalScale = (float) (double) MapAtlasesClientConfig.miniMapScale.get();
       //String seasonToDisplay = getSeasonHudName().get(0).getString();
       drawScaledComponent(poseStack, font, x, y, seasonCombined, textScaling / globalScale, targetWidth,
-                          (int) (targetWidth / globalScale));
+          (int) (targetWidth / globalScale));
     }
   }
 
@@ -143,7 +142,7 @@ public class MapAtlases implements HudRenderCallback {
         }
 
         drawMapComponentSeason(seasonStack, font, x, (int) (y + BG_SIZE + (textHeightOffset / globalScale)),
-                               actualBgSize, textScaling);
+            actualBgSize, textScaling);
         seasonStack.pose().popPose();
       }
     }

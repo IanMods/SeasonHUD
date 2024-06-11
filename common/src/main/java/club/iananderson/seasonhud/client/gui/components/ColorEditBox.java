@@ -107,8 +107,7 @@ public class ColorEditBox extends EditBox {
       SEASON_FORMAT = Style.EMPTY.withColor(this.newSeasonColor);
     }
 
-    Component icon = Component.translatable("desc.seasonhud.icon", seasonIcon)
-        .withStyle(SEASON_STYLE);
+    Component icon = Component.translatable("desc.seasonhud.icon", seasonIcon).withStyle(SEASON_STYLE);
     Component season = Component.translatable("desc.seasonhud.summary",
         Component.translatable("desc.seasonhud." + seasonFileName)).withStyle(SEASON_FORMAT);
 
@@ -116,23 +115,19 @@ public class ColorEditBox extends EditBox {
     int scaledWidth = mc.getWindow().getGuiScaledWidth();
 
     if (this.boxSeason == SeasonList.DRY && (scaledWidth < widgetTotalSize)) {
-      season = Component.translatable("menu.seasonhud.color.editbox.dryColor")
-          .withStyle(SEASON_FORMAT);
+      season = Component.translatable("menu.seasonhud.color.editbox.dryColor").withStyle(SEASON_FORMAT);
     }
 
     if (this.boxSeason == SeasonList.WET && (scaledWidth < widgetTotalSize)) {
-      season = Component.translatable("menu.seasonhud.color.editbox.wetColor")
-          .withStyle(SEASON_FORMAT);
+      season = Component.translatable("menu.seasonhud.color.editbox.wetColor").withStyle(SEASON_FORMAT);
     }
 
-    MutableComponent seasonCombined = Component.translatable("desc.seasonhud.combined", icon,
-        season);
+    MutableComponent seasonCombined = Component.translatable("desc.seasonhud.combined", icon, season);
 
     graphics.pose().pushPose();
     float scale = 1;
     graphics.pose().scale(scale, scale, 1);
-    graphics.drawCenteredString(mc.font, seasonCombined,
-        (int) ((getX() + this.getWidth() / 2) / scale),
+    graphics.drawCenteredString(mc.font, seasonCombined, (int) ((getX() + this.getWidth() / 2) / scale),
         (int) ((getY() - mc.font.lineHeight - PADDING) / scale), 0xffffff);
     graphics.pose().popPose();
 
