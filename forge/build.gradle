@@ -100,10 +100,14 @@ dependencies {
 //    compileOnly "curse.maven:xaeros-minimap-fair-play-edition-263466:${project.xaeros_fairplay_forge_file_id}"
 
     /FTB Chunks/
-    compileOnly "curse.maven:ftb-library-forge-404465:${project.ftb_lib_forge_file_id}" //FTB Library
-    compileOnly "curse.maven:architectury-api-419699:${project.architectury_forge_file_id}" //Architectury
-    compileOnly "curse.maven:ftb-teams-forge-404468:${project.ftb_teams_forge_file_id}" //FTB Teams
-    compileOnly "curse.maven:ftb-chunks-forge-314906:${project.ftb_chunks_forge_file_id}" //FTB Chunks
+    compileOnly "curse.maven:ftb-library-forge-404465:${project.ftb_lib_forge_file_id}"
+    //FTB Library
+    compileOnly "curse.maven:architectury-api-419699:${project.architectury_forge_file_id}"
+    //Architectury
+    compileOnly "curse.maven:ftb-teams-forge-404468:${project.ftb_teams_forge_file_id}"
+    //FTB Teams
+    compileOnly "curse.maven:ftb-chunks-forge-314906:${project.ftb_chunks_forge_file_id}"
+    //FTB Chunks
 
     /JourneyMap/
     compileOnly "curse.maven:journeymap-32274:${project.journeymap_forge_file_id}"
@@ -134,8 +138,8 @@ String changelogText = projectDir.toPath().getParent().resolve("CHANGELOG.md").g
 
 modrinth {
     int firstHeading = changelogText.indexOf("## [")
-    int nextHeading = changelogText.indexOf("## [", firstHeading+1)
-    String recentChangelogText = changelogText.substring(firstHeading,nextHeading)
+    int nextHeading = changelogText.indexOf("## [", firstHeading + 1)
+    String recentChangelogText = changelogText.substring(firstHeading, nextHeading)
 
     debugMode = false
     token = System.getenv("MODRINTH_TOKEN")
@@ -162,10 +166,10 @@ modrinth {
     }
 }
 
-task publishCurseForge(type: net.darkhax.curseforgegradle.TaskPublishCurseForge){
+task publishCurseForge(type: net.darkhax.curseforgegradle.TaskPublishCurseForge) {
     int firstHeading = changelogText.indexOf("## [")
-    int nextHeading = changelogText.indexOf("## [", firstHeading+1)
-    String recentChangelogText = changelogText.substring(firstHeading,nextHeading)
+    int nextHeading = changelogText.indexOf("## [", firstHeading + 1)
+    String recentChangelogText = changelogText.substring(firstHeading, nextHeading)
 
     debugMode = false
     disableVersionDetection()

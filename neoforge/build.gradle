@@ -44,7 +44,6 @@ dependencies {
     implementation 'com.github.glitchfiend:GlitchCore-neoforge:' + minecraft_version + '-' + glitchcore_version
 
     /Curios/
-//    runtimeOnly "top.theillusivec4.curios:curios-neoforge:${project.curios_file_id}
     compileOnly "top.theillusivec4.curios:curios-neoforge:${project.curios_file_id}:api"
 
     /Xaero's Minimap/
@@ -73,8 +72,8 @@ String changelogText = projectDir.toPath().getParent().resolve("CHANGELOG.md").g
 
 modrinth {
     int firstHeading = changelogText.indexOf("## [")
-    int nextHeading = changelogText.indexOf("## [", firstHeading+1)
-    String recentChangelogText = changelogText.substring(firstHeading,nextHeading)
+    int nextHeading = changelogText.indexOf("## [", firstHeading + 1)
+    String recentChangelogText = changelogText.substring(firstHeading, nextHeading)
 
     debugMode = false
     token = System.getenv("MODRINTH_TOKEN")
@@ -100,10 +99,10 @@ modrinth {
     }
 }
 
-task publishCurseForge(type: net.darkhax.curseforgegradle.TaskPublishCurseForge){
+task publishCurseForge(type: net.darkhax.curseforgegradle.TaskPublishCurseForge) {
     int firstHeading = changelogText.indexOf("## [")
-    int nextHeading = changelogText.indexOf("## [", firstHeading+1)
-    String recentChangelogText = changelogText.substring(firstHeading,nextHeading)
+    int nextHeading = changelogText.indexOf("## [", firstHeading + 1)
+    String recentChangelogText = changelogText.substring(firstHeading, nextHeading)
 
     debugMode = false
     disableVersionDetection()

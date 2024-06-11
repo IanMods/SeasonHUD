@@ -4,6 +4,7 @@ import club.iananderson.seasonhud.Common;
 import club.iananderson.seasonhud.SeasonHUD;
 import club.iananderson.seasonhud.client.KeyBindings;
 import club.iananderson.seasonhud.client.SeasonHUDOverlay;
+import club.iananderson.seasonhud.client.gui.screens.SeasonHUDScreen;
 import club.iananderson.seasonhud.client.minimaps.JourneyMap;
 import club.iananderson.seasonhud.client.minimaps.MapAtlases;
 import net.neoforged.api.distmarker.Dist;
@@ -15,7 +16,7 @@ import net.neoforged.neoforge.client.event.RegisterKeyMappingsEvent;
 import net.neoforged.neoforge.client.gui.VanillaGuiLayers;
 
 @EventBusSubscriber(value = Dist.CLIENT, modid = SeasonHUD.MODID, bus = EventBusSubscriber.Bus.GAME)
-public class ClientEvents{
+public class ClientEvents {
 
     @EventBusSubscriber(value = Dist.CLIENT, modid = SeasonHUD.MODID, bus = EventBusSubscriber.Bus.MOD)
     public static class ModBus {
@@ -25,14 +26,14 @@ public class ClientEvents{
             event.register(KeyBindings.seasonhudOptionsKeyMapping);
         }
 
-        //Overlays
-        @SubscribeEvent
-        public static void registerOverlay(RegisterGuiLayersEvent event) {
-            event.registerAbove(VanillaGuiLayers.CAMERA_OVERLAYS, Common.location("seasonhud"),new SeasonHUDOverlay());
-            event.registerAbove(VanillaGuiLayers.CAMERA_OVERLAYS,Common.location("journeymap"),new JourneyMap());
-            event.registerAbove(VanillaGuiLayers.CAMERA_OVERLAYS,Common.location("mapatlases"),new MapAtlases());
-        }
+    //Overlays
+    @SubscribeEvent
+    public static void registerOverlay(RegisterGuiLayersEvent event) {
+      event.registerAbove(VanillaGuiLayers.CAMERA_OVERLAYS, Common.location("seasonhud"), new SeasonHUDOverlay());
+      event.registerAbove(VanillaGuiLayers.CAMERA_OVERLAYS, Common.location("journeymap"), new JourneyMap());
+      event.registerAbove(VanillaGuiLayers.CAMERA_OVERLAYS, Common.location("mapatlases"), new MapAtlases());
     }
+  }
 
     @SubscribeEvent
     public static void onKeyInput(InputEvent.Key Event) {

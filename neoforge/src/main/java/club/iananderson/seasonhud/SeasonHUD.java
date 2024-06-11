@@ -10,21 +10,20 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 @Mod(SeasonHUD.MODID)
-public class  SeasonHUD{
+public class SeasonHUD {
 
-    public static final String MODID = "seasonhud";
-    public static final Logger LOGGER = LogManager.getLogger("seasonhud");
+  public static final String MODID = "seasonhud";
+  public static final Logger LOGGER = LogManager.getLogger("seasonhud");
 
-    public SeasonHUD(IEventBus modEventBus) {
-        modEventBus.addListener(this::commonSetup);
+  public SeasonHUD(IEventBus modEventBus) {
+    modEventBus.addListener(this::commonSetup);
 
-        Common.init();
+    Common.init();
 
-        ModLoadingContext.get().registerConfig(ModConfig.Type.CLIENT, Config.GENERAL_SPEC,
-                "SeasonHUD-client.toml");
-    }
+    ModLoadingContext.get().registerConfig(ModConfig.Type.CLIENT, Config.GENERAL_SPEC, "SeasonHUD-client.toml");
+  }
 
-    private void commonSetup(final FMLCommonSetupEvent event) {
+  private void commonSetup(final FMLCommonSetupEvent event) {
 //        CuriosApi.registerCurio(Calendar.calendar,new CuriosCalendar());
-    }
+  }
 }
