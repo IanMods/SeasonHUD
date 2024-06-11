@@ -1,5 +1,10 @@
 package club.iananderson.seasonhud.client.minimaps;
 
+import static club.iananderson.seasonhud.Common.SEASON_STYLE;
+import static club.iananderson.seasonhud.client.SeasonHUDClient.mc;
+import static club.iananderson.seasonhud.impl.minimaps.CurrentMinimap.minimapLoaded;
+import static club.iananderson.seasonhud.impl.seasons.CurrentSeason.getSeasonHudName;
+
 import club.iananderson.seasonhud.config.Config;
 import com.mojang.blaze3d.vertex.PoseStack;
 import net.fabricmc.fabric.api.client.rendering.v1.HudRenderCallback;
@@ -13,13 +18,9 @@ import pepjebs.mapatlases.utils.MapAtlasesAccessUtils;
 
 import java.util.Arrays;
 
-import static club.iananderson.seasonhud.Common.SEASON_STYLE;
-import static club.iananderson.seasonhud.client.SeasonHUDClient.mc;
-import static club.iananderson.seasonhud.impl.minimaps.CurrentMinimap.minimapLoaded;
-import static club.iananderson.seasonhud.impl.seasons.CurrentSeason.getSeasonHudName;
-
 public class MapAtlases implements HudRenderCallback {
-    public static MapAtlases HUD_INSTANCE;
+
+  public static MapAtlases HUD_INSTANCE;
 
     public static void init() {
         HUD_INSTANCE = new MapAtlases();
@@ -29,29 +30,29 @@ public class MapAtlases implements HudRenderCallback {
     private static final Minecraft mc = Minecraft.getInstance();
 
     public static void drawScaledText(PoseStack poseStack, float x, float y, MutableComponent text, float textScaling, int originOffsetWidth, int originOffsetHeight) {
-        float textWidth = (float) mc.font.width(text) * textScaling;
+    float textWidth = (float) mc.font.width(text) * textScaling;
         float textX = (float) ((double) x + (double) originOffsetWidth / 2.0 - (double) textWidth / 2.0);
         float textY = (float) (y + originOffsetHeight);
-        if (textX + textWidth >= (float) mc.getWindow().getGuiScaledWidth()) {
+    if (textX + textWidth >= (float) mc.getWindow().getGuiScaledWidth()) {
             textX = (float) mc.getWindow().getGuiScaledWidth() - textWidth;
         }
 
         poseStack.pushPose();
-        poseStack.translate(textX, textY, 5.0F);
-        poseStack.scale(textScaling, textScaling, 1.0F);
-        mc.font.draw(poseStack, text, 1.0F, 1.0F, Integer.parseInt("595959", 16));
-        mc.font.draw(poseStack, text, 0.0F, 0.0F, Integer.parseInt("E0E0E0", 16));
-        poseStack.popPose();
-    }
+    poseStack.translate(textX, textY, 5.0F);
+    poseStack.scale(textScaling, textScaling, 1.0F);
+    mc.font.draw(poseStack, text, 1.0F, 1.0F, Integer.parseInt("595959", 16));
+    mc.font.draw(poseStack, text, 0.0F, 0.0F, Integer.parseInt("E0E0E0", 16));
+    poseStack.popPose();
+  }
 
-    public static void drawMapComponentSeason(PoseStack poseStack, int x, int y, int originOffsetWidth, int originOffsetHeight, float textScaling) {
+  public static void drawMapComponentSeason(PoseStack poseStack, int x, int y, int originOffsetWidth, int originOffsetHeight, float textScaling) {
         if (minimapLoaded("map_atlases")) {
             MutableComponent seasonCombined = Component.translatable("desc.seasonhud.combined",
                     getSeasonHudName().get(0).copy().withStyle(SEASON_STYLE),
                     getSeasonHudName().get(1).copy());
             drawScaledText(poseStack, x, y, seasonCombined, textScaling, originOffsetWidth, originOffsetHeight);
-        }
     }
+  }
 
     public static boolean shouldDraw(Minecraft mc) {
         if (minimapLoaded("map_atlases")) {
@@ -76,8 +77,8 @@ public class MapAtlases implements HudRenderCallback {
         } else return false;
     }
 
-    @Override
-    public void onHudRender(PoseStack seasonStack, float alpha) {
+  @Override
+  public void onHudRender(PoseStack seasonStack, float alpha) {
         if (minimapLoaded("map_atlases")) {
             if (mc.level != null && mc.player != null) {
                 int mapBgScaledSize = (int) Math.floor(0.2 * (double) mc.getWindow().getGuiScaledHeight());
@@ -109,7 +110,7 @@ public class MapAtlases implements HudRenderCallback {
                         textHeightOffset = MapAtlasesMod.CONFIG.activePotionVerticalOffset;
                     }
 
-                    if (hasNegative && y < 2 * textHeightOffset) {
+              if (hasNegative && y < 2 * textHeightOffset) {
                         y += 2 * textHeightOffset - y;
                     } else if (hasBeneficial && y < textHeightOffset) {
                         y += textHeightOffset - y;
@@ -118,7 +119,7 @@ public class MapAtlases implements HudRenderCallback {
 
                 if (Config.enableMod.get() && shouldDraw(mc)) {
                     float textScaling = MapAtlasesMod.CONFIG.minimapCoordsAndBiomeScale;
-                    textHeightOffset = mapBgScaledSize + 4;
+          textHeightOffset = mapBgScaledSize + 4;
                     if (anchorLocation.contains("Lower")) {
                         textHeightOffset = (int) (-24.0F * textScaling);
                     }
@@ -132,8 +133,8 @@ public class MapAtlases implements HudRenderCallback {
                     }
 
                     drawMapComponentSeason(seasonStack, x, y, mapBgScaledSize, textHeightOffset, textScaling);
-                }
-            }
         }
+      }
     }
+  }
 }
