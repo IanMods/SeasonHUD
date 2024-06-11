@@ -43,8 +43,8 @@ ordering = "AFTER"
 side = "CLIENT"
 
 [[dependencies.seasonhud]]
-    modId = "ftbchunks"
-    mandatory = false
-    versionRange = "[1902.3.22-build.271,)"
-    ordering = "AFTER"
-    side = "CLIENT"
+modId = "ftbchunks"
+mandatory = false
+versionRange = "[1902.3.22-build.271,)"
+ordering = "AFTER"
+side = "CLIENT"

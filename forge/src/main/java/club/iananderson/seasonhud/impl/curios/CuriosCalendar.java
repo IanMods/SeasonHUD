@@ -18,8 +18,8 @@ import top.theillusivec4.curios.api.type.capability.ICurioItem;
 public class CuriosCalendar implements ICurioItem {
 
   public static void registerSlots() {
-    InterModComms.sendTo("curios", SlotTypeMessage.REGISTER_TYPE, () -> SlotTypePreset.CHARM.getMessageBuilder()
-                                                                                            .build());  //new SlotTypeMessage.Builder("calendar").build());
+    InterModComms.sendTo("curios", SlotTypeMessage.REGISTER_TYPE,
+        () -> SlotTypePreset.CHARM.getMessageBuilder().build());  //new SlotTypeMessage.Builder("calendar").build());
   }
 
   public static ICapabilityProvider initCapabilities() {

@@ -28,8 +28,7 @@ public class JourneyMap implements IGuiOverlay {
 
   private static String getSeason() {
     MutableComponent seasonCombined = Component.translatable("desc.seasonhud.combined",
-                                                             getSeasonHudName().get(0).copy().withStyle(SEASON_STYLE),
-                                                             getSeasonHudName().get(1).copy());
+        getSeasonHudName().get(0).copy().withStyle(SEASON_STYLE), getSeasonHudName().get(1).copy());
 
     return seasonCombined.getString();
   }
@@ -37,8 +36,7 @@ public class JourneyMap implements IGuiOverlay {
   @Override
   public void render(ForgeGui gui, PoseStack seasonStack, float partialTick, int scaledWidth, int scaledHeight) {
     MutableComponent seasonCombined = Component.translatable("desc.seasonhud.combined",
-                                                             getSeasonHudName().get(0).copy().withStyle(SEASON_STYLE),
-                                                             getSeasonHudName().get(1).copy());
+        getSeasonHudName().get(0).copy().withStyle(SEASON_STYLE), getSeasonHudName().get(1).copy());
 
     if (Services.PLATFORM.isModLoaded("journeymap") && !enableMod.get()) {
       ThemeLabelSource.create(Common.MOD_ID, "menu.seasonhud.infodisplay.season", 1000L, 1L, JourneyMap::getSeason);
@@ -70,12 +68,12 @@ public class JourneyMap implements IGuiOverlay {
       boolean fontShadow = currentTheme.shadow;
       int labelHeight = (int) ((DrawUtil.getLabelHeight(fontRenderer, fontShadow) + currentTheme.margin) * fontScale);
 
-      int topLabelHeight = vars.getInfoLabelAreaHeight(fontRenderer, currentTheme, ThemeLabelSource.values.get(
-          jm.getActiveMiniMapProperties().info1Label.get()), ThemeLabelSource.values.get(
-          jm.getActiveMiniMapProperties().info2Label.get()));
-      int bottomLabelHeight = vars.getInfoLabelAreaHeight(fontRenderer, currentTheme, ThemeLabelSource.values.get(
-          jm.getActiveMiniMapProperties().info3Label.get()), ThemeLabelSource.values.get(
-          jm.getActiveMiniMapProperties().info4Label.get()));
+      int topLabelHeight = vars.getInfoLabelAreaHeight(fontRenderer, currentTheme,
+          ThemeLabelSource.values.get(jm.getActiveMiniMapProperties().info1Label.get()),
+          ThemeLabelSource.values.get(jm.getActiveMiniMapProperties().info2Label.get()));
+      int bottomLabelHeight = vars.getInfoLabelAreaHeight(fontRenderer, currentTheme,
+          ThemeLabelSource.values.get(jm.getActiveMiniMapProperties().info3Label.get()),
+          ThemeLabelSource.values.get(jm.getActiveMiniMapProperties().info4Label.get()));
 
       int margin = ThemeLoader.getCurrentTheme().minimap.square.margin;
 
@@ -99,8 +97,8 @@ public class JourneyMap implements IGuiOverlay {
         DrawUtil.sizeDisplay(seasonStack, screenWidth, screenHeight);
         seasonStack.popPose();
         DrawUtil.drawBatchLabel(seasonStack, seasonCombined, mc.renderBuffers().bufferSource(), labelX, labelY,
-                                DrawUtil.HAlign.Center, DrawUtil.VAlign.Below, labelColor, labelAlpha, textColor,
-                                textAlpha, fontScale, fontShadow);
+            DrawUtil.HAlign.Center, DrawUtil.VAlign.Below, labelColor, labelAlpha, textColor, textAlpha, fontScale,
+            fontShadow);
         mc.renderBuffers().bufferSource().endBatch();
         DrawUtil.sizeDisplay(seasonStack, scaledWidth, scaledHeight);
       }

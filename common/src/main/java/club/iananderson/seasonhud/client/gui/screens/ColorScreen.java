@@ -4,6 +4,8 @@ import static club.iananderson.seasonhud.client.SeasonHUDClient.mc;
 
 import club.iananderson.seasonhud.client.gui.components.ColorButton;
 import club.iananderson.seasonhud.client.gui.components.ColorEditBox;
+import club.iananderson.seasonhud.client.gui.components.MenuButton;
+import club.iananderson.seasonhud.client.gui.components.MenuButton.MenuButtons;
 import club.iananderson.seasonhud.client.gui.components.sliders.BlueSlider;
 import club.iananderson.seasonhud.client.gui.components.sliders.GreenSlider;
 import club.iananderson.seasonhud.client.gui.components.sliders.RedSlider;
@@ -12,16 +14,15 @@ import club.iananderson.seasonhud.config.Config;
 import club.iananderson.seasonhud.impl.seasons.SeasonList;
 import club.iananderson.seasonhud.platform.Services;
 import club.iananderson.seasonhud.util.Rgb;
+import com.mojang.blaze3d.vertex.PoseStack;
 import java.util.ArrayList;
 import java.util.EnumSet;
 import java.util.List;
-import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.components.AbstractWidget;
 import net.minecraft.client.gui.components.Button;
 import net.minecraft.client.gui.components.CycleButton;
 import net.minecraft.client.gui.components.EditBox;
 import net.minecraft.client.gui.screens.Screen;
-import net.minecraft.network.chat.CommonComponents;
 import net.minecraft.network.chat.Component;
 import org.jetbrains.annotations.NotNull;
 
@@ -176,26 +177,25 @@ public class ColorScreen extends Screen {
     //Buttons
     seasonNameColorButton = CycleButton.onOffBuilder(Config.enableSeasonNameColor.get())
                                        .create(BUTTON_X_LEFT, MENU_PADDING_FULL, BUTTON_WIDTH, BUTTON_HEIGHT,
-                                               ENABLE_SEASON_NAME_COLOR,
-                                               (b, enableColor) -> Config.setEnableSeasonNameColor(enableColor));
+                                           ENABLE_SEASON_NAME_COLOR,
+                                           (b, enableColor) -> Config.setEnableSeasonNameColor(enableColor));
     this.widgets.add(seasonNameColorButton);
 
-    doneButton = Button.builder(CommonComponents.GUI_DONE, button -> onDone())
-                       .bounds(BUTTON_X_LEFT, (getHeight() - BUTTON_HEIGHT - WIDGET_PADDING), BUTTON_WIDTH,
-                               BUTTON_HEIGHT).build();
+    doneButton = new MenuButton(BUTTON_X_LEFT, (getHeight() - BUTTON_HEIGHT - WIDGET_PADDING), MenuButtons.DONE,
+        button -> this.onDone());
     this.widgets.add(doneButton);
 
-    cancelButton = Button.builder(CommonComponents.GUI_CANCEL, button -> this.onCancel())
-                         .bounds(BUTTON_X_RIGHT, (getHeight() - BUTTON_HEIGHT - WIDGET_PADDING), BUTTON_WIDTH,
-                                 BUTTON_HEIGHT).build();
+    cancelButton = new MenuButton(BUTTON_X_RIGHT, (getHeight() - BUTTON_HEIGHT - WIDGET_PADDING), MenuButtons.CANCEL,
+        button -> this.onCancel());
     this.widgets.add(cancelButton);
+
     this.widgets.forEach(this::addRenderableWidget);
   }
 
   @Override
-  public void render(@NotNull GuiGraphics graphics, int mouseX, int mouseY, float partialTicks) {
+  public void render(@NotNull PoseStack graphics, int mouseX, int mouseY, float partialTicks) {
     this.renderBackground(graphics);
-    graphics.drawCenteredString(font, TITLE, getWidth() / 2, WIDGET_PADDING, 16777215);
+    drawCenteredString(graphics, font, TITLE, getWidth() / 2, WIDGET_PADDING, 16777215);
     super.render(graphics, mouseX, mouseY, partialTicks);
   }
 }

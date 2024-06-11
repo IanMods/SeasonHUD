@@ -2,8 +2,8 @@ package club.iananderson.seasonhud.client.gui.components;
 
 import club.iananderson.seasonhud.impl.seasons.SeasonList;
 import club.iananderson.seasonhud.util.Rgb;
+import com.mojang.blaze3d.vertex.PoseStack;
 import java.util.HashMap;
-import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.components.Button;
 import net.minecraft.network.chat.Component;
 import org.jetbrains.annotations.NotNull;
@@ -15,7 +15,7 @@ public class ColorButton extends Button {
   private int defaultColor;
 
   private ColorButton(int x, int y, int width, int height, Component component, OnPress onPress) {
-    super(x, y, width, height, component, onPress, DEFAULT_NARRATION);
+    super(x, y, width, height, component, onPress);
   }
 
   public ColorButton(int x, int y, SeasonList season, ColorEditBox colorEditBox, OnPress onPress) {
@@ -41,7 +41,7 @@ public class ColorButton extends Button {
   }
 
   @Override
-  public void render(@NotNull GuiGraphics graphics, int mouseX, int mouseY, float partialTicks) {
+  public void render(@NotNull PoseStack graphics, int mouseX, int mouseY, float partialTicks) {
     refresh();
     String boxValue = this.colorEditBox.getValue();
 

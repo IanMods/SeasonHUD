@@ -1,7 +1,6 @@
 package club.iananderson.seasonhud.client.minimaps;
 
 import static club.iananderson.seasonhud.Common.SEASON_STYLE;
-import static club.iananderson.seasonhud.client.SeasonHUDClient.mc;
 import static club.iananderson.seasonhud.impl.seasons.CurrentSeason.getSeasonHudName;
 
 import club.iananderson.seasonhud.config.Config;
@@ -22,20 +21,22 @@ import pepjebs.mapatlases.config.MapAtlasesClientConfig;
 
 public class MapAtlases implements IGuiOverlay {
 
+  private static final Minecraft mc = Minecraft.getInstance();
   protected final int BG_SIZE = 64;
-    private static final Minecraft mc = Minecraft.getInstance();
 
-  private static void drawStringWithLighterShadow(PoseStack poseStack, Font font, MutableComponent text, float x, float y) {
+  private static void drawStringWithLighterShadow(PoseStack poseStack, Font font, MutableComponent text, float x,
+      float y) {
     mc.font.draw(poseStack, text, x + 1.0F, y + 1.0F, 5855577);
     mc.font.draw(poseStack, text, x, y, 14737632);
   }
 
-  public static void drawScaledComponent(PoseStack context, Font font, int x, int y, MutableComponent text, float textScaling, int maxWidth, int targetWidth) {
-        float textWidth = (float)font.width(text);
-        float scale = Math.min(1.0F, (float)maxWidth * textScaling / textWidth);
-        scale *= textScaling;
-        float centerX = (float)x + (float)targetWidth / 2.0F;
-        context.pushPose();
+  public static void drawScaledComponent(PoseStack context, Font font, int x, int y, MutableComponent text,
+      float textScaling, int maxWidth, int targetWidth) {
+    float textWidth = (float) font.width(text);
+    float scale = Math.min(1.0F, (float) maxWidth * textScaling / textWidth);
+    scale *= textScaling;
+    float centerX = (float) x + (float) targetWidth / 2.0F;
+    context.pushPose();
     context.translate(centerX, (float) (y + 4), 5.0F);
     context.scale(scale, scale, 1.0F);
     context.translate(-textWidth / 2.0F, -4.0F, 0.0F);
@@ -44,15 +45,14 @@ public class MapAtlases implements IGuiOverlay {
   }
 
   public static void drawMapComponentSeason(PoseStack poseStack, Font font, int x, int y, int targetWidth,
-                                            float textScaling) {
+      float textScaling) {
     if (CurrentMinimap.minimapLoaded("map_atlases")) {
       MutableComponent seasonCombined = Component.translatable("desc.seasonhud.combined",
-                                                               getSeasonHudName().get(0).copy().withStyle(SEASON_STYLE),
-                                                               getSeasonHudName().get(1).copy());
+          getSeasonHudName().get(0).copy().withStyle(SEASON_STYLE), getSeasonHudName().get(1).copy());
 
       float globalScale = (float) (double) MapAtlasesClientConfig.miniMapScale.get();
       drawScaledComponent(poseStack, font, x, y, seasonCombined, textScaling / globalScale, targetWidth,
-                          (int) (targetWidth / globalScale));
+          (int) (targetWidth / globalScale));
     }
   }
 
@@ -130,7 +130,7 @@ public class MapAtlases implements IGuiOverlay {
         }
 
         drawMapComponentSeason(seasonStack, font, (int) (x), (int) (y + BG_SIZE + (textHeightOffset / globalScale)),
-                               actualBgSize, textScaling);
+            actualBgSize, textScaling);
         seasonStack.popPose();
       }
     }
