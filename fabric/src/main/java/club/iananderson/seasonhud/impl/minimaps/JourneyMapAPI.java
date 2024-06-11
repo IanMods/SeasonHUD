@@ -56,7 +56,7 @@ public class JourneyMapAPI implements IClientPlugin {
     this.jmAPI = jmAPI;
 
     jmAPI.subscribe(getModId(),
-                    EnumSet.of(MAPPING_STARTED, MAPPING_STOPPED, MAP_CLICKED, MAP_DRAGGED, MAP_MOUSE_MOVED, REGISTRY));
+        EnumSet.of(MAPPING_STARTED, MAPPING_STOPPED, MAP_CLICKED, MAP_DRAGGED, MAP_MOUSE_MOVED, REGISTRY));
   }
 
   @Override

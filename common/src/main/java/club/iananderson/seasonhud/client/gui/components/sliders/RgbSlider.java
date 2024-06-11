@@ -110,9 +110,9 @@ public class RgbSlider extends AbstractSliderButton {
   public void renderWidget(@NotNull GuiGraphics graphics, int mouseX, int mouseY, float partialTick) {
 
     DrawUtil.blitWithBorder(graphics, SLIDER_LOCATION, this.getX(), this.getY(), 0, this.getTextureY(), this.width,
-                            this.height, 200, 20, 2, 3, 2, 2);
+        this.height, 200, 20, 2, 3, 2, 2);
     DrawUtil.blitWithBorder(graphics, SLIDER_LOCATION, this.getX() + (int) (this.value * (double) (this.width - 8)),
-                            this.getY(), 0, this.getHandleTextureY(), 8, this.height, 200, 20, 2, 3, 2, 2);
+        this.getY(), 0, this.getHandleTextureY(), 8, this.height, 200, 20, 2, 3, 2, 2);
     this.renderScrollingString(graphics, mc.font, 2, this.getFGColor() | Mth.ceil(this.alpha * 255.0F) << 24);
   }
 }

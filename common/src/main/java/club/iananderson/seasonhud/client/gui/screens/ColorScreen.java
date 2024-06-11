@@ -176,18 +176,18 @@ public class ColorScreen extends Screen {
     //Buttons
     seasonNameColorButton = CycleButton.onOffBuilder(Config.enableSeasonNameColor.get())
                                        .create(BUTTON_X_LEFT, MENU_PADDING_FULL, BUTTON_WIDTH, BUTTON_HEIGHT,
-                                               ENABLE_SEASON_NAME_COLOR,
-                                               (b, enableColor) -> Config.setEnableSeasonNameColor(enableColor));
+                                           ENABLE_SEASON_NAME_COLOR,
+                                           (b, enableColor) -> Config.setEnableSeasonNameColor(enableColor));
     this.widgets.add(seasonNameColorButton);
 
     doneButton = Button.builder(CommonComponents.GUI_DONE, button -> onDone())
                        .bounds(BUTTON_X_LEFT, (getHeight() - BUTTON_HEIGHT - WIDGET_PADDING), BUTTON_WIDTH,
-                               BUTTON_HEIGHT).build();
+                           BUTTON_HEIGHT).build();
     this.widgets.add(doneButton);
 
     cancelButton = Button.builder(CommonComponents.GUI_CANCEL, button -> this.onCancel())
                          .bounds(BUTTON_X_RIGHT, (getHeight() - BUTTON_HEIGHT - WIDGET_PADDING), BUTTON_WIDTH,
-                                 BUTTON_HEIGHT).build();
+                             BUTTON_HEIGHT).build();
     this.widgets.add(cancelButton);
     this.widgets.forEach(this::addRenderableWidget);
   }
