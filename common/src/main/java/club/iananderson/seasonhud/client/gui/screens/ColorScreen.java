@@ -19,7 +19,6 @@ import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.components.AbstractWidget;
 import net.minecraft.client.gui.components.Button;
 import net.minecraft.client.gui.components.CycleButton;
-import net.minecraft.client.gui.components.EditBox;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.network.chat.CommonComponents;
 import net.minecraft.network.chat.Component;
@@ -79,7 +78,6 @@ public class ColorScreen extends Screen {
 
   @Override
   public void tick() {
-    seasonBoxes.forEach(EditBox::tick);
     super.tick();
   }
 
@@ -194,7 +192,7 @@ public class ColorScreen extends Screen {
 
   @Override
   public void render(@NotNull GuiGraphics graphics, int mouseX, int mouseY, float partialTicks) {
-    this.renderBackground(graphics);
+    this.renderBackground(graphics, mouseX, mouseY, partialTicks);
     graphics.drawCenteredString(font, TITLE, getWidth() / 2, WIDGET_PADDING, 16777215);
     super.render(graphics, mouseX, mouseY, partialTicks);
   }

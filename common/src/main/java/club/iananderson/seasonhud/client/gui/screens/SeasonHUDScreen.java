@@ -52,7 +52,7 @@ public class SeasonHUDScreen extends Screen {
 
   @Override
   public void render(@NotNull GuiGraphics stack, int mouseX, int mouseY, float partialTicks) {
-    this.renderBackground(stack);
+    this.renderBackground(stack, mouseX, mouseY, partialTicks);
     stack.drawCenteredString(font, TITLE, this.width / 2, PADDING, 16777215);
 
     if (Services.PLATFORM.isModLoaded("journeymap")) {
