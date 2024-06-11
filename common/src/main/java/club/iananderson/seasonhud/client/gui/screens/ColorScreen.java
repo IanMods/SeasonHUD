@@ -10,7 +10,6 @@ import club.iananderson.seasonhud.client.gui.components.sliders.RedSlider;
 import club.iananderson.seasonhud.client.gui.components.sliders.RgbSlider;
 import club.iananderson.seasonhud.config.Config;
 import club.iananderson.seasonhud.impl.seasons.SeasonList;
-import club.iananderson.seasonhud.platform.Services;
 import club.iananderson.seasonhud.util.Rgb;
 import java.util.ArrayList;
 import java.util.EnumSet;
@@ -56,7 +55,7 @@ public class ColorScreen extends Screen {
   private static EnumSet<SeasonList> seasonListSet() {
     EnumSet<SeasonList> set = SeasonList.seasons.clone();
 
-    if (!Config.showTropicalSeason.get() || !Services.PLATFORM.getPlatformName().equals("Forge")) {
+    if (!Config.showTropicalSeason.get()) {
       set.remove(SeasonList.DRY);
       set.remove(SeasonList.WET);
     }
@@ -174,25 +173,24 @@ public class ColorScreen extends Screen {
     //Buttons
     seasonNameColorButton = CycleButton.onOffBuilder(Config.enableSeasonNameColor.get())
                                        .create(BUTTON_X_LEFT, MENU_PADDING_FULL, BUTTON_WIDTH, BUTTON_HEIGHT,
-                                               ENABLE_SEASON_NAME_COLOR,
-                                               (b, enableColor) -> Config.setEnableSeasonNameColor(enableColor));
+                                           ENABLE_SEASON_NAME_COLOR,
+                                           (b, enableColor) -> Config.setEnableSeasonNameColor(enableColor));
     this.widgets.add(seasonNameColorButton);
 
     doneButton = Button.builder(CommonComponents.GUI_DONE, button -> onDone())
                        .bounds(BUTTON_X_LEFT, (getHeight() - BUTTON_HEIGHT - WIDGET_PADDING), BUTTON_WIDTH,
-                               BUTTON_HEIGHT).build();
+                           BUTTON_HEIGHT).build();
     this.widgets.add(doneButton);
 
     cancelButton = Button.builder(CommonComponents.GUI_CANCEL, button -> this.onCancel())
                          .bounds(BUTTON_X_RIGHT, (getHeight() - BUTTON_HEIGHT - WIDGET_PADDING), BUTTON_WIDTH,
-                                 BUTTON_HEIGHT).build();
+                             BUTTON_HEIGHT).build();
     this.widgets.add(cancelButton);
     this.widgets.forEach(this::addRenderableWidget);
   }
 
   @Override
   public void render(@NotNull GuiGraphics graphics, int mouseX, int mouseY, float partialTicks) {
-    this.renderBackground(graphics, mouseX, mouseY, partialTicks);
     graphics.drawCenteredString(font, TITLE, getWidth() / 2, WIDGET_PADDING, 16777215);
     super.render(graphics, mouseX, mouseY, partialTicks);
   }

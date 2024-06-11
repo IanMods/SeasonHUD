@@ -5,8 +5,6 @@ import static club.iananderson.seasonhud.platform.Services.SEASON;
 
 import club.iananderson.seasonhud.config.Config;
 import club.iananderson.seasonhud.config.ShowDay;
-import net.minecraft.network.chat.Component;
-
 import java.util.ArrayList;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.Style;
@@ -64,11 +62,14 @@ public class CurrentSeason {
                                         SEASON.getDate()).withStyle(SEASON_FORMAT));
       }
 
-            case SHOW_WITH_TOTAL_DAYS ->{
-                text.add(Component.translatable("desc.seasonhud.icon",getSeasonIcon(SEASON.getSeasonFileName())).withStyle(SEASON_STYLE));
-                text.add(Component.translatable("desc.seasonhud.detailed.total",Component.translatable("desc.seasonhud." + getSeasonStateLower()), SEASON.getDate(), SEASON.seasonDuration()));
-            }
-        }
+      case SHOW_WITH_TOTAL_DAYS -> {
+        text.add(Component.translatable("desc.seasonhud.icon", getSeasonIcon(SEASON.getSeasonFileName()))
+                          .withStyle(SEASON_STYLE));
+        text.add(Component.translatable("desc.seasonhud.detailed.total",
+                                        Component.translatable("desc.seasonhud." + getSeasonStateLower()),
+                                        SEASON.getDate(), SEASON.seasonDuration()));
+      }
+    }
 
     return text;
   }

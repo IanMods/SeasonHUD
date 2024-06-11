@@ -10,16 +10,10 @@ import static journeymap.client.api.event.ClientEvent.Type.REGISTRY;
 
 import club.iananderson.seasonhud.Common;
 import java.util.EnumSet;
-import javax.annotation.ParametersAreNonnullByDefault;
 import journeymap.client.JourneymapClient;
 import journeymap.client.api.IClientAPI;
 import journeymap.client.api.IClientPlugin;
 import journeymap.client.api.event.ClientEvent;
-
-import java.util.EnumSet;
-
-import static club.iananderson.seasonhud.config.Config.journeyMapAboveMap;
-import static journeymap.client.api.event.ClientEvent.Type.*;
 
 public class JourneyMapAPI implements IClientPlugin {
 

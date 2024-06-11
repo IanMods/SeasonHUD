@@ -40,8 +40,15 @@ public class ColorButton extends Button {
     }
   }
 
+  private void refresh() {
+    HashMap<String, Integer> defaultColors = Rgb.defaultSeasonMap(this.colorEditBox.getSeason());
+    HashMap<String, Integer> currentColors = this.colorEditBox.getSeason().getRgbMap();
+
+    this.active = defaultColors != currentColors;
+  }
+
   @Override
-  public void render(@NotNull GuiGraphics graphics, int mouseX, int mouseY, float partialTicks) {
+  public void renderWidget(@NotNull GuiGraphics graphics, int mouseX, int mouseY, float partialTicks) {
     refresh();
     String boxValue = this.colorEditBox.getValue();
 
@@ -51,13 +58,6 @@ public class ColorButton extends Button {
       }
     }
 
-    super.render(graphics, mouseX, mouseY, partialTicks);
-  }
-
-  private void refresh() {
-    HashMap<String, Integer> defaultColors = Rgb.defaultSeasonMap(this.colorEditBox.getSeason());
-    HashMap<String, Integer> currentColors = this.colorEditBox.getSeason().getRgbMap();
-
-    this.active = defaultColors != currentColors;
+    super.renderWidget(graphics, mouseX, mouseY, partialTicks);
   }
 }

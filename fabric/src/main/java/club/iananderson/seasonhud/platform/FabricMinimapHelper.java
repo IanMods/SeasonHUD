@@ -6,6 +6,7 @@ import club.iananderson.seasonhud.client.minimaps.MapAtlases;
 import club.iananderson.seasonhud.impl.minimaps.CurrentMinimap;
 import club.iananderson.seasonhud.platform.services.IMinimapHelper;
 import dev.ftb.mods.ftbchunks.client.FTBChunksClientConfig;
+import java.util.Objects;
 import journeymap.client.ui.UIManager;
 import net.minecraft.client.Minecraft;
 import net.minecraft.resources.ResourceKey;

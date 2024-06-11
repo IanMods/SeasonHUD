@@ -51,17 +51,15 @@ public class SeasonHUDScreen extends Screen {
   }
 
   @Override
-  public void render(@NotNull GuiGraphics stack, int mouseX, int mouseY, float partialTicks) {
-    this.renderBackground(stack, mouseX, mouseY, partialTicks);
-    stack.drawCenteredString(font, TITLE, this.width / 2, PADDING, 16777215);
+  public void render(@NotNull GuiGraphics graphics, int mouseX, int mouseY, float partialTicks) {
+    graphics.drawCenteredString(font, TITLE, this.width / 2, PADDING, 16777215);
 
     if (Services.PLATFORM.isModLoaded("journeymap")) {
-      stack.drawCenteredString(font, JOURNEYMAP, this.width / 2,
-                               MENU_PADDING_FULL + (6 * (BUTTON_HEIGHT + PADDING)) - (font.lineHeight + PADDING),
-                               16777215);
+      graphics.drawCenteredString(font, JOURNEYMAP, this.width / 2,
+                                  MENU_PADDING_FULL + (6 * (BUTTON_HEIGHT + PADDING)) - (font.lineHeight + PADDING),
+                                  16777215);
     }
-
-    super.render(stack, mouseX, mouseY, partialTicks);
+    super.render(graphics, mouseX, mouseY, partialTicks);
   }
 
   @Override
@@ -112,12 +110,9 @@ public class SeasonHUDScreen extends Screen {
                                                                        (b, Off) -> Config.setShowTropicalSeason(Off));
 
     row += 1;
-    ShowDay[] showDayValuesForge = {ShowDay.NONE, ShowDay.SHOW_DAY, ShowDay.SHOW_WITH_TOTAL_DAYS};
-    ShowDay[] showDayValuesFabric = {ShowDay.NONE, ShowDay.SHOW_DAY, ShowDay.SHOW_WITH_TOTAL_DAYS,
-                                     ShowDay.SHOW_WITH_MONTH};
+    ShowDay[] showDayValues = {ShowDay.NONE, ShowDay.SHOW_DAY, ShowDay.SHOW_WITH_TOTAL_DAYS};
 
-    CycleButton<ShowDay> showDayButton = CycleButton.builder(ShowDay::getDayDisplayName)
-                                                    .withValues(isForge ? showDayValuesForge : showDayValuesFabric)
+    CycleButton<ShowDay> showDayButton = CycleButton.builder(ShowDay::getDayDisplayName).withValues(showDayValues)
                                                     .withInitialValue(showDay.get())
                                                     .create(BUTTON_X_LEFT, (BUTTON_START_Y + (row * y_OFFSET)),
                                                             BUTTON_WIDTH, BUTTON_HEIGHT,

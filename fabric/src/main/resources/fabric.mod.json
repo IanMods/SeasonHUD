@@ -23,20 +23,18 @@
   },
   "mixins": [
     "seasonhud.fabric.mixins.json"
-    ],
-
-    "depends": {
-      "fabricloader": ">=${fabric_loader_version}",
+  ],
+  "depends": {
+    "fabricloader": ">=${fabric_loader_version}",
     "fabric-api": "*",
     "minecraft": "${minecraft_version}",
     "java": ">=17",
     "sereneseasons": ">=9.3.0.13",
-      "fabric-key-binding-api-v1": "*",
-      "forgeconfigapiport": ">=7.0.0"
-    },
-
-    "breaks": {
-      "xaerominimap": "<24.0.0",
+    "fabric-key-binding-api-v1": "*",
+    "forgeconfigapiport": ">=7.0.0"
+  },
+  "breaks": {
+    "xaerominimap": "<24.0.0",
     "map_atlases": "<2.6.1"
   }
 }
