@@ -150,7 +150,6 @@ public class RgbSlider extends AbstractSliderButton {
         this.height, 200, 20, 2, 3, 2, 2);
     DrawUtil.blitWithBorder(graphics, this, SLIDER_LOCATION, this.x + (int) (this.value * (double) (this.width - 8)),
         this.y, 0, this.getHandleTextureY(), 8, this.height, 200, 20, 2, 3, 2, 2);
-
     this.renderScrollingString(graphics, mc.font, 2, this.getFGColor() | Mth.ceil(this.alpha * 255.0F) << 24);
   }
 }
