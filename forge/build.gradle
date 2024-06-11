@@ -124,7 +124,7 @@ dependencies {
     compileOnly fg.deobf("top.theillusivec4.curios:curios-forge:${project.curios_file_id}:api")
 
     /Xaero's Minimap/
-    implementation fg.deobf("curse.maven:xaeros-minimap-263420:${project.xaeros_forge_file_id}")
+    compileOnly fg.deobf("curse.maven:xaeros-minimap-263420:${project.xaeros_forge_file_id}")
 
     /Xaero's Minimap Fair Play/
 //    compileOnly fg.deobf("curse.maven:xaeros-minimap-fair-play-edition-263466:${project.xaeros_fairplay_forge_file_id}")
