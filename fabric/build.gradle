@@ -33,15 +33,15 @@ dependencies {
     modCompileOnly ("dev.onyxstudios.cardinal-components-api:cardinal-components-base:${project.cca_version}")
     modCompileOnly ("dev.onyxstudios.cardinal-components-api:cardinal-components-entity:${project.cca_version}")
 
-    implementation ("com.electronwill.night-config:core:3.6.3")
-    implementation ("com.electronwill.night-config:toml:3.6.3")
+    implementation("com.electronwill.night-config:core:3.6.3")
+    implementation("com.electronwill.night-config:toml:3.6.3")
 
     modApi "fuzs.forgeconfigapiport:forgeconfigapiport-fabric:${project.forgeconfigapiport_version}"
     modImplementation "curse.maven:forge-config-api-port-fabric-547434:${project.forgeconfigapiport_fabric_file_id}"
 
     /JourneyMap/
     modCompileOnlyApi group: 'info.journeymap', name: 'journeymap-api', version: journeymap_api_version_fabric, changing: true
-    modCompileOnly  "curse.maven:journeymap-${project.jm_project_id}:${project.journeymap_fabric_file_id}"
+    modCompileOnly "curse.maven:journeymap-${project.jm_project_id}:${project.journeymap_fabric_file_id}"
 
     /Map Atlases/
     modCompileOnly "maven.modrinth:map-atlases:Cm1VPyWo"
@@ -83,8 +83,8 @@ String changelogText = projectDir.toPath().getParent().resolve("CHANGELOG.md").g
 
 modrinth {
     int firstHeading = changelogText.indexOf("## [")
-    int nextHeading = changelogText.indexOf("## [", firstHeading+1)
-    String recentChangelogText = changelogText.substring(firstHeading,nextHeading)
+    int nextHeading = changelogText.indexOf("## [", firstHeading + 1)
+    String recentChangelogText = changelogText.substring(firstHeading, nextHeading)
 
     debugMode = false
     token = System.getenv("MODRINTH_TOKEN")
@@ -111,10 +111,10 @@ modrinth {
     }
 }
 
-task publishCurseForge(type: net.darkhax.curseforgegradle.TaskPublishCurseForge){
+task publishCurseForge(type: net.darkhax.curseforgegradle.TaskPublishCurseForge) {
     int firstHeading = changelogText.indexOf("## [")
-    int nextHeading = changelogText.indexOf("## [", firstHeading+1)
-    String recentChangelogText = changelogText.substring(firstHeading,nextHeading)
+    int nextHeading = changelogText.indexOf("## [", firstHeading + 1)
+    String recentChangelogText = changelogText.substring(firstHeading, nextHeading)
 
     debugMode = false
     disableVersionDetection()

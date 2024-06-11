@@ -1,5 +1,10 @@
 package club.iananderson.seasonhud.client.minimaps;
 
+import static club.iananderson.seasonhud.Common.SEASON_STYLE;
+import static club.iananderson.seasonhud.client.SeasonHUDClient.mc;
+import static club.iananderson.seasonhud.impl.minimaps.CurrentMinimap.minimapLoaded;
+import static club.iananderson.seasonhud.impl.seasons.CurrentSeason.getSeasonHudName;
+
 import club.iananderson.seasonhud.config.Config;
 import club.iananderson.seasonhud.impl.minimaps.CurrentMinimap;
 import com.mojang.blaze3d.vertex.PoseStack;
@@ -15,11 +20,6 @@ import pepjebs.mapatlases.utils.MapAtlasesAccessUtils;
 
 import java.util.Arrays;
 
-import static club.iananderson.seasonhud.Common.SEASON_STYLE;
-import static club.iananderson.seasonhud.client.SeasonHUDClient.mc;
-import static club.iananderson.seasonhud.impl.minimaps.CurrentMinimap.minimapLoaded;
-import static club.iananderson.seasonhud.impl.seasons.CurrentSeason.getSeasonHudName;
-
 public class MapAtlases implements HudRenderCallback {
 	public static MapAtlases HUD_INSTANCE;
 
@@ -33,8 +33,8 @@ public class MapAtlases implements HudRenderCallback {
 	public static void drawScaledText(GuiGraphics context, int x, int y, MutableComponent text, float textScaling, int originOffsetWidth, int originOffsetHeight) {
 		PoseStack poseStack = context.pose();
 		float textWidth = (float)mc.font.width(text) * textScaling;
-		float textX = (float)((double)x + (double)originOffsetWidth / 2.0 - (double)textWidth / 2.0);
-		float textY = (float)(y + originOffsetHeight);
+		float textX = (float) ((double)x + (double)originOffsetWidth / 2.0 - (double)textWidth / 2.0);
+		float textY = (float) (y + originOffsetHeight);
 		if (textX + textWidth >= (float)mc.getWindow().getGuiScaledWidth()) {
 			textX = (float)mc.getWindow().getGuiScaledWidth() - textWidth;
 		}

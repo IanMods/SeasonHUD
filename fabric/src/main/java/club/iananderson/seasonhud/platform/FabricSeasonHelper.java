@@ -1,5 +1,7 @@
 package club.iananderson.seasonhud.platform;
 
+import static club.iananderson.seasonhud.client.SeasonHUDClient.mc;
+
 import club.iananderson.seasonhud.Common;
 import club.iananderson.seasonhud.config.Config;
 import club.iananderson.seasonhud.platform.services.ISeasonHelper;
@@ -14,8 +16,8 @@ import sereneseasons.init.ModConfig;
 
 import java.util.Objects;
 import java.util.Optional;
-
-import static club.iananderson.seasonhud.client.SeasonHUDClient.mc;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.Item;
 
 public class FabricSeasonHelper implements ISeasonHelper {
 	@Override
@@ -24,12 +26,12 @@ public class FabricSeasonHelper implements ISeasonHelper {
 		boolean isInTropicalSeason = SeasonHelper.usesTropicalSeasons(Objects.requireNonNull(mc.level).getBiome(mc.player.getOnPos()));
 
 		return showTropicalSeasons && isInTropicalSeason;
-	}
+  }
 
-	@Override
-	public boolean isSeasonTiedWithSystemTime() {
-		return false;
-	}
+  @Override
+  public boolean isSeasonTiedWithSystemTime() {
+    return false;
+  }
 
 	@Override
 	public  String getCurrentSeasonState(){
@@ -49,7 +51,7 @@ public class FabricSeasonHelper implements ISeasonHelper {
 		else {
 			return SeasonHelper.getSeasonState(Objects.requireNonNull(mc.level)).getSeason().toString();
 		}
-	}
+  }
 
 	@Override
 	public  String getSeasonFileName() {
@@ -66,9 +68,9 @@ public class FabricSeasonHelper implements ISeasonHelper {
 		}
 	}
 
-	@Override
-	public int getDate() {
-		ISeasonState seasonState = SeasonHelper.getSeasonState(Objects.requireNonNull(mc.level));
+  @Override
+  public int getDate() {
+    ISeasonState seasonState = SeasonHelper.getSeasonState(Objects.requireNonNull(mc.level));
 		int subSeasonDuration = ModConfig.seasons.subSeasonDuration;
 
 		int seasonDay = seasonState.getDay(); //total day out of 24 * 4 = 96
@@ -81,17 +83,17 @@ public class FabricSeasonHelper implements ISeasonHelper {
 			if(!Config.showSubSeason.get()){
 				subTropDate = ((seasonDay + (subSeasonDuration * 3)) % (subSeasonDuration * 6)) + 1;
 			}
-			return subTropDate;
+      return subTropDate;
 		}
 		else if(Config.showSubSeason.get()){
-			return subDate;
+      return subDate;
 		}
-		else return seasonDate;
-	}
+    else return seasonDate;
+  }
 
-	@Override
-	public int seasonDuration() {
-		int seasonDuration = ModConfig.seasons.subSeasonDuration * 3;
+  @Override
+  public int seasonDuration() {
+    int seasonDuration = ModConfig.seasons.subSeasonDuration * 3;
 
 		if(isTropicalSeason()){
 			seasonDuration = seasonDuration * 2;
@@ -102,22 +104,24 @@ public class FabricSeasonHelper implements ISeasonHelper {
 		}
 
 		return seasonDuration;
-	}
+  }
 
 	@Override
 	public Item calendar() {
 		return SSItems.CALENDAR;
 	}
 
-	@Override
-	public int findCuriosCalendar(Player player, Item item) {
-		if (Common.curiosLoaded() && Common.extrasLoaded()) {
-			Optional<TrinketComponent> findCalendar = TrinketsApi.getTrinketComponent(player);
-			if(findCalendar.get().isEquipped(item)){
-				return 1;
-			}
-			else return 0;
-		}
-		else return 0;
-	}
+  @Override
+  public int findCuriosCalendar(Player player, Item item) {
+    if (Common.curiosLoaded() && Common.extrasLoaded()) {
+      Optional<TrinketComponent> findCalendar = TrinketsApi.getTrinketComponent(player);
+      if (findCalendar.get().isEquipped(item)) {
+        return 1;
+      } else {
+        return 0;
+      }
+    } else {
+      return 0;
+    }
+  }
 }
