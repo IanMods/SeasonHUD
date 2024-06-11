@@ -1,51 +1,44 @@
 {
-    "schemaVersion": 1,
-    "id": "seasonhud",
-    "version": "${version}",
-
-    "name": "SeasonHUD",
-    "description": "",
-    "authors": [
-      "IanAnderson"
+  "schemaVersion": 1,
+  "id": "seasonhud",
+  "version": "${version}",
+  "name": "SeasonHUD",
+  "description": "",
+  "authors": [
+    "IanAnderson"
+  ],
+  "contact": {
+    "repo": "https://github.com/lanAnderson/SeasonHUD"
+  },
+  "license": "All-Rights-Reserved",
+  "icon": "SeasonHUD.png",
+  "environment": "client",
+  "entrypoints": {
+    "client": [
+      "club.iananderson.seasonhud.client.SeasonHUDClientFabric"
     ],
-    "contact": {
-      "repo": "https://github.com/lanAnderson/SeasonHUD"
-    },
-    "license": "All-Rights-Reserved",
-    "icon": "SeasonHUD.png",
-    "environment": "client",
-
-    "entrypoints": {
-      "client": [
-        "club.iananderson.seasonhud.client.SeasonHUDClientFabric"
-      ],
-      "main": [
-        "club.iananderson.seasonhud.SeasonHUD"
-      ]
-    },
-
-    "mixins": [
-      "seasonhud.mixins.json"
-    ],
-
-
-    "depends": {
-      "fabricloader": ">=0.14.8",
-      "fabric": "*",
-      "minecraft": "1.20.x",
-      "java": ">=17",
-      "seasons": ">=2.2.1",
-      "fabric-key-binding-api-v1": "*",
-      "forgeconfigapiport": ">=7.0.0"
-    },
-
-    "breaks": {
-      "xaerominimap": "<24.0.0"
-    },
-
-    "suggests": {
-      "seasonsextras": "*",
-      "map_atlases": ">=2.7.0"
-    }
+    "main": [
+      "club.iananderson.seasonhud.SeasonHUD"
+    ]
+  },
+  "mixins": [
+    "seasonhud.mixins.json"
+  ],
+  "depends": {
+    "fabricloader": ">=0.14.8",
+    "fabric": "*",
+    "minecraft": "1.20.x",
+    "java": ">=17",
+    "seasons": ">=2.2.1",
+    "fabric-key-binding-api-v1": "*",
+    "forgeconfigapiport": ">=7.0.0"
+  },
+  "breaks": {
+    "xaerominimap": "<24.0.0"
+  },
+  "suggests": {
+    "seasonsextras": "*",
+    "map_atlases": ">=2.7.0"
   }
+}
   
