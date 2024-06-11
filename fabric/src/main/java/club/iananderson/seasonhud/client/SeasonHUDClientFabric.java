@@ -7,9 +7,11 @@ import net.minecraftforge.api.ModLoadingContext;
 import net.minecraftforge.fml.config.ModConfig;
 
 public class SeasonHUDClientFabric implements ClientModInitializer {
-    @Override
-    public void onInitializeClient() {
-        ModLoadingContext.registerConfig(Common.MOD_ID, ModConfig.Type.CLIENT, Config.GENERAL_SPEC, "SeasonHUD-client.toml");
-        KeyBindings.register();
-    }
+
+  @Override
+  public void onInitializeClient() {
+    ModLoadingContext.registerConfig(Common.MOD_ID, ModConfig.Type.CLIENT, Config.GENERAL_SPEC,
+        "SeasonHUD-client.toml");
+    KeyBindings.register();
+  }
 }

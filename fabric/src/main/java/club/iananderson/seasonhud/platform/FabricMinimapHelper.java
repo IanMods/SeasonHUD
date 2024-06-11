@@ -1,25 +1,26 @@
 package club.iananderson.seasonhud.platform;
 
+import static club.iananderson.seasonhud.client.SeasonHUDClient.mc;
+
+import club.iananderson.seasonhud.client.minimaps.MapAtlases;
 import club.iananderson.seasonhud.impl.minimaps.CurrentMinimap;
 import club.iananderson.seasonhud.platform.services.IMinimapHelper;
 import dev.ftb.mods.ftbchunks.client.FTBChunksClientConfig;
 import io.github.lucaargolo.seasons.FabricSeasons;
+import java.util.Objects;
 import journeymap.client.ui.UIManager;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.level.Level;
 import xaero.common.HudMod;
 
-import java.util.Objects;
-
-import static club.iananderson.seasonhud.client.SeasonHUDClient.mc;
-
 public class FabricMinimapHelper implements IMinimapHelper {
-	@Override
-	public boolean hideHudInCurrentDimension() {
-		ResourceKey<Level> currentDim = Objects.requireNonNull(mc.level).dimension();
 
-		return !FabricSeasons.CONFIG.isValidInDimension(currentDim);
-	}
+  @Override
+  public boolean hideHudInCurrentDimension() {
+    ResourceKey<Level> currentDim = Objects.requireNonNull(mc.level).dimension();
+
+    return !FabricSeasons.CONFIG.isValidInDimension(currentDim);
+  }
 
 	@Override
 	public boolean currentMinimapHidden() {
@@ -40,5 +41,5 @@ public class FabricMinimapHelper implements IMinimapHelper {
 //			return !MapAtlases.shouldDraw(Minecraft.getInstance());
 //		}
 		else return false;
-	}
+  }
 }

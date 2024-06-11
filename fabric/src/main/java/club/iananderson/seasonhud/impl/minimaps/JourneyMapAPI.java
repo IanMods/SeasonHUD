@@ -1,66 +1,71 @@
 package club.iananderson.seasonhud.impl.minimaps;
 
+import static club.iananderson.seasonhud.config.Config.journeyMapAboveMap;
+import static journeymap.client.api.event.ClientEvent.Type.MAPPING_STARTED;
+import static journeymap.client.api.event.ClientEvent.Type.MAPPING_STOPPED;
+import static journeymap.client.api.event.ClientEvent.Type.MAP_CLICKED;
+import static journeymap.client.api.event.ClientEvent.Type.MAP_DRAGGED;
+import static journeymap.client.api.event.ClientEvent.Type.MAP_MOUSE_MOVED;
+import static journeymap.client.api.event.ClientEvent.Type.REGISTRY;
+
 import club.iananderson.seasonhud.Common;
+import java.util.EnumSet;
+import javax.annotation.ParametersAreNonnullByDefault;
 import journeymap.client.JourneymapClient;
 import journeymap.client.api.IClientAPI;
 import journeymap.client.api.IClientPlugin;
 import journeymap.client.api.event.ClientEvent;
 
-import javax.annotation.ParametersAreNonnullByDefault;
-import java.util.EnumSet;
-
-import static club.iananderson.seasonhud.config.Config.journeyMapAboveMap;
-import static journeymap.client.api.event.ClientEvent.Type.*;
-
 @ParametersAreNonnullByDefault
 public class JourneyMapAPI implements IClientPlugin {
-    // API reference
-    private IClientAPI jmAPI = null;
 
-    @Override
-    public void initialize(final IClientAPI jmAPI) {
-        this.jmAPI = jmAPI;
+  // API reference
+  private IClientAPI jmAPI = null;
 
-        jmAPI.subscribe(getModId(), EnumSet.of(MAPPING_STARTED, MAPPING_STOPPED, MAP_CLICKED, MAP_DRAGGED, MAP_MOUSE_MOVED, REGISTRY));
+  public static int infoLabelCount() {
+    JourneymapClient jm = JourneymapClient.getInstance();
+    String emptyLabel = "jm.theme.labelsource.blank";
+    String info1Label = jm.getActiveMiniMapProperties().info1Label.get();
+    String info2Label = jm.getActiveMiniMapProperties().info2Label.get();
+    String info3Label = jm.getActiveMiniMapProperties().info3Label.get();
+    String info4Label = jm.getActiveMiniMapProperties().info4Label.get();
+
+    int infoLabelCount = 0;
+    if (journeyMapAboveMap.get()) {
+      infoLabelCount = 1;
+
+      if (!info1Label.equals(emptyLabel)) {
+        infoLabelCount++;
+      }
+      if (!info2Label.equals(emptyLabel)) {
+        infoLabelCount++;
+      }
+    } else {
+      if (!info3Label.equals(emptyLabel)) {
+        infoLabelCount++;
+      }
+      if (!info4Label.equals(emptyLabel)) {
+        infoLabelCount++;
+      }
     }
+    return infoLabelCount;
+  }
 
-    @Override
-    public String getModId() {
-        return Common.MOD_ID;
-    }
+  @Override
+  public void initialize(final IClientAPI jmAPI) {
+    this.jmAPI = jmAPI;
 
-    @Override
-    public void onEvent(ClientEvent event) {
+    jmAPI.subscribe(getModId(),
+        EnumSet.of(MAPPING_STARTED, MAPPING_STOPPED, MAP_CLICKED, MAP_DRAGGED, MAP_MOUSE_MOVED, REGISTRY));
+  }
 
-    }
+  @Override
+  public String getModId() {
+    return Common.MOD_ID;
+  }
 
-    public static int infoLabelCount(){
-        JourneymapClient jm = JourneymapClient.getInstance();
-        String emptyLabel = "jm.theme.labelsource.blank";
-        String info1Label = jm.getActiveMiniMapProperties().info1Label.get();
-        String info2Label = jm.getActiveMiniMapProperties().info2Label.get();
-        String info3Label = jm.getActiveMiniMapProperties().info3Label.get();
-        String info4Label = jm.getActiveMiniMapProperties().info4Label.get();
+  @Override
+  public void onEvent(ClientEvent event) {
 
-        int infoLabelCount = 0;
-            if (journeyMapAboveMap.get()){
-                infoLabelCount = 1;
-
-                if (!info1Label.equals(emptyLabel)) {
-                    infoLabelCount++;
-                }
-                if (!info2Label.equals(emptyLabel)) {
-                    infoLabelCount++;
-                }
-            }
-            else{
-                if (!info3Label.equals(emptyLabel)) {
-                    infoLabelCount++;
-                }
-                if (!info4Label.equals(emptyLabel)) {
-                    infoLabelCount++;
-                }
-            }
-            return infoLabelCount;
-    }
+  }
 }
