@@ -1,6 +1,5 @@
 package club.iananderson.seasonhud.util;
 
-
 import club.iananderson.seasonhud.impl.seasons.SeasonList;
 import java.awt.Color;
 import java.util.HashMap;

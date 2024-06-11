@@ -24,12 +24,8 @@ public class KeyBindings {
   }
 
   public static void register() {
-    seasonhudOptionsKeyMapping = KeyBindingHelper.registerKeyBinding(new KeyMapping(
-        KEY_SEASOHUD_OPTIONS,
-        InputConstants.Type.KEYSYM,
-        GLFW.GLFW_KEY_H,
-        KEY_CATEGORIES_SEASONHUD
-    ));
+    seasonhudOptionsKeyMapping = KeyBindingHelper.registerKeyBinding(
+        new KeyMapping(KEY_SEASOHUD_OPTIONS, InputConstants.Type.KEYSYM, GLFW.GLFW_KEY_H, KEY_CATEGORIES_SEASONHUD));
     registerKeyInputs();
   }
 }

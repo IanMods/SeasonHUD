@@ -9,7 +9,6 @@ import club.iananderson.seasonhud.Common;
 import club.iananderson.seasonhud.impl.seasons.Calendar;
 import club.iananderson.seasonhud.platform.Services;
 
-
 public class CurrentMinimap {
 
   /**
@@ -28,11 +27,8 @@ public class CurrentMinimap {
    * @return True if no minimap mods are present.
    */
   public static boolean noMinimapLoaded() {
-    return !minimapLoaded("xaerominimap")
-        && !minimapLoaded("xaerominimapfair")
-        && !minimapLoaded("journeymap")
-        && !minimapLoaded("ftbchunks")
-        && !minimapLoaded("map_atlases");
+    return !minimapLoaded("xaerominimap") && !minimapLoaded("xaerominimapfair") && !minimapLoaded("journeymap")
+        && !minimapLoaded("ftbchunks") && !minimapLoaded("map_atlases");
   }
 
   /**
@@ -45,12 +41,8 @@ public class CurrentMinimap {
       return false;
     }
 
-    return (enableMod.get()
-        && enableMinimapIntegration.get()
-        && Calendar.calendarFound()
-        && !MINIMAP.hideHudInCurrentDimension()
-        && !MINIMAP.currentMinimapHidden()
-        && Common.vanillaShouldDrawHud())
+    return (enableMod.get() && enableMinimapIntegration.get() && Calendar.calendarFound()
+        && !MINIMAP.hideHudInCurrentDimension() && !MINIMAP.currentMinimapHidden() && Common.vanillaShouldDrawHud())
         && !mc.player.isScoping();
   }
 }

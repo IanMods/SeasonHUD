@@ -37,20 +37,15 @@ public class ForgeSeasonHelper implements ISeasonHelper {
     //Return the tropical season if enabled in the config and the player is in a biome labeled as tropical
     if (isTropicalSeason()) {
       if (Config.showSubSeason.get()) {
-        return SeasonHelper.getSeasonState(Objects.requireNonNull(mc.level)).getTropicalSeason()
-            .toString();
+        return SeasonHelper.getSeasonState(Objects.requireNonNull(mc.level)).getTropicalSeason().toString();
       } else {
-        return SeasonHelper.getSeasonState(Objects.requireNonNull(mc.level)).getTropicalSeason()
-            .toString()
-            .substring(
-                SeasonHelper.getSeasonState(Objects.requireNonNull(mc.level)).getTropicalSeason()
-                    .toString().length() - 3);
+        return SeasonHelper.getSeasonState(Objects.requireNonNull(mc.level)).getTropicalSeason().toString().substring(
+            SeasonHelper.getSeasonState(Objects.requireNonNull(mc.level)).getTropicalSeason().toString().length() - 3);
       }
     }
     //Return the sub-season instead if enabled in the config
     else if (Config.showSubSeason.get()) {
-      return SeasonHelper.getSeasonState(Objects.requireNonNull(mc.level)).getSubSeason()
-          .toString();
+      return SeasonHelper.getSeasonState(Objects.requireNonNull(mc.level)).getSubSeason().toString();
     }
     //Return just the season
     else {
@@ -61,13 +56,11 @@ public class ForgeSeasonHelper implements ISeasonHelper {
   @Override
   public String getSeasonFileName() {
     if (isTropicalSeason()) {
-      return getCurrentSeasonState().toLowerCase()
-          .substring(getCurrentSeasonState().toLowerCase().length() - 3);
+      return getCurrentSeasonState().toLowerCase().substring(getCurrentSeasonState().toLowerCase().length() - 3);
     }
 
     if (Config.showSubSeason.get()) {
-      return SeasonHelper.getSeasonState(Objects.requireNonNull(mc.level)).getSeason().toString()
-          .toLowerCase();
+      return SeasonHelper.getSeasonState(Objects.requireNonNull(mc.level)).getSeason().toString().toLowerCase();
     } else {
       return getCurrentSeasonState().toLowerCase();
     }
@@ -80,8 +73,7 @@ public class ForgeSeasonHelper implements ISeasonHelper {
 
     int seasonDay = seasonState.getDay(); //total day out of 24 * 4 = 96
 
-    int seasonDate =
-        (seasonDay % (subSeasonDuration * 3)) + 1; //24 days in a season (8 days * 3 weeks)
+    int seasonDate = (seasonDay % (subSeasonDuration * 3)) + 1; //24 days in a season (8 days * 3 weeks)
     int subDate = (seasonDay % subSeasonDuration) + 1; //8 days in each subSeason (1 week)
     int subTropDate = ((seasonDay + (subSeasonDuration * 3)) % (subSeasonDuration * 2))
         + 1; //16 days in each tropical "subSeason". Starts are "Early Dry" (Summer 1), so need to offset 24 days (Spring 1 -> Summer 1)

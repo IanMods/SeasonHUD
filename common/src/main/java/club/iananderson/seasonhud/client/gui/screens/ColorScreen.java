@@ -27,20 +27,22 @@ import org.jetbrains.annotations.NotNull;
 
 public class ColorScreen extends Screen {
 
-  private int x;
-  private int y;
-  private static final int MENU_PADDING_FULL = 25;
   public static final int WIDGET_PADDING = 6;
+  private static final int MENU_PADDING_FULL = 25;
   private static final int BUTTON_WIDTH = 150;
   private static final int BUTTON_HEIGHT = 20;
-  public static Button doneButton;
-  private final Screen lastScreen;
   private static final Component TITLE = Component.translatable("menu.seasonhud.color.title");
   private static final Component ENABLE_SEASON_NAME_COLOR = Component.translatable(
       "menu.seasonhud.color.button.enableSeasonNameColor");
+  private static final ColorScreen instance = new ColorScreen(SeasonHUDScreen.getInstance());
+  public static Button doneButton;
+  private final Screen lastScreen;
   private final List<ColorEditBox> seasonBoxes = new ArrayList<>();
   private final List<AbstractWidget> widgets = new ArrayList<>();
-  private static final ColorScreen instance = new ColorScreen(SeasonHUDScreen.getInstance());
+  private Button cancelButton;
+  private CycleButton<Boolean> seasonNameColorButton;
+  private int x;
+  private int y;
 
   public ColorScreen(Screen screen) {
     super(TITLE);
@@ -50,6 +52,17 @@ public class ColorScreen extends Screen {
 
   public static void open(Screen screen) {
     mc.setScreen(new ColorScreen(screen));
+  }
+
+  private static EnumSet<SeasonList> seasonListSet() {
+    EnumSet<SeasonList> set = SeasonList.seasons.clone();
+
+    if (!Config.showTropicalSeason.get() || !Services.PLATFORM.getPlatformName().equals("Forge")) {
+      set.remove(SeasonList.DRY);
+      set.remove(SeasonList.WET);
+    }
+
+    return set;
   }
 
   public boolean isPauseScreen() {
@@ -82,17 +95,6 @@ public class ColorScreen extends Screen {
 
   private void onCancel() {
     mc.setScreen(this.lastScreen);
-  }
-
-  private static EnumSet<SeasonList> seasonListSet() {
-    EnumSet<SeasonList> set = SeasonList.seasons.clone();
-
-    if (!Config.showTropicalSeason.get() || !Services.PLATFORM.getPlatformName().equals("Forge")) {
-      set.remove(SeasonList.DRY);
-      set.remove(SeasonList.WET);
-    }
-
-    return set;
   }
 
   public int getBoxWidth() {
@@ -172,23 +174,20 @@ public class ColorScreen extends Screen {
     });
 
     //Buttons
-    CycleButton<Boolean> seasonNameColorButton = CycleButton.onOffBuilder(
-            Config.enableSeasonNameColor.get())
-        .create(BUTTON_X_LEFT, MENU_PADDING_FULL, BUTTON_WIDTH, BUTTON_HEIGHT,
-            ENABLE_SEASON_NAME_COLOR,
-            (b, enableColor) -> Config.setEnableSeasonNameColor(enableColor));
+    seasonNameColorButton = CycleButton.onOffBuilder(Config.enableSeasonNameColor.get())
+                                       .create(BUTTON_X_LEFT, MENU_PADDING_FULL, BUTTON_WIDTH, BUTTON_HEIGHT,
+                                               ENABLE_SEASON_NAME_COLOR,
+                                               (b, enableColor) -> Config.setEnableSeasonNameColor(enableColor));
     this.widgets.add(seasonNameColorButton);
 
     doneButton = Button.builder(CommonComponents.GUI_DONE, button -> onDone())
-        .bounds(BUTTON_X_LEFT, (getHeight() - BUTTON_HEIGHT - WIDGET_PADDING), BUTTON_WIDTH,
-            BUTTON_HEIGHT)
-        .build();
+                       .bounds(BUTTON_X_LEFT, (getHeight() - BUTTON_HEIGHT - WIDGET_PADDING), BUTTON_WIDTH,
+                               BUTTON_HEIGHT).build();
     this.widgets.add(doneButton);
 
-    Button cancelButton = Button.builder(CommonComponents.GUI_CANCEL, button -> this.onCancel())
-        .bounds(BUTTON_X_RIGHT, (getHeight() - BUTTON_HEIGHT - WIDGET_PADDING), BUTTON_WIDTH,
-            BUTTON_HEIGHT)
-        .build();
+    cancelButton = Button.builder(CommonComponents.GUI_CANCEL, button -> this.onCancel())
+                         .bounds(BUTTON_X_RIGHT, (getHeight() - BUTTON_HEIGHT - WIDGET_PADDING), BUTTON_WIDTH,
+                                 BUTTON_HEIGHT).build();
     this.widgets.add(cancelButton);
     this.widgets.forEach(this::addRenderableWidget);
   }

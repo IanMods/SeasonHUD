@@ -24,19 +24,15 @@ public class FTBChunksClientMixin {
 
   @Unique
   private static BooleanValue MINIMAP_SEASON = MINIMAP.addBoolean("season", true)
-      .comment(new String[]{"Show season under minimap"});
+                                                      .comment(new String[]{"Show season under minimap"});
 
-  @Inject(
-      method = "buildMinimapTextData",
-      at = @At("RETURN"),
-      remap = false,
-      cancellable = true)
+  @Inject(method = "buildMinimapTextData", at = @At("RETURN"), remap = false, cancellable = true)
 
-  private void buildMinimapTextData(Minecraft mc, double playerX, double playerY, double playerZ,
-      MapDimension dim, CallbackInfoReturnable<List<Component>> cir) {
+  private void buildMinimapTextData(Minecraft mc, double playerX, double playerY, double playerZ, MapDimension dim,
+                                    CallbackInfoReturnable<List<Component>> cir) {
     MutableComponent seasonCombined = Component.translatable("desc.seasonhud.combined",
-        getSeasonHudName().get(0).copy().withStyle(SEASON_STYLE),
-        getSeasonHudName().get(1).copy());
+                                                             getSeasonHudName().get(0).copy().withStyle(SEASON_STYLE),
+                                                             getSeasonHudName().get(1).copy());
     List<Component> res = cir.getReturnValue();
 
     enableMod.set(MINIMAP_SEASON.get());

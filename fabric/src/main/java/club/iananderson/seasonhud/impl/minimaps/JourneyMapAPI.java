@@ -22,25 +22,6 @@ public class JourneyMapAPI implements IClientPlugin {
   // API reference
   private IClientAPI jmAPI = null;
 
-  @Override
-  public void initialize(final IClientAPI jmAPI) {
-    this.jmAPI = jmAPI;
-
-    jmAPI.subscribe(getModId(),
-        EnumSet.of(MAPPING_STARTED, MAPPING_STOPPED, MAP_CLICKED, MAP_DRAGGED, MAP_MOUSE_MOVED,
-            REGISTRY));
-  }
-
-  @Override
-  public String getModId() {
-    return Common.MOD_ID;
-  }
-
-  @Override
-  public void onEvent(ClientEvent event) {
-
-  }
-
   public static int infoLabelCount() {
     JourneymapClient jm = JourneymapClient.getInstance();
     String emptyLabel = "jm.theme.labelsource.blank";
@@ -68,5 +49,23 @@ public class JourneyMapAPI implements IClientPlugin {
       }
     }
     return infoLabelCount;
+  }
+
+  @Override
+  public void initialize(final IClientAPI jmAPI) {
+    this.jmAPI = jmAPI;
+
+    jmAPI.subscribe(getModId(),
+                    EnumSet.of(MAPPING_STARTED, MAPPING_STOPPED, MAP_CLICKED, MAP_DRAGGED, MAP_MOUSE_MOVED, REGISTRY));
+  }
+
+  @Override
+  public String getModId() {
+    return Common.MOD_ID;
+  }
+
+  @Override
+  public void onEvent(ClientEvent event) {
+
   }
 }

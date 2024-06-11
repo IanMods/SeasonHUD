@@ -18,8 +18,9 @@ public class SeasonHUDOverlayCommon {
 
   public static void render(GuiGraphics seasonStack) {
     MutableComponent seasonCombined = Component.translatable("desc.seasonhud.combined",
-        CurrentSeason.getSeasonHudName().get(0).copy().withStyle(SEASON_STYLE),
-        CurrentSeason.getSeasonHudName().get(1).copy());
+                                                             CurrentSeason.getSeasonHudName().get(0).copy()
+                                                                          .withStyle(SEASON_STYLE),
+                                                             CurrentSeason.getSeasonHudName().get(1).copy());
 
     float guiSize = (float) mc.getWindow().getGuiScale();
 
@@ -34,9 +35,8 @@ public class SeasonHUDOverlayCommon {
 
     int stringWidth = mc.font.width(seasonCombined);
 
-    if (Config.enableMod.get() && (CurrentMinimap.noMinimapLoaded() || (
-        Services.MINIMAP.currentMinimapHidden() && Config.showDefaultWhenMinimapHidden.get())
-        || !Config.enableMinimapIntegration.get())) {
+    if (Config.enableMod.get() && (CurrentMinimap.noMinimapLoaded() || (Services.MINIMAP.currentMinimapHidden()
+        && Config.showDefaultWhenMinimapHidden.get()) || !Config.enableMinimapIntegration.get())) {
       Location hudLoc = Config.hudLocation.get();
 
       switch (hudLoc) {

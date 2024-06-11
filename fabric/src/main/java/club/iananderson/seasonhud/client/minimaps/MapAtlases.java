@@ -31,14 +31,13 @@ public class MapAtlases implements HudRenderCallback {
     HudRenderCallback.EVENT.register(HUD_INSTANCE);
   }
 
-  private static void drawStringWithLighterShadow(GuiGraphics context, Font font,
-      MutableComponent text, int x, int y) {
+  private static void drawStringWithLighterShadow(GuiGraphics context, Font font, MutableComponent text, int x, int y) {
     context.drawString(font, text, x + 1, y + 1, 5855577, false);
     context.drawString(font, text, x, y, 14737632, false);
   }
 
-  public static void drawScaledComponent(GuiGraphics context, Font font, int x, int y,
-      MutableComponent text, float textScaling, int maxWidth, int targetWidth) {
+  public static void drawScaledComponent(GuiGraphics context, Font font, int x, int y, MutableComponent text,
+                                         float textScaling, int maxWidth, int targetWidth) {
     PoseStack pose = context.pose();
     float textWidth = (float) font.width(text);
 
@@ -53,17 +52,17 @@ public class MapAtlases implements HudRenderCallback {
     pose.popPose();
   }
 
-  public static void drawMapComponentSeason(GuiGraphics poseStack, Font font, int x, int y,
-      int targetWidth, float textScaling) {
+  public static void drawMapComponentSeason(GuiGraphics poseStack, Font font, int x, int y, int targetWidth,
+                                            float textScaling) {
     if (minimapLoaded("map_atlases")) {
       MutableComponent seasonCombined = Component.translatable("desc.seasonhud.combined",
-          getSeasonHudName().get(0).copy().withStyle(SEASON_STYLE),
-          getSeasonHudName().get(1).copy());
+                                                               getSeasonHudName().get(0).copy().withStyle(SEASON_STYLE),
+                                                               getSeasonHudName().get(1).copy());
 
       float globalScale = (float) (double) MapAtlasesClientConfig.miniMapScale.get();
       //String seasonToDisplay = getSeasonHudName().get(0).getString();
-      drawScaledComponent(poseStack, font, x, y, seasonCombined, textScaling / globalScale,
-          targetWidth, (int) (targetWidth / globalScale));
+      drawScaledComponent(poseStack, font, x, y, seasonCombined, textScaling / globalScale, targetWidth,
+                          (int) (targetWidth / globalScale));
     }
   }
 
@@ -76,8 +75,8 @@ public class MapAtlases implements HudRenderCallback {
       } else if (!MapAtlasesClientConfig.drawMiniMapHUD.get()) {
         return false;
       } else if (MapAtlasesClientConfig.hideWhenInHand.get() && (
-          mc.player.getMainHandItem().is(MapAtlasesMod.MAP_ATLAS.get()) ||
-              mc.player.getOffhandItem().is(MapAtlasesMod.MAP_ATLAS.get()))) {
+          mc.player.getMainHandItem().is(MapAtlasesMod.MAP_ATLAS.get()) || mc.player.getOffhandItem()
+                                                                                    .is(MapAtlasesMod.MAP_ATLAS.get()))) {
         return false;
       } else {
         return !MapAtlasesClient.getCurrentActiveAtlas().isEmpty();
@@ -105,10 +104,8 @@ public class MapAtlases implements HudRenderCallback {
 
       Anchoring anchorLocation = MapAtlasesClientConfig.miniMapAnchoring.get();
       int offset = 5;
-      int x =
-          anchorLocation.isLeft ? offset : (int) (screenWidth / globalScale) - (BG_SIZE + offset);
-      int y =
-          anchorLocation.isUp ? offset : (int) (screenHeight / globalScale) - (BG_SIZE + offset);
+      int x = anchorLocation.isLeft ? offset : (int) (screenWidth / globalScale) - (BG_SIZE + offset);
+      int y = anchorLocation.isUp ? offset : (int) (screenHeight / globalScale) - (BG_SIZE + offset);
       x += (int) (MapAtlasesClientConfig.miniMapHorizontalOffset.get() / globalScale);
       y += (int) (MapAtlasesClientConfig.miniMapVerticalOffset.get() / globalScale);
 
@@ -145,8 +142,8 @@ public class MapAtlases implements HudRenderCallback {
           textHeightOffset = (textHeightOffset + 10.0F * textScaling);
         }
 
-        drawMapComponentSeason(seasonStack, font, x,
-            (int) (y + BG_SIZE + (textHeightOffset / globalScale)), actualBgSize, textScaling);
+        drawMapComponentSeason(seasonStack, font, x, (int) (y + BG_SIZE + (textHeightOffset / globalScale)),
+                               actualBgSize, textScaling);
         seasonStack.pose().popPose();
       }
     }

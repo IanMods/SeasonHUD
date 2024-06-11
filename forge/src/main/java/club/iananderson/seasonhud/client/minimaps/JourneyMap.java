@@ -28,22 +28,20 @@ public class JourneyMap implements IGuiOverlay {
 
   private static String getSeason() {
     MutableComponent seasonCombined = Component.translatable("desc.seasonhud.combined",
-        getSeasonHudName().get(0).copy().withStyle(SEASON_STYLE),
-        getSeasonHudName().get(1).copy());
+                                                             getSeasonHudName().get(0).copy().withStyle(SEASON_STYLE),
+                                                             getSeasonHudName().get(1).copy());
 
     return seasonCombined.getString();
   }
 
   @Override
-  public void render(ForgeGui gui, GuiGraphics seasonStack, float partialTick, int scaledWidth,
-      int scaledHeight) {
+  public void render(ForgeGui gui, GuiGraphics seasonStack, float partialTick, int scaledWidth, int scaledHeight) {
     MutableComponent seasonCombined = Component.translatable("desc.seasonhud.combined",
-        getSeasonHudName().get(0).copy().withStyle(SEASON_STYLE),
-        getSeasonHudName().get(1).copy());
+                                                             getSeasonHudName().get(0).copy().withStyle(SEASON_STYLE),
+                                                             getSeasonHudName().get(1).copy());
 
     if (Services.PLATFORM.isModLoaded("journeymap") && !enableMod.get()) {
-      ThemeLabelSource.create(Common.MOD_ID, "menu.seasonhud.infodisplay.season", 1000L, 1L,
-          JourneyMap::getSeason);
+      ThemeLabelSource.create(Common.MOD_ID, "menu.seasonhud.infodisplay.season", 1000L, 1L, JourneyMap::getSeason);
       // Should only show up if the "Enable Mod" option in the SeasonHUD menu/config is disabled. Icon currently doesn't work
     }
 
@@ -70,15 +68,14 @@ public class JourneyMap implements IGuiOverlay {
       float labelAlpha = jm.getActiveMiniMapProperties().infoSlotAlpha.get();
       float textAlpha = currentTheme.foreground.alpha;
       boolean fontShadow = currentTheme.shadow;
-      int labelHeight = (int) (
-          (DrawUtil.getLabelHeight(fontRenderer, fontShadow) + currentTheme.margin) * fontScale);
+      int labelHeight = (int) ((DrawUtil.getLabelHeight(fontRenderer, fontShadow) + currentTheme.margin) * fontScale);
 
-      int topLabelHeight = vars.getInfoLabelAreaHeight(fontRenderer, currentTheme,
-          ThemeLabelSource.values.get(jm.getActiveMiniMapProperties().info1Label.get()),
-          ThemeLabelSource.values.get(jm.getActiveMiniMapProperties().info2Label.get()));
-      int bottomLabelHeight = vars.getInfoLabelAreaHeight(fontRenderer, currentTheme,
-          ThemeLabelSource.values.get(jm.getActiveMiniMapProperties().info3Label.get()),
-          ThemeLabelSource.values.get(jm.getActiveMiniMapProperties().info4Label.get()));
+      int topLabelHeight = vars.getInfoLabelAreaHeight(fontRenderer, currentTheme, ThemeLabelSource.values.get(
+          jm.getActiveMiniMapProperties().info1Label.get()), ThemeLabelSource.values.get(
+          jm.getActiveMiniMapProperties().info2Label.get()));
+      int bottomLabelHeight = vars.getInfoLabelAreaHeight(fontRenderer, currentTheme, ThemeLabelSource.values.get(
+          jm.getActiveMiniMapProperties().info3Label.get()), ThemeLabelSource.values.get(
+          jm.getActiveMiniMapProperties().info4Label.get()));
 
       int margin = ThemeLoader.getCurrentTheme().minimap.square.margin;
 
@@ -86,8 +83,7 @@ public class JourneyMap implements IGuiOverlay {
       double textureY = vars.textureY;
 
       int startX = (int) (textureX + halfWidth);
-      int startY = (int) (textureY + (journeyMapAboveMap.get() ? -margin - labelHeight
-          : minimapHeight + margin));
+      int startY = (int) (textureY + (journeyMapAboveMap.get() ? -margin - labelHeight : minimapHeight + margin));
 
       if (CurrentMinimap.shouldDrawMinimapHud()) {
         int labelX = startX;
@@ -102,9 +98,9 @@ public class JourneyMap implements IGuiOverlay {
         seasonStack.pose().scale(1 / fontScale, 1 / fontScale, 0);
         DrawUtil.sizeDisplay(seasonStack.pose(), screenWidth, screenHeight);
         seasonStack.pose().popPose();
-        DrawUtil.drawBatchLabel(seasonStack.pose(), seasonCombined, seasonStack.bufferSource(),
-            labelX, labelY, DrawUtil.HAlign.Center, DrawUtil.VAlign.Below, labelColor, labelAlpha,
-            textColor, textAlpha, fontScale, fontShadow);
+        DrawUtil.drawBatchLabel(seasonStack.pose(), seasonCombined, seasonStack.bufferSource(), labelX, labelY,
+                                DrawUtil.HAlign.Center, DrawUtil.VAlign.Below, labelColor, labelAlpha, textColor,
+                                textAlpha, fontScale, fontShadow);
         seasonStack.bufferSource().endBatch();
         DrawUtil.sizeDisplay(seasonStack.pose(), scaledWidth, scaledHeight);
       }

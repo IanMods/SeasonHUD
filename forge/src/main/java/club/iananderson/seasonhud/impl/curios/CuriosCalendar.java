@@ -17,11 +17,9 @@ import top.theillusivec4.curios.api.type.capability.ICurioItem;
 
 public class CuriosCalendar implements ICurioItem {
 
-
   public static void registerSlots() {
-    InterModComms.sendTo("curios", SlotTypeMessage.REGISTER_TYPE,
-        () -> SlotTypePreset.CHARM.getMessageBuilder()
-            .build());  //new SlotTypeMessage.Builder("calendar").build());
+    InterModComms.sendTo("curios", SlotTypeMessage.REGISTER_TYPE, () -> SlotTypePreset.CHARM.getMessageBuilder()
+                                                                                            .build());  //new SlotTypeMessage.Builder("calendar").build());
   }
 
   public static ICapabilityProvider initCapabilities() {
@@ -39,8 +37,7 @@ public class CuriosCalendar implements ICurioItem {
 
       @Nonnull
       @Override
-      public <T> LazyOptional<T> getCapability(@Nonnull Capability<T> cap,
-          @Nullable Direction side) {
+      public <T> LazyOptional<T> getCapability(@Nonnull Capability<T> cap, @Nullable Direction side) {
 
         return CuriosCapability.ITEM.orEmpty(cap, curioOpt);
       }

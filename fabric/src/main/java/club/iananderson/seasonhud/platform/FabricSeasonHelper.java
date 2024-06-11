@@ -51,8 +51,7 @@ public class FabricSeasonHelper implements ISeasonHelper {
       int seasonLength = FabricSeasons.CONFIG.getSpringLength();
       int worldTime = Math.toIntExact(Objects.requireNonNull(mc.level).getDayTime());
 
-      return ((int) (worldTime - (worldTime / (long) seasonLength * (long) seasonLength))
-          % seasonLength / 24000) + 1;
+      return ((int) (worldTime - (worldTime / (long) seasonLength * (long) seasonLength)) % seasonLength / 24000) + 1;
     }
   }
 

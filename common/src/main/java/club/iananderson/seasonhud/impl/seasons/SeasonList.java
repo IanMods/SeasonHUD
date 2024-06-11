@@ -8,67 +8,48 @@ import net.minecraft.network.chat.Component;
 import net.minecraftforge.common.ForgeConfigSpec;
 
 public enum SeasonList {
-  SPRING(0,
-      Component.translatable("desc.seasonhud.spring"),
-      "spring",
-      "\uEA00",
-      Config.springColor,
-      Config.springColor.getDefault(),
-      Config.getSpringColor(),
-      Rgb.seasonMap(Config.getSpringColor())),
-  SUMMER(1,
-      Component.translatable("desc.seasonhud.summer"),
-      "summer",
-      "\uEA01",
-      Config.summerColor,
-      Config.summerColor.getDefault(),
-      Config.getSummerColor(),
-      Rgb.seasonMap(Config.getSummerColor())),
-  AUTUMN(2,
-      Component.translatable("desc.seasonhud.autumn"),
-      "autumn",
-      "\uEA02",
-      Config.autumnColor,
-      Config.autumnColor.getDefault(),
-      Config.getAutumnColor(),
-      Rgb.seasonMap(Config.getAutumnColor())),
-  WINTER(3,
-      Component.translatable("desc.seasonhud.winter"),
-      "winter",
-      "\uEA03",
-      Config.winterColor,
-      Config.winterColor.getDefault(),
-      Config.getWinterColor(),
-      Rgb.seasonMap(Config.getWinterColor())),
-  DRY(4,
-      Component.translatable("desc.seasonhud.dry"),
-      "dry",
-      "\uEA04",
-      Config.dryColor,
-      Config.dryColor.getDefault(),
-      Config.getDryColor(),
-      Rgb.seasonMap(Config.getDryColor())),
-  WET(5,
-      Component.translatable("desc.seasonhud.wet"),
-      "wet",
-      "\uEA05",
-      Config.wetColor,
-      Config.wetColor.getDefault(),
-      Config.getWetColor(),
-      Rgb.seasonMap(Config.getWetColor()));
+  SPRING(0, Component.translatable("desc.seasonhud.spring"), "spring", "\uEA00", Config.springColor,
+         Config.springColor.getDefault(), Config.getSpringColor(), Rgb.seasonMap(Config.getSpringColor())), SUMMER(1,
+                                                                                                                   Component.translatable(
+                                                                                                                       "desc.seasonhud.summer"),
+                                                                                                                   "summer",
+                                                                                                                   "\uEA01",
+                                                                                                                   Config.summerColor,
+                                                                                                                   Config.summerColor.getDefault(),
+                                                                                                                   Config.getSummerColor(),
+                                                                                                                   Rgb.seasonMap(
+                                                                                                                       Config.getSummerColor())), AUTUMN(
+      2, Component.translatable("desc.seasonhud.autumn"), "autumn", "\uEA02", Config.autumnColor,
+      Config.autumnColor.getDefault(), Config.getAutumnColor(), Rgb.seasonMap(Config.getAutumnColor())), WINTER(3,
+                                                                                                                Component.translatable(
+                                                                                                                    "desc.seasonhud.winter"),
+                                                                                                                "winter",
+                                                                                                                "\uEA03",
+                                                                                                                Config.winterColor,
+                                                                                                                Config.winterColor.getDefault(),
+                                                                                                                Config.getWinterColor(),
+                                                                                                                Rgb.seasonMap(
+                                                                                                                    Config.getWinterColor())), DRY(
+      4, Component.translatable("desc.seasonhud.dry"), "dry", "\uEA04", Config.dryColor, Config.dryColor.getDefault(),
+      Config.getDryColor(), Rgb.seasonMap(Config.getDryColor())), WET(5, Component.translatable("desc.seasonhud.wet"),
+                                                                      "wet", "\uEA05", Config.wetColor,
+                                                                      Config.wetColor.getDefault(),
+                                                                      Config.getWetColor(),
+                                                                      Rgb.seasonMap(Config.getWetColor()));
 
+  public static EnumSet<SeasonList> seasons = EnumSet.allOf(SeasonList.class);
   private final int id;
   private final Component seasonName;
   private final String seasonFileName;
   private final String seasonIconChar;
   private final ForgeConfigSpec.ConfigValue<Integer> seasonColorConfig;
   private final int defaultColor;
-  private int seasonColor;
   private final HashMap<String, Integer> rgbMap;
+  private int seasonColor;
 
   SeasonList(int id, Component seasonName, String fileName, String iconChar,
-      ForgeConfigSpec.ConfigValue<Integer> seasonColorConfig,
-      int defaultColor, int seasonColor, HashMap<String, Integer> rgbMap) {
+             ForgeConfigSpec.ConfigValue<Integer> seasonColorConfig, int defaultColor, int seasonColor,
+             HashMap<String, Integer> rgbMap) {
     this.id = id;
     this.seasonName = seasonName;
     this.seasonFileName = fileName;
@@ -110,8 +91,6 @@ public enum SeasonList {
   public HashMap<String, Integer> getRgbMap() {
     return this.rgbMap;
   }
-
-  public static EnumSet<SeasonList> seasons = EnumSet.allOf(SeasonList.class);
 
   public void setColor(int rgb) {
     this.seasonColor = rgb;

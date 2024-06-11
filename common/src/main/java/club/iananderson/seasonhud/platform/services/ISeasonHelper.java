@@ -6,16 +6,15 @@ import net.minecraft.world.item.Item;
 public interface ISeasonHelper {
 
   /**
-   * Checks if the tropical season should be displayed (SereneSeasons only). Always false for
-   * FabricSeasons.
+   * Checks if the tropical season should be displayed (SereneSeasons only). Always false for FabricSeasons.
    *
    * @return If the tropical season should be displayed for the platform.
    */
   boolean isTropicalSeason();
 
   /**
-   * Checks if "isSeasonTiedWithSystemTime" config option is enabled (FabricSeasons only). Always
-   * false for SereneSeasons.
+   * Checks if "isSeasonTiedWithSystemTime" config option is enabled (FabricSeasons only). Always false for
+   * SereneSeasons.
    *
    * @return If "isSeasonTiedWithSystemTime" config option is enabled for the platform.
    */

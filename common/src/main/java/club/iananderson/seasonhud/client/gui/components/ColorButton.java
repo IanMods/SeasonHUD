@@ -10,9 +10,8 @@ import org.jetbrains.annotations.NotNull;
 
 public class ColorButton extends Button {
 
+  private static final Component DEFAULT = Component.translatable("menu.seasonhud.color.button.default");
   private ColorEditBox colorEditBox;
-  private static final Component DEFAULT = Component.translatable(
-      "menu.seasonhud.color.button.default");
   private int defaultColor;
 
   private ColorButton(int x, int y, int width, int height, Component component, OnPress onPress) {

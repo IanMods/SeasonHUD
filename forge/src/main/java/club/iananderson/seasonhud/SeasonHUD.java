@@ -29,16 +29,13 @@ public class SeasonHUD {
 
     Common.init();
 
-    ModLoadingContext.get().registerConfig(ModConfig.Type.CLIENT, Config.GENERAL_SPEC,
-        "SeasonHUD-client.toml");
+    ModLoadingContext.get().registerConfig(ModConfig.Type.CLIENT, Config.GENERAL_SPEC, "SeasonHUD-client.toml");
   }
 
   public void enqueue(InterModEnqueueEvent event) {
     LOG.info("Talking to Curios");
     InterModComms.sendTo("curios", SlotTypeMessage.REGISTER_TYPE,
-        () -> new SlotTypeMessage.Builder("charm")
-            .size(1)
-            .build());
+                         () -> new SlotTypeMessage.Builder("charm").size(1).build());
   }
 
   private void commonSetup(final FMLCommonSetupEvent event) {

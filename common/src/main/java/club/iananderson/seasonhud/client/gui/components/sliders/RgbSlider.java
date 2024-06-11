@@ -15,11 +15,10 @@ import org.jetbrains.annotations.NotNull;
 
 public class RgbSlider extends AbstractSliderButton {
 
-  private static final ResourceLocation SLIDER_LOCATION = new ResourceLocation(
-      "textures/gui/slider.png");
+  private static final ResourceLocation SLIDER_LOCATION = new ResourceLocation("textures/gui/slider.png");
+  public static int SLIDER_PADDING = 2;
   public SeasonList season;
   public ColorEditBox seasonBox;
-  public static int SLIDER_PADDING = 2;
   public int minValue;
   public int maxValue;
   public int stepSize;
@@ -39,8 +38,7 @@ public class RgbSlider extends AbstractSliderButton {
   }
 
   public RgbSlider(int x, int y, ColorEditBox seasonBox) {
-    this(x, y, seasonBox.getWidth() + 2, seasonBox.getHeight() - 6,
-        Integer.parseInt(seasonBox.getValue()));
+    this(x, y, seasonBox.getWidth() + 2, seasonBox.getHeight() - 6, Integer.parseInt(seasonBox.getValue()));
     this.minValue = 0;
     this.maxValue = 16777215;
     this.season = seasonBox.getSeason();
@@ -67,8 +65,7 @@ public class RgbSlider extends AbstractSliderButton {
   }
 
   public double snapToNearest(double value) {
-    return (Mth.clamp((float) value, this.minValue, this.maxValue) - this.minValue) / (
-        this.maxValue - this.minValue);
+    return (Mth.clamp((float) value, this.minValue, this.maxValue) - this.minValue) / (this.maxValue - this.minValue);
   }
 
   public void setSliderValue(int newValue) {
@@ -110,15 +107,12 @@ public class RgbSlider extends AbstractSliderButton {
   }
 
   @Override
-  public void renderWidget(@NotNull GuiGraphics graphics, int mouseX, int mouseY,
-      float partialTick) {
+  public void renderWidget(@NotNull GuiGraphics graphics, int mouseX, int mouseY, float partialTick) {
 
-    DrawUtil.blitWithBorder(graphics, SLIDER_LOCATION, this.getX(), this.getY(), 0,
-        this.getTextureY(), this.width, this.height, 200, 20, 2, 3, 2, 2);
-    DrawUtil.blitWithBorder(graphics, SLIDER_LOCATION,
-        this.getX() + (int) (this.value * (double) (this.width - 8)), this.getY(), 0,
-        this.getHandleTextureY(), 8, this.height, 200, 20, 2, 3, 2, 2);
-    this.renderScrollingString(graphics, mc.font, 2,
-        this.getFGColor() | Mth.ceil(this.alpha * 255.0F) << 24);
+    DrawUtil.blitWithBorder(graphics, SLIDER_LOCATION, this.getX(), this.getY(), 0, this.getTextureY(), this.width,
+                            this.height, 200, 20, 2, 3, 2, 2);
+    DrawUtil.blitWithBorder(graphics, SLIDER_LOCATION, this.getX() + (int) (this.value * (double) (this.width - 8)),
+                            this.getY(), 0, this.getHandleTextureY(), 8, this.height, 200, 20, 2, 3, 2, 2);
+    this.renderScrollingString(graphics, mc.font, 2, this.getFGColor() | Mth.ceil(this.alpha * 255.0F) << 24);
   }
 }

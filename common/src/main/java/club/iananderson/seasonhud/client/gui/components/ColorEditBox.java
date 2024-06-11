@@ -19,10 +19,10 @@ import org.jetbrains.annotations.NotNull;
 
 public class ColorEditBox extends EditBox {
 
+  private static final int PADDING = 4;
   private final SeasonList boxSeason;
   private final int seasonColor;
   private int newSeasonColor;
-  private static final int PADDING = 4;
 
   public ColorEditBox(Font font, int x, int y, int width, int height, SeasonList season) {
     super(font, x, y, width, height, season.getSeasonName());
@@ -47,6 +47,17 @@ public class ColorEditBox extends EditBox {
         ColorScreen.doneButton.active = false;
       }
     });
+  }
+
+  private static EnumSet<SeasonList> seasonListSet() {
+    EnumSet<SeasonList> set = SeasonList.seasons.clone();
+
+    if (!Config.showTropicalSeason.get() || !Services.PLATFORM.getPlatformName().equals("Forge")) {
+      set.remove(SeasonList.DRY);
+      set.remove(SeasonList.WET);
+    }
+
+    return set;
   }
 
   private boolean inBounds(int color) {
@@ -80,17 +91,6 @@ public class ColorEditBox extends EditBox {
 
   public SeasonList getSeason() {
     return this.boxSeason;
-  }
-
-  private static EnumSet<SeasonList> seasonListSet() {
-    EnumSet<SeasonList> set = SeasonList.seasons.clone();
-
-    if (!Config.showTropicalSeason.get() || !Services.PLATFORM.getPlatformName().equals("Forge")) {
-      set.remove(SeasonList.DRY);
-      set.remove(SeasonList.WET);
-    }
-
-    return set;
   }
 
   @Override

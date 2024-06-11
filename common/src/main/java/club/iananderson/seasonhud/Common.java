@@ -25,8 +25,7 @@ public class Common {
   private static String platformName;
 
   public static void init() {
-    curiosLoaded =
-        Services.PLATFORM.isModLoaded("trinkets") || Services.PLATFORM.isModLoaded("curios");
+    curiosLoaded = Services.PLATFORM.isModLoaded("trinkets") || Services.PLATFORM.isModLoaded("curios");
     extrasLoaded = Services.PLATFORM.isModLoaded("seasonsextras");
     platformName = Services.PLATFORM.getPlatformName();
   }
@@ -44,8 +43,7 @@ public class Common {
   }
 
   public static boolean vanillaShouldDrawHud() {
-    return
-        (mc.screen == null || mc.screen instanceof ChatScreen || mc.screen instanceof DeathScreen)
-            && !mc.isPaused() && !mc.options.renderDebug;
+    return (mc.screen == null || mc.screen instanceof ChatScreen || mc.screen instanceof DeathScreen) && !mc.isPaused()
+        && !mc.options.renderDebug;
   }
 }

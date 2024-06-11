@@ -1,6 +1,5 @@
 package club.iananderson.seasonhud.mixin;
 
-
 import com.google.common.base.Preconditions;
 import java.io.IOException;
 import java.util.List;
@@ -15,15 +14,6 @@ public class SeasonHUDMixinPlugin implements IMixinConfigPlugin {
   private static final boolean HAS_XAERO;
   private static final boolean HAS_FTB;
 
-  private static boolean hasClass(String modClass) {
-    try {
-      MixinService.getService().getBytecodeProvider().getClassNode(modClass);
-      return true;
-    } catch (ClassNotFoundException | IOException e) {
-      return false;
-    }
-  }
-
   static {
     HAS_XAERO = hasClass("xaero.common.HudMod");
     HAS_FTB = hasClass("dev.ftb.mods.ftbchunks.FTBChunks");
@@ -35,10 +25,18 @@ public class SeasonHUDMixinPlugin implements IMixinConfigPlugin {
 
   }
 
+  private static boolean hasClass(String modClass) {
+    try {
+      MixinService.getService().getBytecodeProvider().getClassNode(modClass);
+      return true;
+    } catch (ClassNotFoundException | IOException e) {
+      return false;
+    }
+  }
+
   @Override
   public boolean shouldApplyMixin(String targetClassName, String mixinClassName) {
-    Preconditions.checkState(mixinClassName.startsWith(prefix),
-        "Unexpected prefix on " + mixinClassName);
+    Preconditions.checkState(mixinClassName.startsWith(prefix), "Unexpected prefix on " + mixinClassName);
     if (mixinClassName.startsWith("club.iananderson.seasonhud.mixin.xaero")) {
       return HAS_XAERO;
     } else if (mixinClassName.startsWith("club.iananderson.seasonhud.mixin.ftbchunks")) {
@@ -66,13 +64,11 @@ public class SeasonHUDMixinPlugin implements IMixinConfigPlugin {
     return null;
   }
 
-  public void preApply(String targetClassName, ClassNode targetClass, String mixinClassName,
-      IMixinInfo mixinInfo) {
+  public void preApply(String targetClassName, ClassNode targetClass, String mixinClassName, IMixinInfo mixinInfo) {
 
   }
 
-  public void postApply(String targetClassName, ClassNode targetClass, String mixinClassName,
-      IMixinInfo mixinInfo) {
+  public void postApply(String targetClassName, ClassNode targetClass, String mixinClassName, IMixinInfo mixinInfo) {
 
   }
 }
