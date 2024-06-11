@@ -24,6 +24,7 @@ import net.minecraft.client.gui.components.CycleButton;
 import net.minecraft.client.gui.components.EditBox;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.TranslatableComponent;
 import org.jetbrains.annotations.NotNull;
 
 public class ColorScreen extends Screen {
@@ -32,8 +33,8 @@ public class ColorScreen extends Screen {
   private static final int MENU_PADDING_FULL = 25;
   private static final int BUTTON_WIDTH = 150;
   private static final int BUTTON_HEIGHT = 20;
-  private static final Component TITLE = Component.translatable("menu.seasonhud.color.title");
-  private static final Component ENABLE_SEASON_NAME_COLOR = Component.translatable(
+  private static final Component TITLE = new TranslatableComponent("menu.seasonhud.color.title");
+  private static final Component ENABLE_SEASON_NAME_COLOR = new TranslatableComponent(
       "menu.seasonhud.color.button.enableSeasonNameColor");
   private static final ColorScreen instance = new ColorScreen(SeasonHUDScreen.getInstance());
   public static Button doneButton;

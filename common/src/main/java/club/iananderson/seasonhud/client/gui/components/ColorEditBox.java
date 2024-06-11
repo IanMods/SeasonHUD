@@ -15,6 +15,7 @@ import net.minecraft.client.gui.components.EditBox;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.network.chat.Style;
+import net.minecraft.network.chat.TranslatableComponent;
 import org.jetbrains.annotations.NotNull;
 
 public class ColorEditBox extends EditBox {
@@ -107,22 +108,22 @@ public class ColorEditBox extends EditBox {
       SEASON_FORMAT = Style.EMPTY.withColor(this.newSeasonColor);
     }
 
-    Component icon = Component.translatable("desc.seasonhud.icon", seasonIcon).withStyle(SEASON_STYLE);
-    Component season = Component.translatable("desc.seasonhud.summary",
-        Component.translatable("desc.seasonhud." + seasonFileName)).withStyle(SEASON_FORMAT);
+    Component icon = new TranslatableComponent("desc.seasonhud.icon", seasonIcon).withStyle(SEASON_STYLE);
+    Component season = new TranslatableComponent("desc.seasonhud.summary",
+        new TranslatableComponent("desc.seasonhud." + seasonFileName)).withStyle(SEASON_FORMAT);
 
     int widgetTotalSize = ((80 + ColorScreen.WIDGET_PADDING) * seasonListSet().size());
     int scaledWidth = mc.getWindow().getGuiScaledWidth();
 
     if (this.boxSeason == SeasonList.DRY && (scaledWidth < widgetTotalSize)) {
-      season = Component.translatable("menu.seasonhud.color.editbox.dryColor").withStyle(SEASON_FORMAT);
+      season = new TranslatableComponent("menu.seasonhud.color.editbox.dryColor").withStyle(SEASON_FORMAT);
     }
 
     if (this.boxSeason == SeasonList.WET && (scaledWidth < widgetTotalSize)) {
-      season = Component.translatable("menu.seasonhud.color.editbox.wetColor").withStyle(SEASON_FORMAT);
+      season = new TranslatableComponent("menu.seasonhud.color.editbox.wetColor").withStyle(SEASON_FORMAT);
     }
 
-    MutableComponent seasonCombined = Component.translatable("desc.seasonhud.combined", icon, season);
+    MutableComponent seasonCombined = new TranslatableComponent("desc.seasonhud.combined", icon, season);
 
     graphics.pushPose();
     float scale = 1;

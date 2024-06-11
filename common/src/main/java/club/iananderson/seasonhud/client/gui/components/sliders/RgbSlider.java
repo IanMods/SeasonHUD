@@ -35,7 +35,7 @@ public class RgbSlider extends AbstractSliderButton {
   public boolean canChangeValue;
 
   private RgbSlider(int x, int y, int width, int height, double initial) {
-    super(x, y, width, height, CommonComponents.EMPTY, initial);
+    super(x, y, width, height, CommonComponents.NARRATION_SEPARATOR, initial);
     this.initial = initial;
     this.drawString = true;
     this.stepSize = 1;
@@ -68,9 +68,9 @@ public class RgbSlider extends AbstractSliderButton {
       double e = Math.max((double) r * 0.5, 3.0);
       double f = Math.sin(1.5707963267948966 * Math.cos(6.283185307179586 * d / e)) / 2.0 + 0.5;
       double g = Mth.lerp(f, 0.0, (double) r);
-      GuiComponent.enableScissor(j, k, l, m);
+      DrawUtil.enableScissor(j, k, l, m);
       GuiComponent.drawString(graphics, font, component, j - (int) g, p, n);
-      GuiComponent.disableScissor();
+      DrawUtil.disableScissor();
     } else {
       r = Mth.clamp(i, j + o / 2, l - o / 2);
       GuiComponent.drawCenteredString(graphics, font, component, r, p, n);

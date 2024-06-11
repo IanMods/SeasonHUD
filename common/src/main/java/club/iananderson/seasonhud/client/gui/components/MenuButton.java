@@ -4,6 +4,7 @@ import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.client.gui.components.Button;
 import net.minecraft.network.chat.CommonComponents;
 import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.TranslatableComponent;
 import org.jetbrains.annotations.NotNull;
 
 public class MenuButton extends Button {
@@ -29,7 +30,7 @@ public class MenuButton extends Button {
 
   public enum MenuButtons {
     DONE(CommonComponents.GUI_DONE), CANCEL(CommonComponents.GUI_CANCEL), COLORS(
-        Component.translatable("menu.seasonhud.color.title"));
+        new TranslatableComponent("menu.seasonhud.color.title"));
 
     private final Component buttonText;
 

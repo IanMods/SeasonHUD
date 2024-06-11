@@ -1,7 +1,9 @@
 package club.iananderson.seasonhud.util;
 
+import com.mojang.blaze3d.platform.Window;
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.PoseStack;
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiComponent;
 import net.minecraft.resources.ResourceLocation;
 
@@ -56,5 +58,20 @@ public class DrawUtil {
       int y, int u, int v, int width, int height, int textureWidth, int textureHeight, int borderSize) {
     blitWithBorder(poseStack, guiComponent, texture, x, y, u, v, width, height, textureWidth, textureHeight, borderSize,
         borderSize, borderSize, borderSize);
+  }
+
+  public static void enableScissor(int $$0, int $$1, int $$2, int $$3) {
+    Window $$4 = Minecraft.getInstance().getWindow();
+    int $$5 = $$4.getHeight();
+    double $$6 = $$4.getGuiScale();
+    double $$7 = (double) $$0 * $$6;
+    double $$8 = (double) $$5 - (double) $$3 * $$6;
+    double $$9 = (double) ($$2 - $$0) * $$6;
+    double $$10 = (double) ($$3 - $$1) * $$6;
+    RenderSystem.enableScissor((int) $$7, (int) $$8, Math.max(0, (int) $$9), Math.max(0, (int) $$10));
+  }
+
+  public static void disableScissor() {
+    RenderSystem.disableScissor();
   }
 }

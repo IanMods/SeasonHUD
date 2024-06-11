@@ -9,10 +9,10 @@ public class KeyBindings {
 
   public static KeyMapping seasonhudOptionsKeyMapping;
 
-    public static void init() {
-        seasonhudOptionsKeyMapping = new KeyMapping("key.seasonhud.seasonhudOptions",
-      KeyConflictContext.IN_GAME, InputConstants.getKey("key.keyboard.h"), "key.categories.seasonhud");
-        ClientRegistry.registerKeyBinding(seasonhudOptionsKeyMapping);
-    }
+  public static void init() {
+    seasonhudOptionsKeyMapping = new KeyMapping("key.seasonhud.seasonhudOptions", KeyConflictContext.IN_GAME,
+        InputConstants.getKey("key.keyboard.h"), "key.categories.seasonhud");
+    ClientRegistry.registerKeyBinding(seasonhudOptionsKeyMapping);
+  }
 }
 

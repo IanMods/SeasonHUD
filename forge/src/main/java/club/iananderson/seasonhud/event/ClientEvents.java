@@ -1,5 +1,7 @@
 package club.iananderson.seasonhud.event;
 
+import static net.minecraftforge.client.gui.ForgeIngameGui.FROSTBITE_ELEMENT;
+
 import club.iananderson.seasonhud.Common;
 import club.iananderson.seasonhud.client.KeyBindings;
 import club.iananderson.seasonhud.client.SeasonHUDOverlay;
@@ -12,8 +14,6 @@ import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
-
-import static net.minecraftforge.client.gui.ForgeIngameGui.FROSTBITE_ELEMENT;
 
 public class ClientEvents {
 
@@ -37,8 +37,8 @@ public class ClientEvents {
       OverlayRegistry.registerOverlayAbove(FROSTBITE_ELEMENT, "season", new SeasonHUDOverlay());
       OverlayRegistry.registerOverlayAbove(FROSTBITE_ELEMENT, "journeymap", new JourneyMap());
       MinecraftForge.EVENT_BUS.addListener(ClientForgeEvents::onKeyInput);
-            KeyBindings.init();
-        }
+      KeyBindings.init();
     }
+  }
 }
 

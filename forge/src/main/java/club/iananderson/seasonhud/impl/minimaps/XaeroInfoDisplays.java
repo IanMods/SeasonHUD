@@ -5,7 +5,6 @@ import static club.iananderson.seasonhud.impl.seasons.CurrentSeason.getSeasonHud
 
 import java.util.ArrayList;
 import java.util.List;
-import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.network.chat.TranslatableComponent;
 import xaero.common.minimap.info.InfoDisplay;

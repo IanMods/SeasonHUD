@@ -5,9 +5,14 @@ import java.util.Arrays;
 import net.minecraftforge.common.ForgeConfigSpec;
 
 public class Config {
-
   //Config Builder
   public static final ForgeConfigSpec GENERAL_SPEC;
+  public static final int defaultSpringColor = 16753595;
+  public static final int defaultSummerColor = 16705834;
+  public static final int defaultAutumnColor = 12344871;
+  public static final int defaultWinterColor = 14679292;
+  public static final int defaultDryColor = 16745216;
+  public static final int defaultWetColor = 2068975;
   public static ForgeConfigSpec.BooleanValue enableMod;
   public static ForgeConfigSpec.ConfigValue<Location> hudLocation;
   public static ForgeConfigSpec.ConfigValue<Integer> hudX;
@@ -62,32 +67,32 @@ public class Config {
     springColor = BUILDER.comment("""
         The RGB color (decimal) for spring.
         (256 * 256 * r) + (256 * g) + (b) is the formula
-        Default is 16753595.""").defineInRange("spring_color", 16753595, 0, 16777215);
+        Default is 16753595.""").defineInRange("spring_color", defaultSpringColor, 0, 16777215);
 
     summerColor = BUILDER.comment("""
         The RGB color (decimal) for summer.
         (256 * 256 * r) + (256 * g) + (b) is the formula
-        Default is 16705834.""").defineInRange("summer_color", 16705834, 0, 16777215);
+        Default is 16705834.""").defineInRange("summer_color", defaultSummerColor, 0, 16777215);
 
     autumnColor = BUILDER.comment("""
         The RGB color (decimal) for autumn.
         (256 * 256 * r) + (256 * g) + (b) is the formula
-        Default is 12344871.""").defineInRange("autumn_color", 12344871, 0, 16777215);
+        Default is 12344871.""").defineInRange("autumn_color", defaultAutumnColor, 0, 16777215);
 
     winterColor = BUILDER.comment("""
         The RGB color (decimal) for winter.
         (256 * 256 * r) + (256 * g) + (b) is the formula
-        Default is 14679292.""").defineInRange("winter_color", 14679292, 0, 16777215);
+        Default is 14679292.""").defineInRange("winter_color", defaultWinterColor, 0, 16777215);
 
     dryColor = BUILDER.comment("""
         The RGB color (decimal) for dry tropical season.
         (256 * 256 * r) + (256 * g) + (b) is the formula
-        Default is 16745216.""").defineInRange("dry_color", 16745216, 0, 16777215);
+        Default is 16745216.""").defineInRange("dry_color", defaultDryColor, 0, 16777215);
 
     wetColor = BUILDER.comment("""
         The RGB color (decimal) for wet tropical season.
         (256 * 256 * r) + (256 * g) + (b) is the formula
-        Default is 2068975.""").defineInRange("wet_color", 2068975, 0, 16777215);
+        Default is 2068975.""").defineInRange("wet_color", defaultWetColor, 0, 16777215);
     BUILDER.pop();
     BUILDER.pop();
 

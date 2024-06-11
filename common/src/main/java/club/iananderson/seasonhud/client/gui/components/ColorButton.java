@@ -6,11 +6,12 @@ import com.mojang.blaze3d.vertex.PoseStack;
 import java.util.HashMap;
 import net.minecraft.client.gui.components.Button;
 import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.TranslatableComponent;
 import org.jetbrains.annotations.NotNull;
 
 public class ColorButton extends Button {
 
-  private static final Component DEFAULT = Component.translatable("menu.seasonhud.color.button.default");
+  private static final Component DEFAULT = new TranslatableComponent("menu.seasonhud.color.button.default");
   private ColorEditBox colorEditBox;
   private int defaultColor;
 

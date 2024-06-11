@@ -5,13 +5,11 @@ import static club.iananderson.seasonhud.platform.Services.SEASON;
 
 import club.iananderson.seasonhud.config.Config;
 import club.iananderson.seasonhud.config.ShowDay;
-import net.minecraft.network.chat.Component;
-import net.minecraft.network.chat.TranslatableComponent;
-
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.Style;
+import net.minecraft.network.chat.TranslatableComponent;
 
 public class CurrentSeason {
 
@@ -61,8 +59,8 @@ public class CurrentSeason {
       case SHOW_DAY -> {
         text.add(new TranslatableComponent("desc.seasonhud.icon", getSeasonIcon(fileName)).withStyle(SEASON_STYLE));
         text.add(new TranslatableComponent("desc.seasonhud.detailed",
-                              new TranslatableComponent("desc.seasonhud." + getSeasonStateLower()), SEASON.getDate())
-                          .withStyle(SEASON_FORMAT));
+            new TranslatableComponent("desc.seasonhud." + getSeasonStateLower()), SEASON.getDate()).withStyle(
+            SEASON_FORMAT));
       }
 
       case SHOW_WITH_TOTAL_DAYS -> {
@@ -82,8 +80,8 @@ public class CurrentSeason {
               new TranslatableComponent("desc.seasonhud." + currentMonth), SEASON.getDate()).withStyle(SEASON_FORMAT));
         } else {
           text.add(new TranslatableComponent("desc.seasonhud.detailed",
-                                new TranslatableComponent("desc.seasonhud." + getSeasonStateLower()), SEASON.getDate())
-                            .withStyle(SEASON_FORMAT));
+              new TranslatableComponent("desc.seasonhud." + getSeasonStateLower()), SEASON.getDate()).withStyle(
+              SEASON_FORMAT));
         }
       }
     }

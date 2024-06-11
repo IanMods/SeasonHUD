@@ -5,6 +5,7 @@ import club.iananderson.seasonhud.config.Config;
 import club.iananderson.seasonhud.util.Rgb;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.TextComponent;
 import net.minecraft.util.Mth;
 
 public class RedSlider extends RgbSlider {
@@ -35,7 +36,7 @@ public class RedSlider extends RgbSlider {
 
   @Override
   protected void updateMessage() {
-    Component colorString = Component.literal(this.getValueString());
+    Component colorString = new TextComponent(this.getValueString());
     if (this.drawString) {
       this.setMessage(colorString.copy().withStyle(ChatFormatting.RED));
 
@@ -43,7 +44,7 @@ public class RedSlider extends RgbSlider {
         this.setMessage(colorString.copy().withStyle(ChatFormatting.GRAY));
       }
     } else {
-      this.setMessage(Component.empty());
+      this.setMessage(new TextComponent(""));
     }
   }
 

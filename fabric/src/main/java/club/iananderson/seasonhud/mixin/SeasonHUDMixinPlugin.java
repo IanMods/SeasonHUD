@@ -11,11 +11,10 @@ import org.spongepowered.asm.service.MixinService;
 
 public class SeasonHUDMixinPlugin implements IMixinConfigPlugin {
 
-    private static final boolean HAS_XAERO;
+  private static final boolean HAS_XAERO;
 
   static {
     HAS_XAERO = hasClass("xaero.common.HudMod");
-    HAS_FTB = hasClass("dev.ftb.mods.ftbchunks.FTBChunks");
   }
 
   private String prefix = null;
@@ -33,25 +32,15 @@ public class SeasonHUDMixinPlugin implements IMixinConfigPlugin {
     }
   }
 
-    static{
-        HAS_XAERO = hasClass("xaero.common.HudMod");
+  @Override
+  public boolean shouldApplyMixin(String targetClassName, String mixinClassName) {
+    Preconditions.checkState(mixinClassName.startsWith(prefix), "Unexpected prefix on " + mixinClassName);
+    if (mixinClassName.startsWith("club.iananderson.seasonhud.mixin.xaero")) {
+      return HAS_XAERO;
+    } else {
+      return true;
     }
-
-    private String prefix = null;
-
-    public SeasonHUDMixinPlugin(){
-
-    }
-
-    @Override
-    public boolean shouldApplyMixin(String targetClassName, String mixinClassName) {
-        Preconditions.checkState(mixinClassName.startsWith(prefix), "Unexpected prefix on " + mixinClassName);
-        if (mixinClassName.startsWith("club.iananderson.seasonhud.mixin.xaero")){
-            return HAS_XAERO;
-        }
-        else return true;
-    }
-
+  }
 
   @Override
   public void onLoad(String mixinPackage) {

@@ -16,7 +16,7 @@ public class SeasonHUD implements ModInitializer {
   public void onInitialize() {
     Common.init();
 
-        SeasonHUDOverlay.init();
-        JourneyMap.init();
-    }
+    SeasonHUDOverlay.init();
+    JourneyMap.init();
+  }
 }
