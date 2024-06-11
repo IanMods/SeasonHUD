@@ -56,8 +56,7 @@ public class SeasonHUDScreen extends Screen {
 
     if (Services.PLATFORM.isModLoaded("journeymap")) {
       graphics.drawCenteredString(font, JOURNEYMAP, this.width / 2,
-                                  MENU_PADDING_FULL + (6 * (BUTTON_HEIGHT + PADDING)) - (font.lineHeight + PADDING),
-                                  16777215);
+          MENU_PADDING_FULL + (6 * (BUTTON_HEIGHT + PADDING)) - (font.lineHeight + PADDING), 16777215);
     }
     super.render(graphics, mouseX, mouseY, partialTicks);
   }

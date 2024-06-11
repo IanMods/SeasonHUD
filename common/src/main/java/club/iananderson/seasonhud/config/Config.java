@@ -106,10 +106,10 @@ public class Config {
         Default is true.""").define("enable_show_sub_season", true);
 
     showDay = BUILDER.comment("""
-                                  Show the current day of the season/sub-season?
-                                  NONE, SHOW_DAY,
-                                                                                        SHOW_WITH_TOTAL_DAYS
-                                  Default is SHOW_DAY.""").defineEnum("enable_show_day", ShowDay.SHOW_DAY);
+        Show the current day of the season/sub-season?
+        NONE, SHOW_DAY,
+                                                              SHOW_WITH_TOTAL_DAYS
+        Default is SHOW_DAY.""").defineEnum("enable_show_day", ShowDay.SHOW_DAY);
     BUILDER.pop();
 
     BUILDER.push("Minimap");

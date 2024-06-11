@@ -27,7 +27,7 @@ public class MapAtlases implements HudRenderCallback {
   }
 
   public static void drawScaledText(GuiGraphics context, int x, int y, MutableComponent text, float textScaling,
-                                    int originOffsetWidth, int originOffsetHeight) {
+      int originOffsetWidth, int originOffsetHeight) {
     PoseStack poseStack = context.pose();
     float textWidth = (float) mc.font.width(text) * textScaling;
     float textX = (float) ((double) x + (double) originOffsetWidth / 2.0 - (double) textWidth / 2.0);
