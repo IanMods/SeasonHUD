@@ -12,8 +12,8 @@ dependencies {
     modImplementation "net.fabricmc:fabric-loader:${fabric_loader_version}"
     modImplementation "net.fabricmc.fabric-api:fabric-api:${fabric_version}"
 
-    implementation ("com.electronwill.night-config:core:3.6.7")
-    implementation ("com.electronwill.night-config:toml:3.6.7")
+    implementation("com.electronwill.night-config:core:3.6.7")
+    implementation("com.electronwill.night-config:toml:3.6.7")
     include implementation("net.jodah:typetools:0.6.3")
 
     /Serene Seasons/
@@ -44,11 +44,12 @@ dependencies {
     modImplementation "curse.maven:forge-config-api-port-fabric-547434:${project.forgeconfigapiport_fabric_file_id}"
 
     /JourneyMap/
-    modCompileOnlyApi  group: 'info.journeymap', name: 'journeymap-api', version: journeymap_api_version_fabric, changing: true
+    modCompileOnlyApi group: 'info.journeymap', name: 'journeymap-api', version: journeymap_api_version_fabric, changing: true
     modCompileOnly "curse.maven:journeymap-${project.jm_project_id}:${project.journeymap_fabric_file_id}"
 
     /Map Atlases/
-    modCompileOnly "maven.modrinth:map-atlases:Cm1VPyWo" //Fabric only version, only for 1.20.4 even though it is marked as 1.20.5 as well
+    modCompileOnly "maven.modrinth:map-atlases:Cm1VPyWo"
+    //Fabric only version, only for 1.20.4 even though it is marked as 1.20.5 as well
     modCompileOnly "maven.modrinth:cloth-config:eBZiZ9NS"
 
 //    modCompileOnly "curse.maven:map-atlases-436298:${project.map_atlases_fabric_file_id}"

@@ -29,7 +29,7 @@ public class MapAtlases implements LayeredDraw.Layer {
   }
 
   public static void drawScaledComponent(GuiGraphics context, Font font, int x, int y, MutableComponent text,
-                                         float textScaling, int maxWidth, int targetWidth) {
+      float textScaling, int maxWidth, int targetWidth) {
     PoseStack pose = context.pose();
     float textWidth = (float) font.width(text);
     float scale = Math.min(1.0F, (float) maxWidth * textScaling / textWidth);
@@ -44,15 +44,14 @@ public class MapAtlases implements LayeredDraw.Layer {
   }
 
   public static void drawMapComponentSeason(GuiGraphics poseStack, Font font, int x, int y, int targetWidth,
-                                            float textScaling) {
+      float textScaling) {
     if (CurrentMinimap.minimapLoaded("map_atlases")) {
       MutableComponent seasonCombined = Component.translatable("desc.seasonhud.combined",
-                                                               getSeasonHudName().get(0).copy().withStyle(SEASON_STYLE),
-                                                               getSeasonHudName().get(1).copy());
+          getSeasonHudName().get(0).copy().withStyle(SEASON_STYLE), getSeasonHudName().get(1).copy());
 
       float globalScale = (float) (double) MapAtlasesClientConfig.miniMapScale.get();
       drawScaledComponent(poseStack, font, x, y, seasonCombined, textScaling / globalScale, targetWidth,
-                          (int) (targetWidth / globalScale));
+          (int) (targetWidth / globalScale));
     }
   }
 
@@ -78,8 +77,8 @@ public class MapAtlases implements LayeredDraw.Layer {
 
   @Override
   public void render(GuiGraphics guiGraphics, float partialTick) {
-        int screenWidth = guiGraphics.guiWidth();
-        int screenHeight = guiGraphics.guiHeight();
+    int screenWidth = guiGraphics.guiWidth();
+    int screenHeight = guiGraphics.guiHeight();
 
     if (CurrentMinimap.minimapLoaded("map_atlases") && shouldDraw(mc)) {
       float textScaling = (float) (double) MapAtlasesClientConfig.minimapCoordsAndBiomeScale.get();
@@ -134,7 +133,7 @@ public class MapAtlases implements LayeredDraw.Layer {
         }
 
         drawMapComponentSeason(guiGraphics, font, x, (int) (y + BG_SIZE + (textHeightOffset / globalScale)),
-                               actualBgSize, textScaling);
+            actualBgSize, textScaling);
         guiGraphics.pose().popPose();
       }
     }

@@ -18,13 +18,20 @@ import net.neoforged.neoforge.client.gui.VanillaGuiLayers;
 @EventBusSubscriber(value = Dist.CLIENT, modid = SeasonHUD.MODID, bus = EventBusSubscriber.Bus.GAME)
 public class ClientEvents {
 
-    @EventBusSubscriber(value = Dist.CLIENT, modid = SeasonHUD.MODID, bus = EventBusSubscriber.Bus.MOD)
-    public static class ModBus {
-        //Key Bindings
-        @SubscribeEvent
-        public static void onKeyRegister(RegisterKeyMappingsEvent event){
-            event.register(KeyBindings.seasonhudOptionsKeyMapping);
-        }
+  @SubscribeEvent
+  public static void onKeyInput(InputEvent.Key Event) {
+    if (KeyBindings.seasonhudOptionsKeyMapping.consumeClick()) {
+      SeasonHUDScreen.open();
+    }
+  }
+
+  @EventBusSubscriber(value = Dist.CLIENT, modid = SeasonHUD.MODID, bus = EventBusSubscriber.Bus.MOD)
+  public static class ModBus {
+    //Key Bindings
+    @SubscribeEvent
+    public static void onKeyRegister(RegisterKeyMappingsEvent event) {
+      event.register(KeyBindings.seasonhudOptionsKeyMapping);
+    }
 
     //Overlays
     @SubscribeEvent
@@ -34,12 +41,5 @@ public class ClientEvents {
       event.registerAbove(VanillaGuiLayers.CAMERA_OVERLAYS, Common.location("mapatlases"), new MapAtlases());
     }
   }
-
-    @SubscribeEvent
-    public static void onKeyInput(InputEvent.Key Event) {
-        if (KeyBindings.seasonhudOptionsKeyMapping.consumeClick()) {
-            SeasonHUDScreen.open();
-        }
-    }
 
 }

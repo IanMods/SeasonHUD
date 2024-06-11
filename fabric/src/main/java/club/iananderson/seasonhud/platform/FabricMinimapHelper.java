@@ -21,25 +21,24 @@ public class FabricMinimapHelper implements IMinimapHelper {
     return !ModConfig.seasons.isDimensionWhitelisted(currentDim);
   }
 
-	@Override
-	public boolean currentMinimapHidden() {
-		if (CurrentMinimap.minimapLoaded("journeymap")) {
-			return !UIManager.INSTANCE.getMiniMap().getCurrentMinimapProperties().enabled.get();
-		}
-		if (CurrentMinimap.minimapLoaded("ftbchunks")
-				&& !CurrentMinimap.minimapLoaded("journeymap")
-				&& !CurrentMinimap.minimapLoaded("xaerominimap")
-				&& !CurrentMinimap.minimapLoaded("xaerominimapfair")
-				&& !CurrentMinimap.minimapLoaded("map_atlases")) {
-			return !FTBChunksClientConfig.MINIMAP_ENABLED.get();
-		}
+  @Override
+  public boolean currentMinimapHidden() {
+    if (CurrentMinimap.minimapLoaded("journeymap")) {
+      return !UIManager.INSTANCE.getMiniMap().getCurrentMinimapProperties().enabled.get();
+    }
+    if (CurrentMinimap.minimapLoaded("ftbchunks") && !CurrentMinimap.minimapLoaded("journeymap")
+        && !CurrentMinimap.minimapLoaded("xaerominimap") && !CurrentMinimap.minimapLoaded("xaerominimapfair")
+        && !CurrentMinimap.minimapLoaded("map_atlases")) {
+      return !FTBChunksClientConfig.MINIMAP_ENABLED.get();
+    }
 		if (CurrentMinimap.minimapLoaded("xaerominimap") || CurrentMinimap.minimapLoaded("xaerominimapfair")) {
 			return !HudMod.INSTANCE.getSettings().getMinimap();
 		}
 //		if (CurrentMinimap.minimapLoaded("map_atlases")) {
 //			return !MapAtlases.shouldDraw(Minecraft.getInstance());
-//		}else {
-      return false;
-    }
+//		}
+		else {
+			return false;
+		}
   }
 }

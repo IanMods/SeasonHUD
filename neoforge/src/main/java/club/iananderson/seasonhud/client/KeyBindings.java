@@ -6,8 +6,6 @@ import net.neoforged.neoforge.client.settings.KeyConflictContext;
 
 public class KeyBindings {
   public static final KeyMapping seasonhudOptionsKeyMapping = new KeyMapping("key.seasonhud.seasonhudOptions",
-                                                                             KeyConflictContext.IN_GAME,
-                                                                             InputConstants.getKey("key.keyboard.h"),
-                                                                             "key.categories.seasonhud");
+      KeyConflictContext.IN_GAME, InputConstants.getKey("key.keyboard.h"), "key.categories.seasonhud");
 }
 

@@ -26,13 +26,13 @@ public class ClientEvents {
     }
   }
 
-    @Mod.EventBusSubscriber(modid = Common.MOD_ID, value = Dist.CLIENT, bus = Mod.EventBusSubscriber.Bus.MOD)
-    public static class ClientModBusEvents {
-        //Overlays
-        public static void registerOverlays(GuiGraphics guiGraphics, float partialTick) {
-            new SeasonHUDOverlay().render(guiGraphics, partialTick);
-            new JourneyMap().render(guiGraphics, partialTick);
-            new MapAtlases().render(guiGraphics,partialTick);
+  @Mod.EventBusSubscriber(modid = Common.MOD_ID, value = Dist.CLIENT, bus = Mod.EventBusSubscriber.Bus.MOD)
+  public static class ClientModBusEvents {
+    //Overlays
+    public static void registerOverlays(GuiGraphics guiGraphics, float partialTick) {
+      new SeasonHUDOverlay().render(guiGraphics, partialTick);
+      new JourneyMap().render(guiGraphics, partialTick);
+      new MapAtlases().render(guiGraphics, partialTick);
     }
 
     //Key Bindings

@@ -1,7 +1,5 @@
 package club.iananderson.seasonhud;
 
-import static club.iananderson.seasonhud.Common.LOG;
-
 import club.iananderson.seasonhud.config.Config;
 import fuzs.forgeconfigapiport.forge.api.neoforge.v4.NeoForgeConfigRegistry;
 import net.minecraftforge.common.MinecraftForge;
@@ -30,12 +28,12 @@ public class SeasonHUD {
     NeoForgeConfigRegistry.INSTANCE.register(ModConfig.Type.CLIENT, Config.GENERAL_SPEC, "SeasonHUD-client.toml");
   }
 
-    public void enqueue(InterModEnqueueEvent event) {
+  public void enqueue(InterModEnqueueEvent event) {
 //        LOG.info("Talking to Curios");
 //        InterModComms.sendTo("curios", SlotTypeMessage.REGISTER_TYPE, () -> new SlotTypeMessage.Builder("charm")
 //                .size(1)
 //                .build());
-    }
+  }
 
   private void commonSetup(final FMLCommonSetupEvent event) {
   }

@@ -23,20 +23,19 @@ import net.minecraft.client.gui.LayeredDraw;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
 
-public class JourneyMap implements LayeredDraw.Layer{
-    public JourneyMap(){
-    }
+public class JourneyMap implements LayeredDraw.Layer {
+  public JourneyMap() {
+  }
 
-    public static void init() {
-        LayeredDraw layer = new LayeredDraw().add((guiGraphics, f) -> {
-            new JourneyMap().render(guiGraphics,f);
-        });
-    }
+  public static void init() {
+    LayeredDraw layer = new LayeredDraw().add((guiGraphics, f) -> {
+      new JourneyMap().render(guiGraphics, f);
+    });
+  }
 
-    private static String getSeason(){
-        MutableComponent seasonCombined = Component.translatable("desc.seasonhud.combined",
-                getSeasonHudName().get(0).copy().withStyle(SEASON_STYLE),
-                getSeasonHudName().get(1).copy());
+  private static String getSeason() {
+    MutableComponent seasonCombined = Component.translatable("desc.seasonhud.combined",
+        getSeasonHudName().get(0).copy().withStyle(SEASON_STYLE), getSeasonHudName().get(1).copy());
 
     return seasonCombined.getString();
   }
@@ -44,8 +43,7 @@ public class JourneyMap implements LayeredDraw.Layer{
   @Override
   public void render(GuiGraphics guiGraphics, float partialTick) {
     MutableComponent seasonCombined = Component.translatable("desc.seasonhud.combined",
-                                                             getSeasonHudName().get(0).copy().withStyle(SEASON_STYLE),
-                                                             getSeasonHudName().get(1).copy());
+        getSeasonHudName().get(0).copy().withStyle(SEASON_STYLE), getSeasonHudName().get(1).copy());
 
     if (Services.PLATFORM.isModLoaded("journeymap") && !enableMod.get()) {
       ThemeLabelSource.create(Common.MOD_ID, "menu.seasonhud.infodisplay.season", 1000L, 1L, JourneyMap::getSeason);
@@ -62,11 +60,11 @@ public class JourneyMap implements LayeredDraw.Layer{
       double screenWidth = mc.getWindow().getWidth();
       double screenHeight = mc.getWindow().getHeight();
 
-	        int scaledWidth = guiGraphics.guiWidth();
-	        int scaledHeight = guiGraphics.guiHeight();
+      int scaledWidth = guiGraphics.guiWidth();
+      int scaledHeight = guiGraphics.guiHeight();
 
-            int minimapHeight = vars.minimapHeight;
-            int minimapWidth = vars.minimapWidth;
+      int minimapHeight = vars.minimapHeight;
+      int minimapWidth = vars.minimapWidth;
 
       float fontScale = jm.getActiveMiniMapProperties().fontScale.get();
 
@@ -80,12 +78,12 @@ public class JourneyMap implements LayeredDraw.Layer{
       boolean fontShadow = currentTheme.shadow;
       int labelHeight = (int) ((DrawUtil.getLabelHeight(fontRenderer, fontShadow) + currentTheme.margin) * fontScale);
 
-      int topLabelHeight = vars.getInfoLabelAreaHeight(fontRenderer, currentTheme, ThemeLabelSource.values.get(
-          jm.getActiveMiniMapProperties().info1Label.get()), ThemeLabelSource.values.get(
-          jm.getActiveMiniMapProperties().info2Label.get()));
-      int bottomLabelHeight = vars.getInfoLabelAreaHeight(fontRenderer, currentTheme, ThemeLabelSource.values.get(
-          jm.getActiveMiniMapProperties().info3Label.get()), ThemeLabelSource.values.get(
-          jm.getActiveMiniMapProperties().info4Label.get()));
+      int topLabelHeight = vars.getInfoLabelAreaHeight(fontRenderer, currentTheme,
+          ThemeLabelSource.values.get(jm.getActiveMiniMapProperties().info1Label.get()),
+          ThemeLabelSource.values.get(jm.getActiveMiniMapProperties().info2Label.get()));
+      int bottomLabelHeight = vars.getInfoLabelAreaHeight(fontRenderer, currentTheme,
+          ThemeLabelSource.values.get(jm.getActiveMiniMapProperties().info3Label.get()),
+          ThemeLabelSource.values.get(jm.getActiveMiniMapProperties().info4Label.get()));
 
       int margin = ThemeLoader.getCurrentTheme().minimap.square.margin;
 
@@ -109,8 +107,8 @@ public class JourneyMap implements LayeredDraw.Layer{
         DrawUtil.sizeDisplay(guiGraphics.pose(), screenWidth, screenHeight);
         guiGraphics.pose().popPose();
         DrawUtil.drawBatchLabel(guiGraphics.pose(), seasonCombined, guiGraphics.bufferSource(), labelX, labelY,
-                                DrawUtil.HAlign.Center, DrawUtil.VAlign.Below, labelColor, labelAlpha, textColor,
-                                textAlpha, fontScale, fontShadow);
+            DrawUtil.HAlign.Center, DrawUtil.VAlign.Below, labelColor, labelAlpha, textColor, textAlpha, fontScale,
+            fontShadow);
         guiGraphics.bufferSource().endBatch();
         DrawUtil.sizeDisplay(guiGraphics.pose(), scaledWidth, scaledHeight);
       }

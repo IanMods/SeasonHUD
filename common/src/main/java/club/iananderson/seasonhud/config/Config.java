@@ -34,105 +34,104 @@ public class Config {
   private static void setupConfig(ModConfigSpec.Builder BUILDER) {
     BUILDER.push("SeasonHUD");
     enableMod = BUILDER.comment("""
-                                    Enable the mod?
-                                    (true/false)
-                                    Default is true.""").define("enable_mod", true);
+        Enable the mod?
+        (true/false)
+        Default is true.""").define("enable_mod", true);
 
     BUILDER.push("HUD");
     hudLocation = BUILDER.comment("""
-                                      Part of the screen to display the HUD when no minimap is installed
-                                      Default is "TOP_LEFT".""").defineEnum("hud_location", Location.TOP_LEFT);
+        Part of the screen to display the HUD when no minimap is installed
+        Default is "TOP_LEFT".""").defineEnum("hud_location", Location.TOP_LEFT);
 
     hudX = BUILDER.comment("""
-                               The horizontal offset of the HUD when no minimap is installed (in pixels)
-                               Default is 0.""").define("hud_x_position", 0);
+        The horizontal offset of the HUD when no minimap is installed (in pixels)
+        Default is 0.""").define("hud_x_position", 0);
 
     hudY = BUILDER.comment("""
-                               The vertical offset of the HUD when no minimap is installed (in pixels)
-                               Default is 0.""").define("hud_y_position", 0);
+        The vertical offset of the HUD when no minimap is installed (in pixels)
+        Default is 0.""").define("hud_y_position", 0);
 
     BUILDER.push("Colors");
     enableSeasonNameColor = BUILDER.comment("""
-                                                Display the season name in a color?
-                                                (true/false)""").define("season_name_color", true);
+        Display the season name in a color?
+        (true/false)""").define("season_name_color", true);
 
     springColor = BUILDER.comment("""
-                                      The RGB color (decimal) for spring.
-                                      (256 * 256 * r) + (256 * g) + (b) is the formula
-                                      Default is 16753595.""").defineInRange("spring_color", 16753595, 0, 16777215);
+        The RGB color (decimal) for spring.
+        (256 * 256 * r) + (256 * g) + (b) is the formula
+        Default is 16753595.""").defineInRange("spring_color", 16753595, 0, 16777215);
 
     summerColor = BUILDER.comment("""
-                                      The RGB color (decimal) for summer.
-                                      (256 * 256 * r) + (256 * g) + (b) is the formula
-                                      Default is 16705834.""").defineInRange("summer_color", 16705834, 0, 16777215);
+        The RGB color (decimal) for summer.
+        (256 * 256 * r) + (256 * g) + (b) is the formula
+        Default is 16705834.""").defineInRange("summer_color", 16705834, 0, 16777215);
 
     autumnColor = BUILDER.comment("""
-                                      The RGB color (decimal) for autumn.
-                                      (256 * 256 * r) + (256 * g) + (b) is the formula
-                                      Default is 12344871.""").defineInRange("autumn_color", 12344871, 0, 16777215);
+        The RGB color (decimal) for autumn.
+        (256 * 256 * r) + (256 * g) + (b) is the formula
+        Default is 12344871.""").defineInRange("autumn_color", 12344871, 0, 16777215);
 
     winterColor = BUILDER.comment("""
-                                      The RGB color (decimal) for winter.
-                                      (256 * 256 * r) + (256 * g) + (b) is the formula
-                                      Default is 14679292.""").defineInRange("winter_color", 14679292, 0, 16777215);
+        The RGB color (decimal) for winter.
+        (256 * 256 * r) + (256 * g) + (b) is the formula
+        Default is 14679292.""").defineInRange("winter_color", 14679292, 0, 16777215);
 
     dryColor = BUILDER.comment("""
-                                   The RGB color (decimal) for dry tropical season.
-                                   (256 * 256 * r) + (256 * g) + (b) is the formula
-                                   Default is 16745216.""").defineInRange("dry_color", 16745216, 0, 16777215);
+        The RGB color (decimal) for dry tropical season.
+        (256 * 256 * r) + (256 * g) + (b) is the formula
+        Default is 16745216.""").defineInRange("dry_color", 16745216, 0, 16777215);
 
     wetColor = BUILDER.comment("""
-                                   The RGB color (decimal) for wet tropical season.
-                                   (256 * 256 * r) + (256 * g) + (b) is the formula
-                                   Default is 2068975.""").defineInRange("wet_color", 2068975, 0, 16777215);
+        The RGB color (decimal) for wet tropical season.
+        (256 * 256 * r) + (256 * g) + (b) is the formula
+        Default is 2068975.""").defineInRange("wet_color", 2068975, 0, 16777215);
     BUILDER.pop();
     BUILDER.pop();
 
     BUILDER.push("Season");
     needCalendar = BUILDER.comment("""
-                                       Require the Calendar item to be in the players inventory to show the HUD?
-                                       (true/false)
-                                       Default is false.""").define("need_calendar", false);
+        Require the Calendar item to be in the players inventory to show the HUD?
+        (true/false)
+        Default is false.""").define("need_calendar", false);
 
     showTropicalSeason = BUILDER.comment("""
-                                             Show the Tropical seasons (Wet/Dry) in Tropical Biomes.
-                                             Will not change the season behavior in the biomes.
-                                             (true/false)
-                                             Default is true.""").define("enable_show_tropical_season", true);
+        Show the Tropical seasons (Wet/Dry) in Tropical Biomes.
+        Will not change the season behavior in the biomes.
+        (true/false)
+        Default is true.""").define("enable_show_tropical_season", true);
 
     showSubSeason = BUILDER.comment("""
-                                        Show sub-season (i.e. Early Winter, Mid Autumn, Late Spring) instead of basic season?
-                                        (true/false)
-                                        Default is true.""").define("enable_show_sub_season", true);
+        Show sub-season (i.e. Early Winter, Mid Autumn, Late Spring) instead of basic season?
+        (true/false)
+        Default is true.""").define("enable_show_sub_season", true);
 
     showDay = BUILDER.comment("""
-                                  Show the current day of the season/sub-season?
-                                  NONE, SHOW_DAY,
-                                                                                        SHOW_WITH_TOTAL_DAYS
-                                  Default is SHOW_DAY.""").defineEnum("enable_show_day", ShowDay.SHOW_DAY);
+        Show the current day of the season/sub-season?
+        NONE, SHOW_DAY,
+                                                              SHOW_WITH_TOTAL_DAYS
+        Default is SHOW_DAY.""").defineEnum("enable_show_day", ShowDay.SHOW_DAY);
     BUILDER.pop();
 
     BUILDER.push("Minimap");
     enableMinimapIntegration = BUILDER.comment("""
-                                                   Enable integration with minimap mods.
-                                                   (true/false)
-                                                   Default is true.""").define("enable_minimap_integration", true);
+        Enable integration with minimap mods.
+        (true/false)
+        Default is true.""").define("enable_minimap_integration", true);
     showDefaultWhenMinimapHidden = BUILDER.comment("""
-                                                       Show the default SeasonHUD display when the minimap is hidden.
-                                                       (true/false)
-                                                       Default is false.""")
-                                          .define("enable_show_minimap_hidden", false);
+        Show the default SeasonHUD display when the minimap is hidden.
+        (true/false)
+        Default is false.""").define("enable_show_minimap_hidden", false);
 
     BUILDER.push("Journeymap");
     journeyMapAboveMap = BUILDER.comment("""
-                                             Show above the JourneyMap minimap, instead of below.
-                                             (true/false)
-                                             Default is false.""").define("enable_above_map", false);
+        Show above the JourneyMap minimap, instead of below.
+        (true/false)
+        Default is false.""").define("enable_above_map", false);
     journeyMapMacOS = BUILDER.comment("""
-                                          Toggle for macOS retina display scaling when using JourneyMap.
-                                          Enable if the season line is rendering around the halfway point of the screen.
-                                          (true/false)
-                                          Default is false.""").define("enable_macOS", false);
+        Toggle for macOS retina display scaling when using JourneyMap.
+        Enable if the season line is rendering around the halfway point of the screen.
+        (true/false)
+        Default is false.""").define("enable_macOS", false);
     BUILDER.pop();
     BUILDER.pop();
     BUILDER.pop();
