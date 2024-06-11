@@ -28,18 +28,18 @@ public class FabricSeasonHelper implements ISeasonHelper {
 
   @Override
   public String getCurrentSeasonState() {
-    return FabricSeasons.getCurrentSeason(Objects.requireNonNull(mc.level)).toString();
+    String seasonState = FabricSeasons.getCurrentSeason(Objects.requireNonNull(mc.level)).toString();
+
+    if (seasonState.equalsIgnoreCase("fall")) {
+      return "Autumn";
+    } else {
+      return seasonState;
+    }
   }
 
   @Override
   public String getSeasonFileName() {
-    String fileName = getCurrentSeasonState().toLowerCase();
-
-    if (fileName.equals("fall")) {
-      return "autumn";
-    } else {
-      return fileName;
-    }
+    return getCurrentSeasonState().toLowerCase();
   }
 
   @Override
