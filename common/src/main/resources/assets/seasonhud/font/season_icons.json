@@ -7,61 +7,59 @@
         "\u200c": 0
       }
     },
-
     {
       "type": "bitmap",
       "file": "seasonhud:season/spring.png",
       "ascent": 8,
       "height": 9,
-      "chars": ["\uEA00"]
+      "chars": [
+        "\uEA00"
+      ]
     },
-
     {
       "type": "bitmap",
       "file": "seasonhud:season/summer.png",
       "ascent": 8,
       "height": 9,
-      "chars": ["\uEA01"]
+      "chars": [
+        "\uEA01"
+      ]
     },
-
     {
       "type": "bitmap",
       "file": "seasonhud:season/autumn.png",
       "ascent": 8,
       "height": 9,
-      "chars": ["\uEA02"]
+      "chars": [
+        "\uEA02"
+      ]
     },
-
-    {
-      "type": "bitmap",
-      "file": "seasonhud:season/fall.png",
-      "ascent": 8,
-      "height": 9,
-      "chars": ["\uEA03"]
-    },
-
     {
       "type": "bitmap",
       "file": "seasonhud:season/winter.png",
       "ascent": 8,
       "height": 9,
-      "chars": ["\uEA04"]
+      "chars": [
+        "\uEA03"
+      ]
     },
-
     {
       "type": "bitmap",
       "file": "seasonhud:season/dry.png",
       "ascent": 8,
       "height": 9,
-      "chars": ["\uEA05"]
+      "chars": [
+        "\uEA04"
+      ]
     },
-
     {
       "type": "bitmap",
       "file": "seasonhud:season/wet.png",
       "ascent": 8,
       "height": 9,
-      "chars": ["\uEA06"]
+      "chars": [
+        "\uEA05"
+      ]
     }
   ]
 }

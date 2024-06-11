@@ -11,7 +11,7 @@ base {
 
 minecraft {
     version(minecraft_version)
-    if(file("src/main/resources/${mod_id}.accesswidener").exists()){
+    if (file("src/main/resources/${mod_id}.accesswidener").exists()) {
         accessWideners(file("src/main/resources/${mod_id}.accesswidener"))
     }
 }
@@ -24,12 +24,13 @@ repositories {
 }
 
 dependencies {
-    compileOnly group:'org.spongepowered', name:'mixin', version:'0.8.5'
+    compileOnly group: 'org.spongepowered', name: 'mixin', version: '0.8.5'
     implementation group: 'com.google.code.findbugs', name: 'jsr305', version: '3.0.1'
 
     implementation 'com.electronwill.night-config:core:3.6.3'
     implementation 'com.electronwill.night-config:toml:3.6.3'
-    compileOnly "fuzs.forgeconfigapiport:forgeconfigapiport-common:${project.forgeconfigapiport_file_id}"//source: https://github.com/Fuzss/forgeconfigapiport-fabric
+    compileOnly "fuzs.forgeconfigapiport:forgeconfigapiport-common:${project.forgeconfigapiport_file_id}"
+//source: https://github.com/Fuzss/forgeconfigapiport-fabric
 }
 
 publishing {

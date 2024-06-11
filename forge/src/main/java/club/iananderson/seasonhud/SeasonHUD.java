@@ -1,5 +1,7 @@
 package club.iananderson.seasonhud;
 
+import static club.iananderson.seasonhud.Common.LOG;
+
 import club.iananderson.seasonhud.config.Config;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.server.ServerStartingEvent;
@@ -15,39 +17,39 @@ import net.minecraftforge.fml.event.lifecycle.InterModEnqueueEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import top.theillusivec4.curios.api.SlotTypeMessage;
 
-import static club.iananderson.seasonhud.Common.LOG;
-
 @Mod(Common.MOD_ID)
-public class  SeasonHUD{
-    public SeasonHUD() {
-        IEventBus modEventBus = FMLJavaModLoadingContext.get().getModEventBus();
-        MinecraftForge.EVENT_BUS.register(this);
+public class SeasonHUD {
 
-        modEventBus.addListener(this::enqueue);
-        modEventBus.addListener(this::commonSetup);
+  public SeasonHUD() {
+    IEventBus modEventBus = FMLJavaModLoadingContext.get().getModEventBus();
+    MinecraftForge.EVENT_BUS.register(this);
 
-        Common.init();
+    modEventBus.addListener(this::enqueue);
+    modEventBus.addListener(this::commonSetup);
 
-        ModLoadingContext.get().registerConfig(ModConfig.Type.CLIENT, Config.GENERAL_SPEC,
-                "SeasonHUD-client.toml");
-    }
+    Common.init();
 
-    public void enqueue(InterModEnqueueEvent event) {
-        LOG.info("Talking to Curios");
-        InterModComms.sendTo("curios", SlotTypeMessage.REGISTER_TYPE, () -> new SlotTypeMessage.Builder("charm")
-                .size(1)
-                .build());
-    }
+    ModLoadingContext.get().registerConfig(ModConfig.Type.CLIENT, Config.GENERAL_SPEC, "SeasonHUD-client.toml");
+  }
 
-    private void commonSetup(final FMLCommonSetupEvent event) {}
+  public void enqueue(InterModEnqueueEvent event) {
+    LOG.info("Talking to Curios");
+    InterModComms.sendTo("curios", SlotTypeMessage.REGISTER_TYPE,
+                         () -> new SlotTypeMessage.Builder("charm").size(1).build());
+  }
+
+  private void commonSetup(final FMLCommonSetupEvent event) {
+  }
+
+  @SubscribeEvent
+  public void onServerStarting(ServerStartingEvent event) {
+  }
+
+  @Mod.EventBusSubscriber(modid = Common.MOD_ID, bus = Mod.EventBusSubscriber.Bus.MOD)
+  public static class ClientModEvents {
 
     @SubscribeEvent
-    public void onServerStarting(ServerStartingEvent event) {}
-
-    @Mod.EventBusSubscriber(modid = Common.MOD_ID, bus = Mod.EventBusSubscriber.Bus.MOD)
-    public static class ClientModEvents {
-        @SubscribeEvent
-        public static void onClientSetup(FMLClientSetupEvent event) {
-        }
+    public static void onClientSetup(FMLClientSetupEvent event) {
     }
+  }
 }

@@ -1,4 +1,6 @@
 {
   "replace": false,
-  "values": ["sereneseasons:calendar"]
+  "values": [
+    "sereneseasons:calendar"
+  ]
 }
