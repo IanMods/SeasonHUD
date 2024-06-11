@@ -45,7 +45,7 @@ public class MapAtlases implements HudRenderCallback {
   }
 
   public static void drawMapComponentSeason(GuiGraphics poseStack, int x, int y, int originOffsetWidth,
-                                            int originOffsetHeight, float textScaling) {
+      int originOffsetHeight, float textScaling) {
     if (CurrentMinimap.minimapLoaded("map_atlases")) {
       MutableComponent seasonIcon = getSeasonHudName().get(0).copy().withStyle(SEASON_STYLE);
       MutableComponent seasonName = getSeasonHudName().get(1).copy();

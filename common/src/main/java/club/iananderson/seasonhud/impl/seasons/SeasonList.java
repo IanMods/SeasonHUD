@@ -37,8 +37,8 @@ public enum SeasonList {
   private int seasonColor;
 
   SeasonList(int id, Component seasonName, String fileName, String iconChar,
-             ModConfigSpec.ConfigValue<Integer> seasonColorConfig, int defaultColor, int seasonColor,
-             HashMap<String, Integer> rgbMap) {
+      ModConfigSpec.ConfigValue<Integer> seasonColorConfig, int defaultColor, int seasonColor,
+      HashMap<String, Integer> rgbMap) {
     this.id = id;
     this.seasonName = seasonName;
     this.seasonFileName = fileName;

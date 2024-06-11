@@ -51,23 +51,22 @@ public class CurrentSeason {
       case NONE -> {
         text.add(Component.translatable("desc.seasonhud.icon", getSeasonIcon(fileName)).withStyle(SEASON_STYLE));
         text.add(Component.translatable("desc.seasonhud.summary",
-                                        Component.translatable("desc.seasonhud." + getSeasonStateLower()))
-                          .withStyle(SEASON_FORMAT));
+            Component.translatable("desc.seasonhud." + getSeasonStateLower())).withStyle(SEASON_FORMAT));
       }
 
       case SHOW_DAY -> {
         text.add(Component.translatable("desc.seasonhud.icon", getSeasonIcon(fileName)).withStyle(SEASON_STYLE));
         text.add(Component.translatable("desc.seasonhud.detailed",
-                                        Component.translatable("desc.seasonhud." + getSeasonStateLower()),
-                                        SEASON.getDate()).withStyle(SEASON_FORMAT));
+                              Component.translatable("desc.seasonhud." + getSeasonStateLower()), SEASON.getDate())
+                          .withStyle(SEASON_FORMAT));
       }
 
       case SHOW_WITH_TOTAL_DAYS -> {
         text.add(Component.translatable("desc.seasonhud.icon", getSeasonIcon(SEASON.getSeasonFileName()))
                           .withStyle(SEASON_STYLE));
         text.add(Component.translatable("desc.seasonhud.detailed.total",
-                                        Component.translatable("desc.seasonhud." + getSeasonStateLower()),
-                                        SEASON.getDate(), SEASON.seasonDuration()));
+            Component.translatable("desc.seasonhud." + getSeasonStateLower()), SEASON.getDate(),
+            SEASON.seasonDuration()));
       }
     }
 

@@ -18,9 +18,8 @@ public class SeasonHUDOverlayCommon {
 
   public static void render(GuiGraphics seasonStack) {
     MutableComponent seasonCombined = Component.translatable("desc.seasonhud.combined",
-                                                             CurrentSeason.getSeasonHudName().get(0).copy()
-                                                                          .withStyle(SEASON_STYLE),
-                                                             CurrentSeason.getSeasonHudName().get(1).copy());
+        CurrentSeason.getSeasonHudName().get(0).copy().withStyle(SEASON_STYLE),
+        CurrentSeason.getSeasonHudName().get(1).copy());
 
     float guiSize = (float) mc.getWindow().getGuiScale();
 
