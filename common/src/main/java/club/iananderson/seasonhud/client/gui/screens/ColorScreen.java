@@ -63,21 +63,12 @@ public class ColorScreen extends Screen {
     return set;
   }
 
-  public boolean isPauseScreen() {
-    return true;
-  }
-
   public int getWidth() {
     return mc.getWindow().getGuiScaledWidth();
   }
 
   public int getHeight() {
     return mc.getWindow().getGuiScaledHeight();
-  }
-
-  @Override
-  public void tick() {
-    super.tick();
   }
 
   private void onDone() {
@@ -154,6 +145,12 @@ public class ColorScreen extends Screen {
   }
 
   @Override
+  public void render(@NotNull GuiGraphics graphics, int mouseX, int mouseY, float partialTicks) {
+    graphics.drawCenteredString(font, TITLE, getWidth() / 2, WIDGET_PADDING, 16777215);
+    super.render(graphics, mouseX, mouseY, partialTicks);
+  }
+
+  @Override
   public void init() {
     this.widgets.clear();
     int scaledWidth = this.getWidth();
@@ -190,8 +187,11 @@ public class ColorScreen extends Screen {
   }
 
   @Override
-  public void render(@NotNull GuiGraphics graphics, int mouseX, int mouseY, float partialTicks) {
-    graphics.drawCenteredString(font, TITLE, getWidth() / 2, WIDGET_PADDING, 16777215);
-    super.render(graphics, mouseX, mouseY, partialTicks);
+  public void tick() {
+    super.tick();
+  }
+
+  public boolean isPauseScreen() {
+    return true;
   }
 }

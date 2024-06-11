@@ -46,10 +46,6 @@ public class SeasonHUDScreen extends Screen {
     mc.setScreen(getInstance());
   }
 
-  public boolean isPauseScreen() {
-    return true;
-  }
-
   @Override
   public void render(@NotNull GuiGraphics graphics, int mouseX, int mouseY, float partialTicks) {
     graphics.drawCenteredString(font, TITLE, this.width / 2, PADDING, 16777215);
@@ -176,5 +172,9 @@ public class SeasonHUDScreen extends Screen {
     this.addRenderableWidget(showMinimapHiddenButton);
     this.addRenderableWidget(seasonhudColors);
     this.addRenderableWidget(doneButton);
+  }
+
+  public boolean isPauseScreen() {
+    return true;
   }
 }

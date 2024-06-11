@@ -43,10 +43,6 @@ public class RgbSlider extends AbstractSliderButton {
     this.updateMessage();
   }
 
-  @Override
-  protected void updateMessage() {
-  }
-
   public double snapToNearest(double value) {
     return (Mth.clamp((float) value, this.minValue, this.maxValue) - this.minValue) / (this.maxValue - this.minValue);
   }
@@ -81,11 +77,6 @@ public class RgbSlider extends AbstractSliderButton {
   }
 
   @Override
-  protected void applyValue() {
-    this.seasonBox.setValue(this.getValueString());
-  }
-
-  @Override
   public void renderWidget(@NotNull GuiGraphics graphics, int mouseX, int mouseY, float partialTick) {
     super.renderWidget(graphics, mouseX, mouseY, partialTick);
 //    DrawUtil.blitWithBorder(graphics, this.getSprite(), this.getX(), this.getY(), 0, this.getTextureY(), this.width,
@@ -93,5 +84,14 @@ public class RgbSlider extends AbstractSliderButton {
 //    DrawUtil.blitWithBorder(graphics, this.getHandleSprite(), this.getX() + (int) (this.value * (double) (this.width - 8)),
 //                            this.getY(), 0, this.getHandleTextureY(), 8, this.height, 200, 20, 2, 3, 2, 2);
 //    this.renderScrollingString(graphics, mc.font, 2, this.getFGColor() | Mth.ceil(this.alpha * 255.0F) << 24);
+  }
+
+  @Override
+  protected void updateMessage() {
+  }
+
+  @Override
+  protected void applyValue() {
+    this.seasonBox.setValue(this.getValueString());
   }
 }

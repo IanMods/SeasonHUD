@@ -23,6 +23,17 @@ public class BlueSlider extends RgbSlider {
   }
 
   @Override
+  public void setSliderValue(int newValue) {
+    int oldValue = (int) this.value;
+    this.value = snapToNearest(Rgb.rgbColor(newValue).getBlue());
+    if (!Mth.equal(oldValue, this.value)) {
+      this.b = Rgb.rgbColor(newValue).getBlue();
+    }
+
+    this.updateMessage();
+  }
+
+  @Override
   protected void updateMessage() {
     Component colorString = Component.literal(this.getValueString());
 
@@ -35,17 +46,6 @@ public class BlueSlider extends RgbSlider {
     } else {
       this.setMessage(Component.empty());
     }
-  }
-
-  @Override
-  public void setSliderValue(int newValue) {
-    int oldValue = (int) this.value;
-    this.value = snapToNearest(Rgb.rgbColor(newValue).getBlue());
-    if (!Mth.equal(oldValue, this.value)) {
-      this.b = Rgb.rgbColor(newValue).getBlue();
-    }
-
-    this.updateMessage();
   }
 
   @Override
