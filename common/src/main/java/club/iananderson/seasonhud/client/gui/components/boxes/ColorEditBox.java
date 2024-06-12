@@ -1,4 +1,4 @@
-package club.iananderson.seasonhud.client.gui.components;
+package club.iananderson.seasonhud.client.gui.components.boxes;
 
 import static club.iananderson.seasonhud.Common.SEASON_STYLE;
 import static club.iananderson.seasonhud.client.SeasonHUDClient.mc;
@@ -127,7 +127,7 @@ public class ColorEditBox extends EditBox {
     graphics.pose().pushPose();
     float scale = 1;
     graphics.pose().scale(scale, scale, 1);
-    graphics.drawCenteredString(mc.font, seasonCombined, (int) ((getX() + this.getWidth() / 2) / scale),
+    graphics.drawCenteredString(mc.font, seasonCombined, (int) ((getX() + (double) this.getWidth() / 2) / scale),
         (int) ((getY() - mc.font.lineHeight - PADDING) / scale), 0xffffff);
     graphics.pose().popPose();
 
