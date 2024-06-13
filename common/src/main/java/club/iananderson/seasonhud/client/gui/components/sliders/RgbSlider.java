@@ -2,13 +2,16 @@ package club.iananderson.seasonhud.client.gui.components.sliders;
 
 import static club.iananderson.seasonhud.client.SeasonHUDClient.mc;
 
-import club.iananderson.seasonhud.client.gui.components.ColorEditBox;
+import club.iananderson.seasonhud.client.gui.components.boxes.ColorEditBox;
+import club.iananderson.seasonhud.config.Config;
 import club.iananderson.seasonhud.impl.seasons.SeasonList;
 import club.iananderson.seasonhud.util.DrawUtil;
 import club.iananderson.seasonhud.util.Rgb;
+import net.minecraft.ChatFormatting;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.components.AbstractSliderButton;
 import net.minecraft.network.chat.CommonComponents;
+import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
 import org.jetbrains.annotations.NotNull;
@@ -17,24 +20,24 @@ public class RgbSlider extends AbstractSliderButton {
 
   private static final ResourceLocation SLIDER_LOCATION = new ResourceLocation("textures/gui/slider.png");
   public static int SLIDER_PADDING = 2;
+  public final boolean drawString;
+  public boolean enableColor = Config.enableSeasonNameColor.get();
   public SeasonList season;
   public ColorEditBox seasonBox;
   public int minValue;
   public int maxValue;
-  public int stepSize;
   public int r;
   public int g;
   public int b;
   public int rgb;
   public double initial;
-  public boolean drawString;
-  public boolean canChangeValue;
+  public ChatFormatting textColor;
+  private boolean canChangeValue;
 
   private RgbSlider(int x, int y, int width, int height, double initial) {
     super(x, y, width, height, CommonComponents.EMPTY, initial);
     this.initial = initial;
     this.drawString = true;
-    this.stepSize = 1;
   }
 
   public RgbSlider(int x, int y, ColorEditBox seasonBox) {
@@ -47,6 +50,7 @@ public class RgbSlider extends AbstractSliderButton {
     this.g = Rgb.rgbColor(this.rgb).getGreen();
     this.b = Rgb.rgbColor(this.rgb).getBlue();
     this.value = snapToNearest(this.rgb);
+    this.textColor = ChatFormatting.WHITE;
     this.updateMessage();
   }
 
@@ -62,6 +66,17 @@ public class RgbSlider extends AbstractSliderButton {
 
   @Override
   protected void updateMessage() {
+    Component colorString = Component.literal(this.getValueString());
+
+    if (this.drawString) {
+      this.setMessage(colorString.copy().withStyle(textColor));
+
+      if (!enableColor) {
+        this.setMessage(colorString.copy().withStyle(ChatFormatting.GRAY));
+      }
+    } else {
+      this.setMessage(Component.empty());
+    }
   }
 
   public double snapToNearest(double value) {
@@ -69,16 +84,6 @@ public class RgbSlider extends AbstractSliderButton {
   }
 
   public void setSliderValue(int newValue) {
-    int oldValue = (int) this.value;
-    this.value = snapToNearest(newValue);
-    if (!Mth.equal(oldValue, this.value)) {
-      this.rgb = newValue;
-      this.r = Rgb.rgbColor(newValue).getRed();
-      this.g = Rgb.rgbColor(newValue).getGreen();
-      this.b = Rgb.rgbColor(newValue).getBlue();
-    }
-
-    this.updateMessage();
   }
 
   public double getValue() {
@@ -97,9 +102,7 @@ public class RgbSlider extends AbstractSliderButton {
     return String.valueOf(this.getValueInt());
   }
 
-  @Override
   protected void applyValue() {
-    this.seasonBox.setValue(this.getValueString());
   }
 
   public int getFGColor() {
