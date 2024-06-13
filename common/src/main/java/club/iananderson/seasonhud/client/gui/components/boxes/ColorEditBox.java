@@ -126,9 +126,12 @@ public class ColorEditBox extends EditBox {
 
     graphics.pose().pushPose();
     float scale = 1;
+    if ((mc.font.width(seasonCombined) > this.getWidth() - PADDING)) {
+      scale = ((float) this.getWidth() - PADDING) / mc.font.width(seasonCombined);
+    }
     graphics.pose().scale(scale, scale, 1);
     graphics.drawCenteredString(mc.font, seasonCombined, (int) ((getX() + (double) this.getWidth() / 2) / scale),
-        (int) ((getY() - mc.font.lineHeight - PADDING) / scale), 0xffffff);
+        (int) ((getY() - (mc.font.lineHeight * scale) - PADDING) / scale), 0xffffff);
     graphics.pose().popPose();
 
     super.render(graphics, mouseX, mouseY, partialTicks);
