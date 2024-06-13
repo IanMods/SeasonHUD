@@ -25,9 +25,7 @@ public class RgbSlider extends AbstractSliderButton {
   public int b;
   public int rgb;
   public double initial;
-  public boolean drawString;
   public ChatFormatting textColor;
-  private boolean canChangeValue;
 
   private RgbSlider(int x, int y, int width, int height, double initial) {
     super(x, y, width, height, CommonComponents.EMPTY, initial);
