@@ -2,8 +2,10 @@ package club.iananderson.seasonhud.client.gui.screens;
 
 import static club.iananderson.seasonhud.client.SeasonHUDClient.mc;
 
-import club.iananderson.seasonhud.client.gui.components.ColorButton;
-import club.iananderson.seasonhud.client.gui.components.ColorEditBox;
+import club.iananderson.seasonhud.client.gui.components.boxes.ColorEditBox;
+import club.iananderson.seasonhud.client.gui.components.buttons.DefaultColorButton;
+import club.iananderson.seasonhud.client.gui.components.buttons.MenuButton;
+import club.iananderson.seasonhud.client.gui.components.buttons.MenuButton.MenuButtons;
 import club.iananderson.seasonhud.client.gui.components.sliders.BlueSlider;
 import club.iananderson.seasonhud.client.gui.components.sliders.GreenSlider;
 import club.iananderson.seasonhud.client.gui.components.sliders.RedSlider;
@@ -16,10 +18,8 @@ import java.util.EnumSet;
 import java.util.List;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.components.AbstractWidget;
-import net.minecraft.client.gui.components.Button;
 import net.minecraft.client.gui.components.CycleButton;
 import net.minecraft.client.gui.screens.Screen;
-import net.minecraft.network.chat.CommonComponents;
 import net.minecraft.network.chat.Component;
 import org.jetbrains.annotations.NotNull;
 
@@ -33,11 +33,11 @@ public class ColorScreen extends Screen {
   private static final Component ENABLE_SEASON_NAME_COLOR = Component.translatable(
       "menu.seasonhud.color.button.enableSeasonNameColor");
   private static final ColorScreen instance = new ColorScreen(SeasonHUDScreen.getInstance());
-  public static Button doneButton;
+  public static MenuButton doneButton;
   private final Screen lastScreen;
   private final List<ColorEditBox> seasonBoxes = new ArrayList<>();
   private final List<AbstractWidget> widgets = new ArrayList<>();
-  private Button cancelButton;
+  private MenuButton cancelButton;
   private CycleButton<Boolean> seasonNameColorButton;
   private int x;
   private int y;
@@ -128,7 +128,7 @@ public class ColorScreen extends Screen {
 
     y -= (greenSlider.getHeight() + redSlider.getHeight() + RgbSlider.SLIDER_PADDING + BUTTON_HEIGHT
         + RgbSlider.SLIDER_PADDING);
-    seasonWidgetList.add(new ColorButton(x, y, season, colorBox, button -> {
+    seasonWidgetList.add(new DefaultColorButton(x, y, season, colorBox, button -> {
       int defaultColorInt = season.getDefaultColor();
 
       if (colorBox.getNewColor() != defaultColorInt) {
@@ -155,33 +155,31 @@ public class ColorScreen extends Screen {
     this.widgets.clear();
     int scaledWidth = this.getWidth();
 
-    int BUTTON_X_LEFT = (getWidth() / 2) - (BUTTON_WIDTH + WIDGET_PADDING);
-    int BUTTON_X_RIGHT = (getWidth() / 2) + WIDGET_PADDING;
-    int WIDGET_WIDTH = getBoxWidth() + WIDGET_PADDING;
-    int TOP_WIDGET_WIDTH = (seasonListSet().size() * WIDGET_WIDTH) - WIDGET_PADDING;
+    int leftButtonX = (getWidth() / 2) - (BUTTON_WIDTH + WIDGET_PADDING);
+    int rightButtonX = (getWidth() / 2) + WIDGET_PADDING;
+    int widgetWidth = getBoxWidth() + WIDGET_PADDING;
+    int totalWidgetWidth = (seasonListSet().size() * widgetWidth) - WIDGET_PADDING;
 
-    this.x = scaledWidth / 2 - TOP_WIDGET_WIDTH / 2;
+    this.x = scaledWidth / 2 - totalWidgetWidth / 2;
     this.y = MENU_PADDING_FULL + BUTTON_HEIGHT + WIDGET_PADDING + BUTTON_HEIGHT;
     seasonListSet().forEach(season -> {
       this.widgets.addAll(seasonWidget(this.x, this.y, season));
-      this.x += WIDGET_WIDTH;
+      this.x += widgetWidth;
     });
 
     //Buttons
     seasonNameColorButton = CycleButton.onOffBuilder(Config.enableSeasonNameColor.get())
-                                       .create(BUTTON_X_LEFT, MENU_PADDING_FULL, BUTTON_WIDTH, BUTTON_HEIGHT,
+                                       .create(leftButtonX, MENU_PADDING_FULL, BUTTON_WIDTH, BUTTON_HEIGHT,
                                            ENABLE_SEASON_NAME_COLOR,
                                            (b, enableColor) -> Config.setEnableSeasonNameColor(enableColor));
     this.widgets.add(seasonNameColorButton);
 
-    doneButton = Button.builder(CommonComponents.GUI_DONE, button -> onDone())
-                       .bounds(BUTTON_X_LEFT, (getHeight() - BUTTON_HEIGHT - WIDGET_PADDING), BUTTON_WIDTH,
-                           BUTTON_HEIGHT).build();
+    doneButton = new MenuButton(leftButtonX, (getHeight() - BUTTON_HEIGHT - WIDGET_PADDING), MenuButtons.DONE,
+        press -> this.onDone());
     this.widgets.add(doneButton);
 
-    cancelButton = Button.builder(CommonComponents.GUI_CANCEL, button -> this.onCancel())
-                         .bounds(BUTTON_X_RIGHT, (getHeight() - BUTTON_HEIGHT - WIDGET_PADDING), BUTTON_WIDTH,
-                             BUTTON_HEIGHT).build();
+    cancelButton = new MenuButton(rightButtonX, (getHeight() - BUTTON_HEIGHT - WIDGET_PADDING), MenuButtons.CANCEL,
+        press -> this.onCancel());
     this.widgets.add(cancelButton);
     this.widgets.forEach(this::addRenderableWidget);
   }
