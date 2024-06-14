@@ -9,11 +9,11 @@ public class MenuButton extends Button {
   private static final int BUTTON_HEIGHT = 20;
 
   private MenuButton(int x, int y, int width, int height, Component component, OnPress onPress) {
-    super(x, y, width, height, component, onPress, DEFAULT_NARRATION);
+    super(x, y, width, height, component, onPress);
   }
 
   public MenuButton(int x, int y, int width, int height, MenuButtons button, OnPress onPress) {
-    super(x, y, width, height, button.getButtonText(), onPress, DEFAULT_NARRATION);
+    super(x, y, width, height, button.getButtonText(), onPress);
   }
 
   public MenuButton(int x, int y, MenuButtons button, OnPress onPress) {

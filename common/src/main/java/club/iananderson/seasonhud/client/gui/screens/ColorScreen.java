@@ -6,8 +6,6 @@ import club.iananderson.seasonhud.client.gui.components.boxes.ColorEditBox;
 import club.iananderson.seasonhud.client.gui.components.buttons.DefaultColorButton;
 import club.iananderson.seasonhud.client.gui.components.buttons.MenuButton;
 import club.iananderson.seasonhud.client.gui.components.buttons.MenuButton.MenuButtons;
-import club.iananderson.seasonhud.client.gui.components.MenuButton;
-import club.iananderson.seasonhud.client.gui.components.MenuButton.MenuButtons;
 import club.iananderson.seasonhud.client.gui.components.sliders.BlueSlider;
 import club.iananderson.seasonhud.client.gui.components.sliders.GreenSlider;
 import club.iananderson.seasonhud.client.gui.components.sliders.RedSlider;
