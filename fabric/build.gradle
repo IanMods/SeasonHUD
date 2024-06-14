@@ -18,7 +18,7 @@ dependencies {
 
     /Serene Seasons/
     modImplementation "curse.maven:serene-seasons-291874:${project.serene_seasons_fabric_file_id}"
-    modImplementation "com.github.glitchfiend:GlitchCore-fabric:${minecraft_version}-${glitchcore_version}"
+    modImplementation "com.github.glitchfiend:GlitchCore-fabric:${project.glitchcore_version}"
 
     /Xaero's Minimap/
     modCompileOnly "curse.maven:xaeros-minimap-263420:${project.xaeros_fabric_file_id}"

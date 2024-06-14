@@ -1,6 +1,7 @@
 package club.iananderson.seasonhud.client;
 
 import net.fabricmc.fabric.api.client.rendering.v1.HudRenderCallback;
+import net.minecraft.client.DeltaTracker;
 import net.minecraft.client.gui.GuiGraphics;
 
 public class SeasonHUDOverlay implements HudRenderCallback {
@@ -16,7 +17,7 @@ public class SeasonHUDOverlay implements HudRenderCallback {
   }
 
   @Override
-  public void onHudRender(GuiGraphics seasonStack, float alpha) {
+  public void onHudRender(GuiGraphics seasonStack, DeltaTracker tickCounter) {
     SeasonHUDOverlayCommon.render(seasonStack);
   }
 }

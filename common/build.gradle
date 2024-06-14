@@ -15,7 +15,7 @@ dependencies {
     compileOnly group: 'org.spongepowered', name: 'mixin', version: '0.8.5'
 
     api "fuzs.forgeconfigapiport:forgeconfigapiport-common-neoforgeapi:${project.forgeconfigapiport_version}"
-    compileOnly "com.github.glitchfiend:GlitchCore-common:${minecraft_version}-${glitchcore_version}"
+    compileOnly "com.github.glitchfiend:GlitchCore-common:${project.glitchcore_version}"
 }
 
 configurations {

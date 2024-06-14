@@ -1,26 +1,25 @@
 package club.iananderson.seasonhud;
 
 import club.iananderson.seasonhud.config.Config;
+import com.mojang.logging.LogUtils;
 import net.neoforged.bus.api.IEventBus;
-import net.neoforged.fml.ModLoadingContext;
+import net.neoforged.fml.ModContainer;
 import net.neoforged.fml.common.Mod;
 import net.neoforged.fml.config.ModConfig;
 import net.neoforged.fml.event.lifecycle.FMLCommonSetupEvent;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+import org.slf4j.Logger;
 
-@Mod(SeasonHUD.MODID)
+@Mod(Common.MOD_ID)
 public class SeasonHUD {
 
-  public static final String MODID = "seasonhud";
-  public static final Logger LOGGER = LogManager.getLogger("seasonhud");
+  private static final Logger LOGGER = LogUtils.getLogger();
 
-  public SeasonHUD(IEventBus modEventBus) {
+  public SeasonHUD(IEventBus modEventBus, ModContainer modContainer) {
     modEventBus.addListener(this::commonSetup);
 
     Common.init();
 
-    ModLoadingContext.get().registerConfig(ModConfig.Type.CLIENT, Config.GENERAL_SPEC, "SeasonHUD-client.toml");
+    modContainer.registerConfig(ModConfig.Type.CLIENT, Config.GENERAL_SPEC, "SeasonHUD-client.toml");
   }
 
   private void commonSetup(final FMLCommonSetupEvent event) {

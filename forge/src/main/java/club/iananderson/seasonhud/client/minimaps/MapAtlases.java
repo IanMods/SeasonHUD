@@ -7,6 +7,7 @@ import static club.iananderson.seasonhud.impl.seasons.CurrentSeason.getSeasonHud
 import club.iananderson.seasonhud.config.Config;
 import club.iananderson.seasonhud.impl.minimaps.CurrentMinimap;
 import com.mojang.blaze3d.vertex.PoseStack;
+import net.minecraft.client.DeltaTracker;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.GuiGraphics;
@@ -77,7 +78,7 @@ public class MapAtlases implements LayeredDraw.Layer {
   }
 
   @Override
-  public void render(GuiGraphics guiGraphics, float partialTick) {
+  public void render(GuiGraphics guiGraphics, DeltaTracker deltaTracker) {
     int screenWidth = guiGraphics.guiWidth();
     int screenHeight = guiGraphics.guiHeight();
 

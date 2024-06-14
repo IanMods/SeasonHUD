@@ -17,6 +17,7 @@ import journeymap.client.ui.UIManager;
 import journeymap.client.ui.minimap.DisplayVars;
 import journeymap.client.ui.theme.Theme;
 import journeymap.client.ui.theme.ThemeLabelSource;
+import net.minecraft.client.DeltaTracker;
 import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.LayeredDraw;
@@ -33,7 +34,7 @@ public class JourneyMap implements LayeredDraw.Layer {
   }
 
   @Override
-  public void render(GuiGraphics guiGraphics, float partialTick) {
+  public void render(GuiGraphics guiGraphics, DeltaTracker deltaTracker) {
     int scaledWidth = guiGraphics.guiWidth();
     int scaledHeight = guiGraphics.guiHeight();
 

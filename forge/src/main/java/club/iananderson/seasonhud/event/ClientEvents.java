@@ -6,6 +6,7 @@ import club.iananderson.seasonhud.client.SeasonHUDOverlay;
 import club.iananderson.seasonhud.client.gui.screens.SeasonHUDScreen;
 import club.iananderson.seasonhud.client.minimaps.JourneyMap;
 import club.iananderson.seasonhud.client.minimaps.MapAtlases;
+import net.minecraft.client.DeltaTracker;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.client.event.InputEvent;
@@ -29,10 +30,10 @@ public class ClientEvents {
   @Mod.EventBusSubscriber(modid = Common.MOD_ID, value = Dist.CLIENT, bus = Mod.EventBusSubscriber.Bus.MOD)
   public static class ClientModBusEvents {
     //Overlays
-    public static void registerOverlays(GuiGraphics guiGraphics, float partialTick) {
-      new SeasonHUDOverlay().render(guiGraphics, partialTick);
-      new JourneyMap().render(guiGraphics, partialTick);
-      new MapAtlases().render(guiGraphics, partialTick);
+    public static void registerOverlays(GuiGraphics guiGraphics, DeltaTracker deltaTracker) {
+      new SeasonHUDOverlay().render(guiGraphics, deltaTracker);
+      new JourneyMap().render(guiGraphics, deltaTracker);
+      new MapAtlases().render(guiGraphics, deltaTracker);
     }
 
     //Key Bindings

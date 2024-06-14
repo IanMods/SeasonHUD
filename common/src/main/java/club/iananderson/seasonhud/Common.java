@@ -16,14 +16,14 @@ public class Common {
   public static final String MOD_NAME = "SeasonHUD";
   public static final Logger LOG = LoggerFactory.getLogger(MOD_NAME);
 
-  public static final ResourceLocation SEASON_ICONS = new ResourceLocation(MOD_ID, "season_icons");
+  public static final ResourceLocation SEASON_ICONS = ResourceLocation.fromNamespaceAndPath(MOD_ID, "season_icons");
   public static final Style SEASON_STYLE = Style.EMPTY.withFont(SEASON_ICONS);
   private static boolean curiosLoaded;
   private static boolean extrasLoaded;
   private static String platformName;
 
   public static ResourceLocation location(String path) {
-    return new ResourceLocation(MOD_ID, path);
+    return ResourceLocation.fromNamespaceAndPath(MOD_ID, path);
   }
 
   public static void init() {
