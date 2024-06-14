@@ -29,9 +29,9 @@
     "fabric-api": "*",
     "minecraft": "${minecraft_version}",
     "java": ">=21",
-    "sereneseasons": ">=9.3.0.13",
+    "sereneseasons": "10.0.0.0",
     "fabric-key-binding-api-v1": "*",
-    "forgeconfigapiport": ">=7.0.0"
+    "forgeconfigapiport": "*"
   },
   "breaks": {
     "xaerominimap": "<24.0.0",
