@@ -52,7 +52,7 @@ public class FabricSeasonHelper implements ISeasonHelper {
       int seasonLength = FabricSeasons.CONFIG.getSeasonLength();
       int worldTime = Math.toIntExact(Objects.requireNonNull(mc.level).getDayTime());
 
-      return ((int) (worldTime - (worldTime / (long) seasonLength * (long) seasonLength)) % seasonLength / 24000) + 1;
+      return ((worldTime - (worldTime / seasonLength * seasonLength)) % seasonLength / 24000) + 1;
     }
   }
 
@@ -70,8 +70,12 @@ public class FabricSeasonHelper implements ISeasonHelper {
   public int findCuriosCalendar(Player player, Item item) {
     if (Common.curiosLoaded() && Common.extrasLoaded()) {
       Optional<TrinketComponent> findCalendar = TrinketsApi.getTrinketComponent(player);
-      if (findCalendar.get().isEquipped(item)) {
-        return 1;
+      if (findCalendar.isPresent()) {
+        if (findCalendar.get().isEquipped(item)) {
+          return 1;
+        } else {
+          return 0;
+        }
       } else {
         return 0;
       }

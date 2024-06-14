@@ -3,8 +3,8 @@ package club.iananderson.seasonhud.util;
 import com.mojang.blaze3d.platform.Window;
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.PoseStack;
-import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiComponent;
+import net.minecraft.client.Minecraft;
 import net.minecraft.resources.ResourceLocation;
 
 public class DrawUtil {
@@ -60,6 +60,7 @@ public class DrawUtil {
         borderSize, borderSize, borderSize);
   }
 
+  //1.18
   public static void enableScissor(int $$0, int $$1, int $$2, int $$3) {
     Window $$4 = Minecraft.getInstance().getWindow();
     int $$5 = $$4.getHeight();
@@ -71,6 +72,7 @@ public class DrawUtil {
     RenderSystem.enableScissor((int) $$7, (int) $$8, Math.max(0, (int) $$9), Math.max(0, (int) $$10));
   }
 
+  //1.18
   public static void disableScissor() {
     RenderSystem.disableScissor();
   }

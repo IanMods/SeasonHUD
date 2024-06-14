@@ -1,4 +1,4 @@
-package club.iananderson.seasonhud.client.gui.components;
+package club.iananderson.seasonhud.client.gui.components.buttons;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.client.gui.components.Button;
@@ -23,14 +23,12 @@ public class MenuButton extends Button {
     this(x, y, BUTTON_WIDTH, BUTTON_HEIGHT, button.getButtonText(), onPress);
   }
 
-  @Override
-  public void render(@NotNull PoseStack graphics, int mouseX, int mouseY, float partialTicks) {
-    super.render(graphics, mouseX, mouseY, partialTicks);
-  }
-
   public enum MenuButtons {
-    DONE(CommonComponents.GUI_DONE), CANCEL(CommonComponents.GUI_CANCEL), COLORS(
-        new TranslatableComponent("menu.seasonhud.color.title"));
+    DONE(CommonComponents.GUI_DONE),
+
+    CANCEL(CommonComponents.GUI_CANCEL),
+
+    COLORS(Component.translatable("menu.seasonhud.color.title"));
 
     private final Component buttonText;
 

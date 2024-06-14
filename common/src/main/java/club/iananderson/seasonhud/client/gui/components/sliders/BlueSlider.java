@@ -1,7 +1,6 @@
 package club.iananderson.seasonhud.client.gui.components.sliders;
 
-import club.iananderson.seasonhud.client.gui.components.ColorEditBox;
-import club.iananderson.seasonhud.config.Config;
+import club.iananderson.seasonhud.client.gui.components.boxes.ColorEditBox;
 import club.iananderson.seasonhud.util.Rgb;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
@@ -9,8 +8,6 @@ import net.minecraft.network.chat.TextComponent;
 import net.minecraft.util.Mth;
 
 public class BlueSlider extends RgbSlider {
-
-  private final ColorEditBox seasonBox;
 
   public BlueSlider(int x, int y, ColorEditBox seasonBox) {
     super(x, y, seasonBox);
@@ -20,23 +17,8 @@ public class BlueSlider extends RgbSlider {
     this.initial = Rgb.getBlue(this.season);
     this.b = Rgb.rgbColor(Integer.parseInt(seasonBox.getValue())).getBlue();
     this.value = snapToNearest(this.b);
+    this.textColor = ChatFormatting.BLUE;
     this.updateMessage();
-  }
-
-  @Override
-  protected void updateMessage() {
-    Component colorString = new TextComponent((this.getValueString())) {
-    };
-
-    if (this.drawString) {
-      this.setMessage(colorString.copy().withStyle(ChatFormatting.BLUE));
-
-      if (!Config.enableSeasonNameColor.get()) {
-        this.setMessage(colorString.copy().withStyle(ChatFormatting.GRAY));
-      }
-    } else {
-      this.setMessage(new TextComponent(""));
-    }
   }
 
   @Override
@@ -57,6 +39,6 @@ public class BlueSlider extends RgbSlider {
     this.rgb = Rgb.rgbInt(this.r, this.g, this.getValueInt());
 
     Rgb.setRgb(this.season, this.rgb);
-    seasonBox.setValue(String.valueOf(this.rgb));
+    this.seasonBox.setValue(String.valueOf(this.rgb));
   }
 }
