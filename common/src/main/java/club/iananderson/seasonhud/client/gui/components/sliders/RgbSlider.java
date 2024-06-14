@@ -15,6 +15,7 @@ import net.minecraft.ChatFormatting;
 import net.minecraft.client.gui.components.AbstractSliderButton;
 import net.minecraft.network.chat.CommonComponents;
 import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.TextComponent;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
 import org.jetbrains.annotations.NotNull;
@@ -97,7 +98,7 @@ public class RgbSlider extends AbstractSliderButton {
 
   @Override
   protected void updateMessage() {
-    Component colorString = Component.literal(this.getValueString());
+    Component colorString = new TextComponent(this.getValueString());
 
     if (this.drawString) {
       this.setMessage(colorString.copy().withStyle(textColor));
@@ -106,7 +107,7 @@ public class RgbSlider extends AbstractSliderButton {
         this.setMessage(colorString.copy().withStyle(ChatFormatting.GRAY));
       }
     } else {
-      this.setMessage(Component.empty());
+      this.setMessage(new TextComponent(""));
     }
   }
 
