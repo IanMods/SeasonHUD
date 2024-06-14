@@ -97,13 +97,4 @@ public class RgbSlider extends AbstractSliderButton {
 //                            this.getY(), 0, this.getHandleTextureY(), 8, this.height, 200, 20, 2, 3, 2, 2);
 //    this.renderScrollingString(graphics, mc.font, 2, this.getFGColor() | Mth.ceil(this.alpha * 255.0F) << 24);
   }
-
-  @Override
-  protected void updateMessage() {
-  }
-
-  @Override
-  protected void applyValue() {
-    this.seasonBox.setValue(this.getValueString());
-  }
 }
