@@ -29,7 +29,7 @@
     "fabric-api": "*",
     "minecraft": "${minecraft_version}",
     "java": ">=21",
-    "sereneseasons": "10.0.0.0",
+    "sereneseasons": "*",
     "fabric-key-binding-api-v1": "*",
     "forgeconfigapiport": "*"
   },
