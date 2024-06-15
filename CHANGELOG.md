@@ -4,6 +4,12 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 
+## [1.8.5] - 2024-06-15
+
+### Fixed
+
+- Fixed dependency version range
+
 ## [1.8.4] - 2024-06-13
 
 ### Added

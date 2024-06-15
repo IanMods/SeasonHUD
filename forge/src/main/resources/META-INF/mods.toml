@@ -12,28 +12,28 @@ authors = "${mod_author}" #optional
 description = '''${description}'''
 
 # A dependency - use the . to indicate dependency for a specific modid. Dependencies are optional.
-[[dependencies.${ mod_id }]] #optional
+[[dependencies.${mod_id}]] #optional
 modId = "forge" #mandatory
 mandatory = true #mandatory
 versionRange = "${forge_version_range}" #mandatory
 ordering = "NONE"
 side = "BOTH"
 
-[[dependencies.${ mod_id }]]
+[[dependencies.${mod_id}]]
 modId = "minecraft"
 mandatory = true
 versionRange = "${minecraft_version_range}"
 ordering = "NONE"
 side = "BOTH"
 
-[[dependencies.${ mod_id }]]
+[[dependencies.${mod_id}]]
 modId = "sereneseasons"
 mandatory = true
-versionRange = "[1.20.4-9.3.0.13,)"
+versionRange = "[9.0.0.0,)"
 ordering = "AFTER"
 side = "BOTH"
 
-[[dependencies.${ mod_id }]]
+[[dependencies.${mod_id}]]
 modId = "xaerominimap"
 mandatory = false
 versionRange = "[24.0.0,)"
