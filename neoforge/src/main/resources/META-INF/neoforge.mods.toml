@@ -35,7 +35,7 @@ side = "BOTH"
 [[dependencies.${mod_id}]]
 modId = "sereneseasons"
 type="required"
-versionRange = "[9.3.0.0,)"
+versionRange = "[9.0.0.0,)"
 ordering = "AFTER"
 side = "BOTH"
 
