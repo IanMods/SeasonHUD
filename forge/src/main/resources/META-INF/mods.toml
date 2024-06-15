@@ -31,7 +31,7 @@ side = "BOTH"
 [[dependencies.seasonhud]]
 modId = "sereneseasons"
 mandatory = true
-versionRange = "[1.19-8.0.0.19,)"
+versionRange = ""
 ordering = "AFTER"
 side = "BOTH"
 
