@@ -31,7 +31,7 @@
     "java": ">=17",
     "seasons": ">=2.2.1",
     "fabric-key-binding-api-v1": "*",
-    "forgeconfigapiport": ">=7.0.0"
+    "forgeconfigapiport": "*"
   },
   "breaks": {
     "xaerominimap": "<24.0.0"
