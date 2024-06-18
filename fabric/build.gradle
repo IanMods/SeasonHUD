@@ -1,84 +1,17 @@
+import net.darkhax.curseforgegradle.TaskPublishCurseForge
+
 plugins {
-    id 'java'
-    id 'idea'
-    id 'maven-publish'
-    id 'fabric-loom'
-    id 'net.darkhax.curseforgegradle' version '1.1.16'
+    id 'multiloader-loader'
+    id 'fabric-loom' version '1.6-SNAPSHOT'
+    id 'net.darkhax.curseforgegradle' version '1.1.18'
     id "com.modrinth.minotaur" version "2.+"
-}
-
-version = mod_version
-group = mod_group
-
-base {
-    archivesName = mod_id + "-fabric-" + minecraft_version
-}
-
-repositories {
-    maven {
-        name = "CurseMaven"
-        url "https://cursemaven.com"
-        content {
-            includeGroup "curse.maven"
-        }
-    }
-
-    maven {
-        name = 'Sponge / Mixin'
-        url = 'https://repo.spongepowered.org/repository/maven-public/'
-    }
-
-    maven {
-        name = 'ParchmentMC'
-        url = 'https://maven.parchmentmc.org'
-    }
-
-    maven {
-        name = "JourneyMap (Public)"
-        url = "https://jm.gserv.me/repository/maven-public/"
-    }
-
-    maven {
-        url "https://maven.shedaniel.me/"
-    }
-
-    maven {
-        name = 'BlameJared Maven (CrT / Bookshelf)'
-        url = 'https://maven.blamejared.com'
-    }
-
-    maven {
-        name = "TerraformersMC"
-        url = "https://maven.terraformersmc.com/"
-    }
-
-    maven {
-        name = "Ladysnake Libs"
-        url = 'https://maven.ladysnake.org/releases'
-    }
-
-    maven {
-        name = "Fuzs Mod Resources"
-        url = "https://raw.githubusercontent.com/Fuzss/modresources/main/maven/"
-    }
-
-    maven {
-        name = 'ParchmentMC'
-        url = 'https://maven.parchmentmc.org'
-    }
 }
 
 dependencies {
     minecraft "com.mojang:minecraft:${minecraft_version}"
-    annotationProcessor 'org.spongepowered:mixin:0.8.5:processor'
-    mappings loom.layered() {
-        officialMojangMappings()
-        parchment("org.parchmentmc.data:parchment-${minecraft_version}:${mapping_version}@zip")
-    }
+    mappings loom.officialMojangMappings()
     modImplementation "net.fabricmc:fabric-loader:${fabric_loader_version}"
     modImplementation "net.fabricmc.fabric-api:fabric-api:${fabric_version}"
-    implementation group: 'com.google.code.findbugs', name: 'jsr305', version: '3.0.1'
-    implementation project(":common")
 
     /Fabric Seasons/
     modImplementation "curse.maven:fabric-seasons-413523:${project.fabric_seasons_file_id}"
@@ -88,7 +21,6 @@ dependencies {
 
     /Xaero's Minimap/
     modCompileOnly "curse.maven:xaeros-minimap-263420:${project.xaeros_fabric_file_id}"
-//    modImplementation "curse.maven:xaeros-minimap-263420:${project.xaeros_fabric_file_id}"
 
     /Xaero's Minimap Fair Play/
 //    modCompileOnly "curse.maven:xaeros-minimap-fair-play-edition-263466:${project.xaeros_fairplay_fabric_file_id}"
@@ -100,17 +32,11 @@ dependencies {
     modCompileOnly "curse.maven:ftb-chunks-fabric-472657:${ftb_chunks_fabric_file_id}"
 
     /Trinkets/
-    modCompileOnly "dev.emi:trinkets:${project.trinkets_file_id}"
+    modCompileOnly "dev.emi:trinkets:${trinkets_file_id}"
 
-    modApi("me.shedaniel.cloth:cloth-config-fabric:${project.cloth_version}") {
-        exclude(group: "net.fabricmc.fabric-api")
-    }
-
-    implementation("com.electronwill.night-config:core:3.6.3")
-    implementation("com.electronwill.night-config:toml:3.6.3")
-
-    modImplementation "fuzs.forgeconfigapiport:forgeconfigapiport-fabric:${forgeconfigapiport_file_id}"
-//source: https://github.com/Fuzss/forgeconfigapiport-fabric
+    /Forge Config API Port/
+    modApi "fuzs.forgeconfigapiport:forgeconfigapiport-fabric:${forgeconfigapiport_version}"
+    modImplementation "curse.maven:forge-config-api-port-fabric-547434:${forgeconfigapiport_fabric_file_id}"
 
     /JourneyMap/
     modCompileOnlyApi group: 'info.journeymap', name: 'journeymap-api', version: project.journeymap_api_version_fabric, changing: true
@@ -127,8 +53,9 @@ dependencies {
 }
 
 loom {
-    if (project(":common").file("src/main/resources/${mod_id}.accesswidener").exists()) {
-        accessWidenerPath.set(project(":common").file("src/main/resources/${mod_id}.accesswidener"))
+    def aw = project(":common").file("src/main/resources/${mod_id}.accesswidener")
+    if (aw.exists()) {
+        accessWidenerPath.set(aw)
     }
     mixin {
         defaultRefmapName.set("${mod_id}.refmap.json")
@@ -138,41 +65,13 @@ loom {
             client()
             setConfigName("Fabric Client")
             ideConfigGenerated(true)
-            runDir("run")
+            runDir("runs/client")
         }
         server {
             server()
             setConfigName("Fabric Server")
             ideConfigGenerated(true)
-            runDir("run")
-        }
-    }
-    mixin {
-        defaultRefmapName = "seasonhud.refmap.json"
-    }
-}
-
-tasks.withType(JavaCompile).configureEach {
-    source(project(":common").sourceSets.main.allSource)
-}
-
-processResources {
-    from project(":common").sourceSets.main.resources
-}
-
-publishing {
-    publications {
-        mavenJava(MavenPublication) {
-            groupId project.group
-            artifactId base.archivesName.get()
-            version project.version
-            artifact jar
-        }
-    }
-
-    repositories {
-        maven {
-            url "file://" + System.getenv("local_maven")
+            runDir("runs/server")
         }
     }
 }
@@ -210,7 +109,7 @@ modrinth {
     }
 }
 
-task publishCurseForge(type: net.darkhax.curseforgegradle.TaskPublishCurseForge) {
+tasks.register('publishCurseForge', TaskPublishCurseForge) {
     int firstHeading = changelogText.indexOf("## [")
     int nextHeading = changelogText.indexOf("## [", firstHeading + 1)
     String recentChangelogText = changelogText.substring(firstHeading, nextHeading)

@@ -1,4 +1,10 @@
+import net.darkhax.curseforgegradle.TaskPublishCurseForge
+
 plugins {
+    id 'multiloader-loader'
+    id 'net.minecraftforge.gradle' version '6.+'
+    id 'org.spongepowered.mixin' version '0.7-SNAPSHOT'
+    id 'net.darkhax.curseforgegradle' version '1.1.18'
     id 'idea'
     id 'maven-publish'
     id 'net.minecraftforge.gradle'
@@ -8,112 +14,67 @@ plugins {
     id "com.modrinth.minotaur" version "2.+"
 }
 
-version = mod_version
-group = mod_group
-
 base {
-    archivesName = mod_id + "-forge-" + minecraft_version
+    archivesName = "${mod_id}-forge-${minecraft_version}"
 }
 
 mixin {
-    add sourceSets.main, "${mod_id}.refmap.json"
-    config "${mod_id}.mixins.json"
-    quiet
+    add(sourceSets.main, "${mod_id}.refmap.json")
+
+    config("${mod_id}.mixins.json")
+    config("${mod_id}.forge.mixins.json")
 }
 
 minecraft {
-    mappings channel: mapping_channel, version: "${mapping_version}-${minecraft_version}"
+    mappings channel: 'official', version: minecraft_version
+//    mappings channel: mapping_channel, version: "${mapping_version}-${minecraft_version}"
 
-    if (file('src/main/resources/META-INF/accesstransformer.cfg').exists()) {
-        accessTransformer = file('src/main/resources/META-INF/accesstransformer.cfg')
+    def at = file('src/main/resources/META-INF/accesstransformer.cfg')
+    if (at.exists()) {
+        accessTransformer = at
     }
 
     runs {
         client {
-            workingDirectory project.file('run')
+            workingDirectory file('runs/client')
             ideaModule "${rootProject.name}.${project.name}.main"
             taskName 'Client'
-            property 'mixin.env.remapRefMap', 'true'
-            property 'mixin.env.refMapRemappingFile', "${projectDir}/build/createSrgToMcp/output.srg"
             mods {
                 modClientRun {
                     source sourceSets.main
-                    source project(":common").sourceSets.main
                 }
             }
         }
 
         server {
-            workingDirectory project.file('run')
+            workingDirectory file('runs/server')
             ideaModule "${rootProject.name}.${project.name}.main"
             taskName 'Server'
-            property 'mixin.env.remapRefMap', 'true'
-            property 'mixin.env.refMapRemappingFile', "${projectDir}/build/createSrgToMcp/output.srg"
             mods {
                 modServerRun {
                     source sourceSets.main
-                    source project(":common").sourceSets.main
                 }
             }
         }
 
         data {
-            workingDirectory project.file('run')
+            workingDirectory file('runs/data')
             ideaModule "${rootProject.name}.${project.name}.main"
             args '--mod', mod_id, '--all', '--output', file('src/generated/resources/'), '--existing', file('src/main/resources/')
             taskName 'Data'
-            property 'mixin.env.remapRefMap', 'true'
-            property 'mixin.env.refMapRemappingFile', "${projectDir}/build/createSrgToMcp/output.srg"
             mods {
                 modDataRun {
                     source sourceSets.main
-                    source project(":common").sourceSets.main
                 }
             }
         }
     }
 }
 
-sourceSets.main.resources.srcDir 'src/generated/resources'
-
-repositories {
-    maven {
-        name = "CurseMaven"
-        url "https://cursemaven.com"
-        content {
-            includeGroup "curse.maven"
-        }
-    }
-
-    maven {
-        name = 'Sponge / Mixin'
-        url = 'https://repo.spongepowered.org/repository/maven-public/'
-    }
-
-    maven {
-        name = 'ParchmentMC'
-        url = 'https://maven.parchmentmc.org'
-    }
-
-    maven {
-        url = "https://maven.theillusivec4.top/"
-    }
-
-    maven {
-        name = 'BlameJared Maven (CrT / Bookshelf)'
-        url = 'https://maven.blamejared.com'
-    }
-
-    maven {
-        name = "Fuzs Mod Resources"
-        url = "https://raw.githubusercontent.com/Fuzss/modresources/main/maven/"
-    }
-}
+sourceSets.main.resources { srcDir 'src/generated/resources' }
 
 dependencies {
     minecraft "net.minecraftforge:forge:${minecraft_version}-${forge_version}"
-    annotationProcessor 'org.spongepowered:mixin:0.8.5:processor'
-    compileOnly project(":common")
     annotationProcessor("org.spongepowered:mixin:0.8.5-SNAPSHOT:processor")
 
     /Serene Seasons/
@@ -130,14 +91,14 @@ dependencies {
 //    compileOnly fg.deobf("curse.maven:xaeros-minimap-fair-play-edition-263466:${project.xaeros_fairplay_forge_file_id}")
 
     /FTB Chunks/
-    compileOnly fg.deobf("curse.maven:ftb-library-forge-404465:${project.ftb_lib_forge_file_id}")
     //FTB Library
-    compileOnly fg.deobf("curse.maven:architectury-api-419699:${project.architectury_forge_file_id}")
+    compileOnly fg.deobf("curse.maven:ftb-library-forge-404465:${project.ftb_lib_forge_file_id}")
     //Architectury
-    compileOnly fg.deobf("curse.maven:ftb-teams-forge-404468:${project.ftb_teams_forge_file_id}")
+    compileOnly fg.deobf("curse.maven:architectury-api-419699:${project.architectury_forge_file_id}")
     //FTB Teams
-    compileOnly fg.deobf("curse.maven:ftb-chunks-forge-314906:${project.ftb_chunks_forge_file_id}")
+    compileOnly fg.deobf("curse.maven:ftb-teams-forge-404468:${project.ftb_teams_forge_file_id}")
     //FTB Chunks
+    compileOnly fg.deobf("curse.maven:ftb-chunks-forge-314906:${project.ftb_chunks_forge_file_id}")
 
     /JourneyMap/
     compileOnly fg.deobf("curse.maven:journeymap-32274:${project.journeymap_forge_file_id}")
@@ -149,31 +110,20 @@ dependencies {
     compileOnly fg.deobf("curse.maven:immediatelyfast-686911:4937545")
 }
 
-tasks.withType(JavaCompile) {
-    source(project(":common").sourceSets.main.allSource)
-}
-
-processResources {
-    from project(":common").sourceSets.main.resources
-}
-
-
 jar.finalizedBy('reobfJar')
 
 publishing {
     publications {
         mavenJava(MavenPublication) {
-            groupId project.group
-            artifactId base.archivesName.get()
-            version project.version
-            artifact jar
+            fg.component(it)
         }
     }
-    repositories {
-        maven {
-            url "file://" + System.getenv("local_maven")
-        }
-    }
+}
+
+sourceSets.each {
+    def dir = layout.buildDirectory.dir("sourcesSets/$it.name")
+    it.output.resourcesDir = dir
+    it.java.destinationDirectory = dir
 }
 
 String changelogText = projectDir.toPath().getParent().resolve("CHANGELOG.md").getText('UTF-8')
@@ -207,7 +157,7 @@ modrinth {
     }
 }
 
-task publishCurseForge(type: net.darkhax.curseforgegradle.TaskPublishCurseForge) {
+tasks.register('publishCurseForge', TaskPublishCurseForge) {
     int firstHeading = changelogText.indexOf("## [")
     int nextHeading = changelogText.indexOf("## [", firstHeading + 1)
     String recentChangelogText = changelogText.substring(firstHeading, nextHeading)
