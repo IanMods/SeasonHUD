@@ -34,11 +34,11 @@
     "forgeconfigapiport": "*"
   },
   "breaks": {
-    "xaerominimap": "<24.0.0"
+    "xaerominimap": "<24.0.0",
+    "map_atlases": "<2.7.0"
   },
   "suggests": {
-    "seasonsextras": "*",
-    "map_atlases": ">=2.7.0"
+    "seasonsextras": "*"
   }
 }
   
