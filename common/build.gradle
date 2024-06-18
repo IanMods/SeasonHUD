@@ -14,7 +14,7 @@ minecraft {
 dependencies {
     compileOnly group: 'org.spongepowered', name: 'mixin', version: '0.8.5'
 
-    api  "fuzs.forgeconfigapiport:forgeconfigapiport-common:${forgeconfigapiport_version}"
+    api "fuzs.forgeconfigapiport:forgeconfigapiport-common:${forgeconfigapiport_version}"
 }
 
 configurations {

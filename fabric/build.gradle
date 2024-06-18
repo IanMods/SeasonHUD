@@ -33,7 +33,7 @@ dependencies {
     modCompileOnly "dev.emi:trinkets:${trinkets_file_id}"
 
     /Forge Config API Port/
-    modApi  "fuzs.forgeconfigapiport:forgeconfigapiport-fabric:${forgeconfigapiport_version}"
+    modApi "fuzs.forgeconfigapiport:forgeconfigapiport-fabric:${forgeconfigapiport_version}"
     modImplementation "curse.maven:forge-config-api-port-fabric-547434:${forgeconfigapiport_fabric_file_id}"
 
     /JourneyMap/
