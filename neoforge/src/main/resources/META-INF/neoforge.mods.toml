@@ -18,28 +18,28 @@ config = "${mod_id}.mixins.json"
 config = "${mod_id}.neoforge.mixins.json"
 
 # A dependency - use the . to indicate dependency for a specific modid. Dependencies are optional.
-[[dependencies.${mod_id}]] #optional
+[[dependencies.${ mod_id }]] #optional
 modId = "neoforge"
 type = "required"
 versionRange = "${neoforge_version_range}" #mandatory
 ordering = "NONE"
 side = "BOTH"
 
-[[dependencies.${mod_id}]]
+[[dependencies.${ mod_id }]]
 modId = "minecraft"
 type = "required"
 versionRange = "${minecraft_version_range}"
 ordering = "NONE"
 side = "BOTH"
 
-[[dependencies.${mod_id}]]
+[[dependencies.${ mod_id }]]
 modId = "sereneseasons"
-type="required"
+type = "required"
 versionRange = "[9.0.0.0,)"
 ordering = "AFTER"
 side = "BOTH"
 
-[[dependencies.${mod_id}]]
+[[dependencies.${ mod_id }]]
 modId = "xaerominimap"
 type = "optional"
 versionRange = "[23.9.4,)"
