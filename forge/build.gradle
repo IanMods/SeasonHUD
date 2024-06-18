@@ -1,16 +1,8 @@
-import net.darkhax.curseforgegradle.TaskPublishCurseForge
-
 plugins {
     id 'multiloader-loader'
     id 'net.minecraftforge.gradle' version '6.+'
     id 'org.spongepowered.mixin' version '0.7-SNAPSHOT'
     id 'net.darkhax.curseforgegradle' version '1.1.18'
-    id 'idea'
-    id 'maven-publish'
-    id 'net.minecraftforge.gradle'
-    id 'org.parchmentmc.librarian.forgegradle'
-    id 'org.spongepowered.mixin'
-    id 'net.darkhax.curseforgegradle' version '1.1.16'
     id "com.modrinth.minotaur" version "2.+"
 }
 
@@ -157,7 +149,7 @@ modrinth {
     }
 }
 
-tasks.register('publishCurseForge', TaskPublishCurseForge) {
+task publishCurseForge(type: net.darkhax.curseforgegradle.TaskPublishCurseForge) {
     int firstHeading = changelogText.indexOf("## [")
     int nextHeading = changelogText.indexOf("## [", firstHeading + 1)
     String recentChangelogText = changelogText.substring(firstHeading, nextHeading)
