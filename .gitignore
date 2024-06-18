@@ -12,8 +12,9 @@ out
 *.iws
 *.iml
 .idea/*
-!.idea/scopes
-!.idea/fileColors.xml
+!/.idea/scopes
+!/.idea/codeStyles
+!/.idea/fileColors.xml
 
 # gradle
 build
@@ -22,3 +23,5 @@ build
 # other
 eclipse
 run
+runs
+
