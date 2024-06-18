@@ -1,11 +1,9 @@
 package club.iananderson.seasonhud.client.gui.components.buttons;
 
-import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.client.gui.components.Button;
 import net.minecraft.network.chat.CommonComponents;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.TranslatableComponent;
-import org.jetbrains.annotations.NotNull;
 
 public class MenuButton extends Button {
   private static final int BUTTON_WIDTH = 150;

@@ -31,14 +31,14 @@ public class ForgeMinimapHelper implements IMinimapHelper {
         && !CurrentMinimap.minimapLoaded("map_atlases")) {
       return !FTBChunksClientConfig.MINIMAP_ENABLED.get();
     }
-		if (CurrentMinimap.minimapLoaded("xaerominimap") || CurrentMinimap.minimapLoaded("xaerominimapfair")) {
-			return !HudMod.INSTANCE.getSettings().getMinimap();
-		}
+    if (CurrentMinimap.minimapLoaded("xaerominimap") || CurrentMinimap.minimapLoaded("xaerominimapfair")) {
+      return !HudMod.INSTANCE.getSettings().getMinimap();
+    }
 //		if (CurrentMinimap.minimapLoaded("map_atlases")) {
 //			return !MapAtlases.shouldDraw(Minecraft.getInstance());
 //		}
-		else {
-			return false;
-		}
+    else {
+      return false;
+    }
   }
 }

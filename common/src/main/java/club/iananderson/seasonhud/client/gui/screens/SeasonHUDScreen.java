@@ -103,7 +103,8 @@ public class SeasonHUDScreen extends Screen {
 
     CycleButton<Boolean> showTropicalSeasonButton = CycleButton.onOffBuilder(showTropicalSeason.get())
                                                                .create(rightButtonX, (buttonStartY + (row * yOffset)),
-                                                                   BUTTON_WIDTH, BUTTON_HEIGHT, new TranslatableComponent(
+                                                                   BUTTON_WIDTH, BUTTON_HEIGHT,
+                                                                   new TranslatableComponent(
                                                                        "menu.seasonhud.button.showTropicalSeason"),
                                                                    (b, Off) -> Config.setShowTropicalSeason(Off));
 
@@ -144,7 +145,8 @@ public class SeasonHUDScreen extends Screen {
     row += 1;
     CycleButton<Boolean> showMinimapHiddenButton = CycleButton.onOffBuilder(showDefaultWhenMinimapHidden.get())
                                                               .create(leftButtonX, (buttonStartY + (row * yOffset)),
-                                                                  BUTTON_WIDTH, BUTTON_HEIGHT, new TranslatableComponent(
+                                                                  BUTTON_WIDTH, BUTTON_HEIGHT,
+                                                                  new TranslatableComponent(
                                                                       "menu.seasonhud.button.showMinimapHidden"),
                                                                   (b, Off) -> Config.setShowDefaultWhenMinimapHidden(
                                                                       Off));
@@ -160,7 +162,8 @@ public class SeasonHUDScreen extends Screen {
 
       CycleButton<Boolean> journeyMapMacOSButton = CycleButton.onOffBuilder(journeyMapMacOS.get())
                                                               .create(rightButtonX, (buttonStartY + (row * yOffset)),
-                                                                  BUTTON_WIDTH, BUTTON_HEIGHT, new TranslatableComponent(
+                                                                  BUTTON_WIDTH, BUTTON_HEIGHT,
+                                                                  new TranslatableComponent(
                                                                       "menu.seasonhud.button.journeyMapMacOS"),
                                                                   (b, Off) -> Config.setJourneyMapMacOS(Off));
 

@@ -3,8 +3,6 @@ package club.iananderson.seasonhud.client.gui.components.sliders;
 import club.iananderson.seasonhud.client.gui.components.boxes.ColorEditBox;
 import club.iananderson.seasonhud.util.Rgb;
 import net.minecraft.ChatFormatting;
-import net.minecraft.network.chat.Component;
-import net.minecraft.network.chat.TextComponent;
 import net.minecraft.util.Mth;
 
 public class GreenSlider extends RgbSlider {
