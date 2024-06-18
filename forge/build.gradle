@@ -2,7 +2,7 @@ plugins {
     id 'multiloader-loader'
     id 'net.minecraftforge.gradle' version '6.+'
     id 'org.spongepowered.mixin' version '0.7-SNAPSHOT'
-    id 'net.darkhax.curseforgegradle' version '1.1.16'
+    id 'net.darkhax.curseforgegradle' version '1.1.18'
     id "com.modrinth.minotaur" version "2.+"
 }
 
@@ -19,6 +19,7 @@ mixin {
 
 minecraft {
     mappings channel: 'official', version: minecraft_version
+//    mappings channel: 'official', version: minecraft_version
     copyIdeResources = true //Calls processResources when in dev
 
     def at = file('src/main/resources/META-INF/accesstransformer.cfg')
@@ -85,14 +86,14 @@ dependencies {
     compileOnly fg.deobf("curse.maven:xaeros-minimap-fair-play-edition-263466:${project.xaeros_fairplay_forge_file_id}")
 
     /FTB Chunks/
-    compileOnly fg.deobf("curse.maven:ftb-library-forge-404465:${project.ftb_lib_forge_file_id}")
     //FTB Library
-    compileOnly fg.deobf("curse.maven:architectury-api-419699:${project.architectury_forge_file_id}")
+    compileOnly fg.deobf("curse.maven:ftb-library-forge-404465:${project.ftb_lib_forge_file_id}")
     //Architectury
-    compileOnly fg.deobf("curse.maven:ftb-teams-forge-404468:${project.ftb_teams_forge_file_id}")
+    compileOnly fg.deobf("curse.maven:architectury-api-419699:${project.architectury_forge_file_id}")
     //FTB Teams
-    compileOnly fg.deobf("curse.maven:ftb-chunks-forge-314906:${project.ftb_chunks_forge_file_id}")
+    compileOnly fg.deobf("curse.maven:ftb-teams-forge-404468:${project.ftb_teams_forge_file_id}")
     //FTB Chunks
+    compileOnly fg.deobf("curse.maven:ftb-chunks-forge-314906:${project.ftb_chunks_forge_file_id}")
 
     /JourneyMap/
     compileOnly fg.deobf("curse.maven:journeymap-32274:${project.journeymap_forge_file_id}")

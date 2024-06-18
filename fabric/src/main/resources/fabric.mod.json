@@ -1,17 +1,18 @@
 {
   "schemaVersion": 1,
-  "id": "seasonhud",
+  "id": "${mod_id}",
   "version": "${version}",
-  "name": "SeasonHUD",
-  "description": "This is an addon for SereneSeasons that displays the current season on the HUD or under a minimap",
+  "name": "${mod_name}",
+  "description": "${description}",
   "authors": [
-    "IanAnderson"
+    "${mod_author}"
   ],
   "contact": {
-    "repo": "https://github.com/lanAnderson/SeasonHUD"
+    "repo": "https://github.com/lanAnderson/SeasonHUD",
+    "issues": "https://github.com/lanAnderson/SeasonHUD/issues"
   },
-  "license": "All-Rights-Reserved",
-  "icon": "SeasonHUD.png",
+  "license": "${license}",
+  "icon": "${mod_id}.png",
   "environment": "client",
   "entrypoints": {
     "client": [
@@ -28,7 +29,7 @@
     "fabricloader": ">=${fabric_loader_version}",
     "fabric-api": "*",
     "minecraft": "${minecraft_version}",
-    "java": ">=17",
+    "java": ">=${java_version}",
     "sereneseasons": "*",
     "fabric-key-binding-api-v1": "*",
     "forgeconfigapiport": "*"
@@ -36,6 +37,9 @@
   "breaks": {
     "xaerominimap": "<24.0.0",
     "map_atlases": "<2.6.1"
+  },
+  "suggests": {
+    "seasonsextras": "*"
   }
 }
   

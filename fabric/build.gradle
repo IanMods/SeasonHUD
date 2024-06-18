@@ -1,7 +1,7 @@
 plugins {
     id 'multiloader-loader'
     id 'fabric-loom' version '1.6-SNAPSHOT'
-    id 'net.darkhax.curseforgegradle' version '1.1.16'
+    id 'net.darkhax.curseforgegradle' version '1.1.18'
     id "com.modrinth.minotaur" version "2.+"
 }
 
@@ -32,12 +32,11 @@ dependencies {
     modCompileOnly "dev.emi:trinkets:${project.trinkets_file_id}"
     modCompileOnly("dev.onyxstudios.cardinal-components-api:cardinal-components-base:${project.cca_version}")
     modCompileOnly("dev.onyxstudios.cardinal-components-api:cardinal-components-entity:${project.cca_version}")
+    modCompileOnly "dev.emi:trinkets:${trinkets_file_id}"
 
-    implementation("com.electronwill.night-config:core:3.6.3")
-    implementation("com.electronwill.night-config:toml:3.6.3")
-
-    modApi "fuzs.forgeconfigapiport:forgeconfigapiport-fabric:${project.forgeconfigapiport_version}"
-    modImplementation "curse.maven:forge-config-api-port-fabric-547434:${project.forgeconfigapiport_fabric_file_id}"
+    /Forge Config API Port/
+    modApi "fuzs.forgeconfigapiport:forgeconfigapiport-fabric:${forgeconfigapiport_version}"
+    modImplementation "curse.maven:forge-config-api-port-fabric-547434:${forgeconfigapiport_fabric_file_id}"
 
     /JourneyMap/
     modCompileOnlyApi group: 'info.journeymap', name: 'journeymap-api', version: journeymap_api_version_fabric, changing: true
