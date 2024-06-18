@@ -27,6 +27,7 @@ jar {
 
 minecraft {
     mappings channel: 'official', version: minecraft_version
+//    mappings channel: 'official', version: minecraft_version
     reobf = false
     copyIdeResources = true
 
@@ -101,14 +102,14 @@ dependencies {
 //    compileOnly "curse.maven:xaeros-minimap-fair-play-edition-263466:${project.xaeros_fairplay_forge_file_id}"
 
     /FTB Chunks/
-    compileOnly "curse.maven:ftb-library-forge-404465:${project.ftb_lib_forge_file_id}"
     //FTB Library
-    compileOnly "curse.maven:architectury-api-419699:${project.architectury_forge_file_id}"
+    compileOnly "curse.maven:ftb-library-forge-404465:${project.ftb_lib_forge_file_id}"
     //Architectury
-    compileOnly "curse.maven:ftb-teams-forge-404468:${project.ftb_teams_forge_file_id}"
+    compileOnly "curse.maven:architectury-api-419699:${project.architectury_forge_file_id}"
     //FTB Teams
-    compileOnly "curse.maven:ftb-chunks-forge-314906:${project.ftb_chunks_forge_file_id}"
+    compileOnly "curse.maven:ftb-teams-forge-404468:${project.ftb_teams_forge_file_id}"
     //FTB Chunks
+    compileOnly "curse.maven:ftb-chunks-forge-314906:${project.ftb_chunks_forge_file_id}"
 
     /JourneyMap/
     compileOnly "curse.maven:journeymap-32274:${project.journeymap_forge_file_id}"

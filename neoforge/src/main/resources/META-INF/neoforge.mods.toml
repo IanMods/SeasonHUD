@@ -32,9 +32,9 @@ versionRange = "${minecraft_version_range}"
 ordering = "NONE"
 side = "BOTH"
 
-[[dependencies.${mod_id}]]
+[[dependencies.${ mod_id }]]
 modId = "sereneseasons"
-type="required"
+type = "required"
 versionRange = "[10.0.0.0,)"
 ordering = "AFTER"
 side = "BOTH"

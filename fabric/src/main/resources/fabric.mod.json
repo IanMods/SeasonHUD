@@ -1,17 +1,18 @@
 {
   "schemaVersion": 1,
-  "id": "seasonhud",
+  "id": "${mod_id}",
   "version": "${version}",
-  "name": "SeasonHUD",
-  "description": "This is an addon for SereneSeasons that displays the current season on the HUD or under a minimap",
+  "name": "${mod_name}",
+  "description": "${description}",
   "authors": [
-    "IanAnderson"
+    "${mod_author}"
   ],
   "contact": {
-    "repo": "https://github.com/lanAnderson/SeasonHUD"
+    "repo": "https://github.com/lanAnderson/SeasonHUD",
+    "issues": "https://github.com/lanAnderson/SeasonHUD/issues"
   },
-  "license": "All-Rights-Reserved",
-  "icon": "SeasonHUD.png",
+  "license": "${license}",
+  "icon": "${mod_id}.png",
   "environment": "client",
   "entrypoints": {
     "client": [
