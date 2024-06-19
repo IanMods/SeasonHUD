@@ -4,6 +4,8 @@ import club.iananderson.seasonhud.Common;
 import club.iananderson.seasonhud.platform.services.IMinimapHelper;
 import club.iananderson.seasonhud.platform.services.IPlatformHelper;
 import club.iananderson.seasonhud.platform.services.ISeasonHelper;
+import java.util.Iterator;
+import java.util.Optional;
 import java.util.ServiceLoader;
 
 public class Services {
@@ -15,9 +17,18 @@ public class Services {
   public static final IMinimapHelper MINIMAP = load(IMinimapHelper.class);
 
   public static <T> T load(Class<T> clazz) {
+    Optional<T> findFirst;
+    final Iterator<T> iterator = ServiceLoader.load(clazz).iterator();
 
-    final T loadedService = ServiceLoader.load(clazz).findFirst().orElseThrow(
-        () -> new NullPointerException("Failed to load service for " + clazz.getName()));
+    if (iterator.hasNext()) {
+      findFirst = Optional.of(iterator.next());
+    }
+    else {
+      findFirst = Optional.empty();
+    }
+
+    final T loadedService = findFirst.orElseThrow(() -> new NullPointerException("Failed to load service for " + clazz.getName()));
+
     Common.LOG.debug("Loaded {} for service {}", loadedService, clazz);
     return loadedService;
   }

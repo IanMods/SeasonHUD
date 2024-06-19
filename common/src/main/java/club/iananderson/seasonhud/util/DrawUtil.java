@@ -12,7 +12,7 @@ public class DrawUtil {
   public static void blitWithBorder(PoseStack poseStack, GuiComponent guiComponent, ResourceLocation texture, int x,
       int y, int u, int v, int width, int height, int textureWidth, int textureHeight, int topBorder, int bottomBorder,
       int leftBorder, int rightBorder) {
-    RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
+    RenderSystem.color4f(1.0F, 1.0F, 1.0F, 1.0F);
     RenderSystem.enableBlend();
     RenderSystem.defaultBlendFunc();
     int fillerWidth = textureWidth - leftBorder - rightBorder;
@@ -23,7 +23,7 @@ public class DrawUtil {
     int remainderWidth = canvasWidth % fillerWidth;
     int yPasses = canvasHeight / fillerHeight;
     int remainderHeight = canvasHeight % fillerHeight;
-    RenderSystem.setShaderTexture(0, texture);
+    Minecraft.getInstance().getTextureManager().bind(texture);
     guiComponent.blit(poseStack, x, y, u, v, leftBorder, topBorder);
     guiComponent.blit(poseStack, x + leftBorder + canvasWidth, y, u + leftBorder + fillerWidth, v, rightBorder,
         topBorder);

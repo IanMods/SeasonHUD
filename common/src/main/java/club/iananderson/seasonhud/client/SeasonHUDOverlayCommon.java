@@ -39,29 +39,36 @@ public class SeasonHUDOverlayCommon {
       Location hudLoc = Config.hudLocation.get();
 
       switch (hudLoc) {
-        case TOP_LEFT -> {
+        case TOP_LEFT:
           x = offsetDim;
           y = 0;
-        }
-        case TOP_CENTER -> {
+          break;
+
+        case TOP_CENTER :
           x = screenWidth / 2 - stringWidth / 2;
           y = 0;
-        }
-        case TOP_RIGHT -> {
+          break;
+
+        case TOP_RIGHT :
           x = screenWidth - stringWidth - offsetDim;
           y = 0;
-        }
-        case BOTTOM_LEFT -> {
+          break;
+
+        case BOTTOM_LEFT :
           x = offsetDim;
           y = screenHeight - (2 * offsetDim);
-        }
-        case BOTTOM_RIGHT -> {
+          break;
+
+        case BOTTOM_RIGHT :
           x = screenWidth - stringWidth - offsetDim;
           y = screenHeight - (2 * offsetDim);
-        }
+          break;
+
+        default :
+          System.out.println("Invalid hud position");
       }
 
-      if (Common.vanillaShouldDrawHud() && !mc.player.isScoping() && Calendar.calendarFound()) {
+      if (Common.vanillaShouldDrawHud() && Calendar.calendarFound()) {
         seasonStack.pushPose();
         seasonStack.scale(1F, 1F, 1F);
 

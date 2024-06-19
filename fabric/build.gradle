@@ -56,12 +56,10 @@ dependencies {
     }
 
     /JourneyMap/
-    modApi(group: 'info.journeymap', name: 'journeymap-api', version: project.journeymap_api_version_fabric, changing: true) {
-        exclude group: 'net.fabricmc', module: 'fabric-loader'
-    }
-    modCompileOnly("curse.maven:journeymap-${project.jm_project_id}:${project.journeymap_fabric_file_id}") {
-        exclude group: 'net.fabricmc', module: 'fabric-loader'
-    }
+//    modApi(group: 'info.journeymap', name: 'journeymap-api', version: project.journeymap_api_version_fabric, changing: true) {
+//        exclude group: 'net.fabricmc', module: 'fabric-loader'
+//    }
+    modCompileOnly("curse.maven:journeymap-${project.jm_project_id}:${project.journeymap_fabric_file_id}")
 }
 
 loom {

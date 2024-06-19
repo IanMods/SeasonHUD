@@ -14,12 +14,12 @@ import static club.iananderson.seasonhud.config.Config.showTropicalSeason;
 
 import club.iananderson.seasonhud.client.gui.components.buttons.MenuButton;
 import club.iananderson.seasonhud.client.gui.components.buttons.MenuButton.MenuButtons;
+import club.iananderson.seasonhud.client.gui.components.button.CycleButton;
 import club.iananderson.seasonhud.config.Config;
 import club.iananderson.seasonhud.config.Location;
 import club.iananderson.seasonhud.config.ShowDay;
 import club.iananderson.seasonhud.platform.Services;
 import com.mojang.blaze3d.vertex.PoseStack;
-import net.minecraft.client.gui.components.CycleButton;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.TranslatableComponent;
@@ -167,19 +167,19 @@ public class SeasonHUDScreen extends Screen {
                                                                       "menu.seasonhud.button.journeyMapMacOS"),
                                                                   (b, Off) -> Config.setJourneyMapMacOS(Off));
 
-      this.addRenderableWidget(journeyMapAboveMapButton);
-      this.addRenderableWidget(journeyMapMacOSButton);
+      this.addButton(journeyMapAboveMapButton);
+      this.addButton(journeyMapMacOSButton);
     }
 
-    this.addRenderableWidget(enableModButton);
-    this.addRenderableWidget(hudLocationButton);
-    this.addRenderableWidget(showTropicalSeasonButton);
-    this.addRenderableWidget(showSubSeasonButton);
-    this.addRenderableWidget(showDayButton);
-    this.addRenderableWidget(needCalendarButton);
-    this.addRenderableWidget(enableMinimapIntegrationButton);
-    this.addRenderableWidget(showMinimapHiddenButton);
-    this.addRenderableWidget(seasonhudColors);
-    this.addRenderableWidget(doneButton);
+    this.addButton(enableModButton);
+    this.addButton(hudLocationButton);
+    this.addButton(showTropicalSeasonButton);
+    this.addButton(showSubSeasonButton);
+    this.addButton(showDayButton);
+    this.addButton(needCalendarButton);
+    this.addButton(enableMinimapIntegrationButton);
+    this.addButton(showMinimapHiddenButton);
+    this.addButton(seasonhudColors);
+    this.addButton(doneButton);
   }
 }

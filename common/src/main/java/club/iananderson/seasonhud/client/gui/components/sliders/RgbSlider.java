@@ -39,7 +39,7 @@ public class RgbSlider extends AbstractSliderButton {
   private boolean canChangeValue;
 
   private RgbSlider(int x, int y, int width, int height, double initial) {
-    super(x, y, width, height, CommonComponents.NARRATION_SEPARATOR, initial);
+    super(x, y, width, height, new TextComponent(". "), initial);
     this.initial = initial;
     this.drawString = true;
   }

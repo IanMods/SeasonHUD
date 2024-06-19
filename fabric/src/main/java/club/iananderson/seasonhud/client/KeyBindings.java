@@ -18,7 +18,6 @@ public class KeyBindings {
     ClientTickEvents.END_CLIENT_TICK.register(client -> {
       if (seasonhudOptionsKeyMapping.consumeClick()) {
         SeasonHUDScreen.open();
-        ;
       }
     });
   }

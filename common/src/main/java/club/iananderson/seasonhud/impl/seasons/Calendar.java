@@ -7,7 +7,7 @@ import club.iananderson.seasonhud.config.Config;
 import club.iananderson.seasonhud.platform.Services;
 import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.world.entity.player.Inventory;
-import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
 
 public class Calendar {
 
@@ -18,7 +18,7 @@ public class Calendar {
     LocalPlayer player = mc.player;
 
     if (Config.needCalendar.get() && calendarLoaded && player != null) {
-      Inventory inv = player.getInventory();
+      Inventory inv = player.inventory;
       int slot = findCalendar(inv, Services.SEASON.calendar()) + Services.SEASON.findCuriosCalendar(player,
           Services.SEASON.calendar());
 
@@ -28,10 +28,10 @@ public class Calendar {
     }
   }
 
-  private static int findCalendar(Inventory inv, Item item) {
-    for (int i = 0; i < inv.items.size(); ++i) {
-      if ((!inv.items.get(i).isEmpty() && inv.items.get(i).is(item)) || (!inv.offhand.get(0).isEmpty()
-          && inv.offhand.get(0).is(item))) {
+  private static int findCalendar(Inventory inv, ItemStack item) {
+    for(int i = 0; i < inv.items.size(); ++i) {
+      if ((!inv.items.get(i).isEmpty() && inv.items.get(i).sameItem(item))
+          || (!inv.offhand.get(0).isEmpty() && inv.offhand.get(0).sameItem(item))) {
         return i;
       }
     }

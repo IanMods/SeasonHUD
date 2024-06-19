@@ -15,9 +15,11 @@ pluginManagement {
             }
         }
 
+        maven { url = 'https://maven.minecraftforge.net/' }
+
         maven {
-            name = 'Forge'
-            url = 'https://maven.neoforged.net/releases' // Old - https://maven.minecraftforge.net/.
+            name = 'MinecraftForge'
+            url = 'https://maven.minecraftforge.net/'
         }
 
         maven {

@@ -9,6 +9,7 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.Style;
+import net.minecraft.network.chat.TextColor;
 import net.minecraft.network.chat.TranslatableComponent;
 
 public class CurrentSeason {
@@ -29,13 +30,13 @@ public class CurrentSeason {
   }
 
   //Get the current season and match it to the icon for the font
-  public static int getTextColor(String seasonFileName) {
+  public static TextColor getTextColor(String seasonFileName) {
     for (SeasonList season : SeasonList.values()) {
       if (season.getFileName().equals(seasonFileName)) {
-        return season.getSeasonColor();
+        return TextColor.fromRgb(season.getSeasonColor());
       }
     }
-    return 16777215;
+    return TextColor.fromRgb(16777215);
   }
 
   //Localized name for the hud
@@ -50,27 +51,27 @@ public class CurrentSeason {
     }
 
     switch (showDay) {
-      case NONE -> {
+      case NONE :
         text.add(new TranslatableComponent("desc.seasonhud.icon", getSeasonIcon(fileName)).withStyle(SEASON_STYLE));
         text.add(new TranslatableComponent("desc.seasonhud.summary",
             new TranslatableComponent("desc.seasonhud." + getSeasonStateLower())).withStyle(SEASON_FORMAT));
-      }
+        break;
 
-      case SHOW_DAY -> {
+      case SHOW_DAY :
         text.add(new TranslatableComponent("desc.seasonhud.icon", getSeasonIcon(fileName)).withStyle(SEASON_STYLE));
         text.add(new TranslatableComponent("desc.seasonhud.detailed",
             new TranslatableComponent("desc.seasonhud." + getSeasonStateLower()), SEASON.getDate()).withStyle(
             SEASON_FORMAT));
-      }
+        break;
 
-      case SHOW_WITH_TOTAL_DAYS -> {
+      case SHOW_WITH_TOTAL_DAYS :
         text.add(new TranslatableComponent("desc.seasonhud.icon", getSeasonIcon(fileName)).withStyle(SEASON_STYLE));
         text.add(new TranslatableComponent("desc.seasonhud.detailed.total",
             new TranslatableComponent("desc.seasonhud." + getSeasonStateLower()), SEASON.getDate(),
             SEASON.seasonDuration()).withStyle(SEASON_FORMAT));
-      }
+        break;
 
-      case SHOW_WITH_MONTH -> {
+      case SHOW_WITH_MONTH :
         text.add(new TranslatableComponent("desc.seasonhud.icon", getSeasonIcon(fileName)).withStyle(SEASON_STYLE));
 
         if (SEASON.isSeasonTiedWithSystemTime()) {
@@ -83,7 +84,10 @@ public class CurrentSeason {
               new TranslatableComponent("desc.seasonhud." + getSeasonStateLower()), SEASON.getDate()).withStyle(
               SEASON_FORMAT));
         }
-      }
+        break;
+
+      default :
+        System.out.println("Invalid ShowDay value");
     }
 
     return text;

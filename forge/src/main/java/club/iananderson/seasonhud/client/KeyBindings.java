@@ -1,17 +1,18 @@
 package club.iananderson.seasonhud.client;
 
-import com.mojang.blaze3d.platform.InputConstants;
-import net.minecraft.client.KeyMapping;
-import net.minecraftforge.client.ClientRegistry;
+import net.minecraft.client.settings.KeyBinding;
+import net.minecraft.client.util.InputMappings.Type;
 import net.minecraftforge.client.settings.KeyConflictContext;
+import net.minecraftforge.fml.client.registry.ClientRegistry;
+import org.lwjgl.glfw.GLFW;
 
 public class KeyBindings {
 
-  public static KeyMapping seasonhudOptionsKeyMapping;
+  public static KeyBinding seasonhudOptionsKeyMapping;
 
   public static void init() {
-    seasonhudOptionsKeyMapping = new KeyMapping("key.seasonhud.seasonhudOptions", KeyConflictContext.IN_GAME,
-        InputConstants.getKey("key.keyboard.h"), "key.categories.seasonhud");
+    seasonhudOptionsKeyMapping = new KeyBinding("key.seasonhud.seasonhudOptions", KeyConflictContext.IN_GAME, Type.KEYSYM,
+        GLFW.GLFW_KEY_H, "key.categories.seasonhud");
     ClientRegistry.registerKeyBinding(seasonhudOptionsKeyMapping);
   }
 }

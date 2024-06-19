@@ -15,6 +15,7 @@ import net.minecraft.client.gui.components.EditBox;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.network.chat.Style;
+import net.minecraft.network.chat.TextColor;
 import net.minecraft.network.chat.TranslatableComponent;
 import org.jetbrains.annotations.NotNull;
 
@@ -105,7 +106,7 @@ public class ColorEditBox extends EditBox {
     Style SEASON_FORMAT = Style.EMPTY;
 
     if (enableSeasonNameColor) {
-      SEASON_FORMAT = Style.EMPTY.withColor(this.newSeasonColor);
+      SEASON_FORMAT = Style.EMPTY.withColor(TextColor.fromRgb(this.newSeasonColor));
     }
 
     Component icon = new TranslatableComponent("desc.seasonhud.icon", seasonIcon).withStyle(SEASON_STYLE);

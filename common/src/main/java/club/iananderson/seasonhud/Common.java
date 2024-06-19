@@ -1,20 +1,22 @@
 package club.iananderson.seasonhud;
 
-import static club.iananderson.seasonhud.client.SeasonHUDClient.mc;
-
+import club.iananderson.seasonhud.client.SeasonHUDClient;
 import club.iananderson.seasonhud.platform.Services;
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screens.ChatScreen;
 import net.minecraft.client.gui.screens.DeathScreen;
 import net.minecraft.network.chat.Style;
 import net.minecraft.resources.ResourceLocation;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 public class Common {
 
   public static final String MOD_ID = "seasonhud";
   public static final String MOD_NAME = "SeasonHUD";
-  public static final Logger LOG = LoggerFactory.getLogger(MOD_NAME);
+
+  public static final Logger LOG = LogManager.getLogger(MOD_NAME);
+
 
   public static final ResourceLocation SEASON_ICONS = new ResourceLocation(MOD_ID, "season_icons");
   public static final Style SEASON_STYLE = Style.EMPTY.withFont(SEASON_ICONS);
@@ -43,7 +45,10 @@ public class Common {
   }
 
   public static boolean vanillaShouldDrawHud() {
-    return (mc.screen == null || mc.screen instanceof ChatScreen || mc.screen instanceof DeathScreen) && !mc.isPaused()
+    Minecraft mc = SeasonHUDClient.mc;
+
+    return (
+        mc.screen == null || mc.screen instanceof ChatScreen || mc.screen instanceof DeathScreen) && !mc.isPaused()
         && !mc.options.renderDebug;
   }
 }

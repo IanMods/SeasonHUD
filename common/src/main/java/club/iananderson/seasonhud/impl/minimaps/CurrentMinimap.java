@@ -42,7 +42,6 @@ public class CurrentMinimap {
     }
 
     return (enableMod.get() && enableMinimapIntegration.get() && Calendar.calendarFound()
-        && !MINIMAP.hideHudInCurrentDimension() && !MINIMAP.currentMinimapHidden() && Common.vanillaShouldDrawHud())
-        && !mc.player.isScoping();
+        && !MINIMAP.hideHudInCurrentDimension() && !MINIMAP.currentMinimapHidden() && Common.vanillaShouldDrawHud());
   }
 }

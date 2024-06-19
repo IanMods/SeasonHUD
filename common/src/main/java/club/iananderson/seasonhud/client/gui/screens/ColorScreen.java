@@ -6,6 +6,7 @@ import club.iananderson.seasonhud.client.gui.components.boxes.ColorEditBox;
 import club.iananderson.seasonhud.client.gui.components.buttons.DefaultColorButton;
 import club.iananderson.seasonhud.client.gui.components.buttons.MenuButton;
 import club.iananderson.seasonhud.client.gui.components.buttons.MenuButton.MenuButtons;
+import club.iananderson.seasonhud.client.gui.components.button.CycleButton;
 import club.iananderson.seasonhud.client.gui.components.sliders.BlueSlider;
 import club.iananderson.seasonhud.client.gui.components.sliders.GreenSlider;
 import club.iananderson.seasonhud.client.gui.components.sliders.RedSlider;
@@ -19,7 +20,7 @@ import java.util.ArrayList;
 import java.util.EnumSet;
 import java.util.List;
 import net.minecraft.client.gui.components.AbstractWidget;
-import net.minecraft.client.gui.components.CycleButton;
+import net.minecraft.client.gui.components.Button;
 import net.minecraft.client.gui.components.EditBox;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.network.chat.Component;
@@ -189,7 +190,7 @@ public class ColorScreen extends Screen {
         press -> this.onCancel());
     this.widgets.add(cancelButton);
 
-    this.widgets.forEach(this::addRenderableWidget);
+    this.widgets.forEach(this::addButton);
   }
 
   @Override
