@@ -134,6 +134,7 @@ processResources {
             "neoforge_version_range"       : neoforge_version_range,
             "neoforge_loader_version_range": neoforge_loader_version_range,
             "glitchcore_version"           : glitchcore_version,
+            "journeymap_api_version"       : journeymap_api_version,
             "credits"                      : credits,
             "java_version"                 : java_version
     ]

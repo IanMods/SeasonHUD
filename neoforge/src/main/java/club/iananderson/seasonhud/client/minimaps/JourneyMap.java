@@ -60,7 +60,7 @@ public class JourneyMap implements LayeredDraw.Layer {
       int minimapHeight = vars.minimapHeight;
       int minimapWidth = vars.minimapWidth;
 
-      float fontScale = jm.getActiveMiniMapProperties().fontScale.get();
+      float fontScale = jm.getActiveMiniMapProperties().infoSlotFontScale.get();
 
       int halfWidth = minimapWidth / 2;
 
@@ -96,15 +96,15 @@ public class JourneyMap implements LayeredDraw.Layer {
           screenHeight = screenHeight / 2;
         }
 
+        //for macOS
         guiGraphics.pose().pushPose();
         guiGraphics.pose().scale(1 / fontScale, 1 / fontScale, 0);
-        DrawUtil.sizeDisplay(guiGraphics.pose(), screenWidth, screenHeight);
+        DrawUtil.sizeDisplay(screenWidth, screenHeight);
         guiGraphics.pose().popPose();
-        DrawUtil.drawBatchLabel(guiGraphics.pose(), seasonCombined, guiGraphics.bufferSource(), labelX, labelY,
-            DrawUtil.HAlign.Center, DrawUtil.VAlign.Below, labelColor, labelAlpha, textColor, textAlpha, fontScale,
-            fontShadow);
-        guiGraphics.bufferSource().endBatch();
-        DrawUtil.sizeDisplay(guiGraphics.pose(), scaledWidth, scaledHeight);
+
+        DrawUtil.drawBatchLabel(guiGraphics, seasonCombined, labelX, labelY, DrawUtil.HAlign.Center,
+            DrawUtil.VAlign.Below, labelColor, labelAlpha, textColor, textAlpha, fontScale, fontShadow, 0);
+        DrawUtil.sizeDisplay(scaledWidth, scaledHeight);
       }
     }
   }

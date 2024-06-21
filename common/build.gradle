@@ -15,6 +15,7 @@ dependencies {
     compileOnly group: 'org.spongepowered', name: 'mixin', version: '0.8.5'
 
     api "fuzs.forgeconfigapiport:forgeconfigapiport-common-neoforgeapi:${forgeconfigapiport_version}"
+    api group: 'info.journeymap', name: 'journeymap-api-common', version: journeymap_api_version, changing: true
     compileOnly "com.github.glitchfiend:GlitchCore-common:${project.glitchcore_version}"
 }
 

@@ -63,6 +63,7 @@ dependencies {
     compileOnly "curse.maven:ftb-chunks-forge-314906:${project.ftb_chunks_neoforge_file_id}"
 
     /JourneyMap/
+    compileOnly group: 'info.journeymap', name: 'journeymap-api-neoforge', version: journeymap_api_version, changing: true
     compileOnly "curse.maven:journeymap-32274:${project.journeymap_neoforge_file_id}"
 
     /Map Atlases/
