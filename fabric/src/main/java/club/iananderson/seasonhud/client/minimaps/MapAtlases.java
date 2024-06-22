@@ -1,18 +1,14 @@
 package club.iananderson.seasonhud.client.minimaps;
 
-import static club.iananderson.seasonhud.Common.SEASON_STYLE;
-import static club.iananderson.seasonhud.client.SeasonHUDClient.mc;
-import static club.iananderson.seasonhud.impl.minimaps.CurrentMinimap.minimapLoaded;
-import static club.iananderson.seasonhud.impl.seasons.CurrentSeason.getSeasonHudName;
-
 import club.iananderson.seasonhud.config.Config;
+import club.iananderson.seasonhud.impl.minimaps.CurrentMinimap;
+import club.iananderson.seasonhud.impl.seasons.CurrentSeason;
 import com.mojang.blaze3d.vertex.PoseStack;
 import net.fabricmc.fabric.api.client.rendering.v1.HudRenderCallback;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.player.LocalPlayer;
-import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.world.effect.MobEffect;
 import pepjebs.mapatlases.MapAtlasesMod;
@@ -31,12 +27,12 @@ public class MapAtlases implements HudRenderCallback {
     HudRenderCallback.EVENT.register(HUD_INSTANCE);
   }
 
-  private static void drawStringWithLighterShadow(GuiGraphics context, Font font, MutableComponent text, int x, int y) {
-    context.drawString(font, text, x + 1, y + 1, 5855577, false);
-    context.drawString(font, text, x, y, 14737632, false);
+  private static void drawStringWithLighterShadow(GuiGraphics context, Font font, MutableComponent text, MutableComponent shadowText, int x, int y) {
+    context.drawString(font, shadowText, x + 1, y + 1, 5855577, false);
+    context.drawString(font, text, x, y, 0xffffff, false);
   }
 
-  public static void drawScaledComponent(GuiGraphics context, Font font, int x, int y, MutableComponent text,
+  public static void drawScaledComponent(GuiGraphics context, Font font, int x, int y, MutableComponent text, MutableComponent shadowText,
       float textScaling, int maxWidth, int targetWidth) {
     PoseStack pose = context.pose();
     float textWidth = (float) font.width(text);
@@ -48,25 +44,24 @@ public class MapAtlases implements HudRenderCallback {
     pose.translate(centerX, (float) (y + 4), 5.0F);
     pose.scale(scale, scale, 1.0F);
     pose.translate(-textWidth / 2.0F, -4.0F, 0.0F);
-    drawStringWithLighterShadow(context, font, text, 0, 0);
+    drawStringWithLighterShadow(context, font, text, shadowText, 0, 0);
     pose.popPose();
   }
 
   public static void drawMapComponentSeason(GuiGraphics poseStack, Font font, int x, int y, int targetWidth,
       float textScaling) {
-    if (minimapLoaded("map_atlases")) {
-      MutableComponent seasonCombined = Component.translatable("desc.seasonhud.combined",
-          getSeasonHudName().get(0).copy().withStyle(SEASON_STYLE), getSeasonHudName().get(1).copy());
+    if (CurrentMinimap.minimapLoaded("map_atlases")) {
+      MutableComponent seasonCombined = CurrentSeason.getInstance(Minecraft.getInstance()).getSeasonHudText();
+      MutableComponent shadowText = CurrentSeason.getInstance(Minecraft.getInstance()).getSeasonHudTextNoFormat();
 
       float globalScale = (float) (double) MapAtlasesClientConfig.miniMapScale.get();
-      //String seasonToDisplay = getSeasonHudName().get(0).getString();
-      drawScaledComponent(poseStack, font, x, y, seasonCombined, textScaling / globalScale, targetWidth,
+      drawScaledComponent(poseStack, font, x, y, seasonCombined, shadowText,textScaling / globalScale, targetWidth,
           (int) (targetWidth / globalScale));
     }
   }
 
   public static boolean shouldDraw(Minecraft mc) {
-    if (minimapLoaded("map_atlases")) {
+    if (CurrentMinimap.minimapLoaded("map_atlases")) {
       if (mc.level == null || mc.player == null) {
         return false;
       } else if (mc.options.renderDebug) {
@@ -87,9 +82,11 @@ public class MapAtlases implements HudRenderCallback {
 
   @Override
   public void onHudRender(GuiGraphics seasonStack, float alpha) {
-    if (minimapLoaded("map_atlases") && shouldDraw(mc)) {
-      int screenWidth = mc.getWindow().getScreenWidth();
-      int screenHeight = mc.getWindow().getScreenHeight();
+    Minecraft mc = Minecraft.getInstance();
+    int screenWidth = mc.getWindow().getScreenWidth();
+    int screenHeight = mc.getWindow().getScreenHeight();
+
+    if (CurrentMinimap.minimapLoaded("map_atlases") && shouldDraw(mc)) {
       float textScaling = (float) (double) MapAtlasesClientConfig.minimapCoordsAndBiomeScale.get();
 
       float textHeightOffset = 2.0F;

@@ -1,15 +1,8 @@
 package club.iananderson.seasonhud.client.minimaps;
 
-import static club.iananderson.seasonhud.Common.SEASON_STYLE;
-import static club.iananderson.seasonhud.client.SeasonHUDClient.mc;
-import static club.iananderson.seasonhud.config.Config.enableMod;
-import static club.iananderson.seasonhud.config.Config.journeyMapAboveMap;
-import static club.iananderson.seasonhud.config.Config.journeyMapMacOS;
-import static club.iananderson.seasonhud.impl.seasons.CurrentSeason.getSeasonHudName;
-
-import club.iananderson.seasonhud.Common;
+import club.iananderson.seasonhud.config.Config;
 import club.iananderson.seasonhud.impl.minimaps.CurrentMinimap;
-import club.iananderson.seasonhud.platform.Services;
+import club.iananderson.seasonhud.impl.seasons.CurrentSeason;
 import journeymap.client.JourneymapClient;
 import journeymap.client.io.ThemeLoader;
 import journeymap.client.render.draw.DrawUtil;
@@ -18,9 +11,9 @@ import journeymap.client.ui.minimap.DisplayVars;
 import journeymap.client.ui.theme.Theme;
 import journeymap.client.ui.theme.ThemeLabelSource;
 import net.fabricmc.fabric.api.client.rendering.v1.HudRenderCallback;
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.GuiGraphics;
-import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
 
 public class JourneyMap implements HudRenderCallback {
@@ -32,42 +25,23 @@ public class JourneyMap implements HudRenderCallback {
     HudRenderCallback.EVENT.register(HUD_INSTANCE);
   }
 
-  private static String getSeason() {
-    MutableComponent seasonCombined = Component.translatable("desc.seasonhud.combined",
-        getSeasonHudName().get(0).copy().withStyle(SEASON_STYLE), getSeasonHudName().get(1).copy());
-
-    return seasonCombined.getString();
-  }
-
   @Override
   public void onHudRender(GuiGraphics seasonStack, float alpha) {
-    MutableComponent seasonCombined = Component.translatable("desc.seasonhud.combined",
-        getSeasonHudName().get(0).copy().withStyle(SEASON_STYLE), getSeasonHudName().get(1).copy());
-
-    if (Services.PLATFORM.isModLoaded("journeymap") && !enableMod.get()) {
-      ThemeLabelSource.InfoSlot Season = ThemeLabelSource.create(Common.MOD_ID, "menu.seasonhud.infodisplay.season",
-          1000L, 1L, JourneyMap::getSeason);
-      // Should only show up if the "Enable Mod" option in the SeasonHUD menu/config is disabled. Icon currently doesn't work
-    }
-
     if (CurrentMinimap.minimapLoaded("journeymap")) {
+      Minecraft mc = Minecraft.getInstance();
+      MutableComponent seasonCombined = new CurrentSeason(mc).getSeasonHudText();
       DisplayVars vars = UIManager.INSTANCE.getMiniMap().getDisplayVars();
       JourneymapClient jm = JourneymapClient.getInstance();
-
       Font fontRenderer = mc.font;
-      float guiScale = (float) mc.getWindow().getGuiScale();
-
+      float fontScale = jm.getActiveMiniMapProperties().fontScale.get();
       double screenWidth = mc.getWindow().getWidth();
       double screenHeight = mc.getWindow().getHeight();
-
-      double scaledWidth = mc.getWindow().getGuiScaledWidth();
-      double scaledHeight = mc.getWindow().getGuiScaledHeight();
-
+      double textureX = vars.textureX;
+      double textureY = vars.textureY;
+      int scaledWidth = mc.getWindow().getGuiScaledWidth();
+      int scaledHeight = mc.getWindow().getGuiScaledWidth();
       int minimapHeight = vars.minimapHeight;
       int minimapWidth = vars.minimapWidth;
-
-      float fontScale = jm.getActiveMiniMapProperties().fontScale.get();
-
       int halfWidth = minimapWidth / 2;
 
       Theme.LabelSpec currentTheme = ThemeLoader.getCurrentTheme().minimap.square.labelBottom;
@@ -87,17 +61,14 @@ public class JourneyMap implements HudRenderCallback {
 
       int margin = ThemeLoader.getCurrentTheme().minimap.square.margin;
 
-      double textureX = vars.textureX;
-      double textureY = vars.textureY;
-
       int startX = (int) (textureX + halfWidth);
-      int startY = (int) (textureY + (journeyMapAboveMap.get() ? -margin - labelHeight : minimapHeight + margin));
-
+      int startY = (int) (textureY + (Config.journeyMapAboveMap.get() ? -margin - labelHeight
+                                                                      : minimapHeight + margin));
       if (CurrentMinimap.shouldDrawMinimapHud()) {
-        int labelX = (int) startX;
-        int labelY = startY + (journeyMapAboveMap.get() ? -topLabelHeight : bottomLabelHeight);
+        int labelX = startX;
+        int labelY = startY + (Config.journeyMapAboveMap.get() ? -topLabelHeight : bottomLabelHeight);
 
-        if (journeyMapMacOS.get()) {
+        if (Config.journeyMapMacOS.get()) {
           screenWidth = screenWidth / 2;
           screenHeight = screenHeight / 2;
         }

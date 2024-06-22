@@ -1,12 +1,9 @@
 package club.iananderson.seasonhud.mixin.ftbchunks;
 
-import static club.iananderson.seasonhud.Common.SEASON_STYLE;
-import static club.iananderson.seasonhud.config.Config.enableMinimapIntegration;
-import static club.iananderson.seasonhud.config.Config.enableMod;
-import static club.iananderson.seasonhud.impl.seasons.CurrentSeason.getSeasonHudName;
-import static dev.ftb.mods.ftbchunks.client.FTBChunksClientConfig.MINIMAP;
-
+import club.iananderson.seasonhud.config.Config;
+import club.iananderson.seasonhud.impl.seasons.CurrentSeason;
 import dev.ftb.mods.ftbchunks.client.FTBChunksClient;
+import dev.ftb.mods.ftbchunks.client.FTBChunksClientConfig;
 import dev.ftb.mods.ftbchunks.client.map.MapDimension;
 import dev.ftb.mods.ftblibrary.snbt.config.BooleanValue;
 import java.util.List;
@@ -23,20 +20,19 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 public class FTBChunksClientMixin {
 
   @Unique
-  private static BooleanValue MINIMAP_SEASON = MINIMAP.addBoolean("season", true)
-                                                      .comment(new String[]{"Show season under minimap"});
+  private static BooleanValue MINIMAP_SEASON = FTBChunksClientConfig.MINIMAP.addBoolean("season", true).comment(
+      new String[]{"Show season under minimap"});
 
   @Inject(method = "buildMinimapTextData", at = @At("RETURN"), remap = false, cancellable = true)
 
   private void buildMinimapTextData(Minecraft mc, double playerX, double playerY, double playerZ, MapDimension dim,
       CallbackInfoReturnable<List<Component>> cir) {
-    MutableComponent seasonCombined = Component.translatable("desc.seasonhud.combined",
-        getSeasonHudName().get(0).copy().withStyle(SEASON_STYLE), getSeasonHudName().get(1).copy());
+    MutableComponent seasonCombined = CurrentSeason.getInstance(mc).getSeasonHudText();
     List<Component> res = cir.getReturnValue();
 
-    enableMod.set(MINIMAP_SEASON.get());
+    Config.enableMod.set(MINIMAP_SEASON.get());
 
-    if (enableMod.get() && enableMinimapIntegration.get()) {
+    if (Config.enableMod.get() && Config.enableMinimapIntegration.get()) {
       res.add(seasonCombined);
     }
 
