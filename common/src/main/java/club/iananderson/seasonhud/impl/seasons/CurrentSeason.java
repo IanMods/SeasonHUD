@@ -88,11 +88,10 @@ public class CurrentSeason {
       SEASON_FORMAT = Style.EMPTY.withColor(getTextColor(Services.SEASON.getSeasonFileName(level, player)));
     }
 
-
     return Component.translatable("desc.seasonhud.combined", seasonIcon, seasonText.withStyle(SEASON_FORMAT));
   }
 
-  public MutableComponent getSeasonHudTextNoFormat(){
+  public MutableComponent getSeasonHudTextNoFormat() {
     Component seasonIcon = Component.translatable("desc.seasonhud.icon",
         getSeasonIcon(Services.SEASON.getSeasonFileName(level, player))).withStyle(Common.SEASON_STYLE);
 

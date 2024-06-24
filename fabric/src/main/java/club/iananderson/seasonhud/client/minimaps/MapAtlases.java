@@ -27,13 +27,14 @@ public class MapAtlases implements HudRenderCallback {
     HudRenderCallback.EVENT.register(HUD_INSTANCE);
   }
 
-  private static void drawStringWithLighterShadow(GuiGraphics context, Font font, MutableComponent text, MutableComponent shadowText, int x, int y) {
+  private static void drawStringWithLighterShadow(GuiGraphics context, Font font, MutableComponent text,
+      MutableComponent shadowText, int x, int y) {
     context.drawString(font, shadowText, x + 1, y + 1, 5855577, false);
     context.drawString(font, text, x, y, 0xffffff, false);
   }
 
-  public static void drawScaledComponent(GuiGraphics context, Font font, int x, int y, MutableComponent text, MutableComponent shadowText,
-      float textScaling, int maxWidth, int targetWidth) {
+  public static void drawScaledComponent(GuiGraphics context, Font font, int x, int y, MutableComponent text,
+      MutableComponent shadowText, float textScaling, int maxWidth, int targetWidth) {
     PoseStack pose = context.pose();
     float textWidth = (float) font.width(text);
 
@@ -55,7 +56,7 @@ public class MapAtlases implements HudRenderCallback {
       MutableComponent shadowText = CurrentSeason.getInstance(Minecraft.getInstance()).getSeasonHudTextNoFormat();
 
       float globalScale = (float) (double) MapAtlasesClientConfig.miniMapScale.get();
-      drawScaledComponent(poseStack, font, x, y, seasonCombined, shadowText,textScaling / globalScale, targetWidth,
+      drawScaledComponent(poseStack, font, x, y, seasonCombined, shadowText, textScaling / globalScale, targetWidth,
           (int) (targetWidth / globalScale));
     }
   }
