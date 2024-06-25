@@ -1,0 +1,65 @@
+{
+  "providers": [
+    {
+      "type": "space",
+      "advances": {
+        " ": 2,
+        "\u200c": 0
+      }
+    },
+    {
+      "type": "bitmap",
+      "file": "seasonhud:season/spring_outline.png",
+      "ascent": 9,
+      "height": 11,
+      "chars": [
+        "\uEA10"
+      ]
+    },
+    {
+      "type": "bitmap",
+      "file": "seasonhud:season/summer_outline.png",
+      "ascent": 9,
+      "height": 11,
+      "chars": [
+        "\uEA11"
+      ]
+    },
+    {
+      "type": "bitmap",
+      "file": "seasonhud:season/autumn_outline.png",
+      "ascent": 9,
+      "height": 11,
+      "chars": [
+        "\uEA12"
+      ]
+    },
+    {
+      "type": "bitmap",
+      "file": "seasonhud:season/winter_outline.png",
+      "ascent": 9,
+      "height": 11,
+      "chars": [
+        "\uEA13"
+      ]
+    },
+    {
+      "type": "bitmap",
+      "file": "seasonhud:season/dry_outline.png",
+      "ascent": 9,
+      "height": 11,
+      "chars": [
+        "\uEA14"
+      ]
+    },
+    {
+      "type": "bitmap",
+      "file": "seasonhud:season/wet_outline.png",
+      "ascent": 9,
+      "height": 11,
+      "chars": [
+        "\uEA15"
+      ]
+    }
+  ]
+}

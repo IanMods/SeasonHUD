@@ -22,7 +22,9 @@ public class Common {
   public static final Logger LOG = LoggerFactory.getLogger(MOD_NAME);
 
   public static final ResourceLocation SEASON_ICONS = new ResourceLocation(MOD_ID, "season_icons");
+  public static final ResourceLocation SEASON_ICONS_OUTLINE = new ResourceLocation(MOD_ID, "season_icons_outline");
   public static final Style SEASON_STYLE = Style.EMPTY.withFont(SEASON_ICONS);
+  public static final Style SEASON_OUTLINE_STYLE = Style.EMPTY.withFont(SEASON_ICONS_OUTLINE);
 
   private static boolean curiosLoaded;
   private static boolean extrasLoaded;

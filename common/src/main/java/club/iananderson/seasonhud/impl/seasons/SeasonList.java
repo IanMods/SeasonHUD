@@ -8,22 +8,24 @@ import net.minecraft.network.chat.Component;
 import net.minecraftforge.common.ForgeConfigSpec;
 
 public enum SeasonList {
-  SPRING(0, Component.translatable("desc.seasonhud.spring"), "spring", "\uEA00", Config.springColor,
+  SPRING(0, Component.translatable("desc.seasonhud.spring"), "spring", "\uEA00", "\uEA10", Config.springColor,
       Config.springColor.getDefault(), Config.getSpringColor(), Rgb.seasonMap(Config.getSpringColor())),
 
-  SUMMER(1, Component.translatable("desc.seasonhud.summer"), "summer", "\uEA01", Config.summerColor,
+  SUMMER(1, Component.translatable("desc.seasonhud.summer"), "summer", "\uEA01", "\uEA11", Config.summerColor,
       Config.summerColor.getDefault(), Config.getSummerColor(), Rgb.seasonMap(Config.getSummerColor())),
 
-  AUTUMN(2, Component.translatable("desc.seasonhud.autumn"), "autumn", "\uEA02", Config.autumnColor,
+  AUTUMN(2, Component.translatable("desc.seasonhud.autumn"), "autumn", "\uEA02", "\uEA12", Config.autumnColor,
       Config.autumnColor.getDefault(), Config.getAutumnColor(), Rgb.seasonMap(Config.getAutumnColor())),
 
-  WINTER(3, Component.translatable("desc.seasonhud.winter"), "winter", "\uEA03", Config.winterColor,
+  WINTER(3, Component.translatable("desc.seasonhud.winter"), "winter", "\uEA03", "\uEA13", Config.winterColor,
       Config.winterColor.getDefault(), Config.getWinterColor(), Rgb.seasonMap(Config.getWinterColor())),
 
-  DRY(4, Component.translatable("desc.seasonhud.dry"), "dry", "\uEA04", Config.dryColor, Config.dryColor.getDefault(),
+  DRY(4, Component.translatable("desc.seasonhud.dry"), "dry", "\uEA04", "\uEA14", Config.dryColor,
+      Config.dryColor.getDefault(),
       Config.getDryColor(), Rgb.seasonMap(Config.getDryColor())),
 
-  WET(5, Component.translatable("desc.seasonhud.wet"), "wet", "\uEA05", Config.wetColor, Config.wetColor.getDefault(),
+  WET(5, Component.translatable("desc.seasonhud.wet"), "wet", "\uEA05", "\uEA15", Config.wetColor,
+      Config.wetColor.getDefault(),
       Config.getWetColor(), Rgb.seasonMap(Config.getWetColor()));
 
   public static EnumSet<SeasonList> seasons = EnumSet.allOf(SeasonList.class);
@@ -31,18 +33,20 @@ public enum SeasonList {
   private final Component seasonName;
   private final String seasonFileName;
   private final String seasonIconChar;
+  private final String seasonIconOutlineChar;
   private final ForgeConfigSpec.ConfigValue<Integer> seasonColorConfig;
   private final int defaultColor;
   private final HashMap<String, Integer> rgbMap;
   private int seasonColor;
 
-  SeasonList(int id, Component seasonName, String fileName, String iconChar,
+  SeasonList(int id, Component seasonName, String fileName, String iconChar, String iconOutlineChar,
       ForgeConfigSpec.ConfigValue<Integer> seasonColorConfig, int defaultColor, int seasonColor,
       HashMap<String, Integer> rgbMap) {
     this.id = id;
     this.seasonName = seasonName;
     this.seasonFileName = fileName;
     this.seasonIconChar = iconChar;
+    this.seasonIconOutlineChar = iconOutlineChar;
     this.seasonColorConfig = seasonColorConfig;
     this.defaultColor = defaultColor;
     this.seasonColor = seasonColor;
@@ -59,6 +63,10 @@ public enum SeasonList {
 
   public String getIconChar() {
     return this.seasonIconChar;
+  }
+
+  public String getIconOutlineChar() {
+    return this.seasonIconOutlineChar;
   }
 
   public ForgeConfigSpec.ConfigValue<Integer> getSeasonColorConfig() {
