@@ -13,7 +13,7 @@ import net.minecraft.network.chat.MutableComponent;
 
 public class SeasonHUDOverlayCommon {
 
-  public static void render(GuiGraphics graphics) {
+  public static void render(GuiGraphics seasonStack) {
     Minecraft mc = Minecraft.getInstance();
     MutableComponent seasonCombined = CurrentSeason.getInstance(mc).getSeasonHudText();
     float guiSize = (float) mc.getWindow().getGuiScale();
@@ -55,11 +55,10 @@ public class SeasonHUDOverlayCommon {
 
       //Text
       if (Common.vanillaShouldDrawHud() && !mc.player.isScoping() && Calendar.calendarFound()) {
-        graphics.pose().pushPose();
-        graphics.pose().scale(1F, 1F, 1F);
-        CurrentSeason.getInstance(mc).drawSeasonText(graphics, x + xOffset, y + yOffset, false);
-        //graphics.drawString(mc.font, seasonCombined, x + xOffset, y + yOffset, 0xffffff);
-        graphics.pose().popPose();
+        seasonStack.pose().pushPose();
+        seasonStack.pose().scale(1F, 1F, 1F);
+        seasonStack.drawString(mc.font, seasonCombined, x + xOffset, y + yOffset, 0xffffff);
+        seasonStack.pose().popPose();
       }
     }
   }
