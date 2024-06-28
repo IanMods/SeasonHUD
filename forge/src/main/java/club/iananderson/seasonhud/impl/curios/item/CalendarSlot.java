@@ -30,6 +30,12 @@ public class CalendarSlot extends CalendarItem implements ICurioItem {
     }
   }
 
+  public static void setup(final FMLCommonSetupEvent evt) {
+    if (Common.curiosLoaded()) {
+      CuriosApi.registerCurio(Services.SEASON.calendar(), new CuriosCalendar());
+    }
+  }
+
   @Override
   public ICapabilityProvider initCapabilities(final ItemStack stack, CompoundTag unused) {
     if (Common.curiosLoaded()) {
@@ -47,12 +53,6 @@ public class CalendarSlot extends CalendarItem implements ICurioItem {
   @Override
   public boolean canEquipFromUse(SlotContext slotContext, ItemStack stack) {
     return true;
-  }
-
-  public static void setup(final FMLCommonSetupEvent evt) {
-    if (Common.curiosLoaded()) {
-      CuriosApi.registerCurio(Services.SEASON.calendar(), new CuriosCalendar());
-    }
   }
 }
 

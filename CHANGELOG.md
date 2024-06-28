@@ -7,6 +7,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 ## [1.9.0] - 2024-06-28
 
 ### Changed
+
 - More common code for JourneyMap and MapAtlases to make porting easier.
 
 ## [1.8.9] - 2024-06-28

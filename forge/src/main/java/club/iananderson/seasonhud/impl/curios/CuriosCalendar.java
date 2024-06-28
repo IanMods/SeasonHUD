@@ -1,6 +1,5 @@
 package club.iananderson.seasonhud.impl.curios;
 
-import club.iananderson.seasonhud.Common;
 import club.iananderson.seasonhud.platform.Services;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -10,10 +9,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.capabilities.ICapabilityProvider;
 import net.minecraftforge.common.util.LazyOptional;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.InterModComms;
-import net.minecraftforge.fml.event.lifecycle.InterModEnqueueEvent;
-import top.theillusivec4.curios.api.CuriosApi;
 import top.theillusivec4.curios.api.CuriosCapability;
 import top.theillusivec4.curios.api.SlotContext;
 import top.theillusivec4.curios.api.SlotTypeMessage;
