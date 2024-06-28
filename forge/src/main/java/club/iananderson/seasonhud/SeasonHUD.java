@@ -3,6 +3,7 @@ package club.iananderson.seasonhud;
 import static club.iananderson.seasonhud.Common.LOG;
 
 import club.iananderson.seasonhud.config.Config;
+import club.iananderson.seasonhud.impl.curios.item.CalendarSlot;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.server.ServerStartingEvent;
 import net.minecraftforge.eventbus.api.IEventBus;
@@ -34,8 +35,7 @@ public class SeasonHUD {
 
   public void enqueue(InterModEnqueueEvent event) {
     LOG.info("Talking to Curios");
-    InterModComms.sendTo("curios", SlotTypeMessage.REGISTER_TYPE,
-        () -> new SlotTypeMessage.Builder("charm").size(1).build());
+    CalendarSlot.sendImc(event);
   }
 
   private void commonSetup(final FMLCommonSetupEvent event) {

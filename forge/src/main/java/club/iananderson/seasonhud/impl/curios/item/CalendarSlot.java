@@ -2,14 +2,17 @@ package club.iananderson.seasonhud.impl.curios.item;
 
 import club.iananderson.seasonhud.Common;
 import club.iananderson.seasonhud.impl.curios.CuriosCalendar;
+import club.iananderson.seasonhud.platform.Services;
 import javax.annotation.Nonnull;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.common.capabilities.ICapabilityProvider;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
+import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.event.lifecycle.InterModEnqueueEvent;
 import sereneseasons.item.CalendarItem;
+import top.theillusivec4.curios.api.CuriosApi;
 import top.theillusivec4.curios.api.SlotContext;
 import top.theillusivec4.curios.api.type.capability.ICurio;
 import top.theillusivec4.curios.api.type.capability.ICurioItem;
@@ -46,5 +49,10 @@ public class CalendarSlot extends CalendarItem implements ICurioItem {
     return true;
   }
 
+  public static void setup(final FMLCommonSetupEvent evt) {
+    if (Common.curiosLoaded()) {
+      CuriosApi.registerCurio(Services.SEASON.calendar(), new CuriosCalendar());
+    }
+  }
 }
 
