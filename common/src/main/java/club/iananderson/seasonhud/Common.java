@@ -51,7 +51,7 @@ public class Common {
       return currentMinimap.isActive() && (!mc.isPaused());
     } else {
       return (mc.screen == null || mc.screen instanceof ChatScreen || mc.screen instanceof DeathScreen)
-          && !mc.isPaused() && !mc.options.renderDebug;
+          && !mc.isPaused() && !mc.options.renderDebug && !mc.options.hideGui;
     }
   }
 }

@@ -4,11 +4,18 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 
-## [1.8.9] - 2024-06-26
+## [1.9.0] - 2024-06-28
 
 ### Changed
+- More common code for JourneyMap and MapAtlases to make porting easier.
 
-- More common code to make porting easier.
+## [1.8.9] - 2024-06-28
+
+### Added
+
+- Added a check to ensure the text is hidden if the HideGui option is used in newer versions of
+  Minecraft.
+    - Included the check in versions before 1.20.6 for consistency.
 
 ## [1.8.8] - 2024-06-23
 
