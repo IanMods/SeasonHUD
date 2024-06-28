@@ -44,6 +44,6 @@ public class Common {
 
   public static boolean vanillaShouldDrawHud() {
     return (mc.screen == null || mc.screen instanceof ChatScreen || mc.screen instanceof DeathScreen) && !mc.isPaused()
-        && !mc.options.renderDebug;
+        && !mc.options.renderDebug && !mc.options.hideGui;
   }
 }
