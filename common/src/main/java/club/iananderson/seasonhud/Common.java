@@ -18,8 +18,10 @@ public class Common {
 
   public static final ResourceLocation SEASON_ICONS = new ResourceLocation(MOD_ID, "season_icons");
   public static final Style SEASON_STYLE = Style.EMPTY.withFont(SEASON_ICONS);
+
   private static boolean curiosLoaded;
   private static boolean extrasLoaded;
+
   private static String platformName;
 
   public static ResourceLocation location(String path) {
@@ -46,6 +48,6 @@ public class Common {
 
   public static boolean vanillaShouldDrawHud() {
     return (mc.screen == null || mc.screen instanceof ChatScreen || mc.screen instanceof DeathScreen) && !mc.isPaused()
-        && !mc.getDebugOverlay().showDebugScreen();
+        && !mc.getDebugOverlay().showDebugScreen() && !mc.options.hideGui;
   }
 }
