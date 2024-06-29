@@ -29,10 +29,8 @@ public class CurrentMinimap {
    */
   public static boolean noMinimapLoaded() {
     for (Minimaps minimaps : Minimaps.values()) {
-      if (!minimapLoaded(minimaps)) {
-        return true;
+      return !minimapLoaded(minimaps);
       }
-    }
     return false;
   }
 
