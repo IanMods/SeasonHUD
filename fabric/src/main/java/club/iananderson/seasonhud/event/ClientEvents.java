@@ -1,10 +1,10 @@
 package club.iananderson.seasonhud.event;
 
 import club.iananderson.seasonhud.client.KeyBindings;
-import club.iananderson.seasonhud.client.SeasonHUDOverlay;
+import club.iananderson.seasonhud.client.overlays.SeasonHUDOverlay;
 import club.iananderson.seasonhud.client.gui.screens.SeasonHUDScreen;
-import club.iananderson.seasonhud.client.minimaps.JourneyMap;
-import club.iananderson.seasonhud.client.minimaps.MapAtlases;
+import club.iananderson.seasonhud.client.overlays.JourneyMap;
+import club.iananderson.seasonhud.client.overlays.MapAtlases;
 import club.iananderson.seasonhud.impl.minimaps.CurrentMinimap;
 import club.iananderson.seasonhud.impl.minimaps.CurrentMinimap.Minimaps;
 import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;

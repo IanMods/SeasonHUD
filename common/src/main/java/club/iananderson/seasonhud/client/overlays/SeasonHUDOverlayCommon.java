@@ -1,4 +1,4 @@
-package club.iananderson.seasonhud.client;
+package club.iananderson.seasonhud.client.overlays;
 
 import club.iananderson.seasonhud.Common;
 import club.iananderson.seasonhud.config.Config;

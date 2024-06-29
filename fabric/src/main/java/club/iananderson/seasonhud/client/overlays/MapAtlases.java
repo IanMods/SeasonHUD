@@ -1,4 +1,4 @@
-package club.iananderson.seasonhud.client.minimaps;
+package club.iananderson.seasonhud.client.overlays;
 
 import club.iananderson.seasonhud.impl.minimaps.CurrentMinimap;
 import club.iananderson.seasonhud.impl.minimaps.CurrentMinimap.Minimaps;

@@ -1,4 +1,4 @@
-package club.iananderson.seasonhud.client;
+package club.iananderson.seasonhud.client.overlays;
 
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraftforge.client.gui.overlay.ForgeGui;

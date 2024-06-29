@@ -2,7 +2,7 @@ package club.iananderson.seasonhud.platform;
 
 import static club.iananderson.seasonhud.client.SeasonHUDClient.mc;
 
-import club.iananderson.seasonhud.client.minimaps.MapAtlases;
+import club.iananderson.seasonhud.client.overlays.MapAtlases;
 import club.iananderson.seasonhud.impl.minimaps.CurrentMinimap;
 import club.iananderson.seasonhud.impl.minimaps.CurrentMinimap.Minimaps;
 import club.iananderson.seasonhud.platform.services.IMinimapHelper;

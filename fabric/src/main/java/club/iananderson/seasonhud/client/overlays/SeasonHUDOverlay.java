@@ -1,4 +1,4 @@
-package club.iananderson.seasonhud.client;
+package club.iananderson.seasonhud.client.overlays;
 
 import net.fabricmc.fabric.api.client.rendering.v1.HudRenderCallback;
 import net.minecraft.client.gui.GuiGraphics;
