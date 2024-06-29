@@ -17,7 +17,6 @@ import net.minecraft.util.Mth;
 import org.jetbrains.annotations.NotNull;
 
 public class RgbSlider extends AbstractSliderButton {
-
   private static final ResourceLocation SLIDER_LOCATION = new ResourceLocation("textures/gui/slider.png");
   public static int SLIDER_PADDING = 2;
   public final boolean drawString;
@@ -51,6 +50,7 @@ public class RgbSlider extends AbstractSliderButton {
     this.b = Rgb.rgbColor(this.rgb).getBlue();
     this.value = snapToNearest(this.rgb);
     this.textColor = ChatFormatting.WHITE;
+    this.canChangeValue = (Config.enableSeasonNameColor.get() && this.isHoveredOrFocused());
     this.updateMessage();
   }
 
@@ -62,21 +62,6 @@ public class RgbSlider extends AbstractSliderButton {
   public int getHandleTextureY() {
     int i = !this.isHovered && !this.canChangeValue ? 2 : 3;
     return i * 20;
-  }
-
-  @Override
-  protected void updateMessage() {
-    Component colorString = Component.literal(this.getValueString());
-
-    if (this.drawString) {
-      this.setMessage(colorString.copy().withStyle(textColor));
-
-      if (!enableColor) {
-        this.setMessage(colorString.copy().withStyle(ChatFormatting.GRAY));
-      }
-    } else {
-      this.setMessage(Component.empty());
-    }
   }
 
   public double snapToNearest(double value) {
@@ -102,9 +87,6 @@ public class RgbSlider extends AbstractSliderButton {
     return String.valueOf(this.getValueInt());
   }
 
-  protected void applyValue() {
-  }
-
   public int getFGColor() {
     return this.active ? 16777215 : 10526880;
   }
@@ -113,9 +95,27 @@ public class RgbSlider extends AbstractSliderButton {
   public void renderWidget(@NotNull GuiGraphics graphics, int mouseX, int mouseY, float partialTick) {
 
     DrawUtil.blitWithBorder(graphics, SLIDER_LOCATION, this.getX(), this.getY(), 0, this.getTextureY(), this.width,
-        this.height, 200, 20, 2, 3, 2, 2);
+                            this.height, 200, 20, 2, 3, 2, 2);
     DrawUtil.blitWithBorder(graphics, SLIDER_LOCATION, this.getX() + (int) (this.value * (double) (this.width - 8)),
-        this.getY(), 0, this.getHandleTextureY(), 8, this.height, 200, 20, 2, 3, 2, 2);
+                            this.getY(), 0, this.getHandleTextureY(), 8, this.height, 200, 20, 2, 3, 2, 2);
     this.renderScrollingString(graphics, mc.font, 2, this.getFGColor() | Mth.ceil(this.alpha * 255.0F) << 24);
+  }
+
+  @Override
+  protected void updateMessage() {
+    Component colorString = Component.literal(this.getValueString());
+
+    if (this.drawString) {
+      this.setMessage(colorString.copy().withStyle(textColor));
+
+      if (!enableColor) {
+        this.setMessage(colorString.copy().withStyle(ChatFormatting.GRAY));
+      }
+    } else {
+      this.setMessage(Component.empty());
+    }
+  }
+
+  protected void applyValue() {
   }
 }

@@ -2,15 +2,18 @@ package club.iananderson.seasonhud.client.gui.components.buttons;
 
 import club.iananderson.seasonhud.client.gui.components.boxes.ColorEditBox;
 import club.iananderson.seasonhud.impl.seasons.SeasonList;
+import club.iananderson.seasonhud.util.DrawUtil;
 import club.iananderson.seasonhud.util.Rgb;
 import java.util.HashMap;
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.components.Button;
+import net.minecraft.locale.Language;
 import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.FormattedText;
 import org.jetbrains.annotations.NotNull;
 
 public class DefaultColorButton extends Button {
-
   private static final Component DEFAULT = Component.translatable("menu.seasonhud.color.button.default");
   private ColorEditBox colorEditBox;
   private int defaultColor;
@@ -39,6 +42,30 @@ public class DefaultColorButton extends Button {
     } catch (NumberFormatException var) {
       return false;
     }
+  }
+
+  public int getTextureY() {
+    int k = 1;
+    if (!this.active) {
+      k = 0;
+    } else if (this.isHoveredOrFocused()) {
+      k = 2;
+    }
+
+    return 46 + k * 20;
+  }
+
+  public int getFGColor() {
+    return this.active ? 16777215 : 10526880;
+  }
+
+  public void renderWidget(@NotNull GuiGraphics graphics, int i, int j, float f) {
+    Minecraft mc = Minecraft.getInstance();
+    DrawUtil.blitWithBorder(graphics, WIDGETS_LOCATION, this.getX(), this.getY(), 0, getTextureY(), this.width,
+                            this.height, 200, 20, 2, 3, 2, 2);
+    FormattedText buttonText = this.getMessage();
+    graphics.drawCenteredString(mc.font, Language.getInstance().getVisualOrder(buttonText),
+                                this.getX() + this.width / 2, this.getY() + (this.height - 8) / 2, getFGColor());
   }
 
   @Override
