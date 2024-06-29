@@ -3,6 +3,7 @@ package club.iananderson.seasonhud;
 import static club.iananderson.seasonhud.client.SeasonHUDClient.mc;
 
 import club.iananderson.seasonhud.impl.minimaps.CurrentMinimap;
+import club.iananderson.seasonhud.impl.minimaps.CurrentMinimap.Minimaps;
 import club.iananderson.seasonhud.platform.Services;
 import journeymap.client.JourneymapClient;
 import journeymap.client.properties.MiniMapProperties;
@@ -46,8 +47,9 @@ public class Common {
   }
 
   public static boolean vanillaShouldDrawHud() {
-    if (CurrentMinimap.minimapLoaded("journeymap")) {
+    if (CurrentMinimap.minimapLoaded(Minimaps.JOURNEYMAP)) {
       MiniMapProperties currentMinimap = JourneymapClient.getInstance().getActiveMiniMapProperties();
+
       return currentMinimap.isActive() && (!mc.isPaused());
     } else {
       return (mc.screen == null || mc.screen instanceof ChatScreen || mc.screen instanceof DeathScreen)

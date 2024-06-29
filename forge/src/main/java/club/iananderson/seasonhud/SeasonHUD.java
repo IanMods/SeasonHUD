@@ -32,8 +32,10 @@ public class SeasonHUD {
   }
 
   public void enqueue(InterModEnqueueEvent event) {
-    LOG.info("Talking to Curios");
-    CalendarSlot.sendImc(event);
+    if (Common.curiosLoaded()) {
+      LOG.info("Talking to Curios");
+      CalendarSlot.sendImc(event);
+    }
   }
 
   private void commonSetup(final FMLCommonSetupEvent event) {

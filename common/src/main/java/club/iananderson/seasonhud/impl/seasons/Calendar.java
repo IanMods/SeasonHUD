@@ -19,8 +19,8 @@ public class Calendar {
 
     if (Config.needCalendar.get() && calendarLoaded && player != null) {
       Inventory inv = player.getInventory();
-      int slot = findCalendar(inv, Services.SEASON.calendar()) + Services.SEASON.findCuriosCalendar(player,
-          Services.SEASON.calendar());
+      Item calendar = Services.SEASON.calendar();
+      int slot = findCalendar(inv, calendar) + Services.SEASON.findCuriosCalendar(player, calendar);
 
       return (slot >= 0);
     } else {

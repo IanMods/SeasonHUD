@@ -25,9 +25,7 @@ public class CalendarSlot extends CalendarItem implements ICurioItem {
 
   @SubscribeEvent
   public static void sendImc(InterModEnqueueEvent event) {
-    if (Common.curiosLoaded()) {
-      CuriosCalendar.registerSlots();
-    }
+    CuriosCalendar.registerSlots();
   }
 
   public static void setup(final FMLCommonSetupEvent evt) {

@@ -4,6 +4,7 @@ import static club.iananderson.seasonhud.client.SeasonHUDClient.mc;
 
 import club.iananderson.seasonhud.client.minimaps.MapAtlases;
 import club.iananderson.seasonhud.impl.minimaps.CurrentMinimap;
+import club.iananderson.seasonhud.impl.minimaps.CurrentMinimap.Minimaps;
 import club.iananderson.seasonhud.platform.services.IMinimapHelper;
 import dev.ftb.mods.ftbchunks.client.FTBChunksClientConfig;
 import java.util.Objects;
@@ -25,18 +26,18 @@ public class ForgeMinimapHelper implements IMinimapHelper {
 
   @Override
   public boolean currentMinimapHidden() {
-    if (CurrentMinimap.minimapLoaded("journeymap")) {
+    if (CurrentMinimap.minimapLoaded(Minimaps.JOURNEYMAP)) {
       return !UIManager.INSTANCE.getMiniMap().getCurrentMinimapProperties().enabled.get();
     }
-    if (CurrentMinimap.minimapLoaded("ftbchunks") && !CurrentMinimap.minimapLoaded("journeymap")
-        && !CurrentMinimap.minimapLoaded("xaerominimap") && !CurrentMinimap.minimapLoaded("xaerominimapfair")
-        && !CurrentMinimap.minimapLoaded("map_atlases")) {
+    if (CurrentMinimap.minimapLoaded(Minimaps.FTB_CHUNKS) && !CurrentMinimap.minimapLoaded(Minimaps.JOURNEYMAP)
+        && !CurrentMinimap.minimapLoaded(Minimaps.XAERO) && !CurrentMinimap.minimapLoaded(Minimaps.XAERO_FAIRPLAY)
+        && !CurrentMinimap.minimapLoaded(Minimaps.MAP_ATLASES)) {
       return !FTBChunksClientConfig.MINIMAP_ENABLED.get();
     }
-    if (CurrentMinimap.minimapLoaded("xaerominimap") || CurrentMinimap.minimapLoaded("xaerominimapfair")) {
+    if (CurrentMinimap.minimapLoaded(Minimaps.XAERO) || CurrentMinimap.minimapLoaded(Minimaps.XAERO_FAIRPLAY)) {
       return !HudMod.INSTANCE.getSettings().getMinimap();
     }
-    if (CurrentMinimap.minimapLoaded("map_atlases")) {
+    if (CurrentMinimap.minimapLoaded(Minimaps.MAP_ATLASES)) {
       return !MapAtlases.shouldDraw(Minecraft.getInstance());
     } else {
       return false;

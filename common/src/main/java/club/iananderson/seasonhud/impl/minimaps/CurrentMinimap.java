@@ -17,8 +17,9 @@ public class CurrentMinimap {
    * @param minimap The modid to check if the minimap is loaded.
    * @return True if the mod is loaded.
    */
-  public static boolean minimapLoaded(String minimap) {
-    return Services.PLATFORM.isModLoaded(minimap);
+  public static boolean minimapLoaded(Minimaps minimap) {
+    String modID = minimap.getModID();
+    return Services.PLATFORM.isModLoaded(modID);
   }
 
   /**
@@ -27,8 +28,12 @@ public class CurrentMinimap {
    * @return True if no minimap mods are present.
    */
   public static boolean noMinimapLoaded() {
-    return !minimapLoaded("xaerominimap") && !minimapLoaded("xaerominimapfair") && !minimapLoaded("journeymap")
-        && !minimapLoaded("ftbchunks") && !minimapLoaded("map_atlases");
+    for (Minimaps minimaps : Minimaps.values()) {
+      if (!minimapLoaded(minimaps)) {
+        return true;
+      }
+    }
+    return false;
   }
 
   /**
@@ -44,5 +49,27 @@ public class CurrentMinimap {
     return (enableMod.get() && enableMinimapIntegration.get() && Calendar.calendarFound()
         && !MINIMAP.hideHudInCurrentDimension() && !MINIMAP.currentMinimapHidden() && Common.vanillaShouldDrawHud())
         && !mc.player.isScoping();
+  }
+
+  public enum Minimaps {
+    XAERO("xaerominimap"),
+
+    XAERO_FAIRPLAY("xaerominimapfair"),
+
+    JOURNEYMAP("journeymap"),
+
+    FTB_CHUNKS("ftbchunks"),
+
+    MAP_ATLASES("map_atlases");
+
+    private final String modID;
+
+    Minimaps(String modID) {
+      this.modID = modID;
+    }
+
+    public String getModID() {
+      return this.modID;
+    }
   }
 }

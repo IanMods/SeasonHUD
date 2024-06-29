@@ -4,6 +4,7 @@ import club.iananderson.seasonhud.config.Config;
 import club.iananderson.seasonhud.impl.seasons.CurrentSeason;
 import journeymap.client.JourneymapClient;
 import journeymap.client.io.ThemeLoader;
+import journeymap.client.properties.MiniMapProperties;
 import journeymap.client.render.draw.DrawUtil;
 import journeymap.client.ui.UIManager;
 import journeymap.client.ui.minimap.DisplayVars;
@@ -41,6 +42,7 @@ public class JourneyMapCommon {
     this.seasonCombined = CurrentSeason.getInstance(mc).getSeasonHudText();
     JourneymapClient jm = JourneymapClient.getInstance();
     DisplayVars vars = UIManager.INSTANCE.getMiniMap().getDisplayVars();
+    MiniMapProperties mapProperties = jm.getActiveMiniMapProperties();
     LabelSpec currentTheme = ThemeLoader.getCurrentTheme().minimap.square.labelBottom;
     this.fontShadow = currentTheme.shadow;
     this.fontScale = jm.getActiveMiniMapProperties().fontScale.get();
@@ -56,12 +58,11 @@ public class JourneyMapCommon {
     this.textColor = currentTheme.foreground.getColor();
     this.labelHeight = (int) ((DrawUtil.getLabelHeight(fontRenderer, fontShadow) + currentTheme.margin) * fontScale);
     this.topLabelHeight = vars.getInfoLabelAreaHeight(fontRenderer, currentTheme,
-        ThemeLabelSource.values.get(jm.getActiveMiniMapProperties().info1Label.get()),
-        ThemeLabelSource.values.get(jm.getActiveMiniMapProperties().info2Label.get()));
+                                                      ThemeLabelSource.values.get(mapProperties.info1Label.get()),
+                                                      ThemeLabelSource.values.get(mapProperties.info2Label.get()));
     this.bottomLabelHeight = vars.getInfoLabelAreaHeight(fontRenderer, currentTheme,
-        ThemeLabelSource.values.get(jm.getActiveMiniMapProperties().info3Label.get()),
-        ThemeLabelSource.values.get(jm.getActiveMiniMapProperties().info4Label.get()));
-
+                                                         ThemeLabelSource.values.get(mapProperties.info3Label.get()),
+                                                         ThemeLabelSource.values.get(mapProperties.info4Label.get()));
     this.screenWidth = mc.getWindow().getWidth();
     this.screenHeight = mc.getWindow().getHeight();
     if (Config.journeyMapMacOS.get()) {
@@ -103,7 +104,7 @@ public class JourneyMapCommon {
     MultiBufferSource.BufferSource buffers = guiGraphics.bufferSource();
     buffers.endBatch();
     DrawUtil.drawBatchLabel(guiGraphics.pose(), seasonCombined, buffers, labelX(), labelY(), DrawUtil.HAlign.Center,
-        DrawUtil.VAlign.Below, labelColor, labelAlpha, textColor, textAlpha, fontScale, fontShadow);
+                            DrawUtil.VAlign.Below, labelColor, labelAlpha, textColor, textAlpha, fontScale, fontShadow);
     guiGraphics.bufferSource().endBatch();
     DrawUtil.sizeDisplay(guiGraphics.pose(), scaledWidth, scaledHeight);
   }

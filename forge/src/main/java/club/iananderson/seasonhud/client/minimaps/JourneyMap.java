@@ -1,6 +1,7 @@
 package club.iananderson.seasonhud.client.minimaps;
 
 import club.iananderson.seasonhud.impl.minimaps.CurrentMinimap;
+import club.iananderson.seasonhud.impl.minimaps.CurrentMinimap.Minimaps;
 import club.iananderson.seasonhud.impl.minimaps.JourneyMapCommon;
 import journeymap.client.render.draw.DrawUtil;
 import net.minecraft.client.Minecraft;
@@ -9,10 +10,15 @@ import net.minecraftforge.client.gui.overlay.ForgeGui;
 import net.minecraftforge.client.gui.overlay.IGuiOverlay;
 
 public class JourneyMap implements IGuiOverlay {
+  public static JourneyMap HUD_INSTANCE;
+
+  public static void init() {
+    HUD_INSTANCE = new JourneyMap();
+  }
 
   @Override
   public void render(ForgeGui gui, GuiGraphics guiGraphics, float partialTick, int scaledWidth, int scaledHeight) {
-    if (CurrentMinimap.minimapLoaded("journeymap") && CurrentMinimap.shouldDrawMinimapHud()) {
+    if (CurrentMinimap.minimapLoaded(Minimaps.JOURNEYMAP) && CurrentMinimap.shouldDrawMinimapHud()) {
       JourneyMapCommon journeyMapCommon = JourneyMapCommon.getInstance(Minecraft.getInstance());
 
       guiGraphics.pose().pushPose();

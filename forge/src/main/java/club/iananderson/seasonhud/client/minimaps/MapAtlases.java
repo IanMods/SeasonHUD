@@ -1,6 +1,7 @@
 package club.iananderson.seasonhud.client.minimaps;
 
 import club.iananderson.seasonhud.impl.minimaps.CurrentMinimap;
+import club.iananderson.seasonhud.impl.minimaps.CurrentMinimap.Minimaps;
 import club.iananderson.seasonhud.impl.minimaps.MapAtlasesCommon;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
@@ -14,10 +15,15 @@ import pepjebs.mapatlases.config.MapAtlasesClientConfig;
 import pepjebs.mapatlases.item.MapAtlasItem;
 
 public class MapAtlases implements IGuiOverlay {
+  public static MapAtlases HUD_INSTANCE;
   protected final int BG_SIZE = 64;
 
+  public static void init() {
+    HUD_INSTANCE = new MapAtlases();
+  }
+
   public static boolean shouldDraw(Minecraft mc) {
-    if (CurrentMinimap.minimapLoaded("map_atlases")) {
+    if (CurrentMinimap.minimapLoaded(Minimaps.MAP_ATLASES)) {
       MapAtlasItem mapAtlas = MapAtlasesMod.MAP_ATLAS.get();
 
       if (mc.level == null || mc.player == null || mc.options.renderDebug) {
@@ -39,7 +45,7 @@ public class MapAtlases implements IGuiOverlay {
   public void render(ForgeGui gui, GuiGraphics seasonStack, float partialTick, int screenWidth, int screenHeight) {
     Minecraft mc = Minecraft.getInstance();
 
-    if (CurrentMinimap.minimapLoaded("map_atlases") && shouldDraw(mc)) {
+    if (CurrentMinimap.minimapLoaded(Minimaps.MAP_ATLASES) && shouldDraw(mc)) {
       Anchoring anchorLocation = MapAtlasesClientConfig.miniMapAnchoring.get();
       float textScaling = (float) (double) MapAtlasesClientConfig.minimapCoordsAndBiomeScale.get();
       float globalScale = MapAtlasesClientConfig.miniMapScale.get().floatValue();
@@ -86,7 +92,8 @@ public class MapAtlases implements IGuiOverlay {
       }
 
       MapAtlasesCommon.drawMapComponentSeason(seasonStack, mc.font, x,
-          (int) (y + BG_SIZE + (textHeightOffset / globalScale)), actualBgSize, textScaling, globalScale);
+                                              (int) (y + BG_SIZE + (textHeightOffset / globalScale)), actualBgSize,
+                                              textScaling, globalScale);
       seasonStack.pose().popPose();
     }
   }
