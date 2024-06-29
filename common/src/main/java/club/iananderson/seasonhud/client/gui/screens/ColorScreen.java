@@ -39,8 +39,6 @@ public class ColorScreen extends Screen {
   private final Screen lastScreen;
   private final List<ColorEditBox> seasonBoxes = new ArrayList<>();
   private final List<AbstractWidget> widgets = new ArrayList<>();
-  private MenuButton cancelButton;
-  private CycleButton<Boolean> seasonNameColorButton;
   private int x;
   private int y;
 
@@ -65,22 +63,12 @@ public class ColorScreen extends Screen {
     return set;
   }
 
-  public boolean isPauseScreen() {
-    return true;
-  }
-
   public int getWidth() {
     return mc.getWindow().getGuiScaledWidth();
   }
 
   public int getHeight() {
     return mc.getWindow().getGuiScaledHeight();
-  }
-
-  @Override
-  public void tick() {
-    seasonBoxes.forEach(EditBox::tick);
-    super.tick();
   }
 
   private void onDone() {
@@ -157,6 +145,13 @@ public class ColorScreen extends Screen {
   }
 
   @Override
+  public void render(@NotNull GuiGraphics graphics, int mouseX, int mouseY, float partialTicks) {
+    this.renderBackground(graphics);
+    graphics.drawCenteredString(font, TITLE, getWidth() / 2, WIDGET_PADDING, 16777215);
+    super.render(graphics, mouseX, mouseY, partialTicks);
+  }
+
+  @Override
   public void init() {
     this.widgets.clear();
     int scaledWidth = this.getWidth();
@@ -168,32 +163,37 @@ public class ColorScreen extends Screen {
 
     this.x = scaledWidth / 2 - totalWidgetWidth / 2;
     this.y = MENU_PADDING_FULL + BUTTON_HEIGHT + WIDGET_PADDING + BUTTON_HEIGHT;
+
     seasonListSet().forEach(season -> {
       this.widgets.addAll(seasonWidget(this.x, this.y, season));
       this.x += widgetWidth;
     });
 
     //Buttons
-    seasonNameColorButton = CycleButton.onOffBuilder(Config.enableSeasonNameColor.get())
-                                       .create(leftButtonX, MENU_PADDING_FULL, BUTTON_WIDTH, BUTTON_HEIGHT,
-                                           ENABLE_SEASON_NAME_COLOR,
-                                           (b, enableColor) -> Config.setEnableSeasonNameColor(enableColor));
-    this.widgets.add(seasonNameColorButton);
+    CycleButton<Boolean> seasonColorButton = CycleButton.onOffBuilder(Config.enableSeasonNameColor.get())
+                                                        .create(leftButtonX, MENU_PADDING_FULL, BUTTON_WIDTH,
+                                                                BUTTON_HEIGHT, ENABLE_SEASON_NAME_COLOR,
+                                                                (b, enable) -> Config.setEnableSeasonNameColor(enable));
+    this.widgets.add(seasonColorButton);
 
     doneButton = new MenuButton(leftButtonX, (getHeight() - BUTTON_HEIGHT - WIDGET_PADDING), MenuButtons.DONE,
-        press -> this.onDone());
+                                press -> this.onDone());
     this.widgets.add(doneButton);
 
-    cancelButton = new MenuButton(rightButtonX, (getHeight() - BUTTON_HEIGHT - WIDGET_PADDING), MenuButtons.CANCEL,
-        press -> this.onCancel());
+    MenuButton cancelButton = new MenuButton(rightButtonX, (getHeight() - BUTTON_HEIGHT - WIDGET_PADDING),
+                                             MenuButtons.CANCEL, press -> this.onCancel());
     this.widgets.add(cancelButton);
+
     this.widgets.forEach(this::addRenderableWidget);
   }
 
   @Override
-  public void render(@NotNull GuiGraphics graphics, int mouseX, int mouseY, float partialTicks) {
-    this.renderBackground(graphics);
-    graphics.drawCenteredString(font, TITLE, getWidth() / 2, WIDGET_PADDING, 16777215);
-    super.render(graphics, mouseX, mouseY, partialTicks);
+  public void tick() {
+    seasonBoxes.forEach(EditBox::tick);
+    super.tick();
+  }
+
+  public boolean isPauseScreen() {
+    return true;
   }
 }
