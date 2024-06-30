@@ -1,7 +1,6 @@
 package club.iananderson.seasonhud.client.overlays;
 
 import club.iananderson.seasonhud.impl.minimaps.CurrentMinimap;
-import club.iananderson.seasonhud.impl.minimaps.CurrentMinimap.Minimaps;
 import club.iananderson.seasonhud.impl.minimaps.MapAtlasesCommon;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
@@ -23,7 +22,7 @@ public class MapAtlases implements IGuiOverlay {
   }
 
   public static boolean shouldDraw(Minecraft mc) {
-    if (CurrentMinimap.minimapLoaded(Minimaps.MAP_ATLASES)) {
+    if (CurrentMinimap.mapAtlasesLoaded()) {
       MapAtlasItem mapAtlas = MapAtlasesMod.MAP_ATLAS.get();
 
       if (mc.level == null || mc.player == null || mc.options.renderDebug) {
@@ -45,7 +44,7 @@ public class MapAtlases implements IGuiOverlay {
   public void render(ForgeGui gui, GuiGraphics seasonStack, float partialTick, int screenWidth, int screenHeight) {
     Minecraft mc = Minecraft.getInstance();
 
-    if (CurrentMinimap.minimapLoaded(Minimaps.MAP_ATLASES) && shouldDraw(mc)) {
+    if (CurrentMinimap.mapAtlasesLoaded() && shouldDraw(mc)) {
       Anchoring anchorLocation = MapAtlasesClientConfig.miniMapAnchoring.get();
       float textScaling = (float) (double) MapAtlasesClientConfig.minimapCoordsAndBiomeScale.get();
       float globalScale = MapAtlasesClientConfig.miniMapScale.get().floatValue();

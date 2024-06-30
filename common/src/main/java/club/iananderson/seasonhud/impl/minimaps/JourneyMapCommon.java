@@ -32,10 +32,10 @@ public class JourneyMapCommon {
   private final int labelHeight;
   private final int topLabelHeight;
   private final int bottomLabelHeight;
+  private final double scaledWidth;
+  private final double scaledHeight;
   private double screenWidth;
   private double screenHeight;
-  private double scaledWidth;
-  private double scaledHeight;
 
   public JourneyMapCommon(Minecraft mc) {
     Font fontRenderer = mc.font;

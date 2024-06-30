@@ -2,12 +2,11 @@ package club.iananderson.seasonhud.event;
 
 import club.iananderson.seasonhud.Common;
 import club.iananderson.seasonhud.client.KeyBindings;
-import club.iananderson.seasonhud.client.overlays.SeasonHUDOverlay;
 import club.iananderson.seasonhud.client.gui.screens.SeasonHUDScreen;
 import club.iananderson.seasonhud.client.overlays.JourneyMap;
 import club.iananderson.seasonhud.client.overlays.MapAtlases;
+import club.iananderson.seasonhud.client.overlays.SeasonHUDOverlay;
 import club.iananderson.seasonhud.impl.minimaps.CurrentMinimap;
-import club.iananderson.seasonhud.impl.minimaps.CurrentMinimap.Minimaps;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.client.event.InputEvent;
 import net.minecraftforge.client.event.RegisterGuiOverlaysEvent;
@@ -41,7 +40,7 @@ public class ClientEvents {
 
     @SubscribeEvent
     public static void registerJourneyMapOverlay(RegisterGuiOverlaysEvent event) {
-      if (CurrentMinimap.minimapLoaded(Minimaps.JOURNEYMAP)) {
+      if (CurrentMinimap.journeyMapLoaded()) {
         JourneyMap.init();
         event.registerAbove(VanillaGuiOverlay.FROSTBITE.id(), "journeymap", JourneyMap.HUD_INSTANCE);
       }
@@ -49,7 +48,7 @@ public class ClientEvents {
 
     @SubscribeEvent
     public static void registerMapAtlasesOverlay(RegisterGuiOverlaysEvent event) {
-      if (CurrentMinimap.minimapLoaded(Minimaps.MAP_ATLASES)) {
+      if (CurrentMinimap.mapAtlasesLoaded()) {
         MapAtlases.init();
         event.registerAbove(VanillaGuiOverlay.FROSTBITE.id(), "mapatlases", MapAtlases.HUD_INSTANCE);
       }
