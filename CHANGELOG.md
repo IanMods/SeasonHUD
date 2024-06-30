@@ -9,6 +9,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 ### Changed
 
 - More common code for JourneyMap and MapAtlases to make porting easier.
+- Improved logic for detecting hidden minimaps if multiple minimap mods are installed.
 
 ## [1.8.9] - 2024-06-28
 

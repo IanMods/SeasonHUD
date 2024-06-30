@@ -1,7 +1,6 @@
 package club.iananderson.seasonhud.client.overlays;
 
 import club.iananderson.seasonhud.impl.minimaps.CurrentMinimap;
-import club.iananderson.seasonhud.impl.minimaps.CurrentMinimap.Minimaps;
 import club.iananderson.seasonhud.impl.minimaps.MapAtlasesCommon;
 import net.fabricmc.fabric.api.client.rendering.v1.HudRenderCallback;
 import net.minecraft.client.Minecraft;
@@ -23,7 +22,7 @@ public class MapAtlases implements HudRenderCallback {
   }
 
   public static boolean shouldDraw(Minecraft mc) {
-    if (CurrentMinimap.minimapLoaded(Minimaps.MAP_ATLASES)) {
+    if (CurrentMinimap.mapAtlasesLoaded()) {
       MapAtlasItem mapAtlas = MapAtlasesMod.MAP_ATLAS.get();
 
       if (mc.level == null || mc.player == null || mc.options.renderDebug) {
@@ -47,7 +46,7 @@ public class MapAtlases implements HudRenderCallback {
     int screenWidth = mc.getWindow().getScreenWidth();
     int screenHeight = mc.getWindow().getScreenHeight();
 
-    if (CurrentMinimap.minimapLoaded(Minimaps.MAP_ATLASES) && shouldDraw(mc)) {
+    if (CurrentMinimap.mapAtlasesLoaded() && shouldDraw(mc)) {
       Anchoring anchorLocation = MapAtlasesClientConfig.miniMapAnchoring.get();
       float textScaling = (float) (double) MapAtlasesClientConfig.minimapCoordsAndBiomeScale.get();
       float globalScale = MapAtlasesClientConfig.miniMapScale.get().floatValue();

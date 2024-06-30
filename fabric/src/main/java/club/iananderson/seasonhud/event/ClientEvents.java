@@ -1,12 +1,11 @@
 package club.iananderson.seasonhud.event;
 
 import club.iananderson.seasonhud.client.KeyBindings;
-import club.iananderson.seasonhud.client.overlays.SeasonHUDOverlay;
 import club.iananderson.seasonhud.client.gui.screens.SeasonHUDScreen;
 import club.iananderson.seasonhud.client.overlays.JourneyMap;
 import club.iananderson.seasonhud.client.overlays.MapAtlases;
+import club.iananderson.seasonhud.client.overlays.SeasonHUDOverlay;
 import club.iananderson.seasonhud.impl.minimaps.CurrentMinimap;
-import club.iananderson.seasonhud.impl.minimaps.CurrentMinimap.Minimaps;
 import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
 import net.fabricmc.fabric.api.client.keybinding.v1.KeyBindingHelper;
 
@@ -27,10 +26,10 @@ public class ClientEvents {
 
   private static void registerHud() {
     SeasonHUDOverlay.init();
-    if (CurrentMinimap.minimapLoaded(Minimaps.MAP_ATLASES)) {
+    if (CurrentMinimap.mapAtlasesLoaded()) {
       MapAtlases.init();
     }
-    if (CurrentMinimap.minimapLoaded(Minimaps.JOURNEYMAP)) {
+    if (CurrentMinimap.journeyMapLoaded()) {
       JourneyMap.init();
     }
   }

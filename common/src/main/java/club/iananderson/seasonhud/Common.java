@@ -2,11 +2,8 @@ package club.iananderson.seasonhud;
 
 import static club.iananderson.seasonhud.client.SeasonHUDClient.mc;
 
-import club.iananderson.seasonhud.impl.minimaps.CurrentMinimap;
-import club.iananderson.seasonhud.impl.minimaps.CurrentMinimap.Minimaps;
 import club.iananderson.seasonhud.platform.Services;
-import journeymap.client.JourneymapClient;
-import journeymap.client.properties.MiniMapProperties;
+import java.util.ArrayList;
 import net.minecraft.client.gui.screens.ChatScreen;
 import net.minecraft.client.gui.screens.DeathScreen;
 import net.minecraft.network.chat.Style;
@@ -47,13 +44,16 @@ public class Common {
   }
 
   public static boolean vanillaShouldDrawHud() {
-    if (CurrentMinimap.minimapLoaded(Minimaps.JOURNEYMAP)) {
-      MiniMapProperties currentMinimap = JourneymapClient.getInstance().getActiveMiniMapProperties();
+    return (mc.screen == null || mc.screen instanceof ChatScreen || mc.screen instanceof DeathScreen) && !mc.isPaused()
+        && !mc.options.renderDebug && !mc.options.hideGui;
+  }
 
-      return currentMinimap.isActive() && (!mc.isPaused());
-    } else {
-      return (mc.screen == null || mc.screen instanceof ChatScreen || mc.screen instanceof DeathScreen)
-          && !mc.isPaused() && !mc.options.renderDebug && !mc.options.hideGui;
+  public static boolean allTrue(ArrayList<Boolean> values) {
+    for (boolean value : values) {
+      if (!value) {
+        return false;
+      }
     }
+    return true;
   }
 }

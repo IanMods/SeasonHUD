@@ -2,12 +2,15 @@ package club.iananderson.seasonhud.platform;
 
 import static club.iananderson.seasonhud.client.SeasonHUDClient.mc;
 
+import club.iananderson.seasonhud.Common;
 import club.iananderson.seasonhud.client.overlays.MapAtlases;
 import club.iananderson.seasonhud.impl.minimaps.CurrentMinimap;
 import club.iananderson.seasonhud.impl.minimaps.CurrentMinimap.Minimaps;
 import club.iananderson.seasonhud.platform.services.IMinimapHelper;
 import dev.ftb.mods.ftbchunks.client.FTBChunksClientConfig;
+import java.util.ArrayList;
 import java.util.Objects;
+import journeymap.client.properties.MiniMapProperties;
 import journeymap.client.ui.UIManager;
 import net.minecraft.client.Minecraft;
 import net.minecraft.resources.ResourceKey;
@@ -25,22 +28,35 @@ public class ForgeMinimapHelper implements IMinimapHelper {
   }
 
   @Override
-  public boolean currentMinimapHidden() {
-    if (CurrentMinimap.minimapLoaded(Minimaps.JOURNEYMAP)) {
-      return !UIManager.INSTANCE.getMiniMap().getCurrentMinimapProperties().enabled.get();
+  public boolean hiddenMinimap(Minimaps minimap) {
+    switch (minimap) {
+      case JOURNEYMAP -> {
+        MiniMapProperties properties = UIManager.INSTANCE.getMiniMap().getCurrentMinimapProperties();
+
+        return !properties.enabled.get() || !(properties.isActive() && !mc.isPaused());
+      }
+      case FTB_CHUNKS -> {
+        return !FTBChunksClientConfig.MINIMAP_ENABLED.get();
+      }
+      case XAERO, XAERO_FAIRPLAY -> {
+        return !HudMod.INSTANCE.getSettings().getMinimap();
+      }
+      case MAP_ATLASES -> {
+        return !MapAtlases.shouldDraw(Minecraft.getInstance());
+      }
+      default -> {
+        return false;
+      }
     }
-    if (CurrentMinimap.minimapLoaded(Minimaps.FTB_CHUNKS) && !CurrentMinimap.minimapLoaded(Minimaps.JOURNEYMAP)
-        && !CurrentMinimap.minimapLoaded(Minimaps.XAERO) && !CurrentMinimap.minimapLoaded(Minimaps.XAERO_FAIRPLAY)
-        && !CurrentMinimap.minimapLoaded(Minimaps.MAP_ATLASES)) {
-      return !FTBChunksClientConfig.MINIMAP_ENABLED.get();
-    }
-    if (CurrentMinimap.minimapLoaded(Minimaps.XAERO) || CurrentMinimap.minimapLoaded(Minimaps.XAERO_FAIRPLAY)) {
-      return !HudMod.INSTANCE.getSettings().getMinimap();
-    }
-    if (CurrentMinimap.minimapLoaded(Minimaps.MAP_ATLASES)) {
-      return !MapAtlases.shouldDraw(Minecraft.getInstance());
-    } else {
-      return false;
-    }
+  }
+
+  @Override
+  public boolean allMinimapsHidden() {
+    ArrayList<Minimaps> loadedMinimaps = CurrentMinimap.getLoadedMinimaps();
+    ArrayList<Boolean> hiddenMinimaps = new ArrayList<>();
+
+    loadedMinimaps.forEach(minimap -> hiddenMinimaps.add(Services.MINIMAP.hiddenMinimap(minimap)));
+
+    return Common.allTrue(hiddenMinimaps);
   }
 }

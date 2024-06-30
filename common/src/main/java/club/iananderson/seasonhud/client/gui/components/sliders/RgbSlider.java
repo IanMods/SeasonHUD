@@ -50,7 +50,6 @@ public class RgbSlider extends AbstractSliderButton {
     this.b = Rgb.rgbColor(this.rgb).getBlue();
     this.value = snapToNearest(this.rgb);
     this.textColor = ChatFormatting.WHITE;
-    this.canChangeValue = (Config.enableSeasonNameColor.get() && this.isHoveredOrFocused());
     this.updateMessage();
   }
 
@@ -62,6 +61,20 @@ public class RgbSlider extends AbstractSliderButton {
   public int getHandleTextureY() {
     int i = !this.isHovered && !this.canChangeValue ? 2 : 3;
     return i * 20;
+  }
+
+  @Override
+  public void onClick(double x, double y) {
+    if (enableColor) {
+      super.onClick(x, y);
+    }
+  }
+
+  @Override
+  protected void onDrag(double d, double e, double f, double g) {
+    if (enableColor) {
+      super.onDrag(d, e, f, g);
+    }
   }
 
   public double snapToNearest(double value) {
@@ -93,6 +106,10 @@ public class RgbSlider extends AbstractSliderButton {
 
   @Override
   public void renderWidget(@NotNull GuiGraphics graphics, int mouseX, int mouseY, float partialTick) {
+    if (!enableColor) {
+      this.active = false;
+      this.isHovered = false;
+    }
 
     DrawUtil.blitWithBorder(graphics, SLIDER_LOCATION, this.getX(), this.getY(), 0, this.getTextureY(), this.width,
                             this.height, 200, 20, 2, 3, 2, 2);
