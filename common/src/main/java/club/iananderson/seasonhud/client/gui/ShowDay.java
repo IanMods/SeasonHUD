@@ -1,4 +1,4 @@
-package club.iananderson.seasonhud.config;
+package club.iananderson.seasonhud.client.gui;
 
 import club.iananderson.seasonhud.platform.Services;
 import java.util.ArrayList;

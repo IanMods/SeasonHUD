@@ -1,10 +1,10 @@
 package club.iananderson.seasonhud.client.gui.screens;
 
+import club.iananderson.seasonhud.client.gui.Location;
+import club.iananderson.seasonhud.client.gui.ShowDay;
 import club.iananderson.seasonhud.client.gui.components.buttons.MenuButton;
 import club.iananderson.seasonhud.client.gui.components.buttons.MenuButton.MenuButtons;
 import club.iananderson.seasonhud.config.Config;
-import club.iananderson.seasonhud.config.Location;
-import club.iananderson.seasonhud.config.ShowDay;
 import club.iananderson.seasonhud.platform.Services;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;

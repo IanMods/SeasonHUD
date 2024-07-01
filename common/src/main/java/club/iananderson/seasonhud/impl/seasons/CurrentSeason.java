@@ -1,8 +1,8 @@
 package club.iananderson.seasonhud.impl.seasons;
 
 import club.iananderson.seasonhud.Common;
+import club.iananderson.seasonhud.client.gui.ShowDay;
 import club.iananderson.seasonhud.config.Config;
-import club.iananderson.seasonhud.config.ShowDay;
 import club.iananderson.seasonhud.platform.Services;
 import java.time.LocalDateTime;
 import net.minecraft.client.Minecraft;
