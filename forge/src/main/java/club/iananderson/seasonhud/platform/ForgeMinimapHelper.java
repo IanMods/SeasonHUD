@@ -1,7 +1,5 @@
 package club.iananderson.seasonhud.platform;
 
-import static club.iananderson.seasonhud.client.SeasonHUDClient.mc;
-
 import club.iananderson.seasonhud.Common;
 import club.iananderson.seasonhud.client.overlays.MapAtlases;
 import club.iananderson.seasonhud.impl.minimaps.CurrentMinimap;
@@ -22,7 +20,7 @@ public class ForgeMinimapHelper implements IMinimapHelper {
 
   @Override
   public boolean hideHudInCurrentDimension() {
-    ResourceKey<Level> currentDim = Objects.requireNonNull(mc.level).dimension();
+    ResourceKey<Level> currentDim = Objects.requireNonNull(Minecraft.getInstance().level).dimension();
 
     return !ServerConfig.isDimensionWhitelisted(currentDim);
   }
@@ -33,7 +31,7 @@ public class ForgeMinimapHelper implements IMinimapHelper {
       case JOURNEYMAP -> {
         MiniMapProperties properties = UIManager.INSTANCE.getMiniMap().getCurrentMinimapProperties();
 
-        return !properties.enabled.get() || !(properties.isActive() && !mc.isPaused());
+        return !properties.enabled.get() || !(properties.isActive() && !Minecraft.getInstance().isPaused());
       }
       case FTB_CHUNKS -> {
         return !FTBChunksClientConfig.MINIMAP_ENABLED.get();

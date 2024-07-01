@@ -2,7 +2,6 @@ package club.iananderson.seasonhud.client.overlays;
 
 import club.iananderson.seasonhud.impl.minimaps.CurrentMinimap;
 import club.iananderson.seasonhud.impl.minimaps.CurrentMinimap.Minimaps;
-import club.iananderson.seasonhud.impl.minimaps.JourneyMapCommon;
 import journeymap.client.render.draw.DrawUtil;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;

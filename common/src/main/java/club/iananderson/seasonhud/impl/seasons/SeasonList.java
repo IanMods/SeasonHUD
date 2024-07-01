@@ -26,7 +26,7 @@ public enum SeasonList {
   WET(5, Component.translatable("desc.seasonhud.wet"), "wet", "\uEA05", Config.wetColor, Config.wetColor.getDefault(),
       Config.getWetColor(), Rgb.seasonMap(Config.getWetColor()));
 
-  public static EnumSet<SeasonList> seasons = EnumSet.allOf(SeasonList.class);
+  public static final EnumSet<SeasonList> seasons = EnumSet.allOf(SeasonList.class);
   private final int id;
   private final Component seasonName;
   private final String seasonFileName;

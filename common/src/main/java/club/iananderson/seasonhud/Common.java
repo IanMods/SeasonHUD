@@ -1,9 +1,8 @@
 package club.iananderson.seasonhud;
 
-import static club.iananderson.seasonhud.client.SeasonHUDClient.mc;
-
 import club.iananderson.seasonhud.platform.Services;
 import java.util.ArrayList;
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screens.ChatScreen;
 import net.minecraft.client.gui.screens.DeathScreen;
 import net.minecraft.network.chat.Style;
@@ -44,8 +43,14 @@ public class Common {
   }
 
   public static boolean vanillaShouldDrawHud() {
+    Minecraft mc = Minecraft.getInstance();
+
+    if (mc.player == null) {
+      return false;
+    }
+
     return (mc.screen == null || mc.screen instanceof ChatScreen || mc.screen instanceof DeathScreen) && !mc.isPaused()
-        && !mc.options.renderDebug && !mc.options.hideGui;
+        && !mc.options.renderDebug && !mc.options.hideGui && !mc.player.isScoping();
   }
 
   public static boolean allTrue(ArrayList<Boolean> values) {

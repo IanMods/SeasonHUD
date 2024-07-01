@@ -1,21 +1,20 @@
 package club.iananderson.seasonhud.impl.seasons;
 
-import static club.iananderson.seasonhud.client.SeasonHUDClient.mc;
-
 import club.iananderson.seasonhud.Common;
 import club.iananderson.seasonhud.config.Config;
 import club.iananderson.seasonhud.platform.Services;
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.item.Item;
 
 public class Calendar {
 
-  public static boolean calendarLoaded = (Services.PLATFORM.getPlatformName().equals("Forge") || (
+  public static final boolean calendarLoaded = (Services.PLATFORM.getPlatformName().equals("Forge") || (
       Services.PLATFORM.getPlatformName().equals("Fabric") && Common.extrasLoaded()));
 
   public static boolean calendarFound() {
-    LocalPlayer player = mc.player;
+    LocalPlayer player = Minecraft.getInstance().player;
 
     if (Config.needCalendar.get() && calendarLoaded && player != null) {
       Inventory inv = player.getInventory();

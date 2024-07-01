@@ -1,7 +1,5 @@
 package club.iananderson.seasonhud.client.gui.screens;
 
-import static club.iananderson.seasonhud.client.SeasonHUDClient.mc;
-
 import club.iananderson.seasonhud.client.gui.components.boxes.ColorEditBox;
 import club.iananderson.seasonhud.client.gui.components.buttons.DefaultColorButton;
 import club.iananderson.seasonhud.client.gui.components.buttons.MenuButton;
@@ -18,6 +16,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.EnumSet;
 import java.util.List;
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.components.AbstractWidget;
 import net.minecraft.client.gui.components.CycleButton;
@@ -27,7 +26,6 @@ import net.minecraft.network.chat.Component;
 import org.jetbrains.annotations.NotNull;
 
 public class ColorScreen extends Screen {
-
   public static final int WIDGET_PADDING = 6;
   private static final int MENU_PADDING_FULL = 25;
   private static final int BUTTON_WIDTH = 150;
@@ -35,7 +33,6 @@ public class ColorScreen extends Screen {
   private static final Component TITLE = Component.translatable("menu.seasonhud.color.title");
   private static final Component ENABLE_SEASON_NAME_COLOR = Component.translatable(
       "menu.seasonhud.color.button.enableSeasonNameColor");
-  private static final ColorScreen instance = new ColorScreen(SeasonHUDScreen.getInstance());
   public static MenuButton doneButton;
   private final Screen lastScreen;
   private final List<ColorEditBox> seasonBoxes = new ArrayList<>();
@@ -52,7 +49,7 @@ public class ColorScreen extends Screen {
   }
 
   public static void open(Screen screen) {
-    mc.setScreen(new ColorScreen(screen));
+    Minecraft.getInstance().setScreen(new ColorScreen(screen));
   }
 
   private static EnumSet<SeasonList> seasonListSet() {
@@ -67,11 +64,11 @@ public class ColorScreen extends Screen {
   }
 
   public int getWidth() {
-    return mc.getWindow().getGuiScaledWidth();
+    return Minecraft.getInstance().getWindow().getGuiScaledWidth();
   }
 
   public int getHeight() {
-    return mc.getWindow().getGuiScaledHeight();
+    return Minecraft.getInstance().getWindow().getGuiScaledHeight();
   }
 
   private void onDone() {
@@ -81,11 +78,11 @@ public class ColorScreen extends Screen {
       }
     });
 
-    mc.setScreen(this.lastScreen);
+    Minecraft.getInstance().setScreen(this.lastScreen);
   }
 
   private void onCancel() {
-    mc.setScreen(this.lastScreen);
+    Minecraft.getInstance().setScreen(this.lastScreen);
   }
 
   public int getBoxWidth() {

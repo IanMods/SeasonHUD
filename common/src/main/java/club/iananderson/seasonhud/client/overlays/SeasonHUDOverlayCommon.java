@@ -50,7 +50,7 @@ public class SeasonHUDOverlayCommon {
       }
 
       //Text
-      if (Common.vanillaShouldDrawHud() && !mc.player.isScoping() && Calendar.calendarFound()) {
+      if (Common.vanillaShouldDrawHud() && Calendar.calendarFound()) {
         seasonStack.pose().pushPose();
         seasonStack.pose().scale(1F, 1F, 1F);
         seasonStack.drawString(mc.font, seasonCombined, x + xOffset, y + yOffset, 0xffffff);

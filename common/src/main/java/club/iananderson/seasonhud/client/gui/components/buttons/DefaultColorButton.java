@@ -18,12 +18,12 @@ public class DefaultColorButton extends Button {
   private ColorEditBox colorEditBox;
   private int defaultColor;
 
-  private DefaultColorButton(int x, int y, int width, int height, Component component, OnPress onPress) {
-    super(x, y, width, height, component, onPress, DEFAULT_NARRATION);
+  private DefaultColorButton(int x, int y, int width, int height, OnPress onPress) {
+    super(x, y, width, height, DefaultColorButton.DEFAULT, onPress, DEFAULT_NARRATION);
   }
 
   public DefaultColorButton(int x, int y, SeasonList season, ColorEditBox colorEditBox, OnPress onPress) {
-    this(x, y, colorEditBox.getWidth() + 2, colorEditBox.getHeight() - 2, DEFAULT, onPress);
+    this(x, y, colorEditBox.getWidth() + 2, colorEditBox.getHeight() - 2, onPress);
     this.colorEditBox = colorEditBox;
     this.defaultColor = season.getDefaultColor();
   }

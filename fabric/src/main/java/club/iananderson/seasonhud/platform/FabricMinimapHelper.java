@@ -1,7 +1,5 @@
 package club.iananderson.seasonhud.platform;
 
-import static club.iananderson.seasonhud.client.SeasonHUDClient.mc;
-
 import club.iananderson.seasonhud.Common;
 import club.iananderson.seasonhud.client.overlays.MapAtlases;
 import club.iananderson.seasonhud.impl.minimaps.CurrentMinimap;
@@ -21,7 +19,7 @@ public class FabricMinimapHelper implements IMinimapHelper {
 
   @Override
   public boolean hideHudInCurrentDimension() {
-    ResourceKey<Level> currentDim = Objects.requireNonNull(mc.level).dimension();
+    ResourceKey<Level> currentDim = Objects.requireNonNull(Minecraft.getInstance().level).dimension();
 
     return !FabricSeasons.CONFIG.isValidInDimension(currentDim);
   }

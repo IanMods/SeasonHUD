@@ -1,13 +1,12 @@
 package club.iananderson.seasonhud.client.gui.components.sliders;
 
-import static club.iananderson.seasonhud.client.SeasonHUDClient.mc;
-
 import club.iananderson.seasonhud.client.gui.components.boxes.ColorEditBox;
 import club.iananderson.seasonhud.config.Config;
 import club.iananderson.seasonhud.impl.seasons.SeasonList;
 import club.iananderson.seasonhud.util.DrawUtil;
 import club.iananderson.seasonhud.util.Rgb;
 import net.minecraft.ChatFormatting;
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.components.AbstractSliderButton;
 import net.minecraft.network.chat.CommonComponents;
@@ -17,10 +16,10 @@ import net.minecraft.util.Mth;
 import org.jetbrains.annotations.NotNull;
 
 public class RgbSlider extends AbstractSliderButton {
+  public static final int SLIDER_PADDING = 2;
   private static final ResourceLocation SLIDER_LOCATION = new ResourceLocation("textures/gui/slider.png");
-  public static int SLIDER_PADDING = 2;
   public final boolean drawString;
-  public boolean enableColor = Config.enableSeasonNameColor.get();
+  public final boolean enableColor = Config.enableSeasonNameColor.get();
   public SeasonList season;
   public ColorEditBox seasonBox;
   public int minValue;
@@ -106,6 +105,8 @@ public class RgbSlider extends AbstractSliderButton {
 
   @Override
   public void renderWidget(@NotNull GuiGraphics graphics, int mouseX, int mouseY, float partialTick) {
+    Minecraft mc = Minecraft.getInstance();
+
     if (!enableColor) {
       this.active = false;
       this.isHovered = false;

@@ -1,7 +1,6 @@
 package club.iananderson.seasonhud.client.overlays;
 
 import club.iananderson.seasonhud.impl.minimaps.CurrentMinimap;
-import club.iananderson.seasonhud.impl.minimaps.MapAtlasesCommon;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.world.effect.MobEffect;
