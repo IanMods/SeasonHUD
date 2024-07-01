@@ -20,7 +20,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 public class FTBChunksClientMixin {
 
   @Unique
-  private static BooleanValue MINIMAP_SEASON = FTBChunksClientConfig.MINIMAP.addBoolean("season", true).comment(
+  private static final BooleanValue MINIMAP_SEASON = FTBChunksClientConfig.MINIMAP.addBoolean("season", true).comment(
       new String[]{"Show season under minimap"});
 
   @Inject(method = "buildMinimapTextData", at = @At("RETURN"), remap = false, cancellable = true)

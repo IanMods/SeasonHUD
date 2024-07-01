@@ -15,6 +15,7 @@ import club.iananderson.seasonhud.impl.seasons.SeasonList;
 import club.iananderson.seasonhud.platform.Services;
 import club.iananderson.seasonhud.util.Rgb;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.EnumSet;
 import java.util.List;
 import net.minecraft.client.gui.GuiGraphics;
@@ -38,6 +39,8 @@ public class ColorScreen extends Screen {
   public static MenuButton doneButton;
   private final Screen lastScreen;
   private final List<ColorEditBox> seasonBoxes = new ArrayList<>();
+  private final List<DefaultColorButton> defaultColorButtons = new ArrayList<>();
+  private final List<RgbSlider> colorSliders = new ArrayList<>();
   private final List<AbstractWidget> widgets = new ArrayList<>();
   private int x;
   private int y;
@@ -105,30 +108,25 @@ public class ColorScreen extends Screen {
     RedSlider redSlider;
     GreenSlider greenSlider;
     BlueSlider blueSlider;
-    List<AbstractWidget> seasonWidgetList = new ArrayList<>();
+    DefaultColorButton defaultButton;
 
     colorBox = new ColorEditBox(this.font, x, y, getBoxWidth(), BUTTON_HEIGHT, season);
-    seasonBoxes.add(colorBox);
-    seasonWidgetList.add(colorBox);
     y += colorBox.getHeight() + WIDGET_PADDING;
 
     x -= 1;
     y += BUTTON_HEIGHT + RgbSlider.SLIDER_PADDING;
 
     redSlider = new RedSlider(x, y, colorBox);
-    seasonWidgetList.add(redSlider);
     y += redSlider.getHeight() + RgbSlider.SLIDER_PADDING;
 
     greenSlider = new GreenSlider(x, y, colorBox);
-    seasonWidgetList.add(greenSlider);
     y += greenSlider.getHeight() + RgbSlider.SLIDER_PADDING;
 
     blueSlider = new BlueSlider(x, y, colorBox);
-    seasonWidgetList.add(blueSlider);
-
     y -= (greenSlider.getHeight() + redSlider.getHeight() + RgbSlider.SLIDER_PADDING + BUTTON_HEIGHT
         + RgbSlider.SLIDER_PADDING);
-    seasonWidgetList.add(new DefaultColorButton(x, y, season, colorBox, button -> {
+
+    defaultButton = new DefaultColorButton(x, y, season, colorBox, button -> {
       int defaultColorInt = season.getDefaultColor();
 
       if (colorBox.getNewColor() != defaultColorInt) {
@@ -139,9 +137,13 @@ public class ColorScreen extends Screen {
 
         Rgb.setRgb(season, defaultColorInt);
       }
-    }));
+    });
 
-    return seasonWidgetList;
+    seasonBoxes.add(colorBox);
+    defaultColorButtons.add(defaultButton);
+    colorSliders.addAll(Arrays.asList(redSlider, blueSlider, greenSlider));
+
+    return new ArrayList<>(Arrays.asList(colorBox, defaultButton, redSlider, blueSlider, greenSlider));
   }
 
   @Override
@@ -173,7 +175,10 @@ public class ColorScreen extends Screen {
     CycleButton<Boolean> seasonColorButton = CycleButton.onOffBuilder(Config.enableSeasonNameColor.get())
                                                         .create(leftButtonX, MENU_PADDING_FULL, BUTTON_WIDTH,
                                                                 BUTTON_HEIGHT, ENABLE_SEASON_NAME_COLOR,
-                                                                (b, enable) -> Config.setEnableSeasonNameColor(enable));
+                                                                (b, enable) -> {
+                                                                  Config.setEnableSeasonNameColor(enable);
+                                                                  this.rebuildWidgets();
+                                                                });
     this.widgets.add(seasonColorButton);
 
     doneButton = new MenuButton(leftButtonX, (getHeight() - BUTTON_HEIGHT - WIDGET_PADDING), MenuButtons.DONE,

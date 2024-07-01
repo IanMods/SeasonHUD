@@ -11,6 +11,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 - More common code for JourneyMap and MapAtlases to make porting easier.
 - Improved logic for detecting hidden minimaps if multiple minimap mods are installed.
 
+### Fixed
+
+- Made the season name color sliders not editable and grayed out if the "Season Name Color" is not enabled.
+
 ## [1.8.9] - 2024-06-28
 
 ### Added

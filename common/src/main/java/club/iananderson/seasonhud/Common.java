@@ -18,7 +18,7 @@ public class Common {
   public static final Logger LOG = LoggerFactory.getLogger(MOD_NAME);
 
   public static final ResourceLocation SEASON_ICONS = new ResourceLocation(MOD_ID, "season_icons");
-  public static final Style SEASON_STYLE = Style.EMPTY.withFont(SEASON_ICONS);
+  public static final Style SEASON_ICON_STYLE = Style.EMPTY.withFont(SEASON_ICONS);
 
   private static boolean curiosLoaded;
   private static boolean extrasLoaded;
