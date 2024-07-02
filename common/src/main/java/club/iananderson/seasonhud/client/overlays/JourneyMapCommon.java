@@ -65,7 +65,7 @@ public class JourneyMapCommon {
                                                          ThemeLabelSource.values.get(mapProperties.info4Label.get()));
     this.screenWidth = mc.getWindow().getWidth();
     this.screenHeight = mc.getWindow().getHeight();
-    if (Config.journeyMapMacOS.get()) {
+    if (Config.getJourneyMapMacOS()) {
       this.screenWidth /= 2;
       this.screenHeight /= 2;
     }
@@ -83,9 +83,9 @@ public class JourneyMapCommon {
   }
 
   private int labelY() {
-    int startY = (int) (textureY + (Config.journeyMapAboveMap.get() ? -margin - labelHeight : minimapHeight + margin));
+    int startY = (int) (textureY + (Config.getJourneyMapMacOS() ? -margin - labelHeight : minimapHeight + margin));
 
-    return startY + (Config.journeyMapAboveMap.get() ? -topLabelHeight : bottomLabelHeight);
+    return startY + (Config.getJourneyMapAboveMap() ? -topLabelHeight : bottomLabelHeight);
   }
 
   public float getFontScale() {

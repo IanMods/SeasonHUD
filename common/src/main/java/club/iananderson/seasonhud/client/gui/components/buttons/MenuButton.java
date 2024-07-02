@@ -8,8 +8,8 @@ public class MenuButton extends Button {
   private static final int BUTTON_WIDTH = 150;
   private static final int BUTTON_HEIGHT = 20;
 
-  private MenuButton(int x, int y, int width, int height, Component component, OnPress onPress) {
-    super(x, y, width, height, component, onPress, DEFAULT_NARRATION);
+  private MenuButton(int x, int y, Component component, OnPress onPress) {
+    super(x, y, MenuButton.BUTTON_WIDTH, MenuButton.BUTTON_HEIGHT, component, onPress, DEFAULT_NARRATION);
   }
 
   public MenuButton(int x, int y, int width, int height, MenuButtons button, OnPress onPress) {
@@ -17,7 +17,7 @@ public class MenuButton extends Button {
   }
 
   public MenuButton(int x, int y, MenuButtons button, OnPress onPress) {
-    this(x, y, BUTTON_WIDTH, BUTTON_HEIGHT, button.getButtonText(), onPress);
+    this(x, y, button.getButtonText(), onPress);
   }
 
   public enum MenuButtons {

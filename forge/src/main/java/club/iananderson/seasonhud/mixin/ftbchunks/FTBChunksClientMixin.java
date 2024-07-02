@@ -30,9 +30,9 @@ public class FTBChunksClientMixin {
     MutableComponent seasonCombined = CurrentSeason.getInstance(mc).getSeasonHudText();
     List<Component> res = cir.getReturnValue();
 
-    Config.enableMod.set(MINIMAP_SEASON.get());
+    Config.setEnableMod(MINIMAP_SEASON.get());
 
-    if (Config.enableMod.get() && Config.enableMinimapIntegration.get()) {
+    if (Config.getEnableMod() && Config.getEnableMinimapIntegration()) {
       res.add(seasonCombined);
     }
 

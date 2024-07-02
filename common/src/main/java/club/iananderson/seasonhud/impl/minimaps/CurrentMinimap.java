@@ -58,7 +58,7 @@ public class CurrentMinimap {
       return false;
     }
 
-    return (Config.enableMod.get() && Config.enableMinimapIntegration.get() && Calendar.calendarFound()
+    return (Config.getEnableMod() && Config.getEnableMinimapIntegration() && Calendar.calendarFound()
         && !Services.MINIMAP.hideHudInCurrentDimension() && !Services.MINIMAP.hiddenMinimap(minimap)
         && Common.vanillaShouldDrawHud()) && !mc.player.isScoping();
   }

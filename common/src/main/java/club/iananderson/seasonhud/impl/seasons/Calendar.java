@@ -16,7 +16,7 @@ public class Calendar {
   public static boolean calendarFound() {
     LocalPlayer player = Minecraft.getInstance().player;
 
-    if (Config.needCalendar.get() && calendarLoaded && player != null) {
+    if (Config.getNeedCalendar() && calendarLoaded && player != null) {
       Inventory inv = player.getInventory();
       Item calendar = Services.SEASON.calendar();
       int slot = findCalendar(inv, calendar) + Services.SEASON.findCuriosCalendar(player, calendar);

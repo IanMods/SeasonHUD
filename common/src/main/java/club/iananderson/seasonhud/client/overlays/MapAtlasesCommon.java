@@ -10,9 +10,9 @@ import net.minecraft.network.chat.MutableComponent;
 
 public class MapAtlasesCommon {
   private static void drawSeasonWithLighterShadow(GuiGraphics context, Font font, MutableComponent text,
-      MutableComponent shadowText, int x, int y) {
-    context.drawString(font, shadowText, x + 1, y + 1, 5855577, false);
-    context.drawString(font, text, x, y, 0xffffff, false);
+      MutableComponent shadowText) {
+    context.drawString(font, shadowText, 1, 1, 5855577, false);
+    context.drawString(font, text, 0, 0, 0xffffff, false);
   }
 
   private static void drawScaledComponent(GuiGraphics context, Font font, int x, int y, MutableComponent text,
@@ -26,7 +26,7 @@ public class MapAtlasesCommon {
     pose.translate(centerX, (float) (y + 4), 5.0F);
     pose.scale(scale, scale, 1.0F);
     pose.translate(-textWidth / 2.0F, -4.0F, 0.0F);
-    drawSeasonWithLighterShadow(context, font, text, shadowText, 0, 0);
+    drawSeasonWithLighterShadow(context, font, text, shadowText);
     pose.popPose();
   }
 

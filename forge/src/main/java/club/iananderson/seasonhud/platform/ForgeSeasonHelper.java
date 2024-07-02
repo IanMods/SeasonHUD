@@ -17,7 +17,7 @@ public class ForgeSeasonHelper implements ISeasonHelper {
 
   @Override
   public boolean isTropicalSeason(Level level, Player player) {
-    boolean showTropicalSeasons = Config.showTropicalSeason.get();
+    boolean showTropicalSeasons = Config.getShowTropicalSeason();
     boolean isInTropicalSeason = SeasonHelper.usesTropicalSeasons(level.getBiome(player.getOnPos()));
 
     return showTropicalSeasons && isInTropicalSeason;
@@ -60,7 +60,7 @@ public class ForgeSeasonHelper implements ISeasonHelper {
     int subSeasonDate = (seasonDay % subSeasonDuration) + 1; //Default 8 days in each sub-season (1 week)
     int seasonDate = (seasonDay % (subSeasonDuration * 3)) + 1; //Default 24 days in a season (8 days * 3)
 
-    if (Config.showSubSeason.get()) {
+    if (Config.getShowSubSeason()) {
       if (isTropicalSeason(level, player)) {
         // Default 16 days in each tropical "sub-season".
         // Starts are "Early Dry" (Summer 1), so need to offset Spring 1 -> Summer 1 (subSeasonDuration * 3)
@@ -85,7 +85,7 @@ public class ForgeSeasonHelper implements ISeasonHelper {
       seasonDuration *= 2; //Tropical seasons are twice as long (Default 48 days)
     }
 
-    if (Config.showSubSeason.get()) {
+    if (Config.getShowSubSeason()) {
       seasonDuration /= 3; //3 sub-seasons per season
     }
 
@@ -99,7 +99,6 @@ public class ForgeSeasonHelper implements ISeasonHelper {
 
   @Override
   public int findCuriosCalendar(Player player, Item item) {
-    boolean curio;
     if (Common.curiosLoaded()) {
       ICuriosItemHandler curiosInventory = CuriosApi.getCuriosInventory(player).resolve().get();
       return curiosInventory.findCurios(item).size();

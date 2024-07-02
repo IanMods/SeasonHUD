@@ -44,13 +44,13 @@ public class ColorEditBox extends EditBox {
         ColorScreen.doneButton.active = false;
       }
     });
-    this.setEditable(Config.enableSeasonNameColor.get());
+    this.setEditable(Config.getEnableSeasonNameColor());
   }
 
   private static EnumSet<SeasonList> seasonListSet() {
     EnumSet<SeasonList> set = SeasonList.seasons.clone();
 
-    if (!Config.showTropicalSeason.get() || !Services.PLATFORM.getPlatformName().equals("Forge")) {
+    if (!Config.getShowTropicalSeason() || !Services.PLATFORM.getPlatformName().equals("Forge")) {
       set.remove(SeasonList.DRY);
       set.remove(SeasonList.WET);
     }
@@ -76,7 +76,7 @@ public class ColorEditBox extends EditBox {
 
   public void save() {
     Rgb.setRgb(this.boxSeason, this.newSeasonColor);
-    this.boxSeason.setColor(this.newSeasonColor);
+    this.boxSeason.setSeasonColor(this.newSeasonColor);
   }
 
   public int getColor() {
@@ -99,7 +99,8 @@ public class ColorEditBox extends EditBox {
     int widgetTotalSize = ((80 + ColorScreen.WIDGET_PADDING) * seasonListSet().size());
     boolean seasonShort = (scaledWidth < widgetTotalSize);
 
-    MutableComponent seasonCombined = CurrentSeason.getInstance(mc).getSeasonMenuText(this.boxSeason, seasonShort);
+    MutableComponent seasonCombined = CurrentSeason.getInstance(mc)
+                                                   .getSeasonMenuText(this.boxSeason, this.newSeasonColor, seasonShort);
 
     graphics.pose().pushPose();
     if ((mc.font.width(seasonCombined) > this.getWidth() - PADDING)) {

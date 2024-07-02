@@ -37,7 +37,7 @@ public class CurrentSeason {
 
   //Convert Season to lower case (for localized names)
   public String getSeasonStateLower() {
-    if (Config.showSubSeason.get()) {
+    if (Config.getShowSubSeason()) {
       return currentSubSeason.toLowerCase();
     } else {
       return currentSeason.toLowerCase();
@@ -58,7 +58,7 @@ public class CurrentSeason {
   public Component getText() {
     Component season = Component.translatable("desc.seasonhud." + getSeasonStateLower());
 
-    return switch (Config.showDay.get()) {
+    return switch (Config.getShowDay()) {
       case NONE -> Component.translatable(ShowDay.NONE.getKey(), season);
       case SHOW_DAY -> Component.translatable(ShowDay.SHOW_DAY.getKey(), season, seasonDate);
       case SHOW_WITH_TOTAL_DAYS ->
@@ -98,7 +98,7 @@ public class CurrentSeason {
     MutableComponent seasonIcon = Component.translatable("desc.seasonhud.icon", getSeasonIcon());
     MutableComponent seasonText = getText().copy();
 
-    if (Config.enableSeasonNameColor.get()) {
+    if (Config.getEnableSeasonNameColor()) {
       SEASON_FORMAT = Style.EMPTY.withColor(getTextColor());
     }
 
@@ -106,12 +106,12 @@ public class CurrentSeason {
                                   seasonText.withStyle(SEASON_FORMAT));
   }
 
-  public MutableComponent getSeasonMenuText(SeasonList season, boolean seasonShort) {
+  public MutableComponent getSeasonMenuText(SeasonList season, int newRgb, boolean seasonShort) {
     MutableComponent seasonIcon = Component.translatable("desc.seasonhud.icon", season.getIconChar());
     MutableComponent seasonText = Component.translatable(ShowDay.NONE.getKey(), season.getSeasonName());
 
-    if (Config.enableSeasonNameColor.get()) {
-      SEASON_FORMAT = Style.EMPTY.withColor(season.getSeasonColor());
+    if (Config.getEnableSeasonNameColor()) {
+      SEASON_FORMAT = Style.EMPTY.withColor(newRgb);
     }
 
     if (season == SeasonList.DRY && seasonShort) {

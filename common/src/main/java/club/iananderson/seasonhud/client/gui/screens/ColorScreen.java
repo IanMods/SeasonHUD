@@ -55,7 +55,7 @@ public class ColorScreen extends Screen {
   private static EnumSet<SeasonList> seasonListSet() {
     EnumSet<SeasonList> set = SeasonList.seasons.clone();
 
-    if (!Config.showTropicalSeason.get() || !Services.PLATFORM.getPlatformName().equals("Forge")) {
+    if (!Config.getShowTropicalSeason() || !Services.PLATFORM.getPlatformName().equals("Forge")) {
       set.remove(SeasonList.DRY);
       set.remove(SeasonList.WET);
     }
@@ -169,7 +169,7 @@ public class ColorScreen extends Screen {
     });
 
     //Buttons
-    CycleButton<Boolean> seasonColorButton = CycleButton.onOffBuilder(Config.enableSeasonNameColor.get())
+    CycleButton<Boolean> seasonColorButton = CycleButton.onOffBuilder(Config.getEnableSeasonNameColor())
                                                         .create(leftButtonX, MENU_PADDING_FULL, BUTTON_WIDTH,
                                                                 BUTTON_HEIGHT, ENABLE_SEASON_NAME_COLOR,
                                                                 (b, enable) -> {

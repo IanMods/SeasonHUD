@@ -19,7 +19,7 @@ public class RgbSlider extends AbstractSliderButton {
   public static final int SLIDER_PADDING = 2;
   private static final ResourceLocation SLIDER_LOCATION = new ResourceLocation("textures/gui/slider.png");
   public final boolean drawString;
-  public final boolean enableColor = Config.enableSeasonNameColor.get();
+  public final boolean enableColor = Config.getEnableSeasonNameColor();
   public SeasonList season;
   public ColorEditBox seasonBox;
   public int minValue;
