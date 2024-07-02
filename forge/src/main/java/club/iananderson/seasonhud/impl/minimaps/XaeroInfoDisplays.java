@@ -1,5 +1,6 @@
 package club.iananderson.seasonhud.impl.minimaps;
 
+import club.iananderson.seasonhud.impl.minimaps.CurrentMinimap.Minimaps;
 import club.iananderson.seasonhud.impl.seasons.CurrentSeason;
 import java.util.ArrayList;
 import java.util.List;
@@ -19,7 +20,8 @@ public class XaeroInfoDisplays {
     SEASON = new InfoDisplay<>("season", Component.translatable("menu.seasonhud.infodisplay.season"), true,
                                InfoDisplayCommonStateCodecs.BOOLEAN, InfoDisplayCommonWidgetFactories.OFF_ON,
                                (displayInfo, compiler, session, processor, x, y, w, h, scale, size, playerBlockX, playerBlockY, playerBlockZ, playerPos) -> {
-                                 if (displayInfo.getState() && CurrentMinimap.xaeroLoaded()) {
+                                 if (displayInfo.getState() && CurrentMinimap.xaeroLoaded()
+                                     && CurrentMinimap.shouldDrawMinimapHud(Minimaps.XAERO)) {
                                    compiler.addLine(CurrentSeason.getInstance(mc).getSeasonHudText());
                                  }
                                }, ALL);
