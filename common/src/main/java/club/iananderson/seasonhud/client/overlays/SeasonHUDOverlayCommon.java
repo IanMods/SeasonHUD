@@ -17,35 +17,35 @@ public class SeasonHUDOverlayCommon {
     float guiSize = (float) mc.getWindow().getGuiScale();
     int screenWidth = mc.getWindow().getGuiScaledWidth();
     int screenHeight = mc.getWindow().getGuiScaledHeight();
-    int offsetDim = 2;
     int x = 0;
     int y = 0;
-    int xOffset = (int) ((Config.hudX.get() + offsetDim) / guiSize);
-    int yOffset = (int) ((Config.hudY.get() + offsetDim) / guiSize);
+    int xOffset = Config.getHudX();
+    int yOffset = Config.getHudY();
     int stringWidth = mc.font.width(seasonCombined);
+    int stringHeight = mc.font.lineHeight;
 
-    if (Config.enableMod.get() && (CurrentMinimap.noMinimapLoaded() || (Services.MINIMAP.allMinimapsHidden()
-        && Config.showDefaultWhenMinimapHidden.get()))) {
-      switch (Config.hudLocation.get()) {
+    if (Config.getEnableMod() && (CurrentMinimap.noMinimapLoaded() || (Services.MINIMAP.allMinimapsHidden()
+        && Config.getShowDefaultWhenMinimapHidden()))) {
+      switch (Config.getHudLocation()) {
         case TOP_LEFT -> {
-          x = offsetDim;
-          y = offsetDim;
+          x = xOffset;
+          y = yOffset;
         }
         case TOP_CENTER -> {
           x = (screenWidth / 2) - (stringWidth / 2);
-          y = offsetDim;
+          y = yOffset;
         }
         case TOP_RIGHT -> {
-          x = screenWidth - stringWidth - offsetDim;
-          y = offsetDim;
+          x = screenWidth - stringWidth - xOffset;
+          y = yOffset;
         }
         case BOTTOM_LEFT -> {
-          x = offsetDim;
-          y = screenHeight - (2 * offsetDim);
+          x = xOffset;
+          y = screenHeight - stringHeight - yOffset;
         }
         case BOTTOM_RIGHT -> {
-          x = screenWidth - stringWidth - offsetDim;
-          y = screenHeight - (2 * offsetDim);
+          x = screenWidth - stringWidth - xOffset;
+          y = screenHeight - stringHeight - yOffset;
         }
       }
 
@@ -53,7 +53,7 @@ public class SeasonHUDOverlayCommon {
       if (Common.vanillaShouldDrawHud() && Calendar.calendarFound()) {
         seasonStack.pose().pushPose();
         seasonStack.pose().scale(1F, 1F, 1F);
-        seasonStack.drawString(mc.font, seasonCombined, x + xOffset, y + yOffset, 0xffffff);
+        seasonStack.drawString(mc.font, seasonCombined, x, y, 0xffffff);
         seasonStack.pose().popPose();
       }
     }

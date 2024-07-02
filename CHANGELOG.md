@@ -15,6 +15,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 ### Fixed
 
 - Made the season name color sliders not editable and grayed out if the "Season Name Color" is not enabled.
+- Fixed the bottom Hud location presets cutting off text.
 
 ## [1.8.9] - 2024-06-28
 
