@@ -13,6 +13,8 @@
   "menu.seasonhud.button.showMinimapHidden": "Mostrar quando o minimapa estiver oculto",
   "menu.seasonhud.button.journeyMapAboveMap": "Mostrar acima do minimapa",
   "menu.seasonhud.button.journeyMapMacOS": "Tela retina do macOS",
+  "menu.seasonhud.slider.xoffset": "X Offset: ",
+  "menu.seasonhud.slider.yoffset": "Y Offset: ",
   "menu.seasonhud.color.title": "SeasonHUD Colors",
   "menu.seasonhud.color.button.enableSeasonNameColor": "Season Name Color",
   "menu.seasonhud.color.button.default": "Default",

@@ -13,6 +13,8 @@
   "menu.seasonhud.button.showMinimapHidden": "当小地图隐藏时显示",
   "menu.seasonhud.button.journeyMapAboveMap": "在小地图上方显示",
   "menu.seasonhud.button.journeyMapMacOS": "macOS Retina 显示器",
+  "menu.seasonhud.slider.xoffset": "X Offset: ",
+  "menu.seasonhud.slider.yoffset": "Y Offset: ",
   "menu.seasonhud.color.title": "SeasonHUD Colors",
   "menu.seasonhud.color.button.enableSeasonNameColor": "Season Name Color",
   "menu.seasonhud.color.button.default": "Default",
