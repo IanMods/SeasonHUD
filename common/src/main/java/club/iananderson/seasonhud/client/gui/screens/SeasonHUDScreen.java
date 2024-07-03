@@ -4,13 +4,16 @@ import club.iananderson.seasonhud.client.gui.Location;
 import club.iananderson.seasonhud.client.gui.ShowDay;
 import club.iananderson.seasonhud.client.gui.components.buttons.MenuButton;
 import club.iananderson.seasonhud.client.gui.components.buttons.MenuButton.MenuButtons;
+import club.iananderson.seasonhud.client.gui.components.sliders.BasicSlider;
 import club.iananderson.seasonhud.config.Config;
+import club.iananderson.seasonhud.impl.seasons.CurrentSeason;
 import club.iananderson.seasonhud.platform.Services;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.components.CycleButton;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.MutableComponent;
 import org.jetbrains.annotations.NotNull;
 
 public class SeasonHUDScreen extends Screen {
@@ -22,6 +25,8 @@ public class SeasonHUDScreen extends Screen {
   private static final Component TITLE = Component.translatable("menu.seasonhud.title");
   private static final Component JOURNEYMAP = Component.translatable("menu.seasonhud.journeymap");
   private static final SeasonHUDScreen instance = new SeasonHUDScreen();
+  private BasicSlider xOffsetSlider;
+  private BasicSlider yOffsetSlider;
 
   public SeasonHUDScreen() {
     super(TITLE);
@@ -36,7 +41,8 @@ public class SeasonHUDScreen extends Screen {
   }
 
   private void onDone() {
-    Minecraft.getInstance().options.save();
+    Config.setHudX(xOffsetSlider.getValueInt());
+    Config.setHudY(yOffsetSlider.getValueInt());
     Minecraft.getInstance().setScreen(null);
   }
 
@@ -61,6 +67,8 @@ public class SeasonHUDScreen extends Screen {
     int rightButtonX = (this.width / 2) + PADDING;
     int buttonStartY = MENU_PADDING_FULL;
     int yOffset = BUTTON_HEIGHT + PADDING;
+    Minecraft mc = Minecraft.getInstance();
+    MutableComponent seasonCombined = CurrentSeason.getInstance(mc).getSeasonHudText();
 
     //Buttons
     MenuButton doneButton = new MenuButton(this.width / 2 - BUTTON_WIDTH / 2, (this.height - BUTTON_HEIGHT - PADDING),
@@ -87,12 +95,17 @@ public class SeasonHUDScreen extends Screen {
                                                                  "menu.seasonhud.button.hudLocation"),
                                                                  (b, location) -> Config.setHudLocation(location));
 
-    CycleButton<Boolean> showTropicalSeasonButton = CycleButton.onOffBuilder(Config.getShowTropicalSeason())
-                                                               .create(rightButtonX, (buttonStartY + (row * yOffset)),
-                                                                       BUTTON_WIDTH, BUTTON_HEIGHT,
-                                                                       Component.translatable(
-                                                                           "menu.seasonhud.button.showTropicalSeason"),
-                                                                       (b, Off) -> Config.setShowTropicalSeason(Off));
+    xOffsetSlider = new BasicSlider(rightButtonX, (buttonStartY + (row * yOffset)),
+                                    BUTTON_WIDTH / 2 - BasicSlider.SLIDER_PADDING, BUTTON_HEIGHT,
+                                    Component.translatable("menu.seasonhud.slider.xoffset"), 0,
+                                    mc.getWindow().getGuiScaledWidth() - mc.font.width(seasonCombined),
+                                    Config.getHudX(), Config.defaultXOffset, true);
+
+    yOffsetSlider = new BasicSlider(rightButtonX + BUTTON_WIDTH / 2 + BasicSlider.SLIDER_PADDING,
+                                    (buttonStartY + (row * yOffset)), BUTTON_WIDTH / 2 - BasicSlider.SLIDER_PADDING,
+                                    BUTTON_HEIGHT, Component.translatable("menu.seasonhud.slider.yoffset"), 0,
+                                    mc.getWindow().getGuiScaledHeight() - mc.font.lineHeight, Config.getHudY(),
+                                    Config.defaultYOffset, true);
 
     row += 1;
     CycleButton<ShowDay> showDayButton = CycleButton.builder(ShowDay::getDayDisplayName).withValues(ShowDay.getValues())
@@ -107,22 +120,19 @@ public class SeasonHUDScreen extends Screen {
                                                                   BUTTON_WIDTH, BUTTON_HEIGHT, Component.translatable(
                                                                   "menu.seasonhud.button.showSubSeason"),
                                                                   (b, Off) -> Config.setShowSubSeason(Off));
-
     row += 1;
+    CycleButton<Boolean> showTropicalSeasonButton = CycleButton.onOffBuilder(Config.getShowTropicalSeason())
+                                                               .create(leftButtonX, (buttonStartY + (row * yOffset)),
+                                                                       BUTTON_WIDTH, BUTTON_HEIGHT,
+                                                                       Component.translatable(
+                                                                           "menu.seasonhud.button.showTropicalSeason"),
+                                                                       (b, Off) -> Config.setShowTropicalSeason(Off));
+
     CycleButton<Boolean> needCalendarButton = CycleButton.onOffBuilder(Config.getNeedCalendar())
-                                                         .create(leftButtonX, (buttonStartY + (row * yOffset)),
+                                                         .create(rightButtonX, (buttonStartY + (row * yOffset)),
                                                                  BUTTON_WIDTH, BUTTON_HEIGHT, Component.translatable(
                                                                  "menu.seasonhud.button.needCalendar"),
                                                                  (b, Off) -> Config.setNeedCalendar(Off));
-
-    CycleButton<Boolean> enableMinimapIntegrationButton = CycleButton.onOffBuilder(Config.getEnableMinimapIntegration())
-                                                                     .create(rightButtonX,
-                                                                             (buttonStartY + (row * yOffset)),
-                                                                             BUTTON_WIDTH, BUTTON_HEIGHT,
-                                                                             Component.translatable(
-                                                                                 "menu.seasonhud.button.enableMinimapIntegration"),
-                                                                             (b, Off) -> Config.setEnableMinimapIntegration(
-                                                                                 Off));
 
     row += 1;
     CycleButton<Boolean> showMinimapHiddenButton = CycleButton.onOffBuilder(Config.getShowDefaultWhenMinimapHidden())
@@ -132,6 +142,15 @@ public class SeasonHUDScreen extends Screen {
                                                                           "menu.seasonhud.button.showMinimapHidden"),
                                                                       (b, Off) -> Config.setShowDefaultWhenMinimapHidden(
                                                                           Off));
+
+    CycleButton<Boolean> enableMinimapIntegrationButton = CycleButton.onOffBuilder(Config.getEnableMinimapIntegration())
+                                                                     .create(rightButtonX,
+                                                                             (buttonStartY + (row * yOffset)),
+                                                                             BUTTON_WIDTH, BUTTON_HEIGHT,
+                                                                             Component.translatable(
+                                                                                 "menu.seasonhud.button.enableMinimapIntegration"),
+                                                                             (b, Off) -> Config.setEnableMinimapIntegration(
+                                                                                 Off));
 
     if (Services.PLATFORM.isModLoaded("journeymap")) {
       row += 2;
@@ -154,14 +173,16 @@ public class SeasonHUDScreen extends Screen {
     }
 
     this.addRenderableWidget(enableModButton);
-    this.addRenderableWidget(hudLocationButton);
-    this.addRenderableWidget(showTropicalSeasonButton);
-    this.addRenderableWidget(showSubSeasonButton);
-    this.addRenderableWidget(showDayButton);
-    this.addRenderableWidget(needCalendarButton);
-    this.addRenderableWidget(enableMinimapIntegrationButton);
-    this.addRenderableWidget(showMinimapHiddenButton);
     this.addRenderableWidget(seasonhudColors);
+    this.addRenderableWidget(hudLocationButton);
+    this.addRenderableWidget(xOffsetSlider);
+    this.addRenderableWidget(yOffsetSlider);
+    this.addRenderableWidget(showDayButton);
+    this.addRenderableWidget(showSubSeasonButton);
+    this.addRenderableWidget(showTropicalSeasonButton);
+    this.addRenderableWidget(needCalendarButton);
+    this.addRenderableWidget(showMinimapHiddenButton);
+    this.addRenderableWidget(enableMinimapIntegrationButton);
     this.addRenderableWidget(doneButton);
   }
 
