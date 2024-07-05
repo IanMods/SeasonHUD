@@ -28,6 +28,7 @@ import org.jetbrains.annotations.NotNull;
 public class ColorScreen extends Screen {
   public static final int WIDGET_PADDING = 6;
   private static final int MENU_PADDING_FULL = 25;
+  private static final int TITLE_PADDING = 10;
   private static final int BUTTON_WIDTH = 150;
   private static final int BUTTON_HEIGHT = 20;
   private static final Component TITLE = Component.translatable("menu.seasonhud.color.title");
@@ -63,14 +64,6 @@ public class ColorScreen extends Screen {
     return set;
   }
 
-  public int getWidth() {
-    return Minecraft.getInstance().getWindow().getGuiScaledWidth();
-  }
-
-  public int getHeight() {
-    return Minecraft.getInstance().getWindow().getGuiScaledHeight();
-  }
-
   private void onDone() {
     seasonBoxes.forEach(seasonBoxes -> {
       if (Integer.parseInt(seasonBoxes.getValue()) != seasonBoxes.getColor()) {
@@ -83,6 +76,14 @@ public class ColorScreen extends Screen {
 
   private void onCancel() {
     Minecraft.getInstance().setScreen(this.lastScreen);
+  }
+
+  public int getWidth() {
+    return Minecraft.getInstance().getWindow().getGuiScaledWidth();
+  }
+
+  public int getHeight() {
+    return Minecraft.getInstance().getWindow().getGuiScaledHeight();
   }
 
   public int getBoxWidth() {
@@ -98,6 +99,18 @@ public class ColorScreen extends Screen {
     }
 
     return boxWidth;
+  }
+
+  public List<ColorEditBox> getSeasonBoxes() {
+    return seasonBoxes;
+  }
+
+  public List<RgbSlider> getColorSliders() {
+    return colorSliders;
+  }
+
+  public List<DefaultColorButton> getDefaultColorButtons() {
+    return defaultColorButtons;
   }
 
   private List<AbstractWidget> seasonWidget(int x, int y, SeasonList season) {
@@ -146,7 +159,7 @@ public class ColorScreen extends Screen {
   @Override
   public void render(@NotNull GuiGraphics graphics, int mouseX, int mouseY, float partialTicks) {
     this.renderBackground(graphics);
-    graphics.drawCenteredString(font, TITLE, getWidth() / 2, WIDGET_PADDING, 16777215);
+    graphics.drawCenteredString(font, TITLE, getWidth() / 2, TITLE_PADDING, 16777215);
     super.render(graphics, mouseX, mouseY, partialTicks);
   }
 

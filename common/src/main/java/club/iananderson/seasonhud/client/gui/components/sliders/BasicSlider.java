@@ -17,7 +17,6 @@ public class BasicSlider extends AbstractSliderButton {
   public Component suffix;
   public double minValue;
   public double maxValue;
-  public double defaultValue;
   public double stepSize;
   public boolean drawString;
   public boolean canChangeValue;
@@ -57,16 +56,9 @@ public class BasicSlider extends AbstractSliderButton {
     this.updateMessage();
   }
 
-  public BasicSlider(int x, int y, int width, int height, double initial, double minValue, double maxValue) {
-    this(x, y, width, height, initial);
-    this.minValue = minValue;
-    this.maxValue = maxValue;
-  }
-
   public BasicSlider(int x, int y, int width, int height, Component prefix, double minValue, double maxValue,
-      double currentValue, double defaultValue, boolean drawString) {
+      double currentValue, boolean drawString) {
     this(x, y, width, height, 0.0, prefix, Component.empty(), minValue, maxValue, currentValue, 1.0, 0, drawString);
-    this.defaultValue = defaultValue;
   }
 
   public int getTextureY() {
@@ -108,26 +100,8 @@ public class BasicSlider extends AbstractSliderButton {
     this.setSliderValue((mouseX - (double) (this.getX() + 4)) / (double) (this.width - 8));
   }
 
-  public boolean mouseClicked(double mouseX, double mouseY, int mouseButton) {
-    if (this.active && this.visible) {
-      if (mouseButton == 1) {
-        boolean bl = this.clicked(mouseX, mouseY);
-        if (bl) {
-          this.playDownSound(Minecraft.getInstance().getSoundManager());
-          this.onRightClick(mouseX, mouseY);
-        }
-
-      }
-    }
-    return super.mouseClicked(mouseX, mouseY, mouseButton);
-  }
-
   public void onClick(double mouseX, double mouseY) {
     this.setValueFromMouse(mouseX);
-  }
-
-  public void onRightClick(double mouseX, double mouseY) {
-    this.setValue(defaultValue);
   }
 
   protected void onDrag(double mouseX, double mouseY, double dragX, double dragY) {

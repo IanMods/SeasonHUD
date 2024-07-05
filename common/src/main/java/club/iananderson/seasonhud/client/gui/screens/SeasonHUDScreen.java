@@ -5,6 +5,7 @@ import club.iananderson.seasonhud.client.gui.ShowDay;
 import club.iananderson.seasonhud.client.gui.components.buttons.MenuButton;
 import club.iananderson.seasonhud.client.gui.components.buttons.MenuButton.MenuButtons;
 import club.iananderson.seasonhud.client.gui.components.sliders.BasicSlider;
+import club.iananderson.seasonhud.client.gui.components.sliders.HudOffsetSlider;
 import club.iananderson.seasonhud.config.Config;
 import club.iananderson.seasonhud.impl.seasons.CurrentSeason;
 import club.iananderson.seasonhud.platform.Services;
@@ -17,9 +18,9 @@ import net.minecraft.network.chat.MutableComponent;
 import org.jetbrains.annotations.NotNull;
 
 public class SeasonHUDScreen extends Screen {
-
-  private static final int MENU_PADDING_FULL = 50;
-  private static final int PADDING = 4;
+  private static final int MENU_PADDING = 50;
+  private static final int TITLE_PADDING = 10;
+  private static final int BUTTON_PADDING = 4;
   private static final int BUTTON_WIDTH = 180;
   private static final int BUTTON_HEIGHT = 20;
   private static final Component TITLE = Component.translatable("menu.seasonhud.title");
@@ -49,12 +50,12 @@ public class SeasonHUDScreen extends Screen {
   @Override
   public void render(@NotNull GuiGraphics stack, int mouseX, int mouseY, float partialTicks) {
     this.renderBackground(stack);
-    stack.drawCenteredString(font, TITLE, this.width / 2, PADDING, 16777215);
+    stack.drawCenteredString(font, TITLE, this.width / 2, TITLE_PADDING, 16777215);
 
     if (Services.PLATFORM.isModLoaded("journeymap")) {
       stack.drawCenteredString(font, JOURNEYMAP, this.width / 2,
-                               MENU_PADDING_FULL + (6 * (BUTTON_HEIGHT + PADDING)) - (font.lineHeight + PADDING),
-                               16777215);
+                               MENU_PADDING + (6 * (BUTTON_HEIGHT + BUTTON_PADDING)) - (font.lineHeight
+                                   + BUTTON_PADDING), 16777215);
     }
 
     super.render(stack, mouseX, mouseY, partialTicks);
@@ -63,16 +64,17 @@ public class SeasonHUDScreen extends Screen {
   @Override
   public void init() {
     super.init();
-    int leftButtonX = (this.width / 2) - (BUTTON_WIDTH + PADDING);
-    int rightButtonX = (this.width / 2) + PADDING;
-    int buttonStartY = MENU_PADDING_FULL;
-    int yOffset = BUTTON_HEIGHT + PADDING;
+    int leftButtonX = (this.width / 2) - (BUTTON_WIDTH + BUTTON_PADDING);
+    int rightButtonX = (this.width / 2) + BUTTON_PADDING;
+    int buttonStartY = MENU_PADDING;
+    int yOffset = BUTTON_HEIGHT + BUTTON_PADDING;
     Minecraft mc = Minecraft.getInstance();
     MutableComponent seasonCombined = CurrentSeason.getInstance(mc).getSeasonHudText();
 
     //Buttons
-    MenuButton doneButton = new MenuButton(this.width / 2 - BUTTON_WIDTH / 2, (this.height - BUTTON_HEIGHT - PADDING),
-                                           BUTTON_WIDTH, BUTTON_HEIGHT, MenuButtons.DONE, press -> onDone());
+    MenuButton doneButton = new MenuButton(this.width / 2 - BUTTON_WIDTH / 2,
+                                           (this.height - BUTTON_HEIGHT - BUTTON_PADDING), BUTTON_WIDTH, BUTTON_HEIGHT,
+                                           MenuButtons.DONE, press -> onDone());
 
     int row = 0;
     CycleButton<Boolean> enableModButton = CycleButton.onOffBuilder(Config.getEnableMod())
@@ -95,17 +97,17 @@ public class SeasonHUDScreen extends Screen {
                                                                  "menu.seasonhud.button.hudLocation"),
                                                                  (b, location) -> Config.setHudLocation(location));
 
-    xOffsetSlider = new BasicSlider(rightButtonX, (buttonStartY + (row * yOffset)),
-                                    BUTTON_WIDTH / 2 - BasicSlider.SLIDER_PADDING, BUTTON_HEIGHT,
-                                    Component.translatable("menu.seasonhud.slider.xoffset"), 0,
-                                    mc.getWindow().getGuiScaledWidth() - mc.font.width(seasonCombined),
-                                    Config.getHudX(), Config.defaultXOffset, true);
+    xOffsetSlider = new HudOffsetSlider(rightButtonX, (buttonStartY + (row * yOffset)),
+                                        BUTTON_WIDTH / 2 - BasicSlider.SLIDER_PADDING, BUTTON_HEIGHT,
+                                        Component.translatable("menu.seasonhud.slider.xoffset"), 0,
+                                        mc.getWindow().getGuiScaledWidth() - mc.font.width(seasonCombined),
+                                        Config.getHudX(), Config.defaultXOffset, true);
 
-    yOffsetSlider = new BasicSlider(rightButtonX + BUTTON_WIDTH / 2 + BasicSlider.SLIDER_PADDING,
-                                    (buttonStartY + (row * yOffset)), BUTTON_WIDTH / 2 - BasicSlider.SLIDER_PADDING,
-                                    BUTTON_HEIGHT, Component.translatable("menu.seasonhud.slider.yoffset"), 0,
-                                    mc.getWindow().getGuiScaledHeight() - mc.font.lineHeight, Config.getHudY(),
-                                    Config.defaultYOffset, true);
+    yOffsetSlider = new HudOffsetSlider(rightButtonX + BUTTON_WIDTH / 2 + BasicSlider.SLIDER_PADDING,
+                                        (buttonStartY + (row * yOffset)), BUTTON_WIDTH / 2 - BasicSlider.SLIDER_PADDING,
+                                        BUTTON_HEIGHT, Component.translatable("menu.seasonhud.slider.yoffset"), 0,
+                                        mc.getWindow().getGuiScaledHeight() - mc.font.lineHeight, Config.getHudY(),
+                                        Config.defaultYOffset, true);
 
     row += 1;
     CycleButton<ShowDay> showDayButton = CycleButton.builder(ShowDay::getDayDisplayName).withValues(ShowDay.getValues())
