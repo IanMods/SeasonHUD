@@ -1,7 +1,7 @@
 package club.iananderson.seasonhud.client.gui.components.buttons;
 
 import club.iananderson.seasonhud.client.gui.components.boxes.ColorEditBox;
-import club.iananderson.seasonhud.impl.seasons.SeasonList;
+import club.iananderson.seasonhud.impl.seasons.Seasons;
 import club.iananderson.seasonhud.util.DrawUtil;
 import club.iananderson.seasonhud.util.Rgb;
 import java.util.HashMap;
@@ -14,7 +14,7 @@ import net.minecraft.network.chat.FormattedText;
 import org.jetbrains.annotations.NotNull;
 
 public class DefaultColorButton extends Button {
-  private static final Component DEFAULT = Component.translatable("menu.seasonhud.color.button.default");
+  private static final Component DEFAULT = Component.translatable("menu.seasonhud.button.color.default");
   private ColorEditBox colorEditBox;
   private int defaultColor;
 
@@ -22,7 +22,7 @@ public class DefaultColorButton extends Button {
     super(x, y, width, height, DefaultColorButton.DEFAULT, onPress, DEFAULT_NARRATION);
   }
 
-  public DefaultColorButton(int x, int y, SeasonList season, ColorEditBox colorEditBox, OnPress onPress) {
+  public DefaultColorButton(int x, int y, Seasons season, ColorEditBox colorEditBox, OnPress onPress) {
     this(x, y, colorEditBox.getWidth() + 2, colorEditBox.getHeight() - 2, onPress);
     this.colorEditBox = colorEditBox;
     this.defaultColor = season.getDefaultColor();

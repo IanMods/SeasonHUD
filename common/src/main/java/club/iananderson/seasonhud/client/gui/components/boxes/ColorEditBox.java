@@ -3,7 +3,7 @@ package club.iananderson.seasonhud.client.gui.components.boxes;
 import club.iananderson.seasonhud.client.gui.screens.ColorScreen;
 import club.iananderson.seasonhud.config.Config;
 import club.iananderson.seasonhud.impl.seasons.CurrentSeason;
-import club.iananderson.seasonhud.impl.seasons.SeasonList;
+import club.iananderson.seasonhud.impl.seasons.Seasons;
 import club.iananderson.seasonhud.platform.Services;
 import club.iananderson.seasonhud.util.Rgb;
 import java.util.EnumSet;
@@ -17,11 +17,11 @@ import org.jetbrains.annotations.NotNull;
 public class ColorEditBox extends EditBox {
 
   private static final int PADDING = 4;
-  private final SeasonList boxSeason;
+  private final Seasons boxSeason;
   private final int seasonColor;
   private int newSeasonColor;
 
-  public ColorEditBox(Font font, int x, int y, int width, int height, SeasonList season) {
+  public ColorEditBox(Font font, int x, int y, int width, int height, Seasons season) {
     super(font, x, y, width, height, season.getSeasonName());
     this.boxSeason = season;
     this.seasonColor = season.getSeasonColor();
@@ -47,12 +47,12 @@ public class ColorEditBox extends EditBox {
     this.setEditable(Config.getEnableSeasonNameColor());
   }
 
-  private static EnumSet<SeasonList> seasonListSet() {
-    EnumSet<SeasonList> set = SeasonList.seasons.clone();
+  private static EnumSet<Seasons> seasonListSet() {
+    EnumSet<Seasons> set = Seasons.seasons.clone();
 
     if (!Config.getShowTropicalSeason() || !Services.PLATFORM.getPlatformName().equals("Forge")) {
-      set.remove(SeasonList.DRY);
-      set.remove(SeasonList.WET);
+      set.remove(Seasons.DRY);
+      set.remove(Seasons.WET);
     }
 
     return set;
@@ -87,7 +87,7 @@ public class ColorEditBox extends EditBox {
     return this.newSeasonColor;
   }
 
-  public SeasonList getSeason() {
+  public Seasons getSeason() {
     return this.boxSeason;
   }
 

@@ -1,6 +1,6 @@
 package club.iananderson.seasonhud.util;
 
-import club.iananderson.seasonhud.impl.seasons.SeasonList;
+import club.iananderson.seasonhud.impl.seasons.Seasons;
 import java.awt.Color;
 import java.util.HashMap;
 
@@ -17,7 +17,7 @@ public class Rgb {
     return rgbMap;
   }
 
-  public static HashMap<String, Integer> defaultSeasonMap(SeasonList season) {
+  public static HashMap<String, Integer> defaultSeasonMap(Seasons season) {
     HashMap<String, Integer> defaultRgbMap = new HashMap<>();
 
     int rgb = season.getDefaultColor();
@@ -38,45 +38,45 @@ public class Rgb {
     return new Color(rgb);
   }
 
-  public static void setRgb(SeasonList season, int rgb) {
+  public static void setRgb(Seasons season, int rgb) {
     season.getRgbMap().put("r", rgbColor(rgb).getRed());
     season.getRgbMap().put("g", rgbColor(rgb).getGreen());
     season.getRgbMap().put("b", rgbColor(rgb).getBlue());
     season.getRgbMap().put("rgb", rgb);
   }
 
-  public static void setRgb(SeasonList season, int r, int g, int b) {
+  public static void setRgb(Seasons season, int r, int g, int b) {
     season.getRgbMap().put("r", r);
     season.getRgbMap().put("g", g);
     season.getRgbMap().put("b", b);
     season.getRgbMap().put("rgb", rgbInt(r, g, b));
   }
 
-  public static int getRgb(SeasonList season) {
+  public static int getRgb(Seasons season) {
     return season.getRgbMap().get("rgb");
   }
 
-  public static int getRed(SeasonList season) {
+  public static int getRed(Seasons season) {
     return season.getRgbMap().get("r");
   }
 
-  public static int getGreen(SeasonList season) {
+  public static int getGreen(Seasons season) {
     return season.getRgbMap().get("g");
   }
 
-  public static int getBlue(SeasonList season) {
+  public static int getBlue(Seasons season) {
     return season.getRgbMap().get("b");
   }
 
-  public static void setRed(SeasonList season) {
+  public static void setRed(Seasons season) {
     season.getRgbMap().get("r");
   }
 
-  public static void setGreen(SeasonList season) {
+  public static void setGreen(Seasons season) {
     season.getRgbMap().get("g");
   }
 
-  public static void setBlue(SeasonList season) {
+  public static void setBlue(Seasons season) {
     season.getRgbMap().get("b");
   }
 }

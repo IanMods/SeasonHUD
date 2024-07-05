@@ -6,13 +6,13 @@ import java.util.List;
 import net.minecraft.network.chat.Component;
 
 public enum ShowDay {
-  NONE(0, "none", "desc.seasonhud.summary"),
+  NONE(0, "none", "desc.seasonhud.hud.summary"),
 
-  SHOW_DAY(1, "showDay", "desc.seasonhud.detailed"),
+  SHOW_DAY(1, "showDay", "desc.seasonhud.hud.detailed"),
 
-  SHOW_WITH_TOTAL_DAYS(2, "totalDays", "desc.seasonhud.detailed.total"),
+  SHOW_WITH_TOTAL_DAYS(2, "totalDays", "desc.seasonhud.hud.detailed.total"),
 
-  SHOW_WITH_MONTH(3, "showMonth", "desc.seasonhud.month");
+  SHOW_WITH_MONTH(3, "showMonth", "desc.seasonhud.hud.month");
 
   private final int idNum;
   private final String currentDayDisplay;

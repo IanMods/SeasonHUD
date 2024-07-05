@@ -6,26 +6,26 @@ import java.util.EnumSet;
 import java.util.HashMap;
 import net.minecraft.network.chat.Component;
 
-public enum SeasonList {
-  SPRING(0, Component.translatable("desc.seasonhud.spring"), "spring", "\uEA00", Config.defaultSpringColor,
+public enum Seasons {
+  SPRING(0, Component.translatable("desc.seasonhud.season.spring"), "spring", "\uEA00", Config.defaultSpringColor,
          Config.getSpringColor(), Rgb.seasonMap(Config.getSpringColor())),
 
-  SUMMER(1, Component.translatable("desc.seasonhud.summer"), "summer", "\uEA01", Config.defaultSummerColor,
+  SUMMER(1, Component.translatable("desc.seasonhud.season.summer"), "summer", "\uEA01", Config.defaultSummerColor,
          Config.getSummerColor(), Rgb.seasonMap(Config.getSummerColor())),
 
-  AUTUMN(2, Component.translatable("desc.seasonhud.autumn"), "autumn", "\uEA02", Config.defaultAutumnColor,
+  AUTUMN(2, Component.translatable("desc.seasonhud.season.autumn"), "autumn", "\uEA02", Config.defaultAutumnColor,
          Config.getAutumnColor(), Rgb.seasonMap(Config.getAutumnColor())),
 
-  WINTER(3, Component.translatable("desc.seasonhud.winter"), "winter", "\uEA03", Config.defaultWinterColor,
+  WINTER(3, Component.translatable("desc.seasonhud.season.winter"), "winter", "\uEA03", Config.defaultWinterColor,
          Config.getWinterColor(), Rgb.seasonMap(Config.getWinterColor())),
 
-  DRY(4, Component.translatable("desc.seasonhud.dry"), "dry", "\uEA04", Config.defaultDryColor, Config.getDryColor(),
-      Rgb.seasonMap(Config.getDryColor())),
+  DRY(4, Component.translatable("desc.seasonhud.season.dry"), "dry", "\uEA04", Config.defaultDryColor,
+      Config.getDryColor(), Rgb.seasonMap(Config.getDryColor())),
 
-  WET(5, Component.translatable("desc.seasonhud.wet"), "wet", "\uEA05", Config.defaultWetColor, Config.getWetColor(),
-      Rgb.seasonMap(Config.getWetColor()));
+  WET(5, Component.translatable("desc.seasonhud.season.wet"), "wet", "\uEA05", Config.defaultWetColor,
+      Config.getWetColor(), Rgb.seasonMap(Config.getWetColor()));
 
-  public static final EnumSet<SeasonList> seasons = EnumSet.allOf(SeasonList.class);
+  public static final EnumSet<Seasons> seasons = EnumSet.allOf(Seasons.class);
   private final int id;
   private final Component seasonName;
   private final String seasonFileName;
@@ -34,7 +34,7 @@ public enum SeasonList {
   private final HashMap<String, Integer> rgbMap;
   private int seasonColor;
 
-  SeasonList(int id, Component seasonName, String fileName, String iconChar, int defaultColor, int seasonColor,
+  Seasons(int id, Component seasonName, String fileName, String iconChar, int defaultColor, int seasonColor,
       HashMap<String, Integer> rgbMap) {
     this.id = id;
     this.seasonName = seasonName;
@@ -66,7 +66,7 @@ public enum SeasonList {
   }
 
   public void setSeasonColor(int rgbColor) {
-    SeasonList season = this;
+    Seasons season = this;
     this.seasonColor = rgbColor;
 
     switch (season) {

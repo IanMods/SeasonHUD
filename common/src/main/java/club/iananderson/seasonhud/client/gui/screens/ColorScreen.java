@@ -9,7 +9,7 @@ import club.iananderson.seasonhud.client.gui.components.sliders.GreenSlider;
 import club.iananderson.seasonhud.client.gui.components.sliders.RedSlider;
 import club.iananderson.seasonhud.client.gui.components.sliders.RgbSlider;
 import club.iananderson.seasonhud.config.Config;
-import club.iananderson.seasonhud.impl.seasons.SeasonList;
+import club.iananderson.seasonhud.impl.seasons.Seasons;
 import club.iananderson.seasonhud.platform.Services;
 import club.iananderson.seasonhud.util.Rgb;
 import java.util.ArrayList;
@@ -31,9 +31,9 @@ public class ColorScreen extends Screen {
   private static final int TITLE_PADDING = 10;
   private static final int BUTTON_WIDTH = 150;
   private static final int BUTTON_HEIGHT = 20;
-  private static final Component TITLE = Component.translatable("menu.seasonhud.color.title");
+  private static final Component TITLE = Component.translatable("menu.seasonhud.title.color");
   private static final Component ENABLE_SEASON_NAME_COLOR = Component.translatable(
-      "menu.seasonhud.color.button.enableSeasonNameColor");
+      "menu.seasonhud.button.color.enableSeasonNameColor");
   public static MenuButton doneButton;
   private final Screen lastScreen;
   private final List<ColorEditBox> seasonBoxes = new ArrayList<>();
@@ -53,12 +53,12 @@ public class ColorScreen extends Screen {
     Minecraft.getInstance().setScreen(new ColorScreen(screen));
   }
 
-  private static EnumSet<SeasonList> seasonListSet() {
-    EnumSet<SeasonList> set = SeasonList.seasons.clone();
+  private static EnumSet<Seasons> seasonListSet() {
+    EnumSet<Seasons> set = Seasons.seasons.clone();
 
     if (!Config.getShowTropicalSeason() || !Services.PLATFORM.getPlatformName().equals("Forge")) {
-      set.remove(SeasonList.DRY);
-      set.remove(SeasonList.WET);
+      set.remove(Seasons.DRY);
+      set.remove(Seasons.WET);
     }
 
     return set;
@@ -113,7 +113,7 @@ public class ColorScreen extends Screen {
     return defaultColorButtons;
   }
 
-  private List<AbstractWidget> seasonWidget(int x, int y, SeasonList season) {
+  private List<AbstractWidget> seasonWidget(int x, int y, Seasons season) {
     ColorEditBox colorBox;
     RedSlider redSlider;
     GreenSlider greenSlider;

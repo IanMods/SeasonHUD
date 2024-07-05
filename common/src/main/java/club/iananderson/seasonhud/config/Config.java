@@ -49,8 +49,7 @@ public class Config {
     enableMod = BUILDER.comment("Enable the mod?\n" + "(true/false)\n" + "Default is true.").define("enable_mod", true);
 
     BUILDER.push("HUD");
-    hudLocation = BUILDER.comment(
-                             "Part of the screen to display the HUD when no minimap is installed\n" + "Default is TOP_LEFT.")
+    hudLocation = BUILDER.comment("Where to display the Hud when no minimap is installed.\n" + "Default is TOP_LEFT.")
                          .defineEnum("hud_location", Location.TOP_LEFT);
 
     hudX = BUILDER.comment(
@@ -93,7 +92,7 @@ public class Config {
 
     BUILDER.push("Season");
     needCalendar = BUILDER.comment(
-        "Require the Calendar item to be in the players inventory to show the HUD?\n" + "(true/false)\n"
+        "Require the calendar item to be in the players inventory to show the HUD?\n" + "(true/false)\n"
             + "Default is false.").define("need_calendar", false);
 
     showTropicalSeason = BUILDER.comment("Show the Tropical seasons (Wet/Dry) in Tropical Biomes.\n"
@@ -105,7 +104,7 @@ public class Config {
             + " Default is true.").define("enable_show_sub_season", true);
 
     if (Common.platformName().equals("Forge")) {
-      showDay = BUILDER.comment("Show the current day of the season/sub-season?\n" + "Default is SHOW_DAY.")
+      showDay = BUILDER.comment("Show the day of the current Season/Sub-Season?\n" + "Default is SHOW_DAY.")
                        .defineEnum("enable_show_day", ShowDay.SHOW_DAY,
                                    Arrays.asList(ShowDay.NONE, ShowDay.SHOW_DAY, ShowDay.SHOW_WITH_TOTAL_DAYS));
     }
@@ -129,8 +128,8 @@ public class Config {
 
     BUILDER.push("Journeymap");
     journeyMapAboveMap = BUILDER.comment(
-                                    " Show above the JourneyMap minimap, instead of below.\n" + "(true/false)\n" + "Default is false.")
-                                .define("enable_above_map", false);
+        "Display the season above the JourneyMap minimap, instead of below.\n" + "(true" + "/false)\n"
+            + "Default is false.").define("enable_above_map", false);
 
     journeyMapMacOS = BUILDER.comment("Toggle for macOS retina display scaling when using JourneyMap.\n"
                                           + "Enable if the season line is rendering around the halfway point of the screen.\n"

@@ -38,7 +38,8 @@ public class CurrentSeason {
   //Convert Season to lower case (for localized names)
   public String getSeasonStateLower() {
     if (Config.getShowSubSeason()) {
-      return currentSubSeason.toLowerCase();
+      String lowerSubSeason = currentSubSeason.toLowerCase();
+      return currentSeason.toLowerCase() + "." + lowerSubSeason.substring(0, lowerSubSeason.indexOf("_"));
     } else {
       return currentSeason.toLowerCase();
     }
@@ -46,7 +47,7 @@ public class CurrentSeason {
 
   //Get the current season and match it to the icon for the font
   public String getSeasonIcon() {
-    for (SeasonList season : SeasonList.values()) {
+    for (Seasons season : Seasons.values()) {
       if (season.getFileName().equals(seasonFileName)) {
         return season.getIconChar();
       }
@@ -56,7 +57,7 @@ public class CurrentSeason {
 
   //Localized name for the hud with icon
   public Component getText() {
-    Component season = Component.translatable("desc.seasonhud." + getSeasonStateLower());
+    Component season = Component.translatable("desc.seasonhud.season." + getSeasonStateLower());
 
     return switch (Config.getShowDay()) {
       case NONE -> Component.translatable(ShowDay.NONE.getKey(), season);
@@ -66,7 +67,7 @@ public class CurrentSeason {
       case SHOW_WITH_MONTH -> {
         if (Services.SEASON.isSeasonTiedWithSystemTime()) {
           String systemMonth = LocalDateTime.now().getMonth().name().toLowerCase();
-          Component currentMonth = Component.translatable("desc.seasonhud." + systemMonth);
+          Component currentMonth = Component.translatable("desc.seasonhud.month." + systemMonth);
 
           yield Component.translatable(ShowDay.SHOW_WITH_MONTH.getKey(), season, currentMonth, seasonDate);
         } else {
@@ -78,7 +79,7 @@ public class CurrentSeason {
 
   //Get the current season and match it to the icon for the font
   public int getTextColor() {
-    for (SeasonList season : SeasonList.values()) {
+    for (Seasons season : Seasons.values()) {
       if (season.getFileName().equals(seasonFileName)) {
         return season.getSeasonColor();
       }
@@ -87,42 +88,42 @@ public class CurrentSeason {
   }
 
   public MutableComponent getSeasonHudTextNoFormat() {
-    Component seasonIcon = Component.translatable("desc.seasonhud.icon", getSeasonIcon())
+    Component seasonIcon = Component.translatable("desc.seasonhud.hud.icon", getSeasonIcon())
                                     .withStyle(Common.SEASON_ICON_STYLE);
     MutableComponent seasonText = getText().copy();
 
-    return Component.translatable("desc.seasonhud.combined", seasonIcon, seasonText);
+    return Component.translatable("desc.seasonhud.hud.combined", seasonIcon, seasonText);
   }
 
   public MutableComponent getSeasonHudText() {
-    MutableComponent seasonIcon = Component.translatable("desc.seasonhud.icon", getSeasonIcon());
+    MutableComponent seasonIcon = Component.translatable("desc.seasonhud.hud.icon", getSeasonIcon());
     MutableComponent seasonText = getText().copy();
 
     if (Config.getEnableSeasonNameColor()) {
       SEASON_FORMAT = Style.EMPTY.withColor(getTextColor());
     }
 
-    return Component.translatable("desc.seasonhud.combined", seasonIcon.withStyle(Common.SEASON_ICON_STYLE),
+    return Component.translatable("desc.seasonhud.hud.combined", seasonIcon.withStyle(Common.SEASON_ICON_STYLE),
                                   seasonText.withStyle(SEASON_FORMAT));
   }
 
-  public MutableComponent getSeasonMenuText(SeasonList season, int newRgb, boolean seasonShort) {
-    MutableComponent seasonIcon = Component.translatable("desc.seasonhud.icon", season.getIconChar());
+  public MutableComponent getSeasonMenuText(Seasons season, int newRgb, boolean seasonShort) {
+    MutableComponent seasonIcon = Component.translatable("desc.seasonhud.hud.icon", season.getIconChar());
     MutableComponent seasonText = Component.translatable(ShowDay.NONE.getKey(), season.getSeasonName());
 
     if (Config.getEnableSeasonNameColor()) {
       SEASON_FORMAT = Style.EMPTY.withColor(newRgb);
     }
 
-    if (season == SeasonList.DRY && seasonShort) {
-      seasonText = Component.translatable("menu.seasonhud.color.editbox.dryColor");
+    if (season == Seasons.DRY && seasonShort) {
+      seasonText = Component.translatable("menu.seasonhud.editbox.color.dry");
     }
 
-    if (season == SeasonList.WET && seasonShort) {
-      seasonText = Component.translatable("menu.seasonhud.color.editbox.wetColor");
+    if (season == Seasons.WET && seasonShort) {
+      seasonText = Component.translatable("menu.seasonhud.editbox.color.wet");
     }
 
-    return Component.translatable("desc.seasonhud.combined", seasonIcon.withStyle(Common.SEASON_ICON_STYLE),
+    return Component.translatable("desc.seasonhud.hud.combined", seasonIcon.withStyle(Common.SEASON_ICON_STYLE),
                                   seasonText.withStyle(SEASON_FORMAT));
   }
 }

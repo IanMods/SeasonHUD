@@ -4,7 +4,13 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 
-## [1.9.0] - 2024-06-28
+## [1.9.0] - 2024-07-05
+
+### Added
+
+- Added tooltips to the options screen buttons
+- Added sliders for the Hud offset in the options screen
+  - Right click will set them back to default
 
 ### Changed
 
@@ -14,8 +20,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 
 ### Fixed
 
-- Made the season name color sliders not editable and grayed out if the "Season Name Color" is not enabled.
-- Fixed the bottom Hud location presets cutting off text.
+- Made the season name color sliders not editable and grayed out if the "Season Name Color" option is not enabled.
+- Fixed the bottom Hud location presets being too low and cutting off text.
 
 ## [1.8.9] - 2024-06-28
 

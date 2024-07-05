@@ -25,7 +25,7 @@ public class MenuButton extends Button {
 
     CANCEL(CommonComponents.GUI_CANCEL),
 
-    COLORS(Component.translatable("menu.seasonhud.color.title"));
+    COLORS(Component.translatable("menu.seasonhud.title.color"));
 
     private final Component buttonText;
 
