@@ -109,15 +109,15 @@ public class SeasonHUDScreen extends Screen {
 
     xOffsetSlider = new HudOffsetSlider(rightButtonX, (buttonStartY + (row * yOffset)),
                                         BUTTON_WIDTH / 2 - BasicSlider.SLIDER_PADDING, BUTTON_HEIGHT,
-                                        Component.translatable("menu.seasonhud.slider.xOffset"), 0,
+                                        Component.translatable("menu.seasonhud.slider.xOffset"), Config.getHudX(), 0,
                                         mc.getWindow().getGuiScaledWidth() - mc.font.width(seasonCombined),
-                                        Config.getHudX(), Config.defaultXOffset, true);
+                                        Config.defaultXOffset, true);
     xOffsetSlider.setTooltip(Tooltip.create(Component.translatable("menu.seasonhud.tooltip.xOffset")));
 
     yOffsetSlider = new HudOffsetSlider(rightButtonX + BUTTON_WIDTH / 2 + BasicSlider.SLIDER_PADDING,
                                         (buttonStartY + (row * yOffset)), BUTTON_WIDTH / 2 - BasicSlider.SLIDER_PADDING,
-                                        BUTTON_HEIGHT, Component.translatable("menu.seasonhud.slider.yOffset"), 0,
-                                        mc.getWindow().getGuiScaledHeight() - mc.font.lineHeight, Config.getHudY(),
+                                        BUTTON_HEIGHT, Component.translatable("menu.seasonhud" + ".slider.yOffset"),
+                                        Config.getHudY(), 0, mc.getWindow().getGuiScaledHeight() - mc.font.lineHeight,
                                         Config.defaultYOffset, true);
     yOffsetSlider.setTooltip(Tooltip.create(Component.translatable("menu.seasonhud.tooltip.yOffset")));
 
