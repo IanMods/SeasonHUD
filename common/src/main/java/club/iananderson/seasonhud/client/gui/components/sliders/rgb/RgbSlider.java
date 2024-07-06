@@ -1,6 +1,7 @@
-package club.iananderson.seasonhud.client.gui.components.sliders;
+package club.iananderson.seasonhud.client.gui.components.sliders.rgb;
 
 import club.iananderson.seasonhud.client.gui.components.boxes.ColorEditBox;
+import club.iananderson.seasonhud.client.gui.components.sliders.BasicSlider;
 import club.iananderson.seasonhud.config.Config;
 import club.iananderson.seasonhud.impl.seasons.Seasons;
 import club.iananderson.seasonhud.util.Rgb;
@@ -22,15 +23,17 @@ public class RgbSlider extends BasicSlider {
   public ChatFormatting textColor;
 
   public RgbSlider(int x, int y, ColorEditBox seasonBox) {
-    super(x, y, seasonBox.getWidth() + 2, seasonBox.getHeight() - 6, Integer.parseInt(seasonBox.getValue()));
+    super(x, y, seasonBox.getWidth() + 2, seasonBox.getHeight() - 6, Integer.parseInt(seasonBox.getValue()), true);
+    this.width = seasonBox.getWidth() + 2;
     this.minValue = 0;
     this.maxValue = 16777215;
+    this.seasonBox = seasonBox;
     this.season = seasonBox.getSeason();
     this.rgb = Integer.parseInt(seasonBox.getValue());
-    this.r = Rgb.rgbColor(this.rgb).getRed();
-    this.g = Rgb.rgbColor(this.rgb).getGreen();
-    this.b = Rgb.rgbColor(this.rgb).getBlue();
-    this.value = snapToNearest(this.rgb);
+    this.r = Rgb.rgbColor(rgb).getRed();
+    this.g = Rgb.rgbColor(rgb).getGreen();
+    this.b = Rgb.rgbColor(rgb).getBlue();
+    this.value = snapToNearest(rgb);
     this.textColor = ChatFormatting.WHITE;
     this.updateMessage();
   }
@@ -50,11 +53,6 @@ public class RgbSlider extends BasicSlider {
   }
 
   public void setSliderValue(int newValue) {
-  }
-
-  @Override
-  public String getValueString() {
-    return String.valueOf(this.getValueInt());
   }
 
   @Override

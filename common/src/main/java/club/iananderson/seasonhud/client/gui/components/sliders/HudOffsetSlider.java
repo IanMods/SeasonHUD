@@ -6,10 +6,12 @@ import net.minecraft.network.chat.Component;
 public class HudOffsetSlider extends BasicSlider {
   public double defaultValue;
 
-  public HudOffsetSlider(int x, int y, int width, int height, Component prefix, double minValue, double maxValue,
-      double currentValue, double defaultValue, boolean drawString) {
-    super(x, y, width, height, prefix, minValue, maxValue, currentValue, drawString);
-    this.defaultValue = defaultValue;
+  public HudOffsetSlider(int x, int y, int width, int height, Component prefix, double initial, double minValue,
+      double maxValue, double defaultValue, boolean drawString) {
+    super(x, y, width, height, prefix, initial, minValue, maxValue, drawString);
+    this.value = snapToNearest(initial);
+    this.defaultValue = snapToNearest(defaultValue);
+    this.updateMessage();
   }
 
   @Override
@@ -21,7 +23,6 @@ public class HudOffsetSlider extends BasicSlider {
           this.playDownSound(Minecraft.getInstance().getSoundManager());
           this.onRightClick(mouseX, mouseY);
         }
-
       }
     }
     return super.mouseClicked(mouseX, mouseY, mouseButton);
