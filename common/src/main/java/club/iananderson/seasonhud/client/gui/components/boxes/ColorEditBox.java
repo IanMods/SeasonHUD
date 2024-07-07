@@ -1,30 +1,27 @@
 package club.iananderson.seasonhud.client.gui.components.boxes;
 
-import static club.iananderson.seasonhud.Common.SEASON_STYLE;
-import static club.iananderson.seasonhud.client.SeasonHUDClient.mc;
-
 import club.iananderson.seasonhud.client.gui.screens.ColorScreen;
 import club.iananderson.seasonhud.config.Config;
-import club.iananderson.seasonhud.impl.seasons.SeasonList;
+import club.iananderson.seasonhud.impl.seasons.CurrentSeason;
+import club.iananderson.seasonhud.impl.seasons.Seasons;
 import club.iananderson.seasonhud.platform.Services;
 import club.iananderson.seasonhud.util.Rgb;
 import java.util.EnumSet;
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.components.EditBox;
-import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
-import net.minecraft.network.chat.Style;
 import org.jetbrains.annotations.NotNull;
 
 public class ColorEditBox extends EditBox {
 
   private static final int PADDING = 4;
-  private final SeasonList boxSeason;
+  private final Seasons boxSeason;
   private final int seasonColor;
   private int newSeasonColor;
 
-  public ColorEditBox(Font font, int x, int y, int width, int height, SeasonList season) {
+  public ColorEditBox(Font font, int x, int y, int width, int height, Seasons season) {
     super(font, x, y, width, height, season.getSeasonName());
     this.boxSeason = season;
     this.seasonColor = season.getSeasonColor();
@@ -47,14 +44,15 @@ public class ColorEditBox extends EditBox {
         ColorScreen.doneButton.active = false;
       }
     });
+    this.setEditable(Config.getEnableSeasonNameColor());
   }
 
-  private static EnumSet<SeasonList> seasonListSet() {
-    EnumSet<SeasonList> set = SeasonList.seasons.clone();
+  private static EnumSet<Seasons> seasonListSet() {
+    EnumSet<Seasons> set = Seasons.SEASONS_ENUM_LIST.clone();
 
-    if (!Config.showTropicalSeason.get() || !Services.PLATFORM.getPlatformName().equals("Forge")) {
-      set.remove(SeasonList.DRY);
-      set.remove(SeasonList.WET);
+    if (!Config.getShowTropicalSeason() || !Services.PLATFORM.getPlatformName().equals("Forge")) {
+      set.remove(Seasons.DRY);
+      set.remove(Seasons.WET);
     }
 
     return set;
@@ -71,14 +69,14 @@ public class ColorEditBox extends EditBox {
     try {
       int colorInt = Integer.parseInt(colorString);
       return this.inBounds(colorInt);
-    } catch (NumberFormatException var) {
+    } catch (NumberFormatException formatException) {
       return false;
     }
   }
 
   public void save() {
     Rgb.setRgb(this.boxSeason, this.newSeasonColor);
-    this.boxSeason.setColor(this.newSeasonColor);
+    this.boxSeason.setSeasonColor(this.newSeasonColor);
   }
 
   public int getColor() {
@@ -89,49 +87,28 @@ public class ColorEditBox extends EditBox {
     return this.newSeasonColor;
   }
 
-  public SeasonList getSeason() {
+  public Seasons getSeason() {
     return this.boxSeason;
   }
 
   @Override
   public void render(@NotNull GuiGraphics graphics, int mouseX, int mouseY, float partialTicks) {
-    String seasonIcon = this.boxSeason.getIconChar();
-    String seasonFileName = this.boxSeason.getFileName();
-    boolean enableSeasonNameColor = Config.enableSeasonNameColor.get();
-
-    this.setEditable(enableSeasonNameColor);
-
-    Style SEASON_FORMAT = Style.EMPTY;
-
-    if (enableSeasonNameColor) {
-      SEASON_FORMAT = Style.EMPTY.withColor(this.newSeasonColor);
-    }
-
-    Component icon = Component.translatable("desc.seasonhud.icon", seasonIcon).withStyle(SEASON_STYLE);
-    Component season = Component.translatable("desc.seasonhud.summary",
-        Component.translatable("desc.seasonhud." + seasonFileName)).withStyle(SEASON_FORMAT);
-
-    int widgetTotalSize = ((80 + ColorScreen.WIDGET_PADDING) * seasonListSet().size());
+    Minecraft mc = Minecraft.getInstance();
+    float textScale = 1;
     int scaledWidth = mc.getWindow().getGuiScaledWidth();
+    int widgetTotalSize = ((80 + ColorScreen.WIDGET_PADDING) * seasonListSet().size());
+    boolean seasonShort = (scaledWidth < widgetTotalSize);
 
-    if (this.boxSeason == SeasonList.DRY && (scaledWidth < widgetTotalSize)) {
-      season = Component.translatable("menu.seasonhud.color.editbox.dryColor").withStyle(SEASON_FORMAT);
-    }
-
-    if (this.boxSeason == SeasonList.WET && (scaledWidth < widgetTotalSize)) {
-      season = Component.translatable("menu.seasonhud.color.editbox.wetColor").withStyle(SEASON_FORMAT);
-    }
-
-    MutableComponent seasonCombined = Component.translatable("desc.seasonhud.combined", icon, season);
+    MutableComponent seasonCombined = CurrentSeason.getInstance(mc)
+        .getSeasonMenuText(this.boxSeason, this.newSeasonColor, seasonShort);
 
     graphics.pose().pushPose();
-    float scale = 1;
     if ((mc.font.width(seasonCombined) > this.getWidth() - PADDING)) {
-      scale = ((float) this.getWidth() - PADDING) / mc.font.width(seasonCombined);
+      textScale = ((float) this.getWidth() - PADDING) / mc.font.width(seasonCombined);
     }
-    graphics.pose().scale(scale, scale, 1);
-    graphics.drawCenteredString(mc.font, seasonCombined, (int) ((getX() + (double) this.getWidth() / 2) / scale),
-        (int) ((getY() - (mc.font.lineHeight * scale) - PADDING) / scale), 0xffffff);
+    graphics.pose().scale(textScale, textScale, 1);
+    graphics.drawCenteredString(mc.font, seasonCombined, (int) ((getX() + (double) this.getWidth() / 2) / textScale),
+                                (int) ((getY() - (mc.font.lineHeight * textScale) - PADDING) / textScale), 0xffffff);
     graphics.pose().popPose();
 
     super.render(graphics, mouseX, mouseY, partialTicks);

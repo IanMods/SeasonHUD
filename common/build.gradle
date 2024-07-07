@@ -15,6 +15,10 @@ dependencies {
     compileOnly group: 'org.spongepowered', name: 'mixin', version: '0.8.5'
 
     api "fuzs.forgeconfigapiport:forgeconfigapiport-common:${forgeconfigapiport_version}"
+
+    //To get the Journeymap map values, since they are the same between the mod loaders.
+    // Not used unless Journeymap is actually  loaded.
+    compileOnly "curse.maven:journeymap-32274:${project.journeymap_forge_file_id}"
 }
 
 configurations {
