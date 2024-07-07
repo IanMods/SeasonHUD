@@ -1,5 +1,7 @@
 package club.iananderson.seasonhud;
 
+import club.iananderson.seasonhud.config.Config;
+import club.iananderson.seasonhud.impl.minimaps.CurrentMinimap;
 import club.iananderson.seasonhud.platform.Services;
 import java.util.List;
 import net.minecraft.client.Minecraft;
@@ -50,6 +52,11 @@ public class Common {
 
     return (mc.screen == null || mc.screen instanceof ChatScreen || mc.screen instanceof DeathScreen) && !mc.isPaused()
         && !mc.options.renderDebug && !mc.options.hideGui && !mc.player.isScoping();
+  }
+
+  public static boolean drawDefaultHud() {
+    return (Config.getEnableMod() && (CurrentMinimap.noMinimapLoaded() || !Config.getEnableMinimapIntegration() || (
+        Services.MINIMAP.allMinimapsHidden() && Config.getShowDefaultWhenMinimapHidden())));
   }
 
   public static boolean allTrue(List<Boolean> values) {

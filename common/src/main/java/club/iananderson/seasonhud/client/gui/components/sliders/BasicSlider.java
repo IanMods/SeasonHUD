@@ -22,7 +22,6 @@ public class BasicSlider extends AbstractSliderButton {
     super(x, y, width, height, Component.empty(), 0.0);
     this.drawString = drawString;
     this.value = snapToNearest(initial);
-    this.updateMessage();
   }
 
   protected BasicSlider(int x, int y, int width, int height, boolean drawString, double initial, double minValue,
@@ -31,7 +30,6 @@ public class BasicSlider extends AbstractSliderButton {
     this.minValue = minValue;
     this.maxValue = maxValue;
     this.value = snapToNearest(initial);
-    this.updateMessage();
   }
 
   public int getTextureY() {

@@ -37,7 +37,7 @@ public class CurrentSeason {
 
   //Convert Season to lower case (for localized names)
   public String getSeasonStateLower() {
-    if (Config.getShowSubSeason()) {
+    if (Config.getShowSubSeason() && currentSubSeason.contains("_")) {
       String lowerSubSeason = currentSubSeason.toLowerCase();
       return currentSeason.toLowerCase() + "." + lowerSubSeason.substring(0, lowerSubSeason.indexOf("_"));
     } else {

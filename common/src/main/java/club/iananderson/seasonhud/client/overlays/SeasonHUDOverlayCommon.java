@@ -2,10 +2,8 @@ package club.iananderson.seasonhud.client.overlays;
 
 import club.iananderson.seasonhud.Common;
 import club.iananderson.seasonhud.config.Config;
-import club.iananderson.seasonhud.impl.minimaps.CurrentMinimap;
 import club.iananderson.seasonhud.impl.seasons.Calendar;
 import club.iananderson.seasonhud.impl.seasons.CurrentSeason;
-import club.iananderson.seasonhud.platform.Services;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.network.chat.MutableComponent;
@@ -26,8 +24,7 @@ public class SeasonHUDOverlayCommon {
     int stringWidth = mc.font.width(seasonCombined);
     int stringHeight = mc.font.lineHeight;
 
-    if (Config.getEnableMod() && (CurrentMinimap.noMinimapLoaded() || (Services.MINIMAP.allMinimapsHidden()
-        && Config.getShowDefaultWhenMinimapHidden()))) {
+    if (Common.drawDefaultHud() && Common.vanillaShouldDrawHud() && Calendar.calendarFound()) {
       switch (Config.getHudLocation()) {
         case TOP_LEFT -> {
           x = xOffset;
@@ -52,12 +49,10 @@ public class SeasonHUDOverlayCommon {
       }
 
       //Text
-      if (Common.vanillaShouldDrawHud() && Calendar.calendarFound()) {
-        seasonStack.pose().pushPose();
-        seasonStack.pose().scale(1F, 1F, 1F);
-        seasonStack.drawString(mc.font, seasonCombined, x, y, 0xffffff);
-        seasonStack.pose().popPose();
-      }
+      seasonStack.pose().pushPose();
+      seasonStack.pose().scale(1F, 1F, 1F);
+      seasonStack.drawString(mc.font, seasonCombined, x, y, 0xffffff);
+      seasonStack.pose().popPose();
     }
   }
 }

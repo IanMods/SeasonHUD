@@ -1,5 +1,6 @@
 package club.iananderson.seasonhud.client.gui.screens;
 
+import club.iananderson.seasonhud.Common;
 import club.iananderson.seasonhud.client.gui.Location;
 import club.iananderson.seasonhud.client.gui.ShowDay;
 import club.iananderson.seasonhud.client.gui.components.buttons.MenuButton;
@@ -32,6 +33,7 @@ public class SeasonHUDScreen extends Screen {
   private static final Component JOURNEYMAP = Component.translatable("menu.seasonhud.title.journeymap");
   private static final SeasonHUDScreen instance = new SeasonHUDScreen();
   private final List<AbstractWidget> optionButtons = new ArrayList<>();
+  CycleButton<Location> hudLocationButton;
   private HudOffsetSlider xOffsetSlider;
   private HudOffsetSlider yOffsetSlider;
 
@@ -56,6 +58,7 @@ public class SeasonHUDScreen extends Screen {
   @Override
   public void render(@NotNull GuiGraphics stack, int mouseX, int mouseY, float partialTicks) {
     this.renderBackground(stack);
+
     stack.drawCenteredString(font, SCREEN_TITLE, this.width / 2, TITLE_PADDING, 16777215);
 
     if (Services.PLATFORM.isModLoaded("journeymap")) {
@@ -63,6 +66,10 @@ public class SeasonHUDScreen extends Screen {
                                MENU_PADDING + (6 * (BUTTON_HEIGHT + BUTTON_PADDING)) - (font.lineHeight
                                    + BUTTON_PADDING), 16777215);
     }
+
+    hudLocationButton.active = Common.drawDefaultHud();
+    xOffsetSlider.active = hudLocationButton.getValue() == Location.TOP_LEFT && Common.drawDefaultHud();
+    yOffsetSlider.active = hudLocationButton.getValue() == Location.TOP_LEFT && Common.drawDefaultHud();
 
     super.render(stack, mouseX, mouseY, partialTicks);
   }
@@ -102,7 +109,7 @@ public class SeasonHUDScreen extends Screen {
         .build();
 
     row = 1;
-    CycleButton<Location> hudLocationButton = CycleButton.builder(Location::getLocationName)
+    hudLocationButton = CycleButton.builder(Location::getLocationName)
         .withTooltip(object -> Tooltip.create(Component.translatable("menu.seasonhud.tooltip.hudLocation")))
         .withValues(Location.TOP_LEFT, Location.TOP_CENTER, Location.TOP_RIGHT, Location.BOTTOM_LEFT,
                     Location.BOTTOM_RIGHT)
