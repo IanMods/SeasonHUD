@@ -1,7 +1,5 @@
 package club.iananderson.seasonhud.client.overlays;
 
-import static club.iananderson.seasonhud.client.overlays.MapAtlasesCommon.drawMapComponentSeason;
-
 import club.iananderson.seasonhud.config.Config;
 import club.iananderson.seasonhud.impl.minimaps.CurrentMinimap;
 import java.util.Arrays;
@@ -105,7 +103,7 @@ public class MapAtlases implements HudRenderCallback {
             textHeightOffset = (int) ((float) textHeightOffset + 12.0F * textScaling);
           }
 
-          drawMapComponentSeason(seasonStack, mc.font, x, y, mapBgScaledSize, textHeightOffset, textScaling);
+          MapAtlasesCommon.drawMapComponentSeasonOld(seasonStack, x, y, mapBgScaledSize, textHeightOffset, textScaling);
         }
       }
     }

@@ -42,4 +42,32 @@ public class MapAtlasesCommon {
                           (int) (targetWidth / globalScale));
     }
   }
+
+  public static void drawScaledText(GuiGraphics context, int x, int y, MutableComponent text, MutableComponent shadowText, float textScaling,
+      int originOffsetWidth, int originOffsetHeight) {
+    Minecraft mc = Minecraft.getInstance();
+    PoseStack poseStack = context.pose();
+    float textWidth = (float) mc.font.width(text) * textScaling;
+    float textX = (float) ((double) x + (double) originOffsetWidth / 2.0 - (double) textWidth / 2.0);
+    float textY = (float) (y + originOffsetHeight);
+    if (textX + textWidth >= (float) mc.getWindow().getGuiScaledWidth()) {
+      textX = (float) mc.getWindow().getGuiScaledWidth() - textWidth;
+    }
+
+    poseStack.pushPose();
+    poseStack.translate(textX, textY, 5.0F);
+    poseStack.scale(textScaling, textScaling, 1.0F);
+    context.drawString(mc.font, shadowText, 1, 1, Integer.parseInt("595959", 16), false);
+    context.drawString(mc.font, text, 0, 0, Integer.parseInt("E0E0E0", 16), false);
+    poseStack.popPose();
+  }
+
+  public static void drawMapComponentSeasonOld(GuiGraphics poseStack, int x, int y, int originOffsetWidth,
+      int originOffsetHeight, float textScaling) {
+    if (CurrentMinimap.mapAtlasesLoaded()) {
+      MutableComponent seasonCombined = CurrentSeason.getInstance(Minecraft.getInstance()).getSeasonHudText();
+      MutableComponent shadowText = CurrentSeason.getInstance(Minecraft.getInstance()).getSeasonHudTextNoFormat();
+      drawScaledText(poseStack, x, y, seasonCombined, shadowText, textScaling, originOffsetWidth, originOffsetHeight);
+    }
+  }
 }
