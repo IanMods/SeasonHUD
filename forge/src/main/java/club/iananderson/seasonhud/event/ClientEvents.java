@@ -2,10 +2,11 @@ package club.iananderson.seasonhud.event;
 
 import club.iananderson.seasonhud.Common;
 import club.iananderson.seasonhud.client.KeyBindings;
-import club.iananderson.seasonhud.client.SeasonHUDOverlay;
 import club.iananderson.seasonhud.client.gui.screens.SeasonHUDScreen;
-import club.iananderson.seasonhud.client.minimaps.JourneyMap;
-import club.iananderson.seasonhud.client.minimaps.MapAtlases;
+import club.iananderson.seasonhud.client.overlays.JourneyMap;
+import club.iananderson.seasonhud.client.overlays.MapAtlases;
+import club.iananderson.seasonhud.client.overlays.SeasonHUDOverlay;
+import club.iananderson.seasonhud.impl.minimaps.CurrentMinimap;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.client.event.InputEvent;
 import net.minecraftforge.client.event.RegisterGuiOverlaysEvent;
@@ -33,20 +34,24 @@ public class ClientEvents {
     //Overlays
     @SubscribeEvent
     public static void registerGuiOverlays(RegisterGuiOverlaysEvent event) {
-      SeasonHUDOverlay HUD = new SeasonHUDOverlay();
-      event.registerAbove(VanillaGuiOverlay.FROSTBITE.id(), "seasonhud", HUD);
+      SeasonHUDOverlay.init();
+      event.registerAbove(VanillaGuiOverlay.FROSTBITE.id(), "seasonhud", SeasonHUDOverlay.HUD_INSTANCE);
     }
 
     @SubscribeEvent
     public static void registerJourneyMapOverlay(RegisterGuiOverlaysEvent event) {
-      JourneyMap HUD = new JourneyMap();
-      event.registerAbove(VanillaGuiOverlay.FROSTBITE.id(), "journeymap", HUD);
+      if (CurrentMinimap.journeyMapLoaded()) {
+        JourneyMap.init();
+        event.registerAbove(VanillaGuiOverlay.FROSTBITE.id(), "journeymap", JourneyMap.HUD_INSTANCE);
+      }
     }
 
     @SubscribeEvent
     public static void registerMapAtlasesOverlay(RegisterGuiOverlaysEvent event) {
-      MapAtlases HUD = new MapAtlases();
-      event.registerAbove(VanillaGuiOverlay.FROSTBITE.id(), "mapatlases", HUD);
+      if (CurrentMinimap.mapAtlasesLoaded()) {
+        MapAtlases.init();
+        event.registerAbove(VanillaGuiOverlay.FROSTBITE.id(), "mapatlases", MapAtlases.HUD_INSTANCE);
+      }
     }
 
     //Key Bindings

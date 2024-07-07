@@ -1,17 +1,13 @@
-package club.iananderson.seasonhud.client.minimaps;
+package club.iananderson.seasonhud.client.overlays;
 
-import static club.iananderson.seasonhud.Common.SEASON_STYLE;
-import static club.iananderson.seasonhud.impl.seasons.CurrentSeason.getSeasonHudName;
+import static club.iananderson.seasonhud.client.overlays.MapAtlasesCommon.drawMapComponentSeason;
 
 import club.iananderson.seasonhud.config.Config;
 import club.iananderson.seasonhud.impl.minimaps.CurrentMinimap;
-import com.mojang.blaze3d.vertex.PoseStack;
 import java.util.Arrays;
 import net.fabricmc.fabric.api.client.rendering.v1.HudRenderCallback;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
-import net.minecraft.network.chat.Component;
-import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.world.item.ItemStack;
 import pepjebs.mapatlases.MapAtlasesMod;
 import pepjebs.mapatlases.client.MapAtlasesClient;
@@ -21,41 +17,14 @@ public class MapAtlases implements HudRenderCallback {
   private static final Minecraft mc = Minecraft.getInstance();
   public static MapAtlases HUD_INSTANCE;
 
+  //Todo test this
   public static void init() {
     HUD_INSTANCE = new MapAtlases();
     HudRenderCallback.EVENT.register(HUD_INSTANCE);
   }
 
-  public static void drawScaledText(GuiGraphics context, int x, int y, MutableComponent text, float textScaling,
-      int originOffsetWidth, int originOffsetHeight) {
-    PoseStack poseStack = context.pose();
-    float textWidth = (float) mc.font.width(text) * textScaling;
-    float textX = (float) ((double) x + (double) originOffsetWidth / 2.0 - (double) textWidth / 2.0);
-    float textY = (float) (y + originOffsetHeight);
-    if (textX + textWidth >= (float) mc.getWindow().getGuiScaledWidth()) {
-      textX = (float) mc.getWindow().getGuiScaledWidth() - textWidth;
-    }
-
-    poseStack.pushPose();
-    poseStack.translate(textX, textY, 5.0F);
-    poseStack.scale(textScaling, textScaling, 1.0F);
-    context.drawString(mc.font, text, 1, 1, Integer.parseInt("595959", 16), false);
-    context.drawString(mc.font, text, 0, 0, Integer.parseInt("E0E0E0", 16), false);
-    poseStack.popPose();
-  }
-
-  public static void drawMapComponentSeason(GuiGraphics poseStack, int x, int y, int originOffsetWidth,
-      int originOffsetHeight, float textScaling) {
-    if (CurrentMinimap.minimapLoaded("map_atlases")) {
-      MutableComponent seasonIcon = getSeasonHudName().get(0).copy().withStyle(SEASON_STYLE);
-      MutableComponent seasonName = getSeasonHudName().get(1).copy();
-      MutableComponent seasonCombined = Component.translatable("desc.seasonhud.combined", seasonIcon, seasonName);
-      drawScaledText(poseStack, x, y, seasonCombined, textScaling, originOffsetWidth, originOffsetHeight);
-    }
-  }
-
   public static boolean shouldDraw(Minecraft mc) {
-    if (CurrentMinimap.minimapLoaded("map_atlases")) {
+    if (CurrentMinimap.mapAtlasesLoaded()) {
       if (mc.player == null) {
         return false;
       } else if (MapAtlasesMod.CONFIG != null && !MapAtlasesMod.CONFIG.drawMiniMapHUD) {
@@ -82,7 +51,7 @@ public class MapAtlases implements HudRenderCallback {
 
   @Override
   public void onHudRender(GuiGraphics seasonStack, float alpha) {
-    if (CurrentMinimap.minimapLoaded("map_atlases")) {
+    if (CurrentMinimap.mapAtlasesLoaded()) {
       if (mc.level != null && mc.player != null) {
         int mapBgScaledSize = (int) Math.floor(0.2 * (double) mc.getWindow().getGuiScaledHeight());
         if (MapAtlasesMod.CONFIG != null) {
@@ -121,7 +90,7 @@ public class MapAtlases implements HudRenderCallback {
           }
         }
 
-        if (Config.enableMod.get() && shouldDraw(mc)) {
+        if (Config.getEnableMod() && shouldDraw(mc)) {
           float textScaling = MapAtlasesMod.CONFIG.minimapCoordsAndBiomeScale;
           textHeightOffset = mapBgScaledSize + 4;
           if (anchorLocation.contains("Lower")) {
@@ -136,7 +105,7 @@ public class MapAtlases implements HudRenderCallback {
             textHeightOffset = (int) ((float) textHeightOffset + 12.0F * textScaling);
           }
 
-          drawMapComponentSeason(seasonStack, x, y, mapBgScaledSize, textHeightOffset, textScaling);
+          drawMapComponentSeason(seasonStack, mc.font, x, y, mapBgScaledSize, textHeightOffset, textScaling);
         }
       }
     }

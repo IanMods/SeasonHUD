@@ -16,6 +16,10 @@ dependencies {
 
     api "fuzs.forgeconfigapiport:forgeconfigapiport-common-neoforgeapi:${project.forgeconfigapiport_version}"
     compileOnly "com.github.glitchfiend:GlitchCore-common:${minecraft_version}-${glitchcore_version}"
+
+    //To get the Journeymap map values, since they are the same between the mod loaders.
+    // Not used unless Journeymap is actually  loaded.
+    compileOnly "curse.maven:journeymap-32274:${project.journeymap_forge_file_id}"
 }
 
 configurations {
