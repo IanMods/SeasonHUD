@@ -74,8 +74,8 @@ public enum Seasons {
       case SUMMER -> Config.setSummerColor(rgbColor);
       case AUTUMN -> Config.setAutumnColor(rgbColor);
       case WINTER -> Config.setWinterColor(rgbColor);
-      case DRY -> Config.setWetColor(rgbColor);
-      case WET -> Config.setDryColor(rgbColor);
+      case DRY -> Config.setDryColor(rgbColor);
+      case WET -> Config.setWetColor(rgbColor);
     }
   }
 
