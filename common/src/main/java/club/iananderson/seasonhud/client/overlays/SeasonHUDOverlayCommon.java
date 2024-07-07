@@ -11,10 +11,12 @@ import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.network.chat.MutableComponent;
 
 public class SeasonHUDOverlayCommon {
+  private SeasonHUDOverlayCommon() {
+  }
+
   public static void render(GuiGraphics seasonStack) {
     Minecraft mc = Minecraft.getInstance();
     MutableComponent seasonCombined = CurrentSeason.getInstance(mc).getSeasonHudText();
-    float guiSize = (float) mc.getWindow().getGuiScale();
     int screenWidth = mc.getWindow().getGuiScaledWidth();
     int screenHeight = mc.getWindow().getGuiScaledHeight();
     int x = 0;

@@ -31,7 +31,7 @@ public class ColorScreen extends Screen {
   private static final int TITLE_PADDING = 10;
   private static final int BUTTON_WIDTH = 150;
   private static final int BUTTON_HEIGHT = 20;
-  private static final Component TITLE = Component.translatable("menu.seasonhud.title.color");
+  private static final Component SCREEN_TITLE = Component.translatable("menu.seasonhud.title.color");
   private static final Component ENABLE_SEASON_NAME_COLOR = Component.translatable(
       "menu.seasonhud.button.color.enableSeasonNameColor");
   public static MenuButton doneButton;
@@ -44,7 +44,7 @@ public class ColorScreen extends Screen {
   private int y;
 
   public ColorScreen(Screen screen) {
-    super(TITLE);
+    super(SCREEN_TITLE);
     this.lastScreen = screen;
     this.widgets.toArray().clone();
   }
@@ -54,7 +54,7 @@ public class ColorScreen extends Screen {
   }
 
   private static EnumSet<Seasons> seasonListSet() {
-    EnumSet<Seasons> set = Seasons.seasons.clone();
+    EnumSet<Seasons> set = Seasons.SEASONS_ENUM_LIST.clone();
 
     if (!Config.getShowTropicalSeason() || !Services.PLATFORM.getPlatformName().equals("Forge")) {
       set.remove(Seasons.DRY);
@@ -65,9 +65,9 @@ public class ColorScreen extends Screen {
   }
 
   private void onDone() {
-    seasonBoxes.forEach(seasonBoxes -> {
-      if (Integer.parseInt(seasonBoxes.getValue()) != seasonBoxes.getColor()) {
-        seasonBoxes.save();
+    seasonBoxes.forEach(editBox -> {
+      if (Integer.parseInt(editBox.getValue()) != editBox.getColor()) {
+        editBox.save();
       }
     });
 
@@ -136,18 +136,20 @@ public class ColorScreen extends Screen {
     y -= (greenSlider.getHeight() + redSlider.getHeight() + RgbSlider.SLIDER_PADDING + BUTTON_HEIGHT
         + RgbSlider.SLIDER_PADDING);
 
-    defaultButton = new DefaultColorButton(x, y, season, colorBox, button -> {
-      int defaultColorInt = season.getDefaultColor();
+    defaultButton = DefaultColorButton.builder(colorBox, press -> {
+          int defaultColorInt = season.getDefaultColor();
 
-      if (colorBox.getNewColor() != defaultColorInt) {
-        redSlider.setSliderValue(defaultColorInt);
-        greenSlider.setSliderValue(defaultColorInt);
-        blueSlider.setSliderValue(defaultColorInt);
-        colorBox.setValue(String.valueOf(defaultColorInt));
+          if (colorBox.getNewColor() != defaultColorInt) {
+            redSlider.setSliderValue(defaultColorInt);
+            greenSlider.setSliderValue(defaultColorInt);
+            blueSlider.setSliderValue(defaultColorInt);
+            colorBox.setValue(String.valueOf(defaultColorInt));
 
-        Rgb.setRgb(season, defaultColorInt);
-      }
-    });
+            Rgb.setRgb(season, defaultColorInt);
+          }
+        })
+        .withPos(x, y)
+        .build();
 
     seasonBoxes.add(colorBox);
     defaultColorButtons.add(defaultButton);
@@ -159,7 +161,7 @@ public class ColorScreen extends Screen {
   @Override
   public void render(@NotNull GuiGraphics graphics, int mouseX, int mouseY, float partialTicks) {
     this.renderBackground(graphics);
-    graphics.drawCenteredString(font, TITLE, getWidth() / 2, TITLE_PADDING, 16777215);
+    graphics.drawCenteredString(font, SCREEN_TITLE, getWidth() / 2, TITLE_PADDING, 16777215);
     super.render(graphics, mouseX, mouseY, partialTicks);
   }
 
@@ -183,21 +185,20 @@ public class ColorScreen extends Screen {
 
     //Buttons
     CycleButton<Boolean> seasonColorButton = CycleButton.onOffBuilder(Config.getEnableSeasonNameColor())
-                                                        .create(leftButtonX, MENU_PADDING_FULL, BUTTON_WIDTH,
-                                                                BUTTON_HEIGHT, ENABLE_SEASON_NAME_COLOR,
-                                                                (b, enable) -> {
-                                                                  Config.setEnableSeasonNameColor(enable);
-                                                                  this.rebuildWidgets();
-                                                                });
-    this.widgets.add(seasonColorButton);
+        .create(leftButtonX, MENU_PADDING_FULL, BUTTON_WIDTH, BUTTON_HEIGHT, ENABLE_SEASON_NAME_COLOR, (b, enable) -> {
+          Config.setEnableSeasonNameColor(enable);
+          this.rebuildWidgets();
+        });
 
-    doneButton = new MenuButton(leftButtonX, (getHeight() - BUTTON_HEIGHT - WIDGET_PADDING), MenuButtons.DONE,
-                                press -> this.onDone());
-    this.widgets.add(doneButton);
+    doneButton = MenuButton.builder(MenuButtons.DONE, press -> this.onDone())
+        .withPos(leftButtonX, (getHeight() - BUTTON_HEIGHT - WIDGET_PADDING))
+        .build();
 
-    MenuButton cancelButton = new MenuButton(rightButtonX, (getHeight() - BUTTON_HEIGHT - WIDGET_PADDING),
-                                             MenuButtons.CANCEL, press -> this.onCancel());
-    this.widgets.add(cancelButton);
+    MenuButton cancelButton = MenuButton.builder(MenuButtons.CANCEL, press -> this.onCancel())
+        .withPos(rightButtonX, (getHeight() - BUTTON_HEIGHT - WIDGET_PADDING))
+        .build();
+
+    this.widgets.addAll(Arrays.asList(seasonColorButton, doneButton, cancelButton));
 
     this.widgets.forEach(this::addRenderableWidget);
   }
@@ -208,6 +209,7 @@ public class ColorScreen extends Screen {
     super.tick();
   }
 
+  @Override
   public boolean isPauseScreen() {
     return true;
   }

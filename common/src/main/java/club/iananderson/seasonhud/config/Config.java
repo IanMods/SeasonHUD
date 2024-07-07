@@ -8,16 +8,15 @@ import net.minecraft.client.Minecraft;
 import net.minecraftforge.common.ForgeConfigSpec;
 
 public class Config {
-  //Config Builder
   public static final ForgeConfigSpec GENERAL_SPEC;
-  public static final int defaultSpringColor = 16753595;
-  public static final int defaultSummerColor = 16705834;
-  public static final int defaultAutumnColor = 12344871;
-  public static final int defaultWinterColor = 14679292;
-  public static final int defaultDryColor = 16745216;
-  public static final int defaultWetColor = 2068975;
-  public static final int defaultXOffset = 2;
-  public static final int defaultYOffset = 2;
+  public static final int DEFAULT_SPRING_COLOR = 16753595;
+  public static final int DEFAULT_SUMMER_COLOR = 16705834;
+  public static final int DEFAULT_AUTUMN_COLOR = 12344871;
+  public static final int DEFAULT_WINTER_COLOR = 14679292;
+  public static final int DEFAULT_DRY_COLOR = 16745216;
+  public static final int DEFAULT_WET_COLOR = 2068975;
+  public static final int DEFAULT_X_OFFSET = 2;
+  public static final int DEFAULT_Y_OFFSET = 2;
   private static ForgeConfigSpec.BooleanValue enableMod;
   private static ForgeConfigSpec.ConfigValue<Location> hudLocation;
   private static ForgeConfigSpec.ConfigValue<Integer> hudX;
@@ -39,104 +38,107 @@ public class Config {
   private static ForgeConfigSpec.BooleanValue journeyMapMacOS;
 
   static {
-    ForgeConfigSpec.Builder BUILDER = new ForgeConfigSpec.Builder();
-    setupConfig(BUILDER);
-    GENERAL_SPEC = BUILDER.build();
+    ForgeConfigSpec.Builder builder = new ForgeConfigSpec.Builder();
+    setupConfig(builder);
+    GENERAL_SPEC = builder.build();
   }
 
-  private static void setupConfig(ForgeConfigSpec.Builder BUILDER) {
-    BUILDER.push("SeasonHUD");
-    enableMod = BUILDER.comment("Enable the mod?\n" + "(true/false)\n" + "Default is true.").define("enable_mod", true);
+  private Config() {
+  }
 
-    BUILDER.push("HUD");
-    hudLocation = BUILDER.comment("Where to display the Hud when no minimap is installed.\n" + "Default is TOP_LEFT.")
-                         .defineEnum("hud_location", Location.TOP_LEFT);
+  private static void setupConfig(ForgeConfigSpec.Builder builder) {
+    builder.push("SeasonHUD");
+    enableMod = builder.comment("Enable the mod?\n" + "(true/false)\n" + "Default is true.").define("enable_mod", true);
 
-    hudX = BUILDER.comment(
-        "The horizontal offset of the HUD when no minimap is installed (in pixels)\n" + "Default is " + defaultXOffset
-            + ".").define("hud_x_position", defaultXOffset);
+    builder.push("HUD");
+    hudLocation = builder.comment("Where to display the Hud when no minimap is installed.\n" + "Default is TOP_LEFT.")
+        .defineEnum("hud_location", Location.TOP_LEFT);
 
-    hudY = BUILDER.comment(
-        "The vertical offset of the HUD when no minimap is installed (in pixels)\n" + "Default is " + defaultYOffset
-            + ".").define("hud_y_position", defaultYOffset);
+    hudX = builder.comment(
+        "The horizontal offset of the HUD when no minimap is installed (in pixels)\n" + "Default is " + DEFAULT_X_OFFSET
+            + ".").define("hud_x_position", DEFAULT_X_OFFSET);
 
-    BUILDER.push("Colors");
-    enableSeasonNameColor = BUILDER.comment("Display the season name in a color?\n" + "(true/false)")
-                                   .define("season_name_color", true);
+    hudY = builder.comment(
+        "The vertical offset of the HUD when no minimap is installed (in pixels)\n" + "Default is " + DEFAULT_Y_OFFSET
+            + ".").define("hud_y_position", DEFAULT_Y_OFFSET);
 
-    springColor = BUILDER.comment(
+    builder.push("Colors");
+    enableSeasonNameColor = builder.comment("Display the season name in a color?\n" + "(true/false)")
+        .define("season_name_color", true);
+
+    springColor = builder.comment(
         "The RGB color (decimal) for spring.\n" + "(256 * 256 * r) + (256 * g) + (b) is the formula.\n" + "Default is "
-            + defaultSpringColor + ".").defineInRange("spring_color", defaultSpringColor, 0, 16777215);
+            + DEFAULT_SPRING_COLOR + ".").defineInRange("spring_color", DEFAULT_SPRING_COLOR, 0, 16777215);
 
-    summerColor = BUILDER.comment(
+    summerColor = builder.comment(
         "The RGB color (decimal) for summer.\n" + "(256 * 256 * r) + (256 * g) + (b) is the formula.\n" + "Default is "
-            + defaultSummerColor + ".").defineInRange("summer_color", defaultSummerColor, 0, 16777215);
+            + DEFAULT_SUMMER_COLOR + ".").defineInRange("summer_color", DEFAULT_SUMMER_COLOR, 0, 16777215);
 
-    autumnColor = BUILDER.comment(
+    autumnColor = builder.comment(
         "The RGB color (decimal) for autumn.\n" + "(256 * 256 * r) + (256 * g) + (b) is the formula.\n" + "Default is "
-            + defaultAutumnColor + ".").defineInRange("autumn_color", defaultAutumnColor, 0, 16777215);
+            + DEFAULT_AUTUMN_COLOR + ".").defineInRange("autumn_color", DEFAULT_AUTUMN_COLOR, 0, 16777215);
 
-    winterColor = BUILDER.comment(
+    winterColor = builder.comment(
         "The RGB color (decimal) for winter.\n" + "(256 * 256 * r) + (256 * g) + (b) is the formula.\n" + "Default is "
-            + defaultWinterColor + ".").defineInRange("winter_color", defaultWinterColor, 0, 16777215);
+            + DEFAULT_WINTER_COLOR + ".").defineInRange("winter_color", DEFAULT_WINTER_COLOR, 0, 16777215);
 
-    dryColor = BUILDER.comment(
+    dryColor = builder.comment(
         " The RGB color (decimal) for dry tropical season.\n" + "(256 * 256 * r) + (256 * g) + (b) is the formula.\n"
-            + "Default is " + defaultDryColor + ".").defineInRange("dry_color", defaultDryColor, 0, 16777215);
+            + "Default is " + DEFAULT_DRY_COLOR + ".").defineInRange("dry_color", DEFAULT_DRY_COLOR, 0, 16777215);
 
-    wetColor = BUILDER.comment(
+    wetColor = builder.comment(
         "The RGB color (decimal) for wet tropical season.\n" + "(256 * 256 * r) + (256 * g) + (b) is the formula.\n"
-            + "Default is " + defaultWetColor + ".").defineInRange("wet_color", defaultWetColor, 0, 16777215);
-    BUILDER.pop();
-    BUILDER.pop();
+            + "Default is " + DEFAULT_WET_COLOR + ".").defineInRange("wet_color", DEFAULT_WET_COLOR, 0, 16777215);
+    builder.pop();
+    builder.pop();
 
-    BUILDER.push("Season");
-    needCalendar = BUILDER.comment(
+    builder.push("Season");
+    needCalendar = builder.comment(
         "Require the calendar item to be in the players inventory to show the HUD?\n" + "(true/false)\n"
             + "Default is false.").define("need_calendar", false);
 
-    showTropicalSeason = BUILDER.comment("Show the Tropical seasons (Wet/Dry) in Tropical Biomes.\n"
+    showTropicalSeason = builder.comment("Show the Tropical seasons (Wet/Dry) in Tropical Biomes.\n"
                                              + "Will not change the season behavior in the biomes.\n" + "(true/false)\n"
                                              + "Default is true.").define("enable_show_tropical_season", true);
 
-    showSubSeason = BUILDER.comment(
+    showSubSeason = builder.comment(
         "Show sub-season (i.e. Early Winter, Mid Autumn, Late Spring) instead of basic season?\n" + "(true/false)\n"
             + " Default is true.").define("enable_show_sub_season", true);
 
     if (Common.platformName().equals("Forge")) {
-      showDay = BUILDER.comment("Show the day of the current Season/Sub-Season?\n" + "Default is SHOW_DAY.")
-                       .defineEnum("enable_show_day", ShowDay.SHOW_DAY,
-                                   Arrays.asList(ShowDay.NONE, ShowDay.SHOW_DAY, ShowDay.SHOW_WITH_TOTAL_DAYS));
+      showDay = builder.comment("Show the day of the current Season/Sub-Season?\n" + "Default is SHOW_DAY.")
+          .defineEnum("enable_show_day", ShowDay.SHOW_DAY,
+                      Arrays.asList(ShowDay.NONE, ShowDay.SHOW_DAY, ShowDay.SHOW_WITH_TOTAL_DAYS));
     }
 
     if (Common.platformName().equals("Fabric")) {
-      showDay = BUILDER.comment("Show the current day of the season/sub-season?\n" + "Default is SHOW_DAY.")
-                       .defineEnum("enable_show_day", ShowDay.SHOW_DAY,
-                                   Arrays.asList(ShowDay.NONE, ShowDay.SHOW_DAY, ShowDay.SHOW_WITH_TOTAL_DAYS,
-                                                 ShowDay.SHOW_WITH_MONTH));
+      showDay = builder.comment("Show the current day of the season/sub-season?\n" + "Default is SHOW_DAY.")
+          .defineEnum("enable_show_day", ShowDay.SHOW_DAY,
+                      Arrays.asList(ShowDay.NONE, ShowDay.SHOW_DAY, ShowDay.SHOW_WITH_TOTAL_DAYS,
+                                    ShowDay.SHOW_WITH_MONTH));
     }
-    BUILDER.pop();
+    builder.pop();
 
-    BUILDER.push("Minimap");
-    enableMinimapIntegration = BUILDER.comment(
-                                          "Enable integration with minimap mods?\n" + "(true/false)\n" + "Default is true.")
-                                      .define("enable_minimap_integration", true);
+    builder.push("Minimap");
+    enableMinimapIntegration = builder.comment(
+            "Enable integration with minimap mods?\n" + "(true/false)\n" + "Default is true.")
+        .define("enable_minimap_integration", true);
 
-    showDefaultWhenMinimapHidden = BUILDER.comment(
-                                              "Show the default SeasonHUD display when the minimap is hidden?\n" + "(true/false)\n" + "Default is false.")
-                                          .define("enable_show_minimap_hidden", false);
+    showDefaultWhenMinimapHidden = builder.comment(
+            "Show the default SeasonHUD display when the minimap is hidden?\n" + "(true/false)\n" + "Default is false.")
+        .define("enable_show_minimap_hidden", false);
 
-    BUILDER.push("Journeymap");
-    journeyMapAboveMap = BUILDER.comment(
+    builder.push("Journeymap");
+    journeyMapAboveMap = builder.comment(
         "Display the season above the JourneyMap minimap, instead of below.\n" + "(true" + "/false)\n"
             + "Default is false.").define("enable_above_map", false);
 
-    journeyMapMacOS = BUILDER.comment("Toggle for macOS retina display scaling when using JourneyMap.\n"
+    journeyMapMacOS = builder.comment("Toggle for macOS retina display scaling when using JourneyMap.\n"
                                           + "Enable if the season line is rendering around the halfway point of the screen.\n"
                                           + "(true/false)\n" + "Default is false.").define("enable_macOS", false);
-    BUILDER.pop();
-    BUILDER.pop();
-    BUILDER.pop();
+    builder.pop();
+    builder.pop();
+    builder.pop();
   }
 
   //SeasonHUD
@@ -159,7 +161,7 @@ public class Config {
 
   public static int getHudX() {
     if (Minecraft.getInstance().player == null) {
-      return defaultXOffset;
+      return DEFAULT_X_OFFSET;
     } else {
       return hudX.get();
     }
@@ -171,7 +173,7 @@ public class Config {
 
   public static int getHudY() {
     if (Minecraft.getInstance().player == null) {
-      return defaultYOffset;
+      return DEFAULT_Y_OFFSET;
     } else {
       return hudY.get();
     }

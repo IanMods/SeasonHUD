@@ -18,7 +18,6 @@ public enum ShowDay {
   private final String currentDayDisplay;
   private final Component dayDisplayName;
   private final String key;
-  private ShowDay[] showDayValues;
 
   ShowDay(int id, String dayType, String key) {
     this.idNum = id;
@@ -27,13 +26,12 @@ public enum ShowDay {
     this.key = key;
   }
 
-  public static ArrayList<ShowDay> getValues() {
-    ArrayList<ShowDay> values = new ArrayList<>(List.of(ShowDay.values()));
+  public static List<ShowDay> getValues() {
+    List<ShowDay> values = new ArrayList<>(List.of(ShowDay.values()));
 
     if (Services.PLATFORM.getPlatformName().equals("Forge")) {
       values.remove(SHOW_WITH_MONTH.getId());
     }
-
     return values;
   }
 

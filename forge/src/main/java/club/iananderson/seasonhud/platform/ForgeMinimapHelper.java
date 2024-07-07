@@ -7,6 +7,7 @@ import club.iananderson.seasonhud.impl.minimaps.CurrentMinimap.Minimaps;
 import club.iananderson.seasonhud.platform.services.IMinimapHelper;
 import dev.ftb.mods.ftbchunks.client.FTBChunksClientConfig;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 import journeymap.client.properties.MiniMapProperties;
 import journeymap.client.ui.UIManager;
@@ -50,8 +51,8 @@ public class ForgeMinimapHelper implements IMinimapHelper {
 
   @Override
   public boolean allMinimapsHidden() {
-    ArrayList<Minimaps> loadedMinimaps = CurrentMinimap.getLoadedMinimaps();
-    ArrayList<Boolean> hiddenMinimaps = new ArrayList<>();
+    List<Minimaps> loadedMinimaps = CurrentMinimap.getLoadedMinimaps();
+    List<Boolean> hiddenMinimaps = new ArrayList<>();
 
     loadedMinimaps.forEach(minimap -> hiddenMinimaps.add(Services.MINIMAP.hiddenMinimap(minimap)));
 

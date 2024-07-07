@@ -9,6 +9,9 @@ import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.network.chat.MutableComponent;
 
 public class MapAtlasesCommon {
+  private MapAtlasesCommon() {
+  }
+
   private static void drawSeasonWithLighterShadow(GuiGraphics context, Font font, MutableComponent text,
       MutableComponent shadowText) {
     context.drawString(font, shadowText, 1, 1, 5855577, false);
@@ -18,12 +21,12 @@ public class MapAtlasesCommon {
   private static void drawScaledComponent(GuiGraphics context, Font font, int x, int y, MutableComponent text,
       MutableComponent shadowText, float textScaling, int maxWidth, int targetWidth) {
     PoseStack pose = context.pose();
-    float textWidth = (float) font.width(text);
-    float scale = Math.min(1.0F, (float) maxWidth * textScaling / textWidth);
+    float textWidth = font.width(text);
+    float scale = Math.min(1.0F, maxWidth * textScaling / textWidth);
     scale *= textScaling;
-    float centerX = (float) x + (float) targetWidth / 2.0F;
+    float centerX = x + targetWidth / 2.0F;
     pose.pushPose();
-    pose.translate(centerX, (float) (y + 4), 5.0F);
+    pose.translate(centerX, (y + 4), 5.0F);
     pose.scale(scale, scale, 1.0F);
     pose.translate(-textWidth / 2.0F, -4.0F, 0.0F);
     drawSeasonWithLighterShadow(context, font, text, shadowText);

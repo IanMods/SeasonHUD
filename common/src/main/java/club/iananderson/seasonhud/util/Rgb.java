@@ -3,11 +3,14 @@ package club.iananderson.seasonhud.util;
 import club.iananderson.seasonhud.impl.seasons.Seasons;
 import java.awt.Color;
 import java.util.HashMap;
+import java.util.Map;
 
 public class Rgb {
+  private Rgb() {
+  }
 
-  public static HashMap<String, Integer> seasonMap(int rgb) {
-    HashMap<String, Integer> rgbMap = new HashMap<>();
+  public static Map<String, Integer> seasonMap(int rgb) {
+    Map<String, Integer> rgbMap = new HashMap<>();
 
     rgbMap.put("r", rgbColor(rgb).getRed());
     rgbMap.put("g", rgbColor(rgb).getGreen());
@@ -17,8 +20,8 @@ public class Rgb {
     return rgbMap;
   }
 
-  public static HashMap<String, Integer> defaultSeasonMap(Seasons season) {
-    HashMap<String, Integer> defaultRgbMap = new HashMap<>();
+  public static Map<String, Integer> defaultSeasonMap(Seasons season) {
+    Map<String, Integer> defaultRgbMap = new HashMap<>();
 
     int rgb = season.getDefaultColor();
 
@@ -66,17 +69,5 @@ public class Rgb {
 
   public static int getBlue(Seasons season) {
     return season.getRgbMap().get("b");
-  }
-
-  public static void setRed(Seasons season) {
-    season.getRgbMap().get("r");
-  }
-
-  public static void setGreen(Seasons season) {
-    season.getRgbMap().get("g");
-  }
-
-  public static void setBlue(Seasons season) {
-    season.getRgbMap().get("b");
   }
 }

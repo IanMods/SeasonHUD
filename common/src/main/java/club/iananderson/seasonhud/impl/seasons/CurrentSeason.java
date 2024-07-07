@@ -18,12 +18,12 @@ public class CurrentSeason {
   private final String seasonFileName;
   private final int seasonDate;
   private final int seasonDuration;
-  private Style SEASON_FORMAT;
+  private Style seasonFormat;
 
   public CurrentSeason(Minecraft mc) {
     Level level = mc.level;
     Player player = mc.player;
-    this.SEASON_FORMAT = Style.EMPTY;
+    this.seasonFormat = Style.EMPTY;
     this.currentSeason = Services.SEASON.getCurrentSeason(level, player);
     this.currentSubSeason = Services.SEASON.getCurrentSubSeason(level, player);
     this.seasonFileName = Services.SEASON.getSeasonFileName(level, player);
@@ -89,7 +89,7 @@ public class CurrentSeason {
 
   public MutableComponent getSeasonHudTextNoFormat() {
     Component seasonIcon = Component.translatable("desc.seasonhud.hud.icon", getSeasonIcon())
-                                    .withStyle(Common.SEASON_ICON_STYLE);
+        .withStyle(Common.SEASON_ICON_STYLE);
     MutableComponent seasonText = getText().copy();
 
     return Component.translatable("desc.seasonhud.hud.combined", seasonIcon, seasonText);
@@ -100,11 +100,11 @@ public class CurrentSeason {
     MutableComponent seasonText = getText().copy();
 
     if (Config.getEnableSeasonNameColor()) {
-      SEASON_FORMAT = Style.EMPTY.withColor(getTextColor());
+      seasonFormat = Style.EMPTY.withColor(getTextColor());
     }
 
     return Component.translatable("desc.seasonhud.hud.combined", seasonIcon.withStyle(Common.SEASON_ICON_STYLE),
-                                  seasonText.withStyle(SEASON_FORMAT));
+                                  seasonText.withStyle(seasonFormat));
   }
 
   public MutableComponent getSeasonMenuText(Seasons season, int newRgb, boolean seasonShort) {
@@ -112,7 +112,7 @@ public class CurrentSeason {
     MutableComponent seasonText = Component.translatable(ShowDay.NONE.getKey(), season.getSeasonName());
 
     if (Config.getEnableSeasonNameColor()) {
-      SEASON_FORMAT = Style.EMPTY.withColor(newRgb);
+      seasonFormat = Style.EMPTY.withColor(newRgb);
     }
 
     if (season == Seasons.DRY && seasonShort) {
@@ -124,6 +124,6 @@ public class CurrentSeason {
     }
 
     return Component.translatable("desc.seasonhud.hud.combined", seasonIcon.withStyle(Common.SEASON_ICON_STYLE),
-                                  seasonText.withStyle(SEASON_FORMAT));
+                                  seasonText.withStyle(seasonFormat));
   }
 }

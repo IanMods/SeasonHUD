@@ -8,6 +8,7 @@ import club.iananderson.seasonhud.platform.services.IMinimapHelper;
 import dev.ftb.mods.ftbchunks.client.FTBChunksClientConfig;
 import io.github.lucaargolo.seasons.FabricSeasons;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 import journeymap.client.ui.UIManager;
 import net.minecraft.client.Minecraft;
@@ -47,8 +48,8 @@ public class FabricMinimapHelper implements IMinimapHelper {
 
   @Override
   public boolean allMinimapsHidden() {
-    ArrayList<Minimaps> loadedMinimaps = CurrentMinimap.getLoadedMinimaps();
-    ArrayList<Boolean> hiddenMinimaps = new ArrayList<>();
+    List<Minimaps> loadedMinimaps = CurrentMinimap.getLoadedMinimaps();
+    List<Boolean> hiddenMinimaps = new ArrayList<>();
 
     loadedMinimaps.forEach(minimap -> hiddenMinimaps.add(Services.MINIMAP.hiddenMinimap(minimap)));
 

@@ -14,9 +14,9 @@ public class CurrentMinimap {
     return Services.PLATFORM.isModLoaded(modID);
   }
 
-  public static ArrayList<Minimaps> getLoadedMinimaps() {
-    ArrayList<Minimaps> values = new ArrayList<>(List.of(Minimaps.values()));
-    ArrayList<Minimaps> loaded = new ArrayList<>();
+  public static List<Minimaps> getLoadedMinimaps() {
+    List<Minimaps> values = new ArrayList<>(List.of(Minimaps.values()));
+    List<Minimaps> loaded = new ArrayList<>();
 
     values.forEach(minimaps -> {
       if (minimapLoaded(minimaps)) {

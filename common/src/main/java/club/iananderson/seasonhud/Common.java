@@ -1,7 +1,7 @@
 package club.iananderson.seasonhud;
 
 import club.iananderson.seasonhud.platform.Services;
-import java.util.ArrayList;
+import java.util.List;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screens.ChatScreen;
 import net.minecraft.client.gui.screens.DeathScreen;
@@ -14,14 +14,14 @@ public class Common {
   public static final String MOD_ID = "seasonhud";
   public static final String MOD_NAME = "SeasonHUD";
   public static final Logger LOG = LoggerFactory.getLogger(MOD_NAME);
-
   public static final ResourceLocation SEASON_ICONS = new ResourceLocation(MOD_ID, "season_icons");
   public static final Style SEASON_ICON_STYLE = Style.EMPTY.withFont(SEASON_ICONS);
-
   private static boolean curiosLoaded;
   private static boolean extrasLoaded;
-
   private static String platformName;
+
+  private Common() {
+  }
 
   public static void init() {
     curiosLoaded = Services.PLATFORM.isModLoaded("trinkets") || Services.PLATFORM.isModLoaded("curios");
@@ -52,7 +52,7 @@ public class Common {
         && !mc.options.renderDebug && !mc.options.hideGui && !mc.player.isScoping();
   }
 
-  public static boolean allTrue(ArrayList<Boolean> values) {
+  public static boolean allTrue(List<Boolean> values) {
     for (boolean value : values) {
       if (!value) {
         return false;

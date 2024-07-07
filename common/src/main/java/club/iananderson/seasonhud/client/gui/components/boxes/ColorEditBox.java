@@ -48,7 +48,7 @@ public class ColorEditBox extends EditBox {
   }
 
   private static EnumSet<Seasons> seasonListSet() {
-    EnumSet<Seasons> set = Seasons.seasons.clone();
+    EnumSet<Seasons> set = Seasons.SEASONS_ENUM_LIST.clone();
 
     if (!Config.getShowTropicalSeason() || !Services.PLATFORM.getPlatformName().equals("Forge")) {
       set.remove(Seasons.DRY);
@@ -69,7 +69,7 @@ public class ColorEditBox extends EditBox {
     try {
       int colorInt = Integer.parseInt(colorString);
       return this.inBounds(colorInt);
-    } catch (NumberFormatException var) {
+    } catch (NumberFormatException formatException) {
       return false;
     }
   }
@@ -100,7 +100,7 @@ public class ColorEditBox extends EditBox {
     boolean seasonShort = (scaledWidth < widgetTotalSize);
 
     MutableComponent seasonCombined = CurrentSeason.getInstance(mc)
-                                                   .getSeasonMenuText(this.boxSeason, this.newSeasonColor, seasonShort);
+        .getSeasonMenuText(this.boxSeason, this.newSeasonColor, seasonShort);
 
     graphics.pose().pushPose();
     if ((mc.font.width(seasonCombined) > this.getWidth() - PADDING)) {

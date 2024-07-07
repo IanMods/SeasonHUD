@@ -11,20 +11,18 @@ import net.minecraft.network.chat.Component;
 import org.jetbrains.annotations.NotNull;
 
 public class RgbSlider extends BasicSlider {
-  public static int SLIDER_PADDING = 2;
-  public final boolean enableColor = Config.getEnableSeasonNameColor();
-  public Seasons season;
-  public ColorEditBox seasonBox;
-  public int r;
-  public int g;
-  public int b;
-  public int rgb;
-  public double initial;
-  public ChatFormatting textColor;
+  public static final int SLIDER_PADDING = 2;
+  protected final Seasons season;
+  private final boolean enableColor = Config.getEnableSeasonNameColor();
+  protected ColorEditBox seasonBox;
+  protected int r;
+  protected int g;
+  protected int b;
+  protected int rgb;
+  protected ChatFormatting textColor;
 
   public RgbSlider(int x, int y, ColorEditBox seasonBox) {
-    super(x, y, seasonBox.getWidth() + 2, seasonBox.getHeight() - 6, Integer.parseInt(seasonBox.getValue()), true);
-    this.width = seasonBox.getWidth() + 2;
+    super(x, y, seasonBox.getWidth() + 2, seasonBox.getHeight() - 6, true, Integer.parseInt(seasonBox.getValue()));
     this.minValue = 0;
     this.maxValue = 16777215;
     this.seasonBox = seasonBox;
@@ -50,9 +48,6 @@ public class RgbSlider extends BasicSlider {
     if (enableColor) {
       super.onDrag(d, e, f, g);
     }
-  }
-
-  public void setSliderValue(int newValue) {
   }
 
   @Override
