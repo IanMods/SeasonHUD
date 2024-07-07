@@ -7,6 +7,8 @@ import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.resources.ResourceLocation;
 
 public class DrawUtil {
+  private DrawUtil() {
+  }
 
   public static void blitWithBorder(GuiGraphics guiGraphics, ResourceLocation texture, int x, int y, int u, int v,
       int width, int height, int textureWidth, int textureHeight, int topBorder, int bottomBorder, int leftBorder,
@@ -25,28 +27,30 @@ public class DrawUtil {
     guiGraphics.blit(texture, x, y, u, v, leftBorder, topBorder);
     guiGraphics.blit(texture, x + leftBorder + canvasWidth, y, u + leftBorder + fillerWidth, v, rightBorder, topBorder);
     guiGraphics.blit(texture, x, y + topBorder + canvasHeight, u, v + topBorder + fillerHeight, leftBorder,
-        bottomBorder);
+                     bottomBorder);
     guiGraphics.blit(texture, x + leftBorder + canvasWidth, y + topBorder + canvasHeight, u + leftBorder + fillerWidth,
-        v + topBorder + fillerHeight, rightBorder, bottomBorder);
+                     v + topBorder + fillerHeight, rightBorder, bottomBorder);
 
     int i;
     for (i = 0; i < xPasses + (remainderWidth > 0 ? 1 : 0); ++i) {
       guiGraphics.blit(texture, x + leftBorder + i * fillerWidth, y, u + leftBorder, v,
-          i == xPasses ? remainderWidth : fillerWidth, topBorder);
+                       i == xPasses ? remainderWidth : fillerWidth, topBorder);
       guiGraphics.blit(texture, x + leftBorder + i * fillerWidth, y + topBorder + canvasHeight, u + leftBorder,
-          v + topBorder + fillerHeight, i == xPasses ? remainderWidth : fillerWidth, bottomBorder);
+                       v + topBorder + fillerHeight, i == xPasses ? remainderWidth : fillerWidth, bottomBorder);
 
       for (int j = 0; j < yPasses + (remainderHeight > 0 ? 1 : 0); ++j) {
         guiGraphics.blit(texture, x + leftBorder + i * fillerWidth, y + topBorder + j * fillerHeight, u + leftBorder,
-            v + topBorder, i == xPasses ? remainderWidth : fillerWidth, j == yPasses ? remainderHeight : fillerHeight);
+                         v + topBorder, i == xPasses ? remainderWidth : fillerWidth,
+                         j == yPasses ? remainderHeight : fillerHeight);
       }
     }
 
     for (i = 0; i < yPasses + (remainderHeight > 0 ? 1 : 0); ++i) {
       guiGraphics.blit(texture, x, y + topBorder + i * fillerHeight, u, v + topBorder, leftBorder,
-          i == yPasses ? remainderHeight : fillerHeight);
+                       i == yPasses ? remainderHeight : fillerHeight);
       guiGraphics.blit(texture, x + leftBorder + canvasWidth, y + topBorder + i * fillerHeight,
-          u + leftBorder + fillerWidth, v + topBorder, rightBorder, i == yPasses ? remainderHeight : fillerHeight);
+                       u + leftBorder + fillerWidth, v + topBorder, rightBorder,
+                       i == yPasses ? remainderHeight : fillerHeight);
     }
 
   }
@@ -54,19 +58,19 @@ public class DrawUtil {
   public static void blitWithBorder(GuiGraphics guiGraphics, ResourceLocation texture, int x, int y, int u, int v,
       int width, int height, int textureWidth, int textureHeight, int borderSize) {
     blitWithBorder(guiGraphics, texture, x, y, u, v, width, height, textureWidth, textureHeight, borderSize, borderSize,
-        borderSize, borderSize);
+                   borderSize, borderSize);
   }
 
   //1.18
-  public static void enableScissor(int $$0, int $$1, int $$2, int $$3) {
-    Window $$4 = Minecraft.getInstance().getWindow();
-    int $$5 = $$4.getHeight();
-    double $$6 = $$4.getGuiScale();
-    double $$7 = (double) $$0 * $$6;
-    double $$8 = (double) $$5 - (double) $$3 * $$6;
-    double $$9 = (double) ($$2 - $$0) * $$6;
-    double $$10 = (double) ($$3 - $$1) * $$6;
-    RenderSystem.enableScissor((int) $$7, (int) $$8, Math.max(0, (int) $$9), Math.max(0, (int) $$10));
+  public static void enableScissor(int i, int j, int k, int l) {
+    Window window = Minecraft.getInstance().getWindow();
+    int height = window.getHeight();
+    double guiScale = window.getGuiScale();
+    double e = i * guiScale;
+    double f = height - l * guiScale;
+    double g = (k - i) * guiScale;
+    double h = (l - j) * guiScale;
+    RenderSystem.enableScissor((int) e, (int) f, Math.max(0, (int) g), Math.max(0, (int) h));
   }
 
   //1.18
