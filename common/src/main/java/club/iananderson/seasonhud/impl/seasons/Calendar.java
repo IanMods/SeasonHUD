@@ -1,6 +1,5 @@
 package club.iananderson.seasonhud.impl.seasons;
 
-import club.iananderson.seasonhud.Common;
 import club.iananderson.seasonhud.config.Config;
 import club.iananderson.seasonhud.platform.Services;
 import net.minecraft.client.Minecraft;

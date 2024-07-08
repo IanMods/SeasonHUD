@@ -3,7 +3,6 @@ package club.iananderson.seasonhud.impl.seasons;
 import club.iananderson.seasonhud.config.Config;
 import club.iananderson.seasonhud.util.Rgb;
 import java.util.EnumSet;
-import java.util.HashMap;
 import java.util.Map;
 import net.minecraft.network.chat.Component;
 

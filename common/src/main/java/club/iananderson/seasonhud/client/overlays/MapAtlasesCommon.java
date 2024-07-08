@@ -43,8 +43,8 @@ public class MapAtlasesCommon {
     }
   }
 
-  public static void drawScaledText(GuiGraphics context, int x, int y, MutableComponent text, MutableComponent shadowText, float textScaling,
-      int originOffsetWidth, int originOffsetHeight) {
+  public static void drawScaledText(GuiGraphics context, int x, int y, MutableComponent text,
+      MutableComponent shadowText, float textScaling, int originOffsetWidth, int originOffsetHeight) {
     Minecraft mc = Minecraft.getInstance();
     PoseStack poseStack = context.pose();
     float textWidth = (float) mc.font.width(text) * textScaling;
