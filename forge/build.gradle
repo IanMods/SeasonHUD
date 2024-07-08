@@ -93,7 +93,7 @@ dependencies {
 
     /Serene Seasons/
     implementation "curse.maven:serene-seasons-291874:${project.serene_seasons_forge_file_id}"
-    implementation "com.github.glitchfiend:GlitchCore-forge:${project.glitchcore_version}"
+    implementation "com.github.glitchfiend:GlitchCore-forge:${minecraft_version}-${project.glitchcore_version}"
 
     /Curios/
     compileOnly "top.theillusivec4.curios:curios-forge:${project.curios_file_id}:api"

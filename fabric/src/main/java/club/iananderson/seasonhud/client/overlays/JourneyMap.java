@@ -4,6 +4,7 @@ import club.iananderson.seasonhud.impl.minimaps.CurrentMinimap;
 import club.iananderson.seasonhud.impl.minimaps.CurrentMinimap.Minimaps;
 import journeymap.client.render.draw.DrawUtil;
 import net.fabricmc.fabric.api.client.rendering.v1.HudRenderCallback;
+import net.minecraft.client.DeltaTracker;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
 
@@ -16,13 +17,13 @@ public class JourneyMap implements HudRenderCallback {
   }
 
   @Override
-  public void onHudRender(GuiGraphics guiGraphics, float alpha) {
+  public void onHudRender(GuiGraphics guiGraphics, DeltaTracker tickCounter) {
     if (CurrentMinimap.journeyMapLoaded() && CurrentMinimap.shouldDrawMinimapHud(Minimaps.JOURNEYMAP)) {
       JourneyMapCommon journeyMapCommon = JourneyMapCommon.getInstance(Minecraft.getInstance());
 
       guiGraphics.pose().pushPose();
       guiGraphics.pose().scale(1 / journeyMapCommon.getFontScale(), 1 / journeyMapCommon.getFontScale(), 0);
-      DrawUtil.sizeDisplay(guiGraphics.pose(), journeyMapCommon.getScreenWidth(), journeyMapCommon.getScreenHeight());
+      DrawUtil.sizeDisplay(journeyMapCommon.getScreenWidth(), journeyMapCommon.getScreenHeight());
       guiGraphics.pose().popPose();
       journeyMapCommon.drawSeasonLabel(guiGraphics);
     }

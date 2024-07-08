@@ -4,6 +4,7 @@ import club.iananderson.seasonhud.config.Config;
 import club.iananderson.seasonhud.impl.minimaps.CurrentMinimap;
 import club.iananderson.seasonhud.platform.Services;
 import java.util.List;
+import journeymap.client.JourneymapClient;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screens.ChatScreen;
 import net.minecraft.client.gui.screens.DeathScreen;
@@ -48,8 +49,12 @@ public class Common {
       return false;
     }
 
-    return (mc.screen == null || mc.screen instanceof ChatScreen || mc.screen instanceof DeathScreen) && !mc.isPaused()
-        && !mc.getDebugOverlay().showDebugScreen() && !mc.options.hideGui && !mc.player.isScoping();
+    if (CurrentMinimap.journeyMapLoaded()) {
+      return JourneymapClient.getInstance().getActiveMiniMapProperties().isActive();
+    } else {
+      return (mc.screen == null || mc.screen instanceof ChatScreen || mc.screen instanceof DeathScreen)
+          && !mc.isPaused() && !mc.getDebugOverlay().showDebugScreen() && !mc.options.hideGui && !mc.player.isScoping();
+    }
   }
 
   public static boolean drawDefaultHud() {

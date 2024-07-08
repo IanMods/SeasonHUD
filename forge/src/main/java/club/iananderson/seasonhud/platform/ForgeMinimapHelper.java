@@ -31,7 +31,7 @@ public class ForgeMinimapHelper implements IMinimapHelper {
       case JOURNEYMAP -> {
         MiniMapProperties properties = UIManager.INSTANCE.getMiniMap().getCurrentMinimapProperties();
 
-        return !properties.enabled.get() || !(properties.isActive() && !Minecraft.getInstance().isPaused());
+        return !properties.enabled.get() || !(properties.isActive());
       }
       case FTB_CHUNKS -> {
         return !FTBChunksClientConfig.MINIMAP_ENABLED.get();

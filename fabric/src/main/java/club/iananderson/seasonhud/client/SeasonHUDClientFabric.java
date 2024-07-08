@@ -12,7 +12,7 @@ public class SeasonHUDClientFabric implements ClientModInitializer {
   @Override
   public void onInitializeClient() {
     NeoForgeConfigRegistry.INSTANCE.register(Common.MOD_ID, ModConfig.Type.CLIENT, Config.GENERAL_SPEC,
-                                             "SeasonHUD-client.toml");
+        "SeasonHUD-client.toml");
     ClientEvents.register();
   }
 }

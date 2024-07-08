@@ -1,10 +1,12 @@
 package club.iananderson.seasonhud.client.overlays;
 
 import club.iananderson.seasonhud.impl.minimaps.CurrentMinimap;
+import net.minecraft.client.DeltaTracker;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.LayeredDraw;
 import net.minecraft.world.effect.MobEffect;
+import org.jetbrains.annotations.NotNull;
 import pepjebs.mapatlases.MapAtlasesMod;
 import pepjebs.mapatlases.client.Anchoring;
 import pepjebs.mapatlases.client.MapAtlasesClient;
@@ -39,7 +41,7 @@ public class MapAtlases implements LayeredDraw.Layer {
   }
 
   @Override
-  public void render(GuiGraphics graphics, float partialTick) {
+  public void render(GuiGraphics graphics, @NotNull DeltaTracker tickCounter) {
     Minecraft mc = Minecraft.getInstance();
     int screenWidth = graphics.guiWidth();
     int screenHeight = graphics.guiHeight();

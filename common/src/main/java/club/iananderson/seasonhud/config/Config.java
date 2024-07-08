@@ -50,7 +50,7 @@ public class Config {
 
     builder.push("HUD");
     hudLocation = builder.comment("Where to display the Hud when no minimap is installed.\n" + "Default is TOP_LEFT.")
-        .defineEnum("hud_location", Location.TOP_LEFT);
+                         .defineEnum("hud_location", Location.TOP_LEFT);
 
     hudX = builder.comment(
         "The horizontal offset of the HUD when no minimap is installed (in pixels)\n" + "Default is " + DEFAULT_X_OFFSET
@@ -62,7 +62,7 @@ public class Config {
 
     builder.push("Colors");
     enableSeasonNameColor = builder.comment("Display the season name in a color?\n" + "(true/false)")
-        .define("season_name_color", true);
+                                   .define("season_name_color", true);
 
     springColor = builder.comment(
         "The RGB color (decimal) for spring.\n" + "(256 * 256 * r) + (256 * g) + (b) is the formula.\n" + "Default is "
@@ -96,35 +96,35 @@ public class Config {
             + "Default is false.").define("need_calendar", false);
 
     showTropicalSeason = builder.comment("Show the Tropical seasons (Wet/Dry) in Tropical Biomes.\n"
-                                             + "Will not change the season behavior in the biomes.\n" + "(true/false)\n"
-                                             + "Default is true.").define("enable_show_tropical_season", true);
+                                    + "Will not change the season behavior in the biomes.\n" + "(true/false)\n" + "Default is true.")
+                                .define("enable_show_tropical_season", true);
 
     showSubSeason = builder.comment(
         "Show sub-season (i.e. Early Winter, Mid Autumn, Late Spring) instead of basic season?\n" + "(true/false)\n"
             + " Default is true.").define("enable_show_sub_season", true);
 
     showDay = builder.comment("""
-                                  Show the current day of the season/sub-season?
-                                  NONE, SHOW_DAY,
-                                                                                        SHOW_WITH_TOTAL_DAYS
-                                  Default is SHOW_DAY.""").defineEnum("enable_show_day", ShowDay.SHOW_DAY);
+        Show the current day of the season/sub-season?
+        NONE, SHOW_DAY,
+                                                              SHOW_WITH_TOTAL_DAYS
+        Default is SHOW_DAY.""").defineEnum("enable_show_day", ShowDay.SHOW_DAY);
     builder.pop();
 
     builder.push("Minimap");
     enableMinimapIntegration = builder.comment(
-            "Enable integration with minimap mods?\n" + "(true/false)\n" + "Default is true.")
-        .define("enable_minimap_integration", true);
+                                          "Enable integration with minimap mods?\n" + "(true/false)\n" + "Default is true.")
+                                      .define("enable_minimap_integration", true);
     showDefaultWhenMinimapHidden = builder.comment(
-            "Show the default SeasonHUD display when the minimap is hidden?\n" + "(true/false)\n" + "Default is false.")
-        .define("enable_show_minimap_hidden", false);
+                                              "Show the default SeasonHUD display when the minimap is hidden?\n" + "(true/false)\n" + "Default is false.")
+                                          .define("enable_show_minimap_hidden", false);
 
     builder.push("Journeymap");
     journeyMapAboveMap = builder.comment(
         "Display the season above the JourneyMap minimap, instead of below.\n" + "(true" + "/false)\n"
             + "Default is false.").define("enable_above_map", false);
     journeyMapMacOS = builder.comment("Toggle for macOS retina display scaling when using JourneyMap.\n"
-                                          + "Enable if the season line is rendering around the halfway point of the screen.\n"
-                                          + "(true/false)\n" + "Default is false.").define("enable_macOS", false);
+        + "Enable if the season line is rendering around the halfway point of the screen.\n" + "(true/false)\n"
+        + "Default is false.").define("enable_macOS", false);
     builder.pop();
     builder.pop();
     builder.pop();

@@ -9,6 +9,7 @@ import dev.ftb.mods.ftbchunks.client.FTBChunksClientConfig;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+import journeymap.client.properties.MiniMapProperties;
 import journeymap.client.ui.UIManager;
 import net.minecraft.client.Minecraft;
 import net.minecraft.resources.ResourceKey;
@@ -17,7 +18,6 @@ import sereneseasons.init.ModConfig;
 import xaero.common.HudMod;
 
 public class FabricMinimapHelper implements IMinimapHelper {
-
   @Override
   public boolean hideHudInCurrentDimension() {
     ResourceKey<Level> currentDim = Objects.requireNonNull(Minecraft.getInstance().level).dimension();
@@ -29,7 +29,9 @@ public class FabricMinimapHelper implements IMinimapHelper {
   public boolean hiddenMinimap(Minimaps minimap) {
     switch (minimap) {
       case JOURNEYMAP -> {
-        return !UIManager.INSTANCE.getMiniMap().getCurrentMinimapProperties().enabled.get();
+        MiniMapProperties properties = UIManager.INSTANCE.getMiniMap().getCurrentMinimapProperties();
+
+        return !properties.enabled.get() || !(properties.isActive());
       }
       case FTB_CHUNKS -> {
         return !FTBChunksClientConfig.MINIMAP_ENABLED.get();

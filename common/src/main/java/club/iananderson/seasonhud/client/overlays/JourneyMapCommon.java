@@ -45,7 +45,7 @@ public class JourneyMapCommon {
     MiniMapProperties mapProperties = jm.getActiveMiniMapProperties();
     LabelSpec currentTheme = ThemeLoader.getCurrentTheme().minimap.square.labelBottom;
     this.fontShadow = currentTheme.shadow;
-    this.fontScale = jm.getActiveMiniMapProperties().fontScale.get();
+    this.fontScale = jm.getActiveMiniMapProperties().infoSlotFontScale.get();
     this.labelAlpha = jm.getActiveMiniMapProperties().infoSlotAlpha.get();
     this.textAlpha = currentTheme.foreground.alpha;
     this.textureX = vars.textureX;
@@ -100,12 +100,12 @@ public class JourneyMapCommon {
     return screenHeight;
   }
 
-  public void drawSeasonLabel(GuiGraphics guiGraphics) {
-    MultiBufferSource.BufferSource buffers = guiGraphics.bufferSource();
+  public void drawSeasonLabel(GuiGraphics graphics) {
+    MultiBufferSource.BufferSource buffers = graphics.bufferSource();
     buffers.endBatch();
-    DrawUtil.drawBatchLabel(guiGraphics.pose(), seasonCombined, buffers, labelX(), labelY(), DrawUtil.HAlign.Center,
-                            DrawUtil.VAlign.Below, labelColor, labelAlpha, textColor, textAlpha, fontScale, fontShadow);
-    guiGraphics.bufferSource().endBatch();
-    DrawUtil.sizeDisplay(guiGraphics.pose(), scaledWidth, scaledHeight);
+    DrawUtil.drawBatchLabel(graphics, seasonCombined, labelX(), labelY(), DrawUtil.HAlign.Center, DrawUtil.VAlign.Below,
+                            labelColor, labelAlpha, textColor, textAlpha, fontScale, fontShadow, 0);
+    graphics.bufferSource().endBatch();
+    DrawUtil.sizeDisplay(scaledWidth, scaledHeight);
   }
 }

@@ -3,6 +3,7 @@ package club.iananderson.seasonhud.client.overlays;
 import club.iananderson.seasonhud.config.Config;
 import club.iananderson.seasonhud.impl.minimaps.CurrentMinimap;
 import net.fabricmc.fabric.api.client.rendering.v1.HudRenderCallback;
+import net.minecraft.client.DeltaTracker;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.world.item.ItemStack;
@@ -48,7 +49,7 @@ public class MapAtlases implements HudRenderCallback {
   }
 
   @Override
-  public void onHudRender(GuiGraphics seasonStack, float alpha) {
+  public void onHudRender(GuiGraphics seasonStack, DeltaTracker tickCounter) {
     if (CurrentMinimap.mapAtlasesLoaded()) {
       if (mc.level != null && mc.player != null) {
         int mapBgScaledSize = (int) Math.floor(0.2 * (double) mc.getWindow().getGuiScaledHeight());

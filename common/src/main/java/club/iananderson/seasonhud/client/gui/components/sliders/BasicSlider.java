@@ -1,5 +1,6 @@
 package club.iananderson.seasonhud.client.gui.components.sliders;
 
+import club.iananderson.seasonhud.Common;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.components.AbstractSliderButton;
 import net.minecraft.client.gui.navigation.CommonInputs;
@@ -10,7 +11,7 @@ import org.jetbrains.annotations.NotNull;
 
 public class BasicSlider extends AbstractSliderButton {
   public static final int SLIDER_PADDING = 2;
-  protected static final ResourceLocation SLIDER_LOCATION = new ResourceLocation("textures/gui/slider.png");
+  protected static final ResourceLocation SLIDER_LOCATION = Common.location("textures/gui/slider.png");
   protected final boolean drawString;
   protected boolean canChangeValue;
   protected double minValue;

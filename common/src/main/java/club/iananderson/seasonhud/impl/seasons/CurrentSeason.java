@@ -89,7 +89,7 @@ public class CurrentSeason {
 
   public MutableComponent getSeasonHudTextNoFormat() {
     Component seasonIcon = Component.translatable("desc.seasonhud.hud.icon", getSeasonIcon())
-        .withStyle(Common.SEASON_ICON_STYLE);
+                                    .withStyle(Common.SEASON_ICON_STYLE);
     MutableComponent seasonText = getText().copy();
 
     return Component.translatable("desc.seasonhud.hud.combined", seasonIcon, seasonText);
@@ -104,7 +104,7 @@ public class CurrentSeason {
     }
 
     return Component.translatable("desc.seasonhud.hud.combined", seasonIcon.withStyle(Common.SEASON_ICON_STYLE),
-                                  seasonText.withStyle(seasonFormat));
+        seasonText.withStyle(seasonFormat));
   }
 
   public MutableComponent getSeasonMenuText(Seasons season, int newRgb, boolean seasonShort) {
@@ -124,6 +124,6 @@ public class CurrentSeason {
     }
 
     return Component.translatable("desc.seasonhud.hud.combined", seasonIcon.withStyle(Common.SEASON_ICON_STYLE),
-                                  seasonText.withStyle(seasonFormat));
+        seasonText.withStyle(seasonFormat));
   }
 }

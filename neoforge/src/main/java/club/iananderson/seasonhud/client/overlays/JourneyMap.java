@@ -3,6 +3,7 @@ package club.iananderson.seasonhud.client.overlays;
 import club.iananderson.seasonhud.impl.minimaps.CurrentMinimap;
 import club.iananderson.seasonhud.impl.minimaps.CurrentMinimap.Minimaps;
 import journeymap.client.render.draw.DrawUtil;
+import net.minecraft.client.DeltaTracker;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.LayeredDraw;
@@ -16,13 +17,13 @@ public class JourneyMap implements LayeredDraw.Layer {
   }
 
   @Override
-  public void render(@NotNull GuiGraphics graphics, float partialTick) {
+  public void render(@NotNull GuiGraphics graphics, @NotNull DeltaTracker tickCounter) {
     if (CurrentMinimap.journeyMapLoaded() && CurrentMinimap.shouldDrawMinimapHud(Minimaps.JOURNEYMAP)) {
       JourneyMapCommon journeyMapCommon = JourneyMapCommon.getInstance(Minecraft.getInstance());
 
       graphics.pose().pushPose();
       graphics.pose().scale(1 / journeyMapCommon.getFontScale(), 1 / journeyMapCommon.getFontScale(), 0);
-      DrawUtil.sizeDisplay(graphics.pose(), journeyMapCommon.getScreenWidth(), journeyMapCommon.getScreenHeight());
+      DrawUtil.sizeDisplay(journeyMapCommon.getScreenWidth(), journeyMapCommon.getScreenHeight());
       graphics.pose().popPose();
       journeyMapCommon.drawSeasonLabel(graphics);
     }
