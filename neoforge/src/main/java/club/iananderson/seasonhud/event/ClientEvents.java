@@ -16,7 +16,7 @@ import net.neoforged.neoforge.client.event.RegisterGuiOverlaysEvent;
 import net.neoforged.neoforge.client.event.RegisterKeyMappingsEvent;
 import net.neoforged.neoforge.client.gui.overlay.VanillaGuiOverlay;
 
-@Mod.EventBusSubscriber(value = Dist.CLIENT, modid = SeasonHUD.MODID, bus = Mod.EventBusSubscriber.Bus.FORGE)
+@Mod.EventBusSubscriber(value = Dist.CLIENT, modid = Common.MOD_ID, bus = Mod.EventBusSubscriber.Bus.FORGE)
 public class ClientEvents {
 
   @SubscribeEvent
@@ -26,7 +26,7 @@ public class ClientEvents {
     }
   }
 
-  @Mod.EventBusSubscriber(value = Dist.CLIENT, modid = SeasonHUD.MODID, bus = Mod.EventBusSubscriber.Bus.MOD)
+  @Mod.EventBusSubscriber(value = Dist.CLIENT, modid = Common.MOD_ID, bus = Mod.EventBusSubscriber.Bus.MOD)
   public static class ModBus {
     //Overlays
     @SubscribeEvent
