@@ -2,11 +2,12 @@ package club.iananderson.seasonhud.event;
 
 import club.iananderson.seasonhud.Common;
 import club.iananderson.seasonhud.client.KeyBindings;
-import club.iananderson.seasonhud.client.SeasonHUDOverlay;
 import club.iananderson.seasonhud.client.gui.screens.SeasonHUDScreen;
-import club.iananderson.seasonhud.client.minimaps.JourneyMap;
-import club.iananderson.seasonhud.client.minimaps.MapAtlases;
 import net.minecraft.client.DeltaTracker;
+import club.iananderson.seasonhud.client.overlays.JourneyMap;
+import club.iananderson.seasonhud.client.overlays.MapAtlases;
+import club.iananderson.seasonhud.client.overlays.SeasonHUDOverlay;
+import club.iananderson.seasonhud.impl.minimaps.CurrentMinimap;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.client.event.InputEvent;
@@ -30,10 +31,23 @@ public class ClientEvents {
   @Mod.EventBusSubscriber(modid = Common.MOD_ID, value = Dist.CLIENT, bus = Mod.EventBusSubscriber.Bus.MOD)
   public static class ClientModBusEvents {
     //Overlays
-    public static void registerOverlays(GuiGraphics guiGraphics, DeltaTracker deltaTracker) {
-      new SeasonHUDOverlay().render(guiGraphics, deltaTracker);
-      new JourneyMap().render(guiGraphics, deltaTracker);
-      new MapAtlases().render(guiGraphics, deltaTracker);
+    public static void registerGuiOverlays(GuiGraphics graphics, DeltaTracker deltaTracker) {
+      SeasonHUDOverlay.init();
+      SeasonHUDOverlay.HUD_INSTANCE.render(graphics, deltaTracker);
+    }
+
+    public static void registerJourneyMapOverlay(GuiGraphics graphics, DeltaTracker deltaTracker) {
+      if (CurrentMinimap.journeyMapLoaded()) {
+        JourneyMap.init();
+        JourneyMap.HUD_INSTANCE.render(graphics, deltaTracker);
+      }
+    }
+
+    public static void registerMapAtlasesOverlay(GuiGraphics graphics, DeltaTracker deltaTracker) {
+      if (CurrentMinimap.mapAtlasesLoaded()) {
+        MapAtlases.init();
+        MapAtlases.HUD_INSTANCE.render(graphics, deltaTracker);
+      }
     }
 
     //Key Bindings

@@ -14,9 +14,13 @@ minecraft {
 dependencies {
     compileOnly group: 'org.spongepowered', name: 'mixin', version: '0.8.5'
 
-    api "fuzs.forgeconfigapiport:forgeconfigapiport-common-neoforgeapi:${forgeconfigapiport_version}"
+    api "fuzs.forgeconfigapiport:forgeconfigapiport-common-neoforgeapi:${project.forgeconfigapiport_version}"
     api group: 'info.journeymap', name: 'journeymap-api-common', version: journeymap_api_version, changing: true
-    compileOnly "com.github.glitchfiend:GlitchCore-common:${project.glitchcore_version}"
+    compileOnly "com.github.glitchfiend:GlitchCore-common:${minecraft_version}-${glitchcore_version}"
+
+    //To get the Journeymap map values, since they are the same between the mod loaders.
+    // Not used unless Journeymap is actually  loaded.
+    compileOnly "curse.maven:journeymap-32274:${project.journeymap_forge_file_id}"
 }
 
 configurations {

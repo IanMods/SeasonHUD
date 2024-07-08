@@ -32,6 +32,8 @@ dependencies {
     modCompileOnly "curse.maven:ftb-chunks-fabric-472657:${ftb_chunks_fabric_file_id}"
 
     /Trinkets/
+    modCompileOnly("dev.onyxstudios.cardinal-components-api:cardinal-components-base:${project.cca_version}")
+    modCompileOnly("dev.onyxstudios.cardinal-components-api:cardinal-components-entity:${project.cca_version}")
     modCompileOnly "dev.emi:trinkets:${trinkets_file_id}"
     modCompileOnly("dev.onyxstudios.cardinal-components-api:cardinal-components-base:${project.cca_version}")
     modCompileOnly("dev.onyxstudios.cardinal-components-api:cardinal-components-entity:${project.cca_version}")
@@ -45,8 +47,8 @@ dependencies {
     modCompileOnly "curse.maven:journeymap-${project.jm_project_id}:${project.journeymap_fabric_file_id}"
 
     /Map Atlases/
-    modCompileOnly "maven.modrinth:map-atlases:Cm1VPyWo"
     //Fabric only version, only for 1.20.4 even though it is marked as 1.20.5 as well
+    modCompileOnly "maven.modrinth:map-atlases:Cm1VPyWo"
     modCompileOnly "maven.modrinth:cloth-config:eBZiZ9NS"
 
 //    modCompileOnly "curse.maven:map-atlases-436298:${project.map_atlases_fabric_file_id}"

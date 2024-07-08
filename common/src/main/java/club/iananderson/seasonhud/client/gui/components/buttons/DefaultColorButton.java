@@ -1,28 +1,29 @@
 package club.iananderson.seasonhud.client.gui.components.buttons;
 
 import club.iananderson.seasonhud.client.gui.components.boxes.ColorEditBox;
-import club.iananderson.seasonhud.impl.seasons.SeasonList;
 import club.iananderson.seasonhud.util.Rgb;
-import java.util.HashMap;
+import java.util.Map;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.components.Button;
+import net.minecraft.client.gui.components.Tooltip;
 import net.minecraft.network.chat.Component;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 public class DefaultColorButton extends Button {
+  private static final Component DEFAULT = Component.translatable("menu.seasonhud.button.color.default");
+  private final ColorEditBox colorEditBox;
+  private final int defaultColor;
 
-  private static final Component DEFAULT = Component.translatable("menu.seasonhud.color.button.default");
-  private ColorEditBox colorEditBox;
-  private int defaultColor;
-
-  private DefaultColorButton(int x, int y, int width, int height, Component component, OnPress onPress) {
-    super(x, y, width, height, component, onPress, DEFAULT_NARRATION);
+  private DefaultColorButton(int x, int y, ColorEditBox colorEditBox, OnPress onPress) {
+    super(x, y, colorEditBox.getWidth() + 2, colorEditBox.getHeight() - 2, DefaultColorButton.DEFAULT, onPress,
+          DEFAULT_NARRATION);
+    this.colorEditBox = colorEditBox;
+    this.defaultColor = colorEditBox.getSeason().getDefaultColor();
   }
 
-  public DefaultColorButton(int x, int y, SeasonList season, ColorEditBox colorEditBox, OnPress onPress) {
-    this(x, y, colorEditBox.getWidth() + 2, colorEditBox.getHeight() - 2, DEFAULT, onPress);
-    this.colorEditBox = colorEditBox;
-    this.defaultColor = season.getDefaultColor();
+  public static Builder builder(ColorEditBox colorEditBox, OnPress onPress) {
+    return new Builder(colorEditBox, onPress);
   }
 
   private boolean inBounds(int color) {
@@ -41,11 +42,19 @@ public class DefaultColorButton extends Button {
     }
   }
 
-  private void refresh() {
-    HashMap<String, Integer> defaultColors = Rgb.defaultSeasonMap(this.colorEditBox.getSeason());
-    HashMap<String, Integer> currentColors = this.colorEditBox.getSeason().getRgbMap();
+  public int getTextureY() {
+    int k = 1;
+    if (!this.active) {
+      k = 0;
+    } else if (this.isHoveredOrFocused()) {
+      k = 2;
+    }
 
-    this.active = defaultColors != currentColors;
+    return 46 + k * 20;
+  }
+
+  public int getFGColor() {
+    return this.active ? 16777215 : 10526880;
   }
 
   @Override
@@ -58,5 +67,48 @@ public class DefaultColorButton extends Button {
     }
 
     super.renderWidget(graphics, mouseX, mouseY, partialTicks);
+  }
+
+  private void refresh() {
+    Map<String, Integer> defaultColors = Rgb.defaultSeasonMap(this.colorEditBox.getSeason());
+    Map<String, Integer> currentColors = this.colorEditBox.getSeason().getRgbMap();
+
+    this.active = defaultColors != currentColors;
+  }
+
+  public static class Builder {
+    protected final OnPress onPress;
+    protected final ColorEditBox colorEditBox;
+    protected int x;
+    protected int y;
+    protected Tooltip tooltip;
+
+    public Builder(ColorEditBox colorEditBox, OnPress onPress) {
+      this.colorEditBox = colorEditBox;
+      this.onPress = onPress;
+    }
+
+    /**
+     * Uses default width = 150 and height = 20
+     *
+     * @param x The horizontal position of the button
+     * @param y The vertical position of the button
+     */
+    public Builder withPos(int x, int y) {
+      this.x = x;
+      this.y = y;
+      return this;
+    }
+
+    public Builder withTooltip(@Nullable Tooltip tooltip) {
+      this.tooltip = tooltip;
+      return this;
+    }
+
+    public DefaultColorButton build() {
+      DefaultColorButton button = new DefaultColorButton(this.x, this.y, this.colorEditBox, this.onPress);
+      button.setTooltip(this.tooltip);
+      return button;
+    }
   }
 }

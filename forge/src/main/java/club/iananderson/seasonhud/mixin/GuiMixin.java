@@ -13,6 +13,8 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 public class GuiMixin {
   @Inject(method = "render", at = @At("RETURN"))
   private void render(GuiGraphics guiGraphics, DeltaTracker deltaTracker, CallbackInfo ci) {
-    ClientEvents.ClientModBusEvents.registerOverlays(guiGraphics, deltaTracker);
+    ClientEvents.ClientModBusEvents.registerGuiOverlays(guiGraphics, deltaTracker);
+    ClientEvents.ClientModBusEvents.registerJourneyMapOverlay(guiGraphics, deltaTracker);
+    ClientEvents.ClientModBusEvents.registerMapAtlasesOverlay(guiGraphics, deltaTracker);
   }
 }
