@@ -1,34 +1,49 @@
 package club.iananderson.seasonhud.impl.minimaps;
 
-import static club.iananderson.seasonhud.client.SeasonHUDClient.mc;
-import static club.iananderson.seasonhud.config.Config.enableMinimapIntegration;
-import static club.iananderson.seasonhud.config.Config.enableMod;
-import static club.iananderson.seasonhud.platform.Services.MINIMAP;
-
 import club.iananderson.seasonhud.Common;
+import club.iananderson.seasonhud.config.Config;
 import club.iananderson.seasonhud.impl.seasons.Calendar;
 import club.iananderson.seasonhud.platform.Services;
+import java.util.ArrayList;
+import java.util.List;
+import net.minecraft.client.Minecraft;
 
 public class CurrentMinimap {
-
-  /**
-   * Checks if a minimap mod is currently loaded.
-   *
-   * @param minimap The modid to check if the minimap is loaded.
-   * @return True if the mod is loaded.
-   */
-  public static boolean minimapLoaded(String minimap) {
-    return Services.PLATFORM.isModLoaded(minimap);
+  private static boolean minimapLoaded(Minimaps minimap) {
+    String modID = minimap.getModID();
+    return Services.PLATFORM.isModLoaded(modID);
   }
 
-  /**
-   * Checks if there are currently no minimap mods loaded.
-   *
-   * @return True if no minimap mods are present.
-   */
+  public static List<Minimaps> getLoadedMinimaps() {
+    List<Minimaps> values = new ArrayList<>(List.of(Minimaps.values()));
+    List<Minimaps> loaded = new ArrayList<>();
+
+    values.forEach(minimaps -> {
+      if (minimapLoaded(minimaps)) {
+        loaded.add(minimaps);
+      }
+    });
+    return loaded;
+  }
+
   public static boolean noMinimapLoaded() {
-    return !minimapLoaded("xaerominimap") && !minimapLoaded("xaerominimapfair") && !minimapLoaded("journeymap")
-        && !minimapLoaded("ftbchunks") && !minimapLoaded("map_atlases");
+    return getLoadedMinimaps().isEmpty();
+  }
+
+  public static boolean xaeroLoaded() {
+    return getLoadedMinimaps().contains(Minimaps.XAERO) || getLoadedMinimaps().contains(Minimaps.XAERO_FAIRPLAY);
+  }
+
+  public static boolean journeyMapLoaded() {
+    return getLoadedMinimaps().contains(Minimaps.JOURNEYMAP);
+  }
+
+  public static boolean ftbChunksLoaded() {
+    return getLoadedMinimaps().contains(Minimaps.FTB_CHUNKS);
+  }
+
+  public static boolean mapAtlasesLoaded() {
+    return getLoadedMinimaps().contains(Minimaps.MAP_ATLASES);
   }
 
   /**
@@ -36,13 +51,37 @@ public class CurrentMinimap {
    *
    * @return True if the minimap version of the HUD should be drawn
    */
-  public static boolean shouldDrawMinimapHud() {
+  public static boolean shouldDrawMinimapHud(Minimaps minimap) {
+    Minecraft mc = Minecraft.getInstance();
+
     if (mc.level == null || mc.player == null) {
       return false;
     }
 
-    return (enableMod.get() && enableMinimapIntegration.get() && Calendar.calendarFound()
-        && !MINIMAP.hideHudInCurrentDimension() && !MINIMAP.currentMinimapHidden() && Common.vanillaShouldDrawHud())
-        && !mc.player.isScoping();
+    return (Config.getEnableMod() && Config.getEnableMinimapIntegration() && Calendar.calendarFound()
+        && !Services.MINIMAP.hideHudInCurrentDimension() && !Services.MINIMAP.hiddenMinimap(minimap)
+        && Common.vanillaShouldDrawHud()) && !mc.player.isScoping();
+  }
+
+  public enum Minimaps {
+    XAERO("xaerominimap"),
+
+    XAERO_FAIRPLAY("xaerominimapfair"),
+
+    JOURNEYMAP("journeymap"),
+
+    FTB_CHUNKS("ftbchunks"),
+
+    MAP_ATLASES("map_atlases");
+
+    private final String modID;
+
+    Minimaps(String modID) {
+      this.modID = modID;
+    }
+
+    public String getModID() {
+      return this.modID;
+    }
   }
 }

@@ -1,6 +1,7 @@
 package club.iananderson.seasonhud;
 
 import club.iananderson.seasonhud.config.Config;
+import club.iananderson.seasonhud.impl.curios.CuriosCompat;
 import fuzs.forgeconfigapiport.forge.api.neoforge.v4.NeoForgeConfigRegistry;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.server.ServerStartingEvent;
@@ -10,7 +11,6 @@ import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.config.ModConfig;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
-import net.minecraftforge.fml.event.lifecycle.InterModEnqueueEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 
 @Mod(Common.MOD_ID)
@@ -19,8 +19,6 @@ public class SeasonHUD {
   public SeasonHUD() {
     IEventBus modEventBus = FMLJavaModLoadingContext.get().getModEventBus();
     MinecraftForge.EVENT_BUS.register(this);
-
-    //modEventBus.addListener(this::enqueue);
     modEventBus.addListener(this::commonSetup);
 
     Common.init();
@@ -28,14 +26,11 @@ public class SeasonHUD {
     NeoForgeConfigRegistry.INSTANCE.register(ModConfig.Type.CLIENT, Config.GENERAL_SPEC, "SeasonHUD-client.toml");
   }
 
-  public void enqueue(InterModEnqueueEvent event) {
-//        LOG.info("Talking to Curios");
-//        InterModComms.sendTo("curios", SlotTypeMessage.REGISTER_TYPE, () -> new SlotTypeMessage.Builder("charm")
-//                .size(1)
-//                .build());
-  }
-
   private void commonSetup(final FMLCommonSetupEvent event) {
+    if (Common.curiosLoaded()) {
+      LOG.info("Talking to Curios");
+      new CuriosCompat().setup(event);
+    }
   }
 
   @SubscribeEvent

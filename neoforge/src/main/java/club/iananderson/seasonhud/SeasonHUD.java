@@ -1,6 +1,9 @@
 package club.iananderson.seasonhud;
 
+import static club.iananderson.seasonhud.Common.LOG;
+
 import club.iananderson.seasonhud.config.Config;
+import club.iananderson.seasonhud.impl.curios.CuriosCompat;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.fml.ModLoadingContext;
 import net.neoforged.fml.common.Mod;
@@ -24,6 +27,9 @@ public class SeasonHUD {
   }
 
   private void commonSetup(final FMLCommonSetupEvent event) {
-//        CuriosApi.registerCurio(Calendar.calendar,new CuriosCalendar());
+    if (Common.curiosLoaded()) {
+      LOG.info("Talking to Curios");
+      new CuriosCompat().setup(event);
+    }
   }
 }
