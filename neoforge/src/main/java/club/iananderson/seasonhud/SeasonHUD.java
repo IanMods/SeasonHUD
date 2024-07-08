@@ -9,14 +9,9 @@ import net.neoforged.fml.ModLoadingContext;
 import net.neoforged.fml.common.Mod;
 import net.neoforged.fml.config.ModConfig;
 import net.neoforged.fml.event.lifecycle.FMLCommonSetupEvent;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 
-@Mod(SeasonHUD.MODID)
+@Mod(Common.MOD_ID)
 public class SeasonHUD {
-
-  public static final String MODID = "seasonhud";
-  public static final Logger LOGGER = LogManager.getLogger("seasonhud");
 
   public SeasonHUD(IEventBus modEventBus) {
     modEventBus.addListener(this::commonSetup);
