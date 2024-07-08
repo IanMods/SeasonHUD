@@ -28,7 +28,7 @@ public class SeasonHUD {
 
   private void commonSetup(final FMLCommonSetupEvent event) {
     if (Common.curiosLoaded()) {
-      LOG.info("Talking to Curios");
+      Common.LOG.info("Talking to Curios");
       new CuriosCompat().setup(event);
     }
   }

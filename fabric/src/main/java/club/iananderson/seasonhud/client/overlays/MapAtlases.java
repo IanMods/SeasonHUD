@@ -2,7 +2,6 @@ package club.iananderson.seasonhud.client.overlays;
 
 import club.iananderson.seasonhud.config.Config;
 import club.iananderson.seasonhud.impl.minimaps.CurrentMinimap;
-import java.util.Arrays;
 import net.fabricmc.fabric.api.client.rendering.v1.HudRenderCallback;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
@@ -36,10 +35,11 @@ public class MapAtlases implements HudRenderCallback {
         } else if (MapAtlasesClient.currentMapStateId == null) {
           return false;
         } else {
-          return atlas.getTag() != null && atlas.getTag().contains("maps") && Arrays.stream(
-              atlas.getTag().getIntArray("maps")).anyMatch((i) -> {
-            return i == MapAtlasesAccessUtils.getMapIntFromString(MapAtlasesClient.currentMapStateId);
-          });
+          return false;
+//          return atlas.getTag() != null && atlas.getTag().contains("maps") && Arrays.stream(
+//              atlas.getTag().getIntArray("maps")).anyMatch((i) -> {
+//            return i == MapAtlasesAccessUtils.getMapIntFromString(MapAtlasesClient.currentMapStateId);
+//          });
         }
       }
     } else {
@@ -71,10 +71,10 @@ public class MapAtlases implements HudRenderCallback {
         int textHeightOffset;
         if (anchorLocation.contentEquals("UpperRight")) {
           boolean hasBeneficial = mc.player.getActiveEffects().stream().anyMatch((p) -> {
-            return p.getEffect().isBeneficial();
+            return p.getEffect().value().isBeneficial();
           });
           boolean hasNegative = mc.player.getActiveEffects().stream().anyMatch((p) -> {
-            return !p.getEffect().isBeneficial();
+            return !p.getEffect().value().isBeneficial();
           });
           textHeightOffset = 26;
           if (MapAtlasesMod.CONFIG != null) {

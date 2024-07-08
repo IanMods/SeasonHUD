@@ -30,25 +30,25 @@ public class ClientEvents {
   public static class ModBus {
     //Overlays
     @SubscribeEvent
-    public static void registerGuiOverlays(RegisterGuiOverlaysEvent event) {
+    public static void registerGuiOverlays(RegisterGuiLayersEvent event) {
       SeasonHUDOverlay.init();
-      event.registerAbove(VanillaGuiOverlay.FROSTBITE.id(), Common.location("seasonhud"),
+      event.registerAbove(VanillaGuiLayers.CAMERA_OVERLAYS, Common.location("seasonhud"),
                           SeasonHUDOverlay.HUD_INSTANCE);
     }
 
     @SubscribeEvent
-    public static void registerJourneyMapOverlay(RegisterGuiOverlaysEvent event) {
+    public static void registerJourneyMapOverlay(RegisterGuiLayersEvent event) {
       if (CurrentMinimap.journeyMapLoaded()) {
         JourneyMap.init();
-        event.registerAbove(VanillaGuiOverlay.FROSTBITE.id(), Common.location("journeymap"), JourneyMap.HUD_INSTANCE);
+        event.registerAbove(VanillaGuiLayers.CAMERA_OVERLAYS, Common.location("journeymap"), JourneyMap.HUD_INSTANCE);
       }
     }
 
     @SubscribeEvent
-    public static void registerMapAtlasesOverlay(RegisterGuiOverlaysEvent event) {
+    public static void registerMapAtlasesOverlay(RegisterGuiLayersEvent event) {
       if (CurrentMinimap.mapAtlasesLoaded()) {
         MapAtlases.init();
-        event.registerAbove(VanillaGuiOverlay.FROSTBITE.id(), Common.location("mapatlases"), MapAtlases.HUD_INSTANCE);
+        event.registerAbove(VanillaGuiLayers.CAMERA_OVERLAYS, Common.location("mapatlases"), MapAtlases.HUD_INSTANCE);
       }
     }
 

@@ -5,10 +5,10 @@ import club.iananderson.seasonhud.impl.minimaps.CurrentMinimap.Minimaps;
 import journeymap.client.render.draw.DrawUtil;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
-import net.neoforged.neoforge.client.gui.overlay.ExtendedGui;
-import net.neoforged.neoforge.client.gui.overlay.IGuiOverlay;
+import net.minecraft.client.gui.LayeredDraw;
+import org.jetbrains.annotations.NotNull;
 
-public class JourneyMap implements IGuiOverlay {
+public class JourneyMap implements LayeredDraw.Layer {
   public static JourneyMap HUD_INSTANCE;
 
   public static void init() {
@@ -16,15 +16,15 @@ public class JourneyMap implements IGuiOverlay {
   }
 
   @Override
-  public void render(ExtendedGui gui, GuiGraphics guiGraphics, float partialTick, int scaledWidth, int scaledHeight) {
+  public void render(@NotNull GuiGraphics graphics, float partialTick) {
     if (CurrentMinimap.journeyMapLoaded() && CurrentMinimap.shouldDrawMinimapHud(Minimaps.JOURNEYMAP)) {
       JourneyMapCommon journeyMapCommon = JourneyMapCommon.getInstance(Minecraft.getInstance());
 
-      guiGraphics.pose().pushPose();
-      guiGraphics.pose().scale(1 / journeyMapCommon.getFontScale(), 1 / journeyMapCommon.getFontScale(), 0);
-      DrawUtil.sizeDisplay(guiGraphics.pose(), journeyMapCommon.getScreenWidth(), journeyMapCommon.getScreenHeight());
-      guiGraphics.pose().popPose();
-      journeyMapCommon.drawSeasonLabel(guiGraphics);
+      graphics.pose().pushPose();
+      graphics.pose().scale(1 / journeyMapCommon.getFontScale(), 1 / journeyMapCommon.getFontScale(), 0);
+      DrawUtil.sizeDisplay(graphics.pose(), journeyMapCommon.getScreenWidth(), journeyMapCommon.getScreenHeight());
+      graphics.pose().popPose();
+      journeyMapCommon.drawSeasonLabel(graphics);
     }
   }
 }

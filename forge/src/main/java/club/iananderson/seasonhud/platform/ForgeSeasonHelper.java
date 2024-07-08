@@ -99,7 +99,7 @@ public class ForgeSeasonHelper implements ISeasonHelper {
   @Override
   public int findCuriosCalendar(Player player, Item item) {
     if (Common.curiosLoaded()) {
-      ICuriosItemHandler curiosInventory = CuriosApi.getCuriosInventory(player).resolve().get();
+      ICuriosItemHandler curiosInventory = CuriosApi.getCuriosInventory(player).get();
       return curiosInventory.findCurios(item).size();
     } else {
       return 0;

@@ -99,7 +99,7 @@ public class FabricSeasonHelper implements ISeasonHelper {
 
   @Override
   public int findCuriosCalendar(Player player, Item item) {
-    if (Common.curiosLoaded() && Common.extrasLoaded()) {
+    if (Common.curiosLoaded()) {
       Optional<TrinketComponent> findCalendar = TrinketsApi.getTrinketComponent(player);
       if (findCalendar.isPresent()) {
         if (findCalendar.get().isEquipped(item)) {

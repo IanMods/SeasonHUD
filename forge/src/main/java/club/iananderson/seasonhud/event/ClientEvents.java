@@ -7,6 +7,7 @@ import club.iananderson.seasonhud.client.overlays.JourneyMap;
 import club.iananderson.seasonhud.client.overlays.MapAtlases;
 import club.iananderson.seasonhud.client.overlays.SeasonHUDOverlay;
 import club.iananderson.seasonhud.impl.minimaps.CurrentMinimap;
+import net.minecraft.client.gui.GuiGraphics;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.client.event.InputEvent;
 import net.minecraftforge.client.event.RegisterKeyMappingsEvent;
@@ -30,24 +31,24 @@ public class ClientEvents {
   public static class ClientModBusEvents {
     //Overlays
     @SubscribeEvent
-    public static void registerGuiOverlays(RegisterGuiOverlaysEvent event) {
+    public static void registerGuiOverlays(GuiGraphics graphics, float partialTick) {
       SeasonHUDOverlay.init();
-      event.registerAbove(VanillaGuiOverlay.FROSTBITE.id(), "seasonhud", SeasonHUDOverlay.HUD_INSTANCE);
+      SeasonHUDOverlay.HUD_INSTANCE.render(graphics, partialTick);
     }
 
     @SubscribeEvent
-    public static void registerJourneyMapOverlay(RegisterGuiOverlaysEvent event) {
+    public static void registerJourneyMapOverlay(GuiGraphics graphics, float partialTick) {
       if (CurrentMinimap.journeyMapLoaded()) {
         JourneyMap.init();
-        event.registerAbove(VanillaGuiOverlay.FROSTBITE.id(), "journeymap", JourneyMap.HUD_INSTANCE);
+        JourneyMap.HUD_INSTANCE.render(graphics, partialTick);
       }
     }
 
     @SubscribeEvent
-    public static void registerMapAtlasesOverlay(RegisterGuiOverlaysEvent event) {
+    public static void registerMapAtlasesOverlay(GuiGraphics graphics, float partialTick) {
       if (CurrentMinimap.mapAtlasesLoaded()) {
         MapAtlases.init();
-        event.registerAbove(VanillaGuiOverlay.FROSTBITE.id(), "mapatlases", MapAtlases.HUD_INSTANCE);
+        MapAtlases.HUD_INSTANCE.render(graphics, partialTick);
       }
     }
 
