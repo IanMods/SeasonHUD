@@ -9,16 +9,13 @@ import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.item.Item;
 
 public class Calendar {
-  public static final boolean CALENDAR_LOADED = (Services.PLATFORM.getPlatformName().equals("Forge") || (
-      Services.PLATFORM.getPlatformName().equals("Fabric") && Common.extrasLoaded()));
-
   private Calendar() {
   }
 
   public static boolean calendarFound() {
     LocalPlayer player = Minecraft.getInstance().player;
 
-    if (Config.getNeedCalendar() && CALENDAR_LOADED && player != null) {
+    if (Config.getNeedCalendar() && player != null) {
       Inventory inv = player.getInventory();
       Item calendar = Services.SEASON.calendar();
       int slot = findCalendar(inv, calendar) + Services.SEASON.findCuriosCalendar(player, calendar);
