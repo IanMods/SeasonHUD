@@ -57,6 +57,7 @@ public class SeasonHUDScreen extends Screen {
 
   @Override
   public void render(@NotNull GuiGraphics graphics, int mouseX, int mouseY, float partialTicks) {
+    super.render(graphics, mouseX, mouseY, partialTicks);
     graphics.drawCenteredString(font, SCREEN_TITLE, this.width / 2, TITLE_PADDING, 16777215);
 
     if (Services.PLATFORM.isModLoaded("journeymap")) {
@@ -67,8 +68,6 @@ public class SeasonHUDScreen extends Screen {
     hudLocationButton.active = Common.drawDefaultHud();
     xOffsetSlider.active = hudLocationButton.getValue() == Location.TOP_LEFT && Common.drawDefaultHud();
     yOffsetSlider.active = hudLocationButton.getValue() == Location.TOP_LEFT && Common.drawDefaultHud();
-
-    super.render(graphics, mouseX, mouseY, partialTicks);
   }
 
   @Override

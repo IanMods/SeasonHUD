@@ -30,13 +30,11 @@ public class ClientEvents {
   @Mod.EventBusSubscriber(modid = Common.MOD_ID, value = Dist.CLIENT, bus = Mod.EventBusSubscriber.Bus.MOD)
   public static class ClientModBusEvents {
     //Overlays
-    @SubscribeEvent
     public static void registerGuiOverlays(GuiGraphics graphics, float partialTick) {
       SeasonHUDOverlay.init();
       SeasonHUDOverlay.HUD_INSTANCE.render(graphics, partialTick);
     }
 
-    @SubscribeEvent
     public static void registerJourneyMapOverlay(GuiGraphics graphics, float partialTick) {
       if (CurrentMinimap.journeyMapLoaded()) {
         JourneyMap.init();
@@ -44,7 +42,6 @@ public class ClientEvents {
       }
     }
 
-    @SubscribeEvent
     public static void registerMapAtlasesOverlay(GuiGraphics graphics, float partialTick) {
       if (CurrentMinimap.mapAtlasesLoaded()) {
         MapAtlases.init();

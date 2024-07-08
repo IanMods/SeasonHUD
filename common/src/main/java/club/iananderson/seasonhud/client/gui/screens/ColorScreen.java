@@ -158,8 +158,8 @@ public class ColorScreen extends Screen {
 
   @Override
   public void render(@NotNull GuiGraphics graphics, int mouseX, int mouseY, float partialTicks) {
-    graphics.drawCenteredString(font, SCREEN_TITLE, getWidth() / 2, WIDGET_PADDING, 16777215);
     super.render(graphics, mouseX, mouseY, partialTicks);
+    graphics.drawCenteredString(font, SCREEN_TITLE, getWidth() / 2, WIDGET_PADDING, 16777215);
   }
 
   @Override
