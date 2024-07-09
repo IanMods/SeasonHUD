@@ -1,5 +1,7 @@
 package club.iananderson.seasonhud.platform.services;
 
+import club.iananderson.seasonhud.impl.minimaps.CurrentMinimap.Minimaps;
+
 public interface IMinimapHelper {
 
   /**
@@ -10,9 +12,11 @@ public interface IMinimapHelper {
   boolean hideHudInCurrentDimension();
 
   /**
-   * Checks if the current minimap mod has the minimap hidden
+   * Checks if the provided minimap mod has the minimap hidden
    *
    * @return True if the current minimap mod has the minimap hidden
    */
-  boolean currentMinimapHidden();
+  boolean hiddenMinimap(Minimaps minimap);
+
+  boolean allMinimapsHidden();
 }
