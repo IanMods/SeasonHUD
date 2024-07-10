@@ -1,8 +1,8 @@
 package club.iananderson.seasonhud.client.overlays;
 
 import club.iananderson.seasonhud.impl.minimaps.CurrentMinimap;
+import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraftforge.client.gui.overlay.ForgeGui;
 import net.minecraftforge.client.gui.overlay.IGuiOverlay;
@@ -40,7 +40,7 @@ public class MapAtlases implements IGuiOverlay {
   }
 
   @Override
-  public void render(ForgeGui gui, GuiGraphics seasonStack, float partialTick, int screenWidth, int screenHeight) {
+  public void render(ForgeGui gui, PoseStack graphics, float partialTick, int screenWidth, int screenHeight) {
     Minecraft mc = Minecraft.getInstance();
 
     if (CurrentMinimap.mapAtlasesLoaded() && shouldDraw(mc)) {
@@ -52,8 +52,8 @@ public class MapAtlases implements IGuiOverlay {
       int x = anchorLocation.isLeft ? offset : (int) (screenWidth / globalScale) - (BG_SIZE + offset);
       int y = anchorLocation.isUp ? offset : (int) (screenHeight / globalScale) - (BG_SIZE + offset);
 
-      seasonStack.pose().pushPose();
-      seasonStack.pose().scale(globalScale, globalScale, 1);
+      graphics.pushPose();
+      graphics.scale(globalScale, globalScale, 1);
 
       x += (int) (MapAtlasesClientConfig.miniMapHorizontalOffset.get() / globalScale);
       y += (int) (MapAtlasesClientConfig.miniMapVerticalOffset.get() / globalScale);
@@ -82,17 +82,17 @@ public class MapAtlases implements IGuiOverlay {
       if (MapAtlasesClientConfig.drawMinimapCoords.get()) {
         textHeightOffset += (10.0F * textScaling);
       }
-      if (MapAtlasesClientConfig.drawMinimapChunkCoords.get()) {
-        textHeightOffset += (10.0F * textScaling);
-      }
+//      if (MapAtlasesClientConfig.drawMinimapChunkCoords.get()) {
+//        textHeightOffset += (10.0F * textScaling);
+//      }
       if (MapAtlasesClientConfig.drawMinimapBiome.get()) {
         textHeightOffset += (10.0F * textScaling);
       }
 
-      MapAtlasesCommon.drawMapComponentSeason(seasonStack, mc.font, x,
+      MapAtlasesCommon.drawMapComponentSeason(graphics, mc.font, x,
                                               (int) (y + BG_SIZE + (textHeightOffset / globalScale)), actualBgSize,
                                               textScaling, globalScale);
-      seasonStack.pose().popPose();
+      graphics.popPose();
     }
   }
 }

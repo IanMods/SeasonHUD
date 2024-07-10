@@ -4,15 +4,15 @@ import club.iananderson.seasonhud.Common;
 import club.iananderson.seasonhud.config.Config;
 import club.iananderson.seasonhud.impl.seasons.Calendar;
 import club.iananderson.seasonhud.impl.seasons.CurrentSeason;
+import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.network.chat.MutableComponent;
 
 public class SeasonHUDOverlayCommon {
   private SeasonHUDOverlayCommon() {
   }
 
-  public static void render(GuiGraphics seasonStack) {
+  public static void render(PoseStack graphics) {
     Minecraft mc = Minecraft.getInstance();
     MutableComponent seasonCombined = CurrentSeason.getInstance(mc).getSeasonHudText();
     int screenWidth = mc.getWindow().getGuiScaledWidth();
@@ -49,10 +49,10 @@ public class SeasonHUDOverlayCommon {
       }
 
       //Text
-      seasonStack.pose().pushPose();
-      seasonStack.pose().scale(1F, 1F, 1F);
-      seasonStack.drawString(mc.font, seasonCombined, x, y, 0xffffff);
-      seasonStack.pose().popPose();
+      graphics.pushPose();
+      graphics.scale(1F, 1F, 1F);
+      mc.font.drawShadow(graphics, seasonCombined, x, y, 0xffffff);
+      graphics.popPose();
     }
   }
 }

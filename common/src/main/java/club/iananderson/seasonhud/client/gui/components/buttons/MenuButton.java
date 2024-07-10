@@ -1,12 +1,11 @@
 package club.iananderson.seasonhud.client.gui.components.buttons;
 
 import net.minecraft.client.gui.components.Button;
-import net.minecraft.client.gui.components.Tooltip;
 import net.minecraft.network.chat.CommonComponents;
 import net.minecraft.network.chat.Component;
-import org.jetbrains.annotations.Nullable;
 
 public class MenuButton extends Button {
+
   protected MenuButton(int x, int y, int width, int height, MenuButtons buttonType, OnPress onPress) {
     super(x, y, width, height, buttonType.getButtonText(), onPress);
   }
@@ -40,7 +39,7 @@ public class MenuButton extends Button {
     protected int y;
     protected int width = 150;
     protected int height = 20;
-    protected Tooltip tooltip;
+    protected Component tooltip;
 
     public Builder(MenuButtons buttonType, OnPress onPress) {
       this.buttonType = buttonType;
@@ -76,14 +75,13 @@ public class MenuButton extends Button {
       return this;
     }
 
-    public Builder withTooltip(@Nullable Tooltip tooltip) {
+    public Builder withTooltip(Component tooltip) {
       this.tooltip = tooltip;
       return this;
     }
 
     public MenuButton build() {
       MenuButton button = new MenuButton(this.x, this.y, this.width, this.height, this.buttonType, this.onPress);
-      button.setTooltip(this.tooltip);
       return button;
     }
   }

@@ -3,23 +3,27 @@ package club.iananderson.seasonhud.client.gui.components.sliders;
 import club.iananderson.seasonhud.Common;
 import club.iananderson.seasonhud.client.gui.Location;
 import club.iananderson.seasonhud.config.Config;
+import com.mojang.blaze3d.vertex.PoseStack;
+import java.util.List;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.GuiGraphics;
-import net.minecraft.client.gui.components.Tooltip;
+import net.minecraft.client.OptionInstance;
+import net.minecraft.client.OptionInstance.TooltipSupplier;
 import net.minecraft.network.chat.Component;
+import net.minecraft.util.FormattedCharSequence;
 import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
 
 public class HudOffsetSlider extends BasicSlider {
   protected final Component prefix;
   private final double defaultValue;
+  private final TooltipSupplier<List<FormattedCharSequence>> tooltipSupplier;
 
   protected HudOffsetSlider(int x, int y, int width, int height, Component prefix, double initial, double minValue,
-      double maxValue, double defaultValue) {
+      double maxValue, double defaultValue, TooltipSupplier<List<FormattedCharSequence>> tooltipSupplier) {
     super(x, y, width, height, true, initial, minValue, maxValue);
     this.prefix = prefix;
     this.defaultValue = snapToNearest(defaultValue);
     this.value = snapToNearest(initial);
+    this.tooltipSupplier = tooltipSupplier;
     this.updateMessage();
   }
 
@@ -54,13 +58,11 @@ public class HudOffsetSlider extends BasicSlider {
   }
 
   @Override
-  public void renderWidget(@NotNull GuiGraphics graphics, int mouseX, int mouseY, float partialTick) {
+  public void renderBg(@NotNull PoseStack graphics, @NotNull Minecraft mc, int mouseX, int mouseY) {
     if (!Common.drawDefaultHud() || Config.getHudLocation() != Location.TOP_LEFT) {
       this.active = false;
-      this.setTooltip(Tooltip.create(Component.translatable("menu.seasonhud.tooltip.offsetError")));
     }
-
-    super.renderWidget(graphics, mouseX, mouseY, partialTick);
+    super.renderBg(graphics, mc, mouseX, mouseY);
   }
 
   public static class Builder {
@@ -73,7 +75,7 @@ public class HudOffsetSlider extends BasicSlider {
     protected double maxValue;
     protected double initial;
     protected double defaultValue;
-    protected Tooltip tooltip;
+    protected OptionInstance.TooltipSupplier<List<FormattedCharSequence>> tooltipSupplier;
 
     public Builder(Component prefix) {
       this.prefix = prefix;
@@ -127,16 +129,15 @@ public class HudOffsetSlider extends BasicSlider {
       return this;
     }
 
-    public Builder withTooltip(@Nullable Tooltip tooltip) {
-      this.tooltip = tooltip;
-
+    public Builder withTooltip(TooltipSupplier<List<FormattedCharSequence>> tooltipSupplier) {
+      this.tooltipSupplier = tooltipSupplier;
       return this;
     }
 
     public HudOffsetSlider build() {
       HudOffsetSlider slider = new HudOffsetSlider(this.x, this.y, this.width, this.height, this.prefix, this.initial,
-                                                   this.minValue, this.maxValue, this.defaultValue);
-      slider.setTooltip(this.tooltip);
+                                                   this.minValue, this.maxValue, this.defaultValue,
+                                                   this.tooltipSupplier);
       return slider;
     }
   }

@@ -1,18 +1,12 @@
 package club.iananderson.seasonhud.client.gui.components.buttons;
 
 import club.iananderson.seasonhud.client.gui.components.boxes.ColorEditBox;
-import club.iananderson.seasonhud.util.DrawUtil;
 import club.iananderson.seasonhud.util.Rgb;
 import com.mojang.blaze3d.vertex.PoseStack;
 import java.util.Map;
-import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.components.Button;
-import net.minecraft.client.gui.components.Tooltip;
-import net.minecraft.locale.Language;
 import net.minecraft.network.chat.Component;
-import net.minecraft.network.chat.FormattedText;
 import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
 
 public class DefaultColorButton extends Button {
   private static final Component DEFAULT = Component.translatable("menu.seasonhud.button.color.default");
@@ -56,20 +50,6 @@ public class DefaultColorButton extends Button {
     return 46 + k * 20;
   }
 
-  public int getFGColor() {
-    return this.active ? 16777215 : 10526880;
-  }
-
-//  @Override
-//  public void renderWidget(@NotNull PoseStack graphics, int i, int j, float f) {
-//    Minecraft mc = Minecraft.getInstance();
-//    DrawUtil.blitWithBorder(graphics, WIDGETS_LOCATION, this.getX(), this.getY(), 0, getTextureY(), this.width,
-//                            this.height, 200, 20, 2, 3, 2, 2);
-//    FormattedText buttonText = this.getMessage();
-//    drawCenteredString(graphics, mc.font, Language.getInstance().getVisualOrder(buttonText),
-//                                this.getX() + this.width / 2, this.getY() + (this.height - 8) / 2, getFGColor());
-//  }
-
   @Override
   public void render(@NotNull PoseStack graphics, int mouseX, int mouseY, float partialTicks) {
     refresh();
@@ -94,7 +74,6 @@ public class DefaultColorButton extends Button {
     protected final ColorEditBox colorEditBox;
     protected int x;
     protected int y;
-    protected Tooltip tooltip;
 
     public Builder(ColorEditBox colorEditBox, OnPress onPress) {
       this.colorEditBox = colorEditBox;
@@ -113,14 +92,8 @@ public class DefaultColorButton extends Button {
       return this;
     }
 
-    public Builder withTooltip(@Nullable Tooltip tooltip) {
-      this.tooltip = tooltip;
-      return this;
-    }
-
     public DefaultColorButton build() {
       DefaultColorButton button = new DefaultColorButton(this.x, this.y, this.colorEditBox, this.onPress);
-      button.setTooltip(this.tooltip);
       return button;
     }
   }

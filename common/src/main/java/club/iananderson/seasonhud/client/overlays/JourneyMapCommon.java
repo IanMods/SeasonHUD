@@ -2,6 +2,7 @@ package club.iananderson.seasonhud.client.overlays;
 
 import club.iananderson.seasonhud.config.Config;
 import club.iananderson.seasonhud.impl.seasons.CurrentSeason;
+import com.mojang.blaze3d.vertex.PoseStack;
 import journeymap.client.JourneymapClient;
 import journeymap.client.io.ThemeLoader;
 import journeymap.client.properties.MiniMapProperties;
@@ -12,7 +13,6 @@ import journeymap.client.ui.theme.Theme.LabelSpec;
 import journeymap.client.ui.theme.ThemeLabelSource;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
-import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.network.chat.MutableComponent;
 
@@ -100,12 +100,12 @@ public class JourneyMapCommon {
     return screenHeight;
   }
 
-  public void drawSeasonLabel(GuiGraphics guiGraphics) {
-    MultiBufferSource.BufferSource buffers = guiGraphics.bufferSource();
+  public void drawSeasonLabel(PoseStack graphics) {
+    MultiBufferSource.BufferSource buffers = Minecraft.getInstance().renderBuffers().bufferSource();
     buffers.endBatch();
-    DrawUtil.drawBatchLabel(guiGraphics.pose(), seasonCombined, buffers, labelX(), labelY(), DrawUtil.HAlign.Center,
+    DrawUtil.drawBatchLabel(graphics, seasonCombined, buffers, labelX(), labelY(), DrawUtil.HAlign.Center,
                             DrawUtil.VAlign.Below, labelColor, labelAlpha, textColor, textAlpha, fontScale, fontShadow);
-    guiGraphics.bufferSource().endBatch();
-    DrawUtil.sizeDisplay(guiGraphics.pose(), scaledWidth, scaledHeight);
+    buffers.endBatch();
+    DrawUtil.sizeDisplay(graphics, scaledWidth, scaledHeight);
   }
 }

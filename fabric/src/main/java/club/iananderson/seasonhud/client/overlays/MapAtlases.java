@@ -1,17 +1,18 @@
 package club.iananderson.seasonhud.client.overlays;
 
+import club.iananderson.seasonhud.config.Config;
 import club.iananderson.seasonhud.impl.minimaps.CurrentMinimap;
+import com.mojang.blaze3d.vertex.PoseStack;
+import java.util.Arrays;
 import net.fabricmc.fabric.api.client.rendering.v1.HudRenderCallback;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.GuiGraphics;
-import net.minecraft.world.effect.MobEffect;
+import net.minecraft.world.item.ItemStack;
 import pepjebs.mapatlases.MapAtlasesMod;
-import pepjebs.mapatlases.client.Anchoring;
 import pepjebs.mapatlases.client.MapAtlasesClient;
-import pepjebs.mapatlases.config.MapAtlasesClientConfig;
-import pepjebs.mapatlases.item.MapAtlasItem;
+import pepjebs.mapatlases.utils.MapAtlasesAccessUtils;
 
 public class MapAtlases implements HudRenderCallback {
+  private static final Minecraft mc = Minecraft.getInstance();
   public static MapAtlases HUD_INSTANCE;
   protected final int BG_SIZE = 64;
 
@@ -22,17 +23,24 @@ public class MapAtlases implements HudRenderCallback {
 
   public static boolean shouldDraw(Minecraft mc) {
     if (CurrentMinimap.mapAtlasesLoaded()) {
-      MapAtlasItem mapAtlas = MapAtlasesMod.MAP_ATLAS.get();
-
-      if (mc.level == null || mc.player == null || mc.options.renderDebug) {
+      if (mc.player == null) {
         return false;
-      } else if (!MapAtlasesClientConfig.drawMiniMapHUD.get()) {
+      } else if (MapAtlasesMod.CONFIG != null && !MapAtlasesMod.CONFIG.drawMiniMapHUD) {
         return false;
-      } else if (MapAtlasesClientConfig.hideWhenInHand.get() && (mc.player.getMainHandItem().is(mapAtlas)
-          || mc.player.getOffhandItem().is(mapAtlas))) {
+      } else if (mc.options.renderDebug) {
         return false;
       } else {
-        return !MapAtlasesClient.getCurrentActiveAtlas().isEmpty();
+        ItemStack atlas = MapAtlasesAccessUtils.getAtlasFromPlayerByConfig(mc.player);
+        if (atlas.isEmpty()) {
+          return false;
+        } else if (MapAtlasesClient.currentMapStateId == null) {
+          return false;
+        } else {
+          return atlas.getTag() != null && atlas.getTag().contains("maps") && Arrays.stream(
+              atlas.getTag().getIntArray("maps")).anyMatch((i) -> {
+            return i == MapAtlasesAccessUtils.getMapIntFromString(MapAtlasesClient.currentMapStateId);
+          });
+        }
       }
     } else {
       return false;
@@ -40,61 +48,64 @@ public class MapAtlases implements HudRenderCallback {
   }
 
   @Override
-  public void onHudRender(GuiGraphics seasonStack, float alpha) {
-    Minecraft mc = Minecraft.getInstance();
-    int screenWidth = mc.getWindow().getScreenWidth();
-    int screenHeight = mc.getWindow().getScreenHeight();
+  public void onHudRender(PoseStack seasonStack, float alpha) {
+    if (CurrentMinimap.mapAtlasesLoaded()) {
+      if (mc.level != null && mc.player != null) {
+        int mapBgScaledSize = (int) Math.floor(0.2 * (double) mc.getWindow().getGuiScaledHeight());
+        if (MapAtlasesMod.CONFIG != null) {
+          mapBgScaledSize = (int) Math.floor(
+              (double) MapAtlasesMod.CONFIG.forceMiniMapScaling / 100.0 * (double) mc.getWindow().getGuiScaledHeight());
+        }
 
-    if (CurrentMinimap.mapAtlasesLoaded() && shouldDraw(mc)) {
-      Anchoring anchorLocation = MapAtlasesClientConfig.miniMapAnchoring.get();
-      float textScaling = (float) (double) MapAtlasesClientConfig.minimapCoordsAndBiomeScale.get();
-      float globalScale = MapAtlasesClientConfig.miniMapScale.get().floatValue();
-      int actualBgSize = (int) (BG_SIZE * globalScale);
-      int offset = 5;
-      int x = anchorLocation.isLeft ? offset : (int) (screenWidth / globalScale) - (BG_SIZE + offset);
-      int y = anchorLocation.isUp ? offset : (int) (screenHeight / globalScale) - (BG_SIZE + offset);
+        String anchorLocation = "UpperLeft";
+        if (MapAtlasesMod.CONFIG != null) {
+          anchorLocation = MapAtlasesMod.CONFIG.miniMapAnchoring;
+        }
+        int x = anchorLocation.contains("Left") ? 0 : mc.getWindow().getGuiScaledWidth() - mapBgScaledSize;
+        int y = anchorLocation.contains("Lower") ? mc.getWindow().getGuiScaledHeight() - mapBgScaledSize : 0;
+        if (MapAtlasesMod.CONFIG != null) {
+          x += MapAtlasesMod.CONFIG.miniMapHorizontalOffset;
+          y += MapAtlasesMod.CONFIG.miniMapVerticalOffset;
+        }
 
-      seasonStack.pose().pushPose();
-      seasonStack.pose().scale(globalScale, globalScale, 1);
+        int textHeightOffset;
+        if (anchorLocation.contentEquals("UpperRight")) {
+          boolean hasBeneficial = mc.player.getActiveEffects().stream().anyMatch((p) -> {
+            return p.getEffect().isBeneficial();
+          });
+          boolean hasNegative = mc.player.getActiveEffects().stream().anyMatch((p) -> {
+            return !p.getEffect().isBeneficial();
+          });
+          textHeightOffset = 26;
+          if (MapAtlasesMod.CONFIG != null) {
+            textHeightOffset = MapAtlasesMod.CONFIG.activePotionVerticalOffset;
+          }
 
-      x += (int) (MapAtlasesClientConfig.miniMapHorizontalOffset.get() / globalScale);
-      y += (int) (MapAtlasesClientConfig.miniMapVerticalOffset.get() / globalScale);
-
-      if (anchorLocation.isUp && !anchorLocation.isLeft) {
-        boolean hasBeneficial = false;
-        boolean hasNegative = false;
-        for (var e : mc.player.getActiveEffects()) {
-          MobEffect effect = e.getEffect();
-          if (effect.isBeneficial()) {
-            hasBeneficial = true;
-          } else {
-            hasNegative = true;
+          if (hasNegative && y < 2 * textHeightOffset) {
+            y += 2 * textHeightOffset - y;
+          } else if (hasBeneficial && y < textHeightOffset) {
+            y += textHeightOffset - y;
           }
         }
-        int offsetForEffects = MapAtlasesClientConfig.activePotionVerticalOffset.get();
-        if (hasNegative && y < 2 * offsetForEffects) {
-          y += (2 * offsetForEffects - y);
-        } else if (hasBeneficial && y < offsetForEffects) {
-          y += (offsetForEffects - y);
+
+        if (Config.getEnableMod() && shouldDraw(mc)) {
+          float textScaling = MapAtlasesMod.CONFIG.minimapCoordsAndBiomeScale;
+          textHeightOffset = mapBgScaledSize + 4;
+          if (anchorLocation.contains("Lower")) {
+            textHeightOffset = (int) (-24.0F * textScaling);
+          }
+
+          if (MapAtlasesMod.CONFIG.drawMinimapCoords) {
+            textHeightOffset = (int) ((float) textHeightOffset + 12.0F * textScaling);
+          }
+
+          if (MapAtlasesMod.CONFIG.drawMinimapBiome) {
+            textHeightOffset = (int) ((float) textHeightOffset + 12.0F * textScaling);
+          }
+
+          MapAtlasesCommon.drawMapComponentSeasonOld(seasonStack, x, y, mapBgScaledSize, textHeightOffset, textScaling);
         }
       }
-
-      float textHeightOffset = 2.0F;
-
-      if (MapAtlasesClientConfig.drawMinimapCoords.get()) {
-        textHeightOffset += (10.0F * textScaling);
-      }
-      if (MapAtlasesClientConfig.drawMinimapChunkCoords.get()) {
-        textHeightOffset += (10.0F * textScaling);
-      }
-      if (MapAtlasesClientConfig.drawMinimapBiome.get()) {
-        textHeightOffset += (10.0F * textScaling);
-      }
-
-      MapAtlasesCommon.drawMapComponentSeason(seasonStack, mc.font, x,
-                                              (int) (y + BG_SIZE + (textHeightOffset / globalScale)), actualBgSize,
-                                              textScaling, globalScale);
-      seasonStack.pose().popPose();
     }
   }
 }

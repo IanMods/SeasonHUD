@@ -3,6 +3,7 @@ package club.iananderson.seasonhud.platform;
 import club.iananderson.seasonhud.Common;
 import club.iananderson.seasonhud.config.Config;
 import club.iananderson.seasonhud.platform.services.ISeasonHelper;
+import java.util.List;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.Level;
@@ -11,7 +12,7 @@ import sereneseasons.api.season.ISeasonState;
 import sereneseasons.api.season.SeasonHelper;
 import sereneseasons.config.ServerConfig;
 import top.theillusivec4.curios.api.CuriosApi;
-import top.theillusivec4.curios.api.type.capability.ICuriosItemHandler;
+import top.theillusivec4.curios.api.SlotResult;
 
 public class ForgeSeasonHelper implements ISeasonHelper {
 
@@ -100,8 +101,8 @@ public class ForgeSeasonHelper implements ISeasonHelper {
   @Override
   public int findCuriosCalendar(Player player, Item item) {
     if (Common.curiosLoaded()) {
-      ICuriosItemHandler curiosInventory = CuriosApi.getCuriosInventory(player).resolve().get();
-      return curiosInventory.findCurios(item).size();
+      List<SlotResult> findCalendar = CuriosApi.getCuriosHelper().findCurios(player, item);
+      return findCalendar.size();
     } else {
       return 0;
     }

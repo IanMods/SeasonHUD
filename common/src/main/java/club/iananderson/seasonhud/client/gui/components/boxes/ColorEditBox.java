@@ -108,7 +108,7 @@ public class ColorEditBox extends EditBox {
     }
     graphics.scale(textScale, textScale, 1);
     drawCenteredString(graphics, mc.font, seasonCombined, (int) ((this.x + (double) this.getWidth() / 2) / textScale),
-                                (int) ((this.y - (mc.font.lineHeight * textScale) - PADDING) / textScale), 0xffffff);
+                       (int) ((this.y - (mc.font.lineHeight * textScale) - PADDING) / textScale), 0xffffff);
     graphics.popPose();
 
     super.render(graphics, mouseX, mouseY, partialTicks);

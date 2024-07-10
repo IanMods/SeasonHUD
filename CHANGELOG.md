@@ -10,7 +10,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 
 - Added tooltips to the options screen buttons
 - Added sliders for the Hud offset in the options screen
-  - Right click will set them back to default
+    - Right click will set them back to default
 
 ### Changed
 

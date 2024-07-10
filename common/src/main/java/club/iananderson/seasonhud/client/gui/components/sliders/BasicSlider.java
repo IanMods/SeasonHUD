@@ -1,10 +1,13 @@
 package club.iananderson.seasonhud.client.gui.components.sliders;
 
 import club.iananderson.seasonhud.util.DrawUtil;
+import com.mojang.blaze3d.vertex.PoseStack;
+import java.util.Objects;
+import net.minecraft.Util;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.Font;
+import net.minecraft.client.gui.GuiComponent;
 import net.minecraft.client.gui.components.AbstractSliderButton;
-import net.minecraft.client.gui.navigation.CommonInputs;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
@@ -12,7 +15,7 @@ import org.jetbrains.annotations.NotNull;
 
 public class BasicSlider extends AbstractSliderButton {
   public static final int SLIDER_PADDING = 2;
-  protected static final ResourceLocation SLIDER_LOCATION = new ResourceLocation("textures/gui/slider.png");
+  protected static final ResourceLocation SLIDER_LOCATION = new ResourceLocation("seasonhud:textures/gui/slider.png");
   protected final boolean drawString;
   protected boolean canChangeValue;
   protected double minValue;
@@ -30,6 +33,34 @@ public class BasicSlider extends AbstractSliderButton {
     this.minValue = minValue;
     this.maxValue = maxValue;
     this.value = snapToNearest(initial);
+  }
+
+  protected static void renderScrollingString(PoseStack graphics, Font font, Component component, int i, int j, int k,
+      int l, int m, int n) {
+    int o = font.width(component);
+    int var10000 = k + m;
+    Objects.requireNonNull(font);
+    int p = (var10000 - 9) / 2 + 1;
+    int q = l - j;
+    int r;
+    if (o > q) {
+      r = o - q;
+      double d = (double) Util.getMillis() / 1000.0;
+      double e = Math.max((double) r * 0.5, 3.0);
+      double f = Math.sin(1.5707963267948966 * Math.cos(6.283185307179586 * d / e)) / 2.0 + 0.5;
+      double g = Mth.lerp(f, 0.0, (double) r);
+      GuiComponent.enableScissor(j, k, l, m);
+      GuiComponent.drawString(graphics, font, component, j - (int) g, p, n);
+      GuiComponent.disableScissor();
+    } else {
+      r = Mth.clamp(i, j + o / 2, l - o / 2);
+      GuiComponent.drawCenteredString(graphics, font, component, r, p, n);
+    }
+  }
+
+  protected static void renderScrollingString(PoseStack graphics, Font font, Component component, int i, int j, int k,
+      int l, int m) {
+    renderScrollingString(graphics, font, component, (i + k) / 2, i, j, k, l, m);
   }
 
   public int getTextureY() {
@@ -81,21 +112,15 @@ public class BasicSlider extends AbstractSliderButton {
 
   @Override
   public boolean keyPressed(int keyCode, int scanCode, int modifiers) {
-    if (CommonInputs.selected(keyCode)) {
-      this.canChangeValue = !this.canChangeValue;
-      return true;
-    } else {
-      if (this.canChangeValue) {
-        boolean bl = keyCode == 263;
-        if (bl || keyCode == 262) {
-          float f = bl ? -1.0F : 1.0F;
-          this.setValue(this.value + (f / (this.width - 8)));
-          return true;
-        }
+    if (this.canChangeValue) {
+      boolean bl = keyCode == 263;
+      if (bl || keyCode == 262) {
+        float f = bl ? -1.0F : 1.0F;
+        this.setValue(this.value + (f / (this.width - 8)));
+        return true;
       }
-
-      return false;
     }
+    return false;
   }
 
   @Override
@@ -107,13 +132,18 @@ public class BasicSlider extends AbstractSliderButton {
     }
   }
 
+  protected void renderScrollingString(PoseStack graphics, Font font, int i, int j) {
+    int k = this.x + i;
+    int l = this.x + this.getWidth() - i;
+    renderScrollingString(graphics, font, this.getMessage(), k, this.y, l, this.y + this.getHeight(), j);
+  }
+
   @Override
-  public void renderWidget(@NotNull GuiGraphics graphics, int mouseX, int mouseY, float partialTick) {
-    Minecraft mc = Minecraft.getInstance();
-    DrawUtil.blitWithBorder(graphics, SLIDER_LOCATION, this.getX(), this.getY(), 0, this.getTextureY(), this.width,
+  protected void renderBg(@NotNull PoseStack graphics, @NotNull Minecraft mc, int mouseX, int mouseY) {
+    DrawUtil.blitWithBorder(graphics, this, SLIDER_LOCATION, this.x, this.y, 0, this.getTextureY(), this.width,
                             this.height, 200, 20, 2, 3, 2, 2);
-    DrawUtil.blitWithBorder(graphics, SLIDER_LOCATION, this.getX() + (int) (this.value * (this.width - 8)), this.getY(),
-                            0, this.getHandleTextureY(), 8, this.height, 200, 20, 2, 3, 2, 2);
+    DrawUtil.blitWithBorder(graphics, this, SLIDER_LOCATION, this.x + (int) (this.value * (double) (this.width - 8)),
+                            this.y, 0, this.getHandleTextureY(), 8, this.height, 200, 20, 2, 3, 2, 2);
     this.renderScrollingString(graphics, mc.font, 2, this.getFGColor() | Mth.ceil(this.alpha * 255.0F) << 24);
   }
 }
