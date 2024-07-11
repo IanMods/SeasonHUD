@@ -1,42 +1,45 @@
 package club.iananderson.seasonhud.client.gui.screens;
 
-import static club.iananderson.seasonhud.client.SeasonHUDClient.mc;
-import static club.iananderson.seasonhud.config.Config.enableMinimapIntegration;
-import static club.iananderson.seasonhud.config.Config.enableMod;
-import static club.iananderson.seasonhud.config.Config.hudLocation;
-import static club.iananderson.seasonhud.config.Config.journeyMapAboveMap;
-import static club.iananderson.seasonhud.config.Config.journeyMapMacOS;
-import static club.iananderson.seasonhud.config.Config.needCalendar;
-import static club.iananderson.seasonhud.config.Config.showDay;
-import static club.iananderson.seasonhud.config.Config.showDefaultWhenMinimapHidden;
-import static club.iananderson.seasonhud.config.Config.showSubSeason;
-import static club.iananderson.seasonhud.config.Config.showTropicalSeason;
-
+import club.iananderson.seasonhud.Common;
+import club.iananderson.seasonhud.client.gui.Location;
+import club.iananderson.seasonhud.client.gui.ShowDay;
 import club.iananderson.seasonhud.client.gui.components.buttons.MenuButton;
 import club.iananderson.seasonhud.client.gui.components.buttons.MenuButton.MenuButtons;
-import club.iananderson.seasonhud.client.gui.components.button.CycleButton;
+import club.iananderson.seasonhud.client.gui.components.sliders.BasicSlider;
+import club.iananderson.seasonhud.client.gui.components.sliders.HudOffsetSlider;
 import club.iananderson.seasonhud.config.Config;
-import club.iananderson.seasonhud.config.Location;
-import club.iananderson.seasonhud.config.ShowDay;
+import club.iananderson.seasonhud.impl.seasons.CurrentSeason;
 import club.iananderson.seasonhud.platform.Services;
 import com.mojang.blaze3d.vertex.PoseStack;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.components.AbstractWidget;
+import net.minecraft.client.gui.components.CycleButton;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.network.chat.TranslatableComponent;
+import net.minecraft.util.FormattedCharSequence;
 import org.jetbrains.annotations.NotNull;
 
 public class SeasonHUDScreen extends Screen {
-
-  private static final int MENU_PADDING_FULL = 50;
-  private static final int PADDING = 4;
+  private static final int MENU_PADDING = 50;
+  private static final int TITLE_PADDING = 10;
+  private static final int BUTTON_PADDING = 4;
   private static final int BUTTON_WIDTH = 180;
   private static final int BUTTON_HEIGHT = 20;
-  private static final Component TITLE = new TranslatableComponent("menu.seasonhud.title");
-  private static final Component JOURNEYMAP = new TranslatableComponent("menu.seasonhud.journeymap");
+  private static final Component SCREEN_TITLE = new TranslatableComponent("menu.seasonhud.title");
+  private static final Component JOURNEYMAP = new TranslatableComponent("menu.seasonhud.title.journeymap");
   private static final SeasonHUDScreen instance = new SeasonHUDScreen();
+  private final List<AbstractWidget> optionButtons = new ArrayList<>();
+  CycleButton<Location> hudLocationButton;
+  private HudOffsetSlider xOffsetSlider;
+  private HudOffsetSlider yOffsetSlider;
 
   public SeasonHUDScreen() {
-    super(TITLE);
+    super(SCREEN_TITLE);
   }
 
   public static SeasonHUDScreen getInstance() {
@@ -44,7 +47,146 @@ public class SeasonHUDScreen extends Screen {
   }
 
   public static void open() {
-    mc.setScreen(getInstance());
+    Minecraft.getInstance().setScreen(getInstance());
+  }
+
+  private void onDone() {
+    Config.setHudX(xOffsetSlider.getValueInt());
+    Config.setHudY(yOffsetSlider.getValueInt());
+    Minecraft.getInstance().setScreen(null);
+  }
+
+  @Override
+  public void render(@NotNull PoseStack graphics, int mouseX, int mouseY, float partialTicks) {
+    super.renderBackground(graphics);
+
+    drawCenteredString(graphics, font, SCREEN_TITLE, this.width / 2, TITLE_PADDING, 16777215);
+    if (Services.PLATFORM.isModLoaded("journeymap")) {
+      drawCenteredString(graphics, font, JOURNEYMAP, this.width / 2,
+                         MENU_PADDING + (6 * (BUTTON_HEIGHT + BUTTON_PADDING)) - (font.lineHeight + BUTTON_PADDING),
+                         16777215);
+    }
+
+    hudLocationButton.active = Common.drawDefaultHud();
+    xOffsetSlider.active = hudLocationButton.getValue() == Location.TOP_LEFT && Common.drawDefaultHud();
+    yOffsetSlider.active = hudLocationButton.getValue() == Location.TOP_LEFT && Common.drawDefaultHud();
+
+    super.render(graphics, mouseX, mouseY, partialTicks);
+  }
+
+  @Override
+  public void init() {
+    optionButtons.clear();
+    Minecraft mc = Minecraft.getInstance();
+    int leftButtonX = (this.width / 2) - (BUTTON_WIDTH + BUTTON_PADDING);
+    int rightButtonX = (this.width / 2) + BUTTON_PADDING;
+    int buttonStartY = MENU_PADDING;
+    int yOffset = BUTTON_HEIGHT + BUTTON_PADDING;
+    MutableComponent seasonCombined = CurrentSeason.getInstance(mc).getSeasonHudText();
+    double scaledWidth = mc.getWindow().getGuiScaledWidth();
+    double scaledHeight = mc.getWindow().getGuiScaledHeight();
+    double componentWidth = mc.font.width(seasonCombined);
+    double componentHeight = mc.font.lineHeight;
+
+    super.init();
+    //Buttons
+    MenuButton doneButton = MenuButton.builder(MenuButtons.DONE, press -> onDone())
+        .withPos(this.width / 2 - BUTTON_WIDTH / 2, this.height - BUTTON_HEIGHT - BUTTON_PADDING)
+        .withWidth(BUTTON_WIDTH)
+        .build();
+
+    int row = 0;
+    //noinspection ConstantValue
+    CycleButton<Boolean> enableModButton = CycleButton.onOffBuilder(Config.getEnableMod())
+        .create(leftButtonX, (buttonStartY + (row * yOffset)), BUTTON_WIDTH, BUTTON_HEIGHT,
+                new TranslatableComponent("menu.seasonhud.button.enableMod"), (b, set) -> Config.setEnableMod(set));
+
+    //noinspection ConstantValue
+    MenuButton colorButton = MenuButton.builder(MenuButtons.COLORS, press -> ColorScreen.open(this))
+        .withPos(rightButtonX, (buttonStartY + (row * yOffset))).withWidth(BUTTON_WIDTH)
+        .build();
+
+    row = 1;
+    hudLocationButton = CycleButton.builder(Location::getLocationName)
+        .withValues(Location.TOP_LEFT, Location.TOP_CENTER, Location.TOP_RIGHT, Location.BOTTOM_LEFT,
+                    Location.BOTTOM_RIGHT)
+        .withInitialValue(Config.getHudLocation())
+        .create(leftButtonX, (buttonStartY + (row * yOffset)), BUTTON_WIDTH, BUTTON_HEIGHT,
+                new TranslatableComponent("menu.seasonhud.button.hudLocation"),
+                (b, location) -> Config.setHudLocation(location));
+
+    xOffsetSlider = HudOffsetSlider.builder(new TranslatableComponent("menu.seasonhud.slider.xOffset"))
+        .withValueRange(0, scaledWidth - componentWidth)
+        .withInitialValue(Config.getHudX())
+        .withDefaultValue(Config.DEFAULT_X_OFFSET)
+        .withBounds(rightButtonX, (buttonStartY + (row * yOffset)), BUTTON_WIDTH / 2 - BasicSlider.SLIDER_PADDING,
+                    BUTTON_HEIGHT)
+        .build();
+
+    yOffsetSlider = HudOffsetSlider.builder(new TranslatableComponent("menu.seasonhud" + ".slider.yOffset"))
+        .withValueRange(0, scaledHeight - componentHeight)
+        .withInitialValue(Config.getHudY())
+        .withDefaultValue(Config.DEFAULT_Y_OFFSET)
+        .withBounds(rightButtonX + BUTTON_WIDTH / 2 + BasicSlider.SLIDER_PADDING, (buttonStartY + (row * yOffset)),
+                    BUTTON_WIDTH / 2 - BasicSlider.SLIDER_PADDING, BUTTON_HEIGHT)
+        .build();
+
+    row = 2;
+    CycleButton<ShowDay> showDayButton = CycleButton.builder(ShowDay::getDayDisplayName)
+        .withValues(ShowDay.getValues())
+        .withInitialValue(Config.getShowDay())
+        .create(leftButtonX, (buttonStartY + (row * yOffset)), BUTTON_WIDTH, BUTTON_HEIGHT,
+                new TranslatableComponent("menu.seasonhud.button.showDay"), (b, show) -> Config.setShowDay(show));
+
+    CycleButton<Boolean> showSubSeasonButton = CycleButton.onOffBuilder(Config.getShowSubSeason())
+        .create(rightButtonX, (buttonStartY + (row * yOffset)), BUTTON_WIDTH, BUTTON_HEIGHT,
+                new TranslatableComponent("menu.seasonhud.button.showSubSeason"),
+                (b, show) -> Config.setShowSubSeason(show));
+
+    row = 3;
+    CycleButton<Boolean> showTropicalSeasonButton = CycleButton.onOffBuilder(Config.getShowTropicalSeason())
+        .create(leftButtonX, (buttonStartY + (row * yOffset)), BUTTON_WIDTH, BUTTON_HEIGHT,
+                new TranslatableComponent("menu.seasonhud.button.showTropicalSeason"),
+                (b, show) -> Config.setShowTropicalSeason(show));
+
+    CycleButton<Boolean> needCalendarButton = CycleButton.onOffBuilder(Config.getNeedCalendar())
+        .create(rightButtonX, (buttonStartY + (row * yOffset)), BUTTON_WIDTH, BUTTON_HEIGHT,
+                new TranslatableComponent("menu.seasonhud.button.needCalendar"),
+                (b, show) -> Config.setNeedCalendar(show));
+
+    row = 4;
+    CycleButton<Boolean> showMinimapHiddenButton = CycleButton.onOffBuilder(Config.getShowDefaultWhenMinimapHidden())
+        .create(leftButtonX, (buttonStartY + (row * yOffset)), BUTTON_WIDTH, BUTTON_HEIGHT,
+                new TranslatableComponent("menu.seasonhud.button.showMinimapHidden"),
+                (b, show) -> Config.setShowDefaultWhenMinimapHidden(show));
+
+    CycleButton<Boolean> enableMinimapIntegrationButton = CycleButton.onOffBuilder(Config.getEnableMinimapIntegration())
+        .create(rightButtonX, (buttonStartY + (row * yOffset)), BUTTON_WIDTH, BUTTON_HEIGHT,
+                new TranslatableComponent("menu.seasonhud.button.enableMinimapIntegration"),
+                (b, show) -> Config.setEnableMinimapIntegration(show));
+
+    if (Services.PLATFORM.isModLoaded("journeymap")) {
+      row += 2; //6
+      CycleButton<Boolean> journeyMapAboveMapButton = CycleButton.onOffBuilder(Config.getJourneyMapAboveMap())
+          .create(leftButtonX, (buttonStartY + (row * yOffset)), BUTTON_WIDTH, BUTTON_HEIGHT,
+                  new TranslatableComponent("menu.seasonhud.button.journeyMapAboveMap"),
+                  (b, show) -> Config.setJourneyMapAboveMap(show));
+
+      CycleButton<Boolean> journeyMapMacOSButton = CycleButton.onOffBuilder(Config.getJourneyMapMacOS())
+          .create(rightButtonX, (buttonStartY + (row * yOffset)), BUTTON_WIDTH, BUTTON_HEIGHT,
+                  new TranslatableComponent("menu.seasonhud.button.journeyMapMacOS"),
+                  (b, show) -> Config.setJourneyMapMacOS(show));
+
+      this.addButton(journeyMapAboveMapButton);
+      this.addButton(journeyMapMacOSButton);
+    }
+    optionButtons.addAll(
+        Arrays.asList(enableModButton, colorButton, hudLocationButton, xOffsetSlider, yOffsetSlider, showDayButton,
+                      showSubSeasonButton, showTropicalSeasonButton, needCalendarButton, showMinimapHiddenButton,
+                      enableMinimapIntegrationButton));
+
+    optionButtons.forEach(this::addRenderableWidget);
+    this.addRenderableWidget(doneButton);
   }
 
   @Override
@@ -52,134 +194,7 @@ public class SeasonHUDScreen extends Screen {
     return true;
   }
 
-  private void onDone() {
-    mc.options.save();
-    mc.setScreen(null);
-  }
-
-  @Override
-  public void render(@NotNull PoseStack stack, int mouseX, int mouseY, float partialTicks) {
-    super.renderBackground(stack);
-    drawCenteredString(stack, font, TITLE, this.width / 2, PADDING, 16777215);
-    if (Services.PLATFORM.isModLoaded("journeymap")) {
-      drawCenteredString(stack, font, JOURNEYMAP, this.width / 2, MENU_PADDING_FULL + (5 * (BUTTON_HEIGHT + PADDING)),
-          16777215);
-    }
-    super.render(stack, mouseX, mouseY, partialTicks);
-  }
-
-  @Override
-  public void init() {
-    super.init();
-    boolean isForge = Services.PLATFORM.getPlatformName().equals("Forge");
-    int leftButtonX = (this.width / 2) - (BUTTON_WIDTH + PADDING);
-    int rightButtonX = (this.width / 2) + PADDING;
-    int buttonStartY = MENU_PADDING_FULL;
-    int yOffset = BUTTON_HEIGHT + PADDING;
-
-    //Buttons
-    MenuButton doneButton = new MenuButton(this.width / 2 - BUTTON_WIDTH / 2, (this.height - BUTTON_HEIGHT - PADDING),
-        BUTTON_WIDTH, BUTTON_HEIGHT, MenuButtons.DONE, press -> onDone());
-
-    int row = 0;
-    CycleButton<Boolean> enableModButton = CycleButton.onOffBuilder(enableMod.get())
-                                                      .create(leftButtonX, (buttonStartY + (row * yOffset)),
-                                                          BUTTON_WIDTH, BUTTON_HEIGHT,
-                                                          new TranslatableComponent("menu.seasonhud.button.enableMod"),
-                                                          (b, press) -> Config.setEnableMod(press));
-
-    MenuButton seasonhudColors = new MenuButton(rightButtonX, (buttonStartY + (row * yOffset)), BUTTON_WIDTH,
-        BUTTON_HEIGHT, MenuButtons.COLORS, (press) -> ColorScreen.open(this));
-
-    row += 1;
-    CycleButton<Location> hudLocationButton = CycleButton.builder(Location::getLocationName)
-                                                         .withValues(Location.TOP_LEFT, Location.TOP_CENTER,
-                                                             Location.TOP_RIGHT, Location.BOTTOM_LEFT,
-                                                             Location.BOTTOM_RIGHT).withInitialValue(hudLocation.get())
-                                                         .create(leftButtonX, (buttonStartY + (row * yOffset)),
-                                                             BUTTON_WIDTH, BUTTON_HEIGHT, new TranslatableComponent(
-                                                                 "menu.seasonhud.button.hudLocation"),
-                                                             (b, location) -> Config.setHudLocation(location));
-
-    CycleButton<Boolean> showTropicalSeasonButton = CycleButton.onOffBuilder(showTropicalSeason.get())
-                                                               .create(rightButtonX, (buttonStartY + (row * yOffset)),
-                                                                   BUTTON_WIDTH, BUTTON_HEIGHT,
-                                                                   new TranslatableComponent(
-                                                                       "menu.seasonhud.button.showTropicalSeason"),
-                                                                   (b, Off) -> Config.setShowTropicalSeason(Off));
-
-    row += 1;
-    ShowDay[] showDayValuesForge = {ShowDay.NONE, ShowDay.SHOW_DAY, ShowDay.SHOW_WITH_TOTAL_DAYS};
-    ShowDay[] showDayValuesFabric = {ShowDay.NONE, ShowDay.SHOW_DAY, ShowDay.SHOW_WITH_TOTAL_DAYS,
-        ShowDay.SHOW_WITH_MONTH};
-
-    CycleButton<ShowDay> showDayButton = CycleButton.builder(ShowDay::getDayDisplayName)
-                                                    .withValues(isForge ? showDayValuesForge : showDayValuesFabric)
-                                                    .withInitialValue(showDay.get())
-                                                    .create(leftButtonX, (buttonStartY + (row * yOffset)), BUTTON_WIDTH,
-                                                        BUTTON_HEIGHT,
-                                                        new TranslatableComponent("menu.seasonhud.button.showDay"),
-                                                        (b, showDay) -> Config.setShowDay(showDay));
-
-    CycleButton<Boolean> showSubSeasonButton = CycleButton.onOffBuilder(showSubSeason.get())
-                                                          .create(rightButtonX, (buttonStartY + (row * yOffset)),
-                                                              BUTTON_WIDTH, BUTTON_HEIGHT, new TranslatableComponent(
-                                                                  "menu.seasonhud.button.showSubSeason"),
-                                                              (b, Off) -> Config.setShowSubSeason(Off));
-
-    row += 1;
-    CycleButton<Boolean> needCalendarButton = CycleButton.onOffBuilder(needCalendar.get())
-                                                         .create(leftButtonX, (buttonStartY + (row * yOffset)),
-                                                             BUTTON_WIDTH, BUTTON_HEIGHT, new TranslatableComponent(
-                                                                 "menu.seasonhud.button.needCalendar"),
-                                                             (b, Off) -> Config.setNeedCalendar(Off));
-
-    CycleButton<Boolean> enableMinimapIntegrationButton = CycleButton.onOffBuilder(enableMinimapIntegration.get())
-                                                                     .create(rightButtonX,
-                                                                         (buttonStartY + (row * yOffset)), BUTTON_WIDTH,
-                                                                         BUTTON_HEIGHT, new TranslatableComponent(
-                                                                             "menu.seasonhud.button.enableMinimapIntegration"),
-                                                                         (b, Off) -> Config.setEnableMinimapIntegration(
-                                                                             Off));
-
-    row += 1;
-    CycleButton<Boolean> showMinimapHiddenButton = CycleButton.onOffBuilder(showDefaultWhenMinimapHidden.get())
-                                                              .create(leftButtonX, (buttonStartY + (row * yOffset)),
-                                                                  BUTTON_WIDTH, BUTTON_HEIGHT,
-                                                                  new TranslatableComponent(
-                                                                      "menu.seasonhud.button.showMinimapHidden"),
-                                                                  (b, Off) -> Config.setShowDefaultWhenMinimapHidden(
-                                                                      Off));
-
-    if (Services.PLATFORM.isModLoaded("journeymap")) {
-      row += 2;
-      CycleButton<Boolean> journeyMapAboveMapButton = CycleButton.onOffBuilder(journeyMapAboveMap.get())
-                                                                 .create(leftButtonX, (buttonStartY + (row * yOffset)),
-                                                                     BUTTON_WIDTH, BUTTON_HEIGHT,
-                                                                     new TranslatableComponent(
-                                                                         "menu.seasonhud.button.journeyMapAboveMap"),
-                                                                     (b, Off) -> Config.setJourneyMapAboveMap(Off));
-
-      CycleButton<Boolean> journeyMapMacOSButton = CycleButton.onOffBuilder(journeyMapMacOS.get())
-                                                              .create(rightButtonX, (buttonStartY + (row * yOffset)),
-                                                                  BUTTON_WIDTH, BUTTON_HEIGHT,
-                                                                  new TranslatableComponent(
-                                                                      "menu.seasonhud.button.journeyMapMacOS"),
-                                                                  (b, Off) -> Config.setJourneyMapMacOS(Off));
-
-      this.addButton(journeyMapAboveMapButton);
-      this.addButton(journeyMapMacOSButton);
-    }
-
-    this.addButton(enableModButton);
-    this.addButton(hudLocationButton);
-    this.addButton(showTropicalSeasonButton);
-    this.addButton(showSubSeasonButton);
-    this.addButton(showDayButton);
-    this.addButton(needCalendarButton);
-    this.addButton(enableMinimapIntegrationButton);
-    this.addButton(showMinimapHiddenButton);
-    this.addButton(seasonhudColors);
-    this.addButton(doneButton);
+  public List<FormattedCharSequence> tooltip(Component tooltip) {
+    return SeasonHUDScreen.this.font.split(tooltip, Math.max(SeasonHUDScreen.this.width / 2 - 43, 170));
   }
 }

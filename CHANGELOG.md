@@ -4,6 +4,49 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 
+## [1.9.0] - 2024-07-07
+
+### Added
+
+- Added tooltips to the options screen buttons
+- Added sliders for the Hud offset in the options screen
+    - Right click will set them back to default
+
+### Changed
+
+- More common code for JourneyMap and MapAtlases to make porting easier.
+- Improved logic for detecting hidden minimaps if multiple minimap mods are installed.
+- Updated Curios support to more modern implementation.
+
+### Fixed
+
+- Made the season name color sliders not editable and grayed out if the "Season Name Color" option is not enabled.
+- Fixed the bottom Hud location presets being too low and cutting off text.
+
+## [1.8.9] - 2024-06-28
+
+### Added
+
+- Added a check to ensure the text is hidden if the HideGui option is used in newer versions of
+  Minecraft.
+    - Included the check in versions before 1.20.6 for consistency.
+
+## [1.8.8] - 2024-06-23
+
+### Fixed
+
+- Fixed version number format for MapAtlases minimum version.
+
+## [1.8.7] - 2024-06-20
+
+### Changed
+
+- Cleaned up the code between different versions a bit.
+
+### Fixed
+
+- (1.21) Fixed crash with new Journeymap update.
+
 ## [1.8.6] - 2024-06-15
 
 ### Fixed

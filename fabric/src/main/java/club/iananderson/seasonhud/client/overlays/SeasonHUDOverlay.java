@@ -1,14 +1,10 @@
-package club.iananderson.seasonhud.client;
+package club.iananderson.seasonhud.client.overlays;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import net.fabricmc.fabric.api.client.rendering.v1.HudRenderCallback;
 
 public class SeasonHUDOverlay implements HudRenderCallback {
-
   public static SeasonHUDOverlay HUD_INSTANCE;
-
-  public SeasonHUDOverlay() {
-  }
 
   public static void init() {
     HUD_INSTANCE = new SeasonHUDOverlay();
@@ -16,7 +12,7 @@ public class SeasonHUDOverlay implements HudRenderCallback {
   }
 
   @Override
-  public void onHudRender(PoseStack seasonStack, float alpha) {
-    SeasonHUDOverlayCommon.render(seasonStack);
+  public void onHudRender(PoseStack graphics, float alpha) {
+    SeasonHUDOverlayCommon.render(graphics);
   }
 }

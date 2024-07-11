@@ -1,4 +1,4 @@
-package club.iananderson.seasonhud.config;
+package club.iananderson.seasonhud.client.gui;
 
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.TranslatableComponent;

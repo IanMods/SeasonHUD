@@ -13,10 +13,15 @@ minecraft {
 
 dependencies {
     compileOnly group: 'org.spongepowered', name: 'mixin', version: '0.8.5'
+    implementation group: 'com.google.code.findbugs', name: 'jsr305', version: '3.0.1'
 
     implementation 'com.electronwill.night-config:core:3.6.3'
     implementation 'com.electronwill.night-config:toml:3.6.3'
     compileOnly "net.minecraftforge:forgeconfigapiport-fabric:${forgeconfigapiport_version}"
+
+    //To get the Journeymap map values, since they are the same between the mod loaders.
+    // Not used unless Journeymap is actually  loaded.
+    compileOnly "curse.maven:journeymap-32274:${project.journeymap_forge_file_id}"
 }
 
 configurations {

@@ -1,26 +1,27 @@
 package club.iananderson.seasonhud.impl.seasons;
 
-import static club.iananderson.seasonhud.client.SeasonHUDClient.mc;
-
 import club.iananderson.seasonhud.Common;
 import club.iananderson.seasonhud.config.Config;
 import club.iananderson.seasonhud.platform.Services;
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.item.ItemStack;
 
 public class Calendar {
-
-  public static boolean calendarLoaded = (Services.PLATFORM.getPlatformName().equals("Forge") || (
+  public static final boolean CALENDAR_LOADED = (Services.PLATFORM.getPlatformName().equals("Forge") || (
       Services.PLATFORM.getPlatformName().equals("Fabric") && Common.extrasLoaded()));
 
-  public static boolean calendarFound() {
-    LocalPlayer player = mc.player;
+  private Calendar() {
+  }
 
-    if (Config.needCalendar.get() && calendarLoaded && player != null) {
+  public static boolean calendarFound() {
+    LocalPlayer player = Minecraft.getInstance().player;
+
+    if (Config.getNeedCalendar() && CALENDAR_LOADED && player != null) {
       Inventory inv = player.inventory;
-      int slot = findCalendar(inv, Services.SEASON.calendar()) + Services.SEASON.findCuriosCalendar(player,
-          Services.SEASON.calendar());
+      Item calendar = Services.SEASON.calendar();
+      int slot = findCalendar(inv, calendar) + Services.SEASON.findCuriosCalendar(player, calendar);
 
       return (slot >= 0);
     } else {

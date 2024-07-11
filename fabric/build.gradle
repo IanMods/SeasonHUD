@@ -47,6 +47,7 @@ dependencies {
     modCompileOnly "dev.onyxstudios.cardinal-components-api:cardinal-components-base:5.0.2"
     modCompileOnly "dev.onyxstudios.cardinal-components-api:cardinal-components-entity:5.0.2"
 
+
     /Forge Config API Port/
     modImplementation("com.electronwill.night-config:core:3.6.3")
     modImplementation("com.electronwill.night-config:toml:3.6.3")
