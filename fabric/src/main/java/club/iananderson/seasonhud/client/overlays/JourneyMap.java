@@ -17,15 +17,15 @@ public class JourneyMap implements HudRenderCallback {
   }
 
   @Override
-  public void onHudRender(GuiGraphics guiGraphics, DeltaTracker tickCounter) {
+  public void onHudRender(GuiGraphics graphics, DeltaTracker tickCounter) {
     if (CurrentMinimap.journeyMapLoaded() && CurrentMinimap.shouldDrawMinimapHud(Minimaps.JOURNEYMAP)) {
       JourneyMapCommon journeyMapCommon = JourneyMapCommon.getInstance(Minecraft.getInstance());
 
-      guiGraphics.pose().pushPose();
-      guiGraphics.pose().scale(1 / journeyMapCommon.getFontScale(), 1 / journeyMapCommon.getFontScale(), 0);
+      graphics.pose().pushPose();
+      graphics.pose().scale(1 / journeyMapCommon.getFontScale(), 1 / journeyMapCommon.getFontScale(), 0);
       DrawUtil.sizeDisplay(journeyMapCommon.getScreenWidth(), journeyMapCommon.getScreenHeight());
-      guiGraphics.pose().popPose();
-      journeyMapCommon.drawSeasonLabel(guiGraphics);
+      graphics.pose().popPose();
+      journeyMapCommon.drawSeasonLabel(graphics);
     }
   }
 }

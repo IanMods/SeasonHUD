@@ -12,7 +12,7 @@ public class SeasonHUDOverlay implements LayeredDraw.Layer {
   }
 
   @Override
-  public void render(GuiGraphics seasonStack, DeltaTracker deltaTracker) {
-    SeasonHUDOverlayCommon.render(seasonStack);
+  public void render(GuiGraphics graphics, DeltaTracker deltaTracker) {
+    SeasonHUDOverlayCommon.render(graphics);
   }
 }
