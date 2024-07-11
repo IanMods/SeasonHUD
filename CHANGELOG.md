@@ -4,7 +4,7 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 
-## [1.9.0] - 2024-07-07
+## [1.9.0] - 2024-07-11
 
 ### Added
 
@@ -14,6 +14,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 
 ### Changed
 
+- Changed the default offsets from 0,0 from 2,2 due to some changes in the offset calculation
+  - If you aren't using a minimap mod, you may need to manually change these values if the text isn't offset.
 - More common code for JourneyMap and MapAtlases to make porting easier.
 - Improved logic for detecting hidden minimaps if multiple minimap mods are installed.
 - Updated Curios support to more modern implementation.
