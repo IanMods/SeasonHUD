@@ -40,7 +40,7 @@ public class MapAtlases implements HudRenderCallback {
   }
 
   @Override
-  public void onHudRender(GuiGraphics seasonStack, float alpha) {
+  public void onHudRender(GuiGraphics graphics, float alpha) {
     Minecraft mc = Minecraft.getInstance();
     int screenWidth = mc.getWindow().getScreenWidth();
     int screenHeight = mc.getWindow().getScreenHeight();
@@ -54,8 +54,8 @@ public class MapAtlases implements HudRenderCallback {
       int x = anchorLocation.isLeft ? offset : (int) (screenWidth / globalScale) - (BG_SIZE + offset);
       int y = anchorLocation.isUp ? offset : (int) (screenHeight / globalScale) - (BG_SIZE + offset);
 
-      seasonStack.pose().pushPose();
-      seasonStack.pose().scale(globalScale, globalScale, 1);
+      graphics.pose().pushPose();
+      graphics.pose().scale(globalScale, globalScale, 1);
 
       x += (int) (MapAtlasesClientConfig.miniMapHorizontalOffset.get() / globalScale);
       y += (int) (MapAtlasesClientConfig.miniMapVerticalOffset.get() / globalScale);
@@ -91,10 +91,10 @@ public class MapAtlases implements HudRenderCallback {
         textHeightOffset += (10.0F * textScaling);
       }
 
-      MapAtlasesCommon.drawMapComponentSeason(seasonStack, mc.font, x,
+      MapAtlasesCommon.drawMapComponentSeason(graphics, mc.font, x,
                                               (int) (y + BG_SIZE + (textHeightOffset / globalScale)), actualBgSize,
                                               textScaling, globalScale);
-      seasonStack.pose().popPose();
+      graphics.pose().popPose();
     }
   }
 }

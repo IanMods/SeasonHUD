@@ -16,15 +16,15 @@ public class JourneyMap implements IGuiOverlay {
   }
 
   @Override
-  public void render(ForgeGui gui, GuiGraphics guiGraphics, float partialTick, int scaledWidth, int scaledHeight) {
+  public void render(ForgeGui gui, GuiGraphics graphics, float partialTick, int scaledWidth, int scaledHeight) {
     if (CurrentMinimap.journeyMapLoaded() && CurrentMinimap.shouldDrawMinimapHud(Minimaps.JOURNEYMAP)) {
       JourneyMapCommon journeyMapCommon = JourneyMapCommon.getInstance(Minecraft.getInstance());
 
-      guiGraphics.pose().pushPose();
-      guiGraphics.pose().scale(1 / journeyMapCommon.getFontScale(), 1 / journeyMapCommon.getFontScale(), 0);
-      DrawUtil.sizeDisplay(guiGraphics.pose(), journeyMapCommon.getScreenWidth(), journeyMapCommon.getScreenHeight());
-      guiGraphics.pose().popPose();
-      journeyMapCommon.drawSeasonLabel(guiGraphics);
+      graphics.pose().pushPose();
+      graphics.pose().scale(1 / journeyMapCommon.getFontScale(), 1 / journeyMapCommon.getFontScale(), 0);
+      DrawUtil.sizeDisplay(graphics.pose(), journeyMapCommon.getScreenWidth(), journeyMapCommon.getScreenHeight());
+      graphics.pose().popPose();
+      journeyMapCommon.drawSeasonLabel(graphics);
     }
   }
 }
