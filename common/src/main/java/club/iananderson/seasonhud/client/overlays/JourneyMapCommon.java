@@ -100,12 +100,12 @@ public class JourneyMapCommon {
     return screenHeight;
   }
 
-  public void drawSeasonLabel(GuiGraphics guiGraphics) {
-    MultiBufferSource.BufferSource buffers = guiGraphics.bufferSource();
+  public void drawSeasonLabel(GuiGraphics graphics) {
+    MultiBufferSource.BufferSource buffers = graphics.bufferSource();
     buffers.endBatch();
-    DrawUtil.drawBatchLabel(guiGraphics.pose(), seasonCombined, buffers, labelX(), labelY(), DrawUtil.HAlign.Center,
+    DrawUtil.drawBatchLabel(graphics.pose(), seasonCombined, buffers, labelX(), labelY(), DrawUtil.HAlign.Center,
                             DrawUtil.VAlign.Below, labelColor, labelAlpha, textColor, textAlpha, fontScale, fontShadow);
-    guiGraphics.bufferSource().endBatch();
-    DrawUtil.sizeDisplay(guiGraphics.pose(), scaledWidth, scaledHeight);
+    graphics.bufferSource().endBatch();
+    DrawUtil.sizeDisplay(graphics.pose(), scaledWidth, scaledHeight);
   }
 }

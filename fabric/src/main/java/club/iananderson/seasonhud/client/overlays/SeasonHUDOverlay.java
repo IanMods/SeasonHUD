@@ -12,7 +12,7 @@ public class SeasonHUDOverlay implements HudRenderCallback {
   }
 
   @Override
-  public void onHudRender(GuiGraphics seasonStack, float alpha) {
-    SeasonHUDOverlayCommon.render(seasonStack);
+  public void onHudRender(GuiGraphics graphics, float alpha) {
+    SeasonHUDOverlayCommon.render(graphics);
   }
 }
