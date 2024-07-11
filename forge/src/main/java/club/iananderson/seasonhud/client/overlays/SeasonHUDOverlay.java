@@ -11,7 +11,7 @@ public class SeasonHUDOverlay implements IGuiOverlay {
     HUD_INSTANCE = new SeasonHUDOverlay();
   }
 
-  public void render(ForgeGui gui, PoseStack seasonStack, float partialTick, int screenWidth, int screenHeight) {
-    SeasonHUDOverlayCommon.render(seasonStack);
+  public void render(ForgeGui gui, PoseStack graphics, float partialTick, int screenWidth, int screenHeight) {
+    SeasonHUDOverlayCommon.render(graphics);
   }
 }

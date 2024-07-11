@@ -56,12 +56,12 @@ public class SeasonHUDScreen extends Screen {
   }
 
   @Override
-  public void render(@NotNull PoseStack stack, int mouseX, int mouseY, float partialTicks) {
-    super.renderBackground(stack);
+  public void render(@NotNull PoseStack graphics, int mouseX, int mouseY, float partialTicks) {
+    super.renderBackground(graphics);
 
-    drawCenteredString(stack, font, SCREEN_TITLE, this.width / 2, TITLE_PADDING, 16777215);
+    drawCenteredString(graphics, font, SCREEN_TITLE, this.width / 2, TITLE_PADDING, 16777215);
     if (Services.PLATFORM.isModLoaded("journeymap")) {
-      drawCenteredString(stack, font, JOURNEYMAP, this.width / 2,
+      drawCenteredString(graphics, font, JOURNEYMAP, this.width / 2,
                          MENU_PADDING + (6 * (BUTTON_HEIGHT + BUTTON_PADDING)) - (font.lineHeight + BUTTON_PADDING),
                          16777215);
     }
@@ -70,7 +70,7 @@ public class SeasonHUDScreen extends Screen {
     xOffsetSlider.active = hudLocationButton.getValue() == Location.TOP_LEFT && Common.drawDefaultHud();
     yOffsetSlider.active = hudLocationButton.getValue() == Location.TOP_LEFT && Common.drawDefaultHud();
 
-    super.render(stack, mouseX, mouseY, partialTicks);
+    super.render(graphics, mouseX, mouseY, partialTicks);
   }
 
   @Override
