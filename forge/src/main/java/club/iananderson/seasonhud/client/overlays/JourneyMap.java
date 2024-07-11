@@ -15,15 +15,15 @@ public class JourneyMap implements LayeredDraw.Layer {
   }
 
   @Override
-  public void render(GuiGraphics guiGraphics, float partialTick) {
+  public void render(GuiGraphics graphics, float partialTick) {
     if (CurrentMinimap.journeyMapLoaded() && CurrentMinimap.shouldDrawMinimapHud(Minimaps.JOURNEYMAP)) {
       JourneyMapCommon journeyMapCommon = JourneyMapCommon.getInstance(Minecraft.getInstance());
 
-      guiGraphics.pose().pushPose();
-      guiGraphics.pose().scale(1 / journeyMapCommon.getFontScale(), 1 / journeyMapCommon.getFontScale(), 0);
-      DrawUtil.sizeDisplay(guiGraphics.pose(), journeyMapCommon.getScreenWidth(), journeyMapCommon.getScreenHeight());
-      guiGraphics.pose().popPose();
-      journeyMapCommon.drawSeasonLabel(guiGraphics);
+      graphics.pose().pushPose();
+      graphics.pose().scale(1 / journeyMapCommon.getFontScale(), 1 / journeyMapCommon.getFontScale(), 0);
+      DrawUtil.sizeDisplay(graphics.pose(), journeyMapCommon.getScreenWidth(), journeyMapCommon.getScreenHeight());
+      graphics.pose().popPose();
+      journeyMapCommon.drawSeasonLabel(graphics);
     }
   }
 }

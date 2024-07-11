@@ -11,7 +11,7 @@ public class SeasonHUDOverlay implements LayeredDraw.Layer {
   }
 
   @Override
-  public void render(GuiGraphics seasonStack, float partialTick) {
-    SeasonHUDOverlayCommon.render(seasonStack);
+  public void render(GuiGraphics graphics, float partialTick) {
+    SeasonHUDOverlayCommon.render(graphics);
   }
 }
