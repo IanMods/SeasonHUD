@@ -12,7 +12,7 @@ public class SeasonHUDOverlayCommon {
   private SeasonHUDOverlayCommon() {
   }
 
-  public static void render(GuiGraphics seasonStack) {
+  public static void render(GuiGraphics graphics) {
     Minecraft mc = Minecraft.getInstance();
     MutableComponent seasonCombined = CurrentSeason.getInstance(mc).getSeasonHudText();
     int screenWidth = mc.getWindow().getGuiScaledWidth();
@@ -49,10 +49,10 @@ public class SeasonHUDOverlayCommon {
       }
 
       //Text
-      seasonStack.pose().pushPose();
-      seasonStack.pose().scale(1F, 1F, 1F);
-      seasonStack.drawString(mc.font, seasonCombined, x, y, 0xffffff);
-      seasonStack.pose().popPose();
+      graphics.pose().pushPose();
+      graphics.pose().scale(1F, 1F, 1F);
+      graphics.drawString(mc.font, seasonCombined, x, y, 0xffffff);
+      graphics.pose().popPose();
     }
   }
 }

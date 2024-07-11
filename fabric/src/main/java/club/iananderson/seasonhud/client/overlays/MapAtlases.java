@@ -48,7 +48,7 @@ public class MapAtlases implements HudRenderCallback {
   }
 
   @Override
-  public void onHudRender(GuiGraphics seasonStack, float alpha) {
+  public void onHudRender(GuiGraphics graphics, float alpha) {
     if (CurrentMinimap.mapAtlasesLoaded()) {
       if (mc.level != null && mc.player != null) {
         int mapBgScaledSize = (int) Math.floor(0.2 * (double) mc.getWindow().getGuiScaledHeight());
@@ -103,7 +103,7 @@ public class MapAtlases implements HudRenderCallback {
             textHeightOffset = (int) ((float) textHeightOffset + 12.0F * textScaling);
           }
 
-          MapAtlasesCommon.drawMapComponentSeasonOld(seasonStack, x, y, mapBgScaledSize, textHeightOffset, textScaling);
+          MapAtlasesCommon.drawMapComponentSeasonOld(graphics, x, y, mapBgScaledSize, textHeightOffset, textScaling);
         }
       }
     }
