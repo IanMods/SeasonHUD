@@ -1,12 +1,14 @@
-package club.iananderson.seasonhud.client;
+package club.iananderson.seasonhud.client.overlays;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraftforge.client.gui.ForgeIngameGui;
 import net.minecraftforge.client.gui.IIngameOverlay;
 
 public class SeasonHUDOverlay implements IIngameOverlay {
+  public static SeasonHUDOverlay HUD_INSTANCE;
 
-  public SeasonHUDOverlay() {
+  public static void init() {
+    HUD_INSTANCE = new SeasonHUDOverlay();
   }
 
   public void render(ForgeIngameGui gui, PoseStack seasonStack, float partialTick, int width, int height) {

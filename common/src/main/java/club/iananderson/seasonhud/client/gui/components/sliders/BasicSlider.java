@@ -1,61 +1,39 @@
 package club.iananderson.seasonhud.client.gui.components.sliders;
 
-import club.iananderson.seasonhud.client.gui.components.boxes.ColorEditBox;
-import club.iananderson.seasonhud.config.Config;
-import club.iananderson.seasonhud.impl.seasons.SeasonList;
 import club.iananderson.seasonhud.util.DrawUtil;
-import club.iananderson.seasonhud.util.Rgb;
 import com.mojang.blaze3d.vertex.PoseStack;
 import java.util.Objects;
-import net.minecraft.ChatFormatting;
 import net.minecraft.Util;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.GuiComponent;
 import net.minecraft.client.gui.components.AbstractSliderButton;
-import net.minecraft.network.chat.CommonComponents;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.TextComponent;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
 import org.jetbrains.annotations.NotNull;
 
-public class RgbSlider extends AbstractSliderButton {
+public class BasicSlider extends AbstractSliderButton {
+  public static final int SLIDER_PADDING = 2;
+  protected static final ResourceLocation SLIDER_LOCATION = new ResourceLocation("seasonhud:textures/gui/slider.png");
+  protected final boolean drawString;
+  protected boolean canChangeValue;
+  protected double minValue;
+  protected double maxValue;
 
-  private static final ResourceLocation SLIDER_LOCATION = new ResourceLocation("seasonhud:textures/gui/slider.png");
-  public static int SLIDER_PADDING = 2;
-  public final boolean drawString;
-  public boolean enableColor = Config.enableSeasonNameColor.get();
-  public SeasonList season;
-  public ColorEditBox seasonBox;
-  public int minValue;
-  public int maxValue;
-  public int r;
-  public int g;
-  public int b;
-  public int rgb;
-  public double initial;
-  public ChatFormatting textColor;
-  private boolean canChangeValue;
-
-  private RgbSlider(int x, int y, int width, int height, double initial) {
-    super(x, y, width, height, CommonComponents.NARRATION_SEPARATOR, initial);
-    this.initial = initial;
-    this.drawString = true;
+  protected BasicSlider(int x, int y, int width, int height, boolean drawString, double initial) {
+    super(x, y, width, height, new TextComponent(""), 0.0);
+    this.drawString = drawString;
+    this.value = snapToNearest(initial);
   }
 
-  public RgbSlider(int x, int y, ColorEditBox seasonBox) {
-    this(x, y, seasonBox.getWidth() + 2, seasonBox.getHeight() - 6, Integer.parseInt(seasonBox.getValue()));
-    this.minValue = 0;
-    this.maxValue = 16777215;
-    this.season = seasonBox.getSeason();
-    this.rgb = Integer.parseInt(seasonBox.getValue());
-    this.r = Rgb.rgbColor(this.rgb).getRed();
-    this.g = Rgb.rgbColor(this.rgb).getGreen();
-    this.b = Rgb.rgbColor(this.rgb).getBlue();
-    this.value = snapToNearest(this.rgb);
-    this.textColor = ChatFormatting.WHITE;
-    this.updateMessage();
+  protected BasicSlider(int x, int y, int width, int height, boolean drawString, double initial, double minValue,
+      double maxValue) {
+    this(x, y, width, height, drawString, initial);
+    this.minValue = minValue;
+    this.maxValue = maxValue;
+    this.value = snapToNearest(initial);
   }
 
   protected static void renderScrollingString(PoseStack graphics, Font font, Component component, int i, int j, int k,
@@ -96,30 +74,25 @@ public class RgbSlider extends AbstractSliderButton {
     return i * 20;
   }
 
-  @Override
-  protected void updateMessage() {
-    Component colorString = new TextComponent(this.getValueString());
-
-    if (this.drawString) {
-      this.setMessage(colorString.copy().withStyle(textColor));
-
-      if (!enableColor) {
-        this.setMessage(colorString.copy().withStyle(ChatFormatting.GRAY));
-      }
-    } else {
-      this.setMessage(new TextComponent(""));
-    }
+  public int getFGColor() {
+    return this.active ? 16777215 : 10526880;
   }
 
-  public double snapToNearest(double value) {
+  protected double snapToNearest(double value) {
     return (Mth.clamp((float) value, this.minValue, this.maxValue) - this.minValue) / (this.maxValue - this.minValue);
-  }
-
-  public void setSliderValue(int newValue) {
   }
 
   public double getValue() {
     return this.value * (this.maxValue - this.minValue) + this.minValue;
+  }
+
+  protected void setValue(double newValue) {
+    double oldValue = this.value;
+    this.value = Mth.clamp(newValue, 0.0, 1.0);
+    if (oldValue != this.value) {
+      this.applyValue();
+    }
+    this.updateMessage();
   }
 
   public long getValueLong() {
@@ -134,11 +107,30 @@ public class RgbSlider extends AbstractSliderButton {
     return String.valueOf(this.getValueInt());
   }
 
+  @Override
   protected void applyValue() {
   }
 
-  public int getFGColor() {
-    return this.active ? 16777215 : 10526880;
+  @Override
+  public boolean keyPressed(int keyCode, int scanCode, int modifiers) {
+    if (this.canChangeValue) {
+      boolean bl = keyCode == 263;
+      if (bl || keyCode == 262) {
+        float f = bl ? -1.0F : 1.0F;
+        this.setValue(this.value + (f / (this.width - 8)));
+        return true;
+      }
+    }
+    return false;
+  }
+
+  @Override
+  protected void updateMessage() {
+    if (this.drawString) {
+      this.setMessage(new TextComponent(this.getValueString()));
+    } else {
+      this.setMessage(new TextComponent(""));
+    }
   }
 
   protected void renderScrollingString(PoseStack graphics, Font font, int i, int j) {
@@ -150,9 +142,9 @@ public class RgbSlider extends AbstractSliderButton {
   @Override
   protected void renderBg(@NotNull PoseStack graphics, @NotNull Minecraft mc, int mouseX, int mouseY) {
     DrawUtil.blitWithBorder(graphics, this, SLIDER_LOCATION, this.x, this.y, 0, this.getTextureY(), this.width,
-        this.height, 200, 20, 2, 3, 2, 2);
+                            this.height, 200, 20, 2, 3, 2, 2);
     DrawUtil.blitWithBorder(graphics, this, SLIDER_LOCATION, this.x + (int) (this.value * (double) (this.width - 8)),
-        this.y, 0, this.getHandleTextureY(), 8, this.height, 200, 20, 2, 3, 2, 2);
+                            this.y, 0, this.getHandleTextureY(), 8, this.height, 200, 20, 2, 3, 2, 2);
     this.renderScrollingString(graphics, mc.font, 2, this.getFGColor() | Mth.ceil(this.alpha * 255.0F) << 24);
   }
 }

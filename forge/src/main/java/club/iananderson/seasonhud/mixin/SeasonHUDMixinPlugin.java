@@ -33,16 +33,6 @@ public class SeasonHUDMixinPlugin implements IMixinConfigPlugin {
   }
 
   @Override
-  public boolean shouldApplyMixin(String targetClassName, String mixinClassName) {
-    Preconditions.checkState(mixinClassName.startsWith(prefix), "Unexpected prefix on " + mixinClassName);
-    if (mixinClassName.startsWith("club.iananderson.seasonhud.mixin.xaero")) {
-      return HAS_XAERO;
-    } else {
-      return true;
-    }
-  }
-
-  @Override
   public void onLoad(String mixinPackage) {
     prefix = mixinPackage + ".";
   }
@@ -50,6 +40,16 @@ public class SeasonHUDMixinPlugin implements IMixinConfigPlugin {
   @Override
   public String getRefMapperConfig() {
     return null;
+  }
+
+  @Override
+  public boolean shouldApplyMixin(String targetClassName, String mixinClassName) {
+    Preconditions.checkState(mixinClassName.startsWith(prefix), "Unexpected prefix on " + mixinClassName);
+    if (mixinClassName.startsWith("club.iananderson.seasonhud.mixin.xaero")) {
+      return HAS_XAERO;
+    } else {
+      return true;
+    }
   }
 
   public void acceptTargets(Set<String> myTargets, Set<String> otherTargets) {

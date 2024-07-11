@@ -4,13 +4,15 @@ import static net.minecraftforge.client.gui.ForgeIngameGui.FROSTBITE_ELEMENT;
 
 import club.iananderson.seasonhud.Common;
 import club.iananderson.seasonhud.client.KeyBindings;
-import club.iananderson.seasonhud.client.SeasonHUDOverlay;
 import club.iananderson.seasonhud.client.gui.screens.SeasonHUDScreen;
-import club.iananderson.seasonhud.client.minimaps.JourneyMap;
+import club.iananderson.seasonhud.client.overlays.JourneyMap;
+import club.iananderson.seasonhud.client.overlays.MapAtlases;
+import club.iananderson.seasonhud.client.overlays.SeasonHUDOverlay;
+import club.iananderson.seasonhud.impl.minimaps.CurrentMinimap;
 import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.client.ClientRegistry;
 import net.minecraftforge.client.event.InputEvent;
 import net.minecraftforge.client.gui.OverlayRegistry;
-import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
@@ -33,12 +35,31 @@ public class ClientEvents {
 
     //Overlays
     @SubscribeEvent
-    public static void init(FMLClientSetupEvent event) {
-      OverlayRegistry.registerOverlayAbove(FROSTBITE_ELEMENT, "season", new SeasonHUDOverlay());
-      OverlayRegistry.registerOverlayAbove(FROSTBITE_ELEMENT, "journeymap", new JourneyMap());
-      MinecraftForge.EVENT_BUS.addListener(ClientForgeEvents::onKeyInput);
-      KeyBindings.init();
+    public static void registerGuiOverlays(FMLClientSetupEvent event) {
+      SeasonHUDOverlay.init();
+      OverlayRegistry.registerOverlayAbove(FROSTBITE_ELEMENT, "seasonhud", SeasonHUDOverlay.HUD_INSTANCE);
+    }
+
+    @SubscribeEvent
+    public static void registerJourneyMapOverlay(FMLClientSetupEvent event) {
+      if (CurrentMinimap.journeyMapLoaded()) {
+        JourneyMap.init();
+        OverlayRegistry.registerOverlayAbove(FROSTBITE_ELEMENT, "journeymap", JourneyMap.HUD_INSTANCE);
+      }
+    }
+
+    @SubscribeEvent
+    public static void registerMapAtlasesOverlay(FMLClientSetupEvent event) {
+      if (CurrentMinimap.mapAtlasesLoaded()) {
+        MapAtlases.init();
+        OverlayRegistry.registerOverlayAbove(FROSTBITE_ELEMENT, "mapatlases", MapAtlases.HUD_INSTANCE);
+      }
+    }
+
+    //Key Bindings
+    @SubscribeEvent
+    public static void onKeyRegister(FMLClientSetupEvent event) {
+      ClientRegistry.registerKeyBinding(KeyBindings.seasonhudOptionsKeyMapping);
     }
   }
 }
-
