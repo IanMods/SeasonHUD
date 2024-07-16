@@ -11,9 +11,11 @@ dependencies {
     modImplementation "net.fabricmc:fabric-loader:${fabric_loader_version}"
     modImplementation "net.fabricmc.fabric-api:fabric-api:${fabric_version}"
 
-    /Serene Seasons/
-    modImplementation "curse.maven:serene-seasons-291874:${project.serene_seasons_fabric_file_id}"
-    modImplementation "com.github.glitchfiend:GlitchCore-fabric:${minecraft_version}-${glitchcore_version}"
+    /Fabric Seasons/
+    modImplementation "curse.maven:fabric-seasons-413523:${project.fabric_seasons_file_id}"
+
+    /Fabric Seasons Extras/
+    modCompileOnly "curse.maven:fabric-seasons-extras-839878:${project.fabric_seasons_extras_file_id}"
 
     /Xaero's Minimap/
     modCompileOnly "curse.maven:xaeros-minimap-263420:${project.xaeros_fabric_file_id}"
@@ -28,9 +30,13 @@ dependencies {
     modCompileOnly "curse.maven:ftb-chunks-fabric-472657:${ftb_chunks_fabric_file_id}"
 
     /Trinkets/
-    modCompileOnly("dev.onyxstudios.cardinal-components-api:cardinal-components-base:${project.cca_version}")
-    modCompileOnly("dev.onyxstudios.cardinal-components-api:cardinal-components-entity:${project.cca_version}")
-    modCompileOnly "dev.emi:trinkets:${trinkets_file_id}"
+//    modCompileOnly "dev.emi:trinkets:${trinkets_file_id}"
+    modCompileOnly "curse.maven:accessories-938917:${project.accessories_fabric_file_id}"
+    modCompileOnly "curse.maven:accessories-tc-layer-1005680:${project.tclayer_fabric_file_id}"
+    modCompileOnly "me.shedaniel.cloth:cloth-config-fabric:${project.cloth_config_version}"
+    modCompileOnly "dev.onyxstudios.cardinal-components-api:cardinal-components-base:${project.cca_version}"
+    modCompileOnly "dev.onyxstudios.cardinal-components-api:cardinal-components-item:${project.cca_version}"
+    modCompileOnly "dev.onyxstudios.cardinal-components-api:cardinal-components-entity:${project.cca_version}"
 
     /Forge Config API Port/
     modApi "fuzs.forgeconfigapiport:forgeconfigapiport-fabric:${forgeconfigapiport_version}"
@@ -45,9 +51,6 @@ dependencies {
     modCompileOnly "maven.modrinth:cloth-config:eBZiZ9NS"
 
 //    modCompileOnly "curse.maven:map-atlases-436298:${project.map_atlases_fabric_file_id}"
-//    modCompileOnly "dev.onyxstudios.cardinal-components-api:cardinal-components-base:${project.cca_version}"
-//    modCompileOnly "dev.onyxstudios.cardinal-components-api:cardinal-components-item:${project.cca_version}"
-//    modCompileOnly "dev.onyxstudios.cardinal-components-api:cardinal-components-entity:${project.cca_version}"
 //    modCompileOnly("curse.maven:selene-499980:5061469")
 //    modCompileOnly "curse.maven:immediatelyfast-686911:4937544"
 }
