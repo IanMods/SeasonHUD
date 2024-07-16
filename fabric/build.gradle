@@ -30,7 +30,13 @@ dependencies {
     modCompileOnly "curse.maven:ftb-chunks-fabric-472657:${ftb_chunks_fabric_file_id}"
 
     /Trinkets/
-    modCompileOnly "dev.emi:trinkets:${trinkets_file_id}"
+//    modCompileOnly "dev.emi:trinkets:${trinkets_file_id}"
+    modCompileOnly "curse.maven:accessories-938917:${project.accessories_fabric_file_id}"
+    modCompileOnly "curse.maven:accessories-tc-layer-1005680:${project.tclayer_fabric_file_id}"
+    modCompileOnly "me.shedaniel.cloth:cloth-config-fabric:${project.cloth_config_version}"
+    modCompileOnly "dev.onyxstudios.cardinal-components-api:cardinal-components-base:5.2.1"
+    modCompileOnly "dev.onyxstudios.cardinal-components-api:cardinal-components-item:5.2.1"
+    modCompileOnly "dev.onyxstudios.cardinal-components-api:cardinal-components-entity:5.2.1"
 
     /Forge Config API Port/
     modApi "fuzs.forgeconfigapiport:forgeconfigapiport-fabric:${forgeconfigapiport_version}"
@@ -42,9 +48,6 @@ dependencies {
 
     /Map Atlases/
     modCompileOnly "curse.maven:map-atlases-436298:${project.map_atlases_fabric_file_id}"
-    modCompileOnly "dev.onyxstudios.cardinal-components-api:cardinal-components-base:5.2.1"
-    modCompileOnly "dev.onyxstudios.cardinal-components-api:cardinal-components-item:5.2.1"
-    modCompileOnly "dev.onyxstudios.cardinal-components-api:cardinal-components-entity:5.2.1"
     modCompileOnly("curse.maven:selene-499980:5008352")
     modCompileOnly(annotationProcessor("io.github.llamalad7:mixinextras-fabric:0.2.1-beta.2"))
     modCompileOnly "curse.maven:immediatelyfast-686911:4937544"
