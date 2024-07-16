@@ -74,11 +74,8 @@ dependencies {
     implementation "curse.maven:serene-seasons-291874:${project.serene_seasons_deobf_file_id}"
 
     /Curios/
-//    compileOnly fg.deobf("top.theillusivec4.curios:curios-forge:${project.curios_file_id}:api")
+    compileOnly fg.deobf("top.theillusivec4.curios:curios-forge:${project.curios_file_id}:api")
 //    implementation fg.deobf("top.theillusivec4.curios:curios-forge:${project.curios_file_id}")
-    compileOnly fg.deobf("curse.maven:accessories-938917:${project.accessories_forge_file_id}")
-    compileOnly fg.deobf("curse.maven:accessories-cc-layer-1005683:${project.cclayer_forge_file_id}")
-    compileOnly fg.deobf("me.shedaniel.cloth:cloth-config-forge:${project.cloth_config_version}")
 
     /Xaero's Minimap/
     compileOnly fg.deobf("curse.maven:xaeros-minimap-263420:${project.xaeros_forge_file_id}")

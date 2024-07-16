@@ -3,7 +3,6 @@ package club.iananderson.seasonhud;
 import static club.iananderson.seasonhud.Common.LOG;
 
 import club.iananderson.seasonhud.config.Config;
-import club.iananderson.seasonhud.impl.accessories.AccessoriesCompat;
 import club.iananderson.seasonhud.impl.curios.CuriosCompat;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.eventbus.api.IEventBus;
@@ -34,10 +33,6 @@ public class SeasonHUD {
       if (Common.curiosLoaded()) {
         LOG.info("Talking to Curios");
         new CuriosCompat().setup(event);
-      }
-      if (Common.accessoriesLoaded() && !Common.curiosLoaded()) {
-        LOG.info("Talking to Accessories");
-        new AccessoriesCompat().setup(event);
       }
     }
   }

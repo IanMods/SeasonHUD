@@ -13,7 +13,6 @@ import sereneseasons.api.season.SeasonHelper;
 import sereneseasons.config.ServerConfig;
 import top.theillusivec4.curios.api.CuriosApi;
 import top.theillusivec4.curios.api.SlotResult;
-import top.theillusivec4.curios.api.type.capability.ICuriosItemHandler;
 
 public class ForgeSeasonHelper implements ISeasonHelper {
 
