@@ -44,8 +44,12 @@ dependencies {
     implementation 'com.github.glitchfiend:GlitchCore-neoforge:' + minecraft_version + '-' + glitchcore_version
 
     /Curios/
-    compileOnly "top.theillusivec4.curios:curios-neoforge:${project.curios_file_id}:api"
+//    compileOnly "top.theillusivec4.curios:curios-neoforge:${project.curios_file_id}:api"
+    compileOnly "curse.maven:accessories-938917:${project.accessories_neoforge_file_id}"
+    compileOnly "curse.maven:accessories-cc-layer-1005683:${project.cclayer_neoforge_file_id}"
+    compileOnly "me.shedaniel.cloth:cloth-config-neoforge:${project.cloth_config_version}"
 
+    /Forge Config API Port/
     api "fuzs.forgeconfigapiport:forgeconfigapiport-neoforge:${project.forgeconfigapiport_version}"
 
     /Xaero's Minimap/

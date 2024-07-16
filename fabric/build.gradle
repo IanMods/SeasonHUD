@@ -11,11 +11,9 @@ dependencies {
     modImplementation "net.fabricmc:fabric-loader:${fabric_loader_version}"
     modImplementation "net.fabricmc.fabric-api:fabric-api:${fabric_version}"
 
-    /Fabric Seasons/
-    modImplementation "curse.maven:fabric-seasons-413523:${project.fabric_seasons_file_id}"
-
-    /Fabric Seasons Extras/
-    modCompileOnly "curse.maven:fabric-seasons-extras-839878:${project.fabric_seasons_extras_file_id}"
+    /Serene Seasons/
+    modImplementation "curse.maven:serene-seasons-291874:${project.serene_seasons_fabric_file_id}"
+    modImplementation "com.github.glitchfiend:GlitchCore-fabric:${minecraft_version}-${glitchcore_version}"
 
     /Xaero's Minimap/
     modCompileOnly "curse.maven:xaeros-minimap-263420:${project.xaeros_fabric_file_id}"
