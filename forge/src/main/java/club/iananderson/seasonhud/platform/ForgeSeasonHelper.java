@@ -13,6 +13,7 @@ import sereneseasons.api.season.SeasonHelper;
 import sereneseasons.config.ServerConfig;
 import top.theillusivec4.curios.api.CuriosApi;
 import top.theillusivec4.curios.api.SlotResult;
+import top.theillusivec4.curios.api.type.capability.ICuriosItemHandler;
 
 public class ForgeSeasonHelper implements ISeasonHelper {
 
@@ -100,12 +101,13 @@ public class ForgeSeasonHelper implements ISeasonHelper {
 
   @Override
   public int findCuriosCalendar(Player player, Item item) {
+    int slot = 0;
+
     if (Common.curiosLoaded()) {
       List<SlotResult> findCalendar = CuriosApi.getCuriosHelper().findCurios(player, item);
-      return findCalendar.size();
-    } else {
-      return 0;
+      slot += findCalendar.size();
     }
+    return slot;
   }
 
   private ISeasonState currentSeasonState(Level level) {
