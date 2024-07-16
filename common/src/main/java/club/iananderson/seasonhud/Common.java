@@ -20,6 +20,7 @@ public class Common {
   public static final ResourceLocation SEASON_ICONS = ResourceLocation.fromNamespaceAndPath(MOD_ID, "season_icons");
   public static final Style SEASON_ICON_STYLE = Style.EMPTY.withFont(SEASON_ICONS);
   private static boolean curiosLoaded;
+  private static boolean accessoriesLoaded;
   private static String platformName;
 
   private Common() {
@@ -31,11 +32,16 @@ public class Common {
 
   public static void init() {
     curiosLoaded = Services.PLATFORM.isModLoaded("trinkets") || Services.PLATFORM.isModLoaded("curios");
+    accessoriesLoaded = Services.PLATFORM.isModLoaded("accessories");
     platformName = Services.PLATFORM.getPlatformName();
   }
 
   public static boolean curiosLoaded() {
     return Common.curiosLoaded;
+  }
+
+  public static boolean accessoriesLoaded() {
+    return Common.accessoriesLoaded;
   }
 
   public static String platformName() {

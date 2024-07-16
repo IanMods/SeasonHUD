@@ -97,7 +97,13 @@ dependencies {
 
     /Curios/
     compileOnly "top.theillusivec4.curios:curios-forge:${project.curios_file_id}:api"
-    compileOnly "top.theillusivec4.curios:curios-forge:${project.curios_file_id}"
+//    implementation "top.theillusivec4.curios:curios-forge:${project.curios_file_id}"
+    compileOnly "curse.maven:accessories-938917:${project.accessories_forge_file_id}"
+//    compileOnly "curse.maven:accessories-cc-layer-1005683:${project.cclayer_forge_file_id}"
+    compileOnly "me.shedaniel.cloth:cloth-config-forge:${project.cloth_config_version}"
+
+    /Forge Config API Port/
+    implementation "fuzs.forgeconfigapiport:forgeconfigapiport-forge:${project.forgeconfigapiport_version}"
 
     /Xaero's Minimap/
     compileOnly "curse.maven:xaeros-minimap-263420:${project.xaeros_forge_file_id}"

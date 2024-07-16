@@ -3,6 +3,8 @@ package club.iananderson.seasonhud.platform;
 import club.iananderson.seasonhud.Common;
 import club.iananderson.seasonhud.config.Config;
 import club.iananderson.seasonhud.platform.services.ISeasonHelper;
+import io.wispforest.accessories.api.AccessoriesCapability;
+import io.wispforest.accessories.api.AccessoriesContainer;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.Level;
@@ -98,12 +100,19 @@ public class ForgeSeasonHelper implements ISeasonHelper {
 
   @Override
   public int findCuriosCalendar(Player player, Item item) {
+    int slot = 0;
+
     if (Common.curiosLoaded()) {
       ICuriosItemHandler curiosInventory = CuriosApi.getCuriosInventory(player).get();
-      return curiosInventory.findCurios(item).size();
-    } else {
-      return 0;
+      if (curiosInventory.findFirstCurio(item).isPresent()) {
+        slot += 1;
+      }
     }
+    if (Common.accessoriesLoaded() && !Common.curiosLoaded()) {
+      AccessoriesContainer accessoriesContainer = AccessoriesCapability.get(player).getContainers().get("charm");
+      slot += accessoriesContainer.getAccessories().countItem(item);
+    }
+    return slot;
   }
 
   private ISeasonState currentSeasonState(Level level) {
