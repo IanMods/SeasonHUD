@@ -1,15 +1,13 @@
 package club.iananderson.seasonhud;
 
-import static club.iananderson.seasonhud.Common.LOG;
-
 import club.iananderson.seasonhud.config.Config;
 import club.iananderson.seasonhud.impl.accessories.AccessoriesCompat;
 import club.iananderson.seasonhud.impl.curios.CuriosCompat;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.ModContainer;
+import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.fml.common.Mod;
-import net.neoforged.fml.common.Mod.EventBusSubscriber;
 import net.neoforged.fml.config.ModConfig;
 import net.neoforged.fml.event.lifecycle.FMLCommonSetupEvent;
 
@@ -29,11 +27,11 @@ public class SeasonHUD {
     @SubscribeEvent
     public static void commonSetup(FMLCommonSetupEvent event) {
       if (Common.curiosLoaded()) {
-        LOG.info("Talking to Curios");
+        Common.LOG.info("Talking to Curios");
         new CuriosCompat().setup(event);
       }
       if (Common.accessoriesLoaded() && !Common.curiosLoaded()) {
-        LOG.info("Talking to Accessories");
+        Common.LOG.info("Talking to Accessories");
         new AccessoriesCompat().setup(event);
       }
     }

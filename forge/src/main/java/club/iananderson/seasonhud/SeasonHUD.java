@@ -34,7 +34,7 @@ public class SeasonHUD {
         new CuriosCompat().setup(event);
       }
       if (Common.accessoriesLoaded() && !Common.curiosLoaded()) {
-        LOG.info("Talking to Accessories");
+        Common.LOG.info("Talking to Accessories");
         new AccessoriesCompat().setup(event);
       }
     }
