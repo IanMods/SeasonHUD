@@ -32,7 +32,7 @@ public class ClientEvents {
     public static void registerGuiOverlays(RegisterGuiLayersEvent event) {
       SeasonHUDOverlay.init();
       event.registerAbove(VanillaGuiLayers.CAMERA_OVERLAYS, Common.location("seasonhud"),
-          SeasonHUDOverlay.HUD_INSTANCE);
+                          SeasonHUDOverlay.HUD_INSTANCE);
     }
 
     @SubscribeEvent
