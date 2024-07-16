@@ -75,8 +75,7 @@ dependencies {
 
     /Curios/
     compileOnly fg.deobf("top.theillusivec4.curios:curios-forge:${project.curios_file_id}:api")
-    compileOnly fg.deobf("top.theillusivec4.curios:curios-forge:${project.curios_file_id}")
-
+//    implementation fg.deobf("top.theillusivec4.curios:curios-forge:${project.curios_file_id}")
 
     /Xaero's Minimap/
     compileOnly fg.deobf("curse.maven:xaeros-minimap-263420:${project.xaeros_forge_file_id}")
