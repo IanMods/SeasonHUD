@@ -4,6 +4,12 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 
+## [1.9.4] - 2024-07-19
+
+### Fixed
+
+- Fixed translation key for FTB Chunks menu entry.
+
 ## [1.9.3] - 2024-07-16
 
 ### Fixed
