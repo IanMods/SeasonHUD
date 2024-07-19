@@ -42,7 +42,7 @@
   "menu.seasonhud.editbox.color.wet": "雨季",
   "menu.seasonhud.editbox.color.invalid": "Invalid Color",
   "menu.seasonhud.infodisplay.season": "季节",
-  "menu.seasonhud.ftbchunks.season": "季节",
+  "ftbchunks.minimap.season": "季节",
   "location.seasonhud.topLeft": "左上",
   "location.seasonhud.topCenter": "正上",
   "location.seasonhud.topRight": "右上",
