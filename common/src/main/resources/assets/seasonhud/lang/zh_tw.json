@@ -8,7 +8,7 @@
   "menu.seasonhud.button.hudLocation": "HUD 位置",
   "menu.seasonhud.slider.xOffset": "X 偏移：",
   "menu.seasonhud.slider.yOffset": "Y 偏移：",
-  "menu.seasonhud.button.showDay": "顯示日期值",
+  "menu.seasonhud.button.showDay": "顯示日期",
   "menu.seasonhud.button.showSubSeason": "顯示子季節",
   "menu.seasonhud.button.showTropicalSeason": "顯示熱帶季節",
   "menu.seasonhud.button.needCalendar": "需要日曆物品",
