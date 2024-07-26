@@ -94,5 +94,6 @@
     "desc.seasonhud.month.october": "Lokakuu",
     "desc.seasonhud.month.november": "Marraskuu",
     "desc.seasonhud.month.december": "Joulukuu",
-    "item.seasonhud.tooltip.calendar": "Paikka: Amuletti"
+  "item.seasonhud.tooltip.calendar": "Paikka: Amuletti",
+  "trinkets.slot.calendar.calendarslot": "Kalenterin"
 }
