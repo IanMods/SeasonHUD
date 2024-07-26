@@ -94,5 +94,6 @@
   "desc.seasonhud.month.october": "October",
   "desc.seasonhud.month.november": "November",
   "desc.seasonhud.month.december": "December",
-  "item.seasonhud.tooltip.calendar": "Encaixe: Amuleto"
+  "item.seasonhud.tooltip.calendar": "Encaixe: Amuleto",
+  "trinkets.slot.calendar.calendarslot": "Calendário"
 }
