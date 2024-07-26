@@ -1,0 +1,8 @@
+{
+  "icon": "seasonhud:gui/slots/calendarslot",
+  "amount": 1,
+  "order": -256,
+  "validator_predicates": [
+    "trinkets:tag"
+  ]
+}

@@ -94,5 +94,6 @@
   "desc.seasonhud.month.october": "十月",
   "desc.seasonhud.month.november": "十一月",
   "desc.seasonhud.month.december": "十二月",
-  "item.seasonhud.tooltip.calendar": "Slot: Charm"
+  "item.seasonhud.tooltip.calendar": "Slot: Charm",
+  "trinkets.slot.calendar.calendarslot": "日历"
 }
