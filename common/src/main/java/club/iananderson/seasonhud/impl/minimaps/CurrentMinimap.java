@@ -1,12 +1,13 @@
 package club.iananderson.seasonhud.impl.minimaps;
 
-import club.iananderson.seasonhud.Common;
 import club.iananderson.seasonhud.config.Config;
 import club.iananderson.seasonhud.impl.seasons.Calendar;
 import club.iananderson.seasonhud.platform.Services;
 import java.util.ArrayList;
 import java.util.List;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.screens.ChatScreen;
+import net.minecraft.client.gui.screens.DeathScreen;
 
 public class CurrentMinimap {
   private static boolean minimapLoaded(Minimaps minimap) {
@@ -58,9 +59,10 @@ public class CurrentMinimap {
       return false;
     }
 
-    return (Config.getEnableMod() && Config.getEnableMinimapIntegration() && Calendar.calendarFound()
-        && !Services.MINIMAP.hideHudInCurrentDimension() && !Services.MINIMAP.hiddenMinimap(minimap)
-        && Common.vanillaShouldDrawHud()) && !mc.player.isScoping();
+    return
+        (Config.getEnableMod() && Config.getEnableMinimapIntegration() && Calendar.calendarFound() && (mc.screen == null
+            || mc.screen instanceof ChatScreen || mc.screen instanceof DeathScreen) && !mc.options.hideGui)
+            && !Services.MINIMAP.hideHudInCurrentDimension() && !Services.MINIMAP.hiddenMinimap(minimap);
   }
 
   public enum Minimaps {
