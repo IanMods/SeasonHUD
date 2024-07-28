@@ -10,6 +10,7 @@ import io.github.lucaargolo.seasons.FabricSeasons;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+import journeymap.client.properties.MiniMapProperties;
 import journeymap.client.ui.UIManager;
 import net.minecraft.client.Minecraft;
 import net.minecraft.resources.ResourceKey;
@@ -27,18 +28,26 @@ public class FabricMinimapHelper implements IMinimapHelper {
 
   @Override
   public boolean hiddenMinimap(Minimaps minimap) {
+    Minecraft mc = Minecraft.getInstance();
+
+    if (mc.level == null || mc.player == null) {
+      return false;
+    }
+
     switch (minimap) {
       case JOURNEYMAP -> {
-        return !UIManager.INSTANCE.getMiniMap().getCurrentMinimapProperties().enabled.get();
+        MiniMapProperties properties = UIManager.INSTANCE.getMiniMap().getCurrentMinimapProperties();
+
+        return !properties.enabled.get() || (!properties.isActive() && mc.isPaused()) || mc.player.isScoping();
       }
       case FTB_CHUNKS -> {
-        return !FTBChunksClientConfig.MINIMAP_ENABLED.get();
+        return !FTBChunksClientConfig.MINIMAP_ENABLED.get() || mc.options.renderDebug && mc.player.isScoping();
       }
       case XAERO, XAERO_FAIRPLAY -> {
-        return !HudMod.INSTANCE.getSettings().getMinimap();
+        return !HudMod.INSTANCE.getSettings().getMinimap() || mc.options.renderDebug && mc.player.isScoping();
       }
       case MAP_ATLASES -> {
-        return !MapAtlases.shouldDraw(Minecraft.getInstance());
+        return !MapAtlases.shouldDraw(mc);
       }
       default -> {
         return false;
