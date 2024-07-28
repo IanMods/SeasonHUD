@@ -5,9 +5,15 @@ import club.iananderson.seasonhud.impl.seasons.Calendar;
 import club.iananderson.seasonhud.platform.Services;
 import java.util.ArrayList;
 import java.util.List;
+import journeymap.client.ui.UIManager;
+import journeymap.client.ui.fullscreen.Fullscreen;
+import journeymap.client.ui.minimap.MiniMap;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screens.ChatScreen;
 import net.minecraft.client.gui.screens.DeathScreen;
+import net.minecraft.client.gui.screens.Screen;
+import net.minecraft.client.gui.screens.inventory.CreativeModeInventoryScreen;
+import net.minecraft.client.gui.screens.inventory.InventoryScreen;
 
 public class CurrentMinimap {
   private static boolean minimapLoaded(Minimaps minimap) {
@@ -59,10 +65,19 @@ public class CurrentMinimap {
       return false;
     }
 
-    return
-        (Config.getEnableMod() && Config.getEnableMinimapIntegration() && Calendar.calendarFound() && (mc.screen == null
-            || mc.screen instanceof ChatScreen || mc.screen instanceof DeathScreen) && !mc.options.hideGui)
-            && !Services.MINIMAP.hideHudInCurrentDimension() && !Services.MINIMAP.hiddenMinimap(minimap);
+    return Config.getEnableMod() && Config.getEnableMinimapIntegration() && Calendar.calendarFound() && validScreen(
+        mc.screen) && !mc.options.hideGui && !Services.MINIMAP.hideHudInCurrentDimension()
+        && !Services.MINIMAP.hiddenMinimap(minimap);
+  }
+
+  public static boolean validScreen(Screen screen) {
+    boolean valid = (screen == null || screen instanceof ChatScreen || screen instanceof DeathScreen);
+
+    if (journeyMapLoaded()) {
+      return MiniMap.uiState().active;
+    } else {
+      return valid;
+    }
   }
 
   public enum Minimaps {

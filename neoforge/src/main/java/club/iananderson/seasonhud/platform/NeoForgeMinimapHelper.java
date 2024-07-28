@@ -11,6 +11,7 @@ import java.util.List;
 import java.util.Objects;
 import journeymap.client.properties.MiniMapProperties;
 import journeymap.client.ui.UIManager;
+import journeymap.client.ui.fullscreen.Fullscreen;
 import net.minecraft.client.Minecraft;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.level.Level;
@@ -37,7 +38,8 @@ public class NeoForgeMinimapHelper implements IMinimapHelper {
       case JOURNEYMAP -> {
         MiniMapProperties properties = UIManager.INSTANCE.getMiniMap().getCurrentMinimapProperties();
 
-        return !properties.enabled.get() || !properties.isActive() || mc.player.isScoping();
+        return (!properties.enabled.get() && !(Fullscreen.uiState().active && UIManager.INSTANCE.getMiniMap()
+            .isDrawingInPreviewMode()));
       }
       case FTB_CHUNKS -> {
         return !FTBChunksClientConfig.MINIMAP_ENABLED.get() || mc.getDebugOverlay().showDebugScreen();
