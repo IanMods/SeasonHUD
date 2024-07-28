@@ -106,6 +106,7 @@ modrinth {
         optional.project "xaeros-minimap"
         optional.project "xaeros-minimap-fair"
         optional.project "map-atlases"
+        optional.project "disable-seasonhud-trinkets"
     }
 }
 
@@ -136,4 +137,5 @@ task publishCurseForge(type: net.darkhax.curseforgegradle.TaskPublishCurseForge)
     mainFile.addOptional("xaeros-minimap")
     mainFile.addOptional("xaeros-minimap-fair-play-edition")
     mainFile.addOptional("map-atlases")
+    mainFile.addOptional("disable-seasonhud-trinkets")
 }
