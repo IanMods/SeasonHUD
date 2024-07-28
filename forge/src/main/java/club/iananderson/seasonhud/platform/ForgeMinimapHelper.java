@@ -28,20 +28,26 @@ public class ForgeMinimapHelper implements IMinimapHelper {
 
   @Override
   public boolean hiddenMinimap(Minimaps minimap) {
+    Minecraft mc = Minecraft.getInstance();
+
+    if (mc.level == null || mc.player == null) {
+      return false;
+    }
+
     switch (minimap) {
       case JOURNEYMAP -> {
         MiniMapProperties properties = UIManager.INSTANCE.getMiniMap().getCurrentMinimapProperties();
 
-        return !properties.enabled.get() || !(properties.isActive() && !Minecraft.getInstance().isPaused());
+        return !properties.enabled.get() || (!properties.isActive() && mc.isPaused()) || mc.player.isScoping();
       }
       case FTB_CHUNKS -> {
-        return !FTBChunksClientConfig.MINIMAP_ENABLED.get();
+        return !FTBChunksClientConfig.MINIMAP_ENABLED.get() || mc.options.renderDebug && mc.player.isScoping();
       }
       case XAERO, XAERO_FAIRPLAY -> {
-        return !HudMod.INSTANCE.getSettings().getMinimap();
+        return !HudMod.INSTANCE.getSettings().getMinimap() || mc.options.renderDebug && mc.player.isScoping();
       }
       case MAP_ATLASES -> {
-        return !MapAtlases.shouldDraw(Minecraft.getInstance());
+        return !MapAtlases.shouldDraw(mc);
       }
       default -> {
         return false;
