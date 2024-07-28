@@ -41,12 +41,10 @@ public class FabricMinimapHelper implements IMinimapHelper {
         return !properties.enabled.get() || (!properties.isActive() && mc.isPaused()) || mc.player.isScoping();
       }
       case FTB_CHUNKS -> {
-        return !FTBChunksClientConfig.MINIMAP_ENABLED.get()
-            || mc.getDebugOverlay().showDebugScreen() && mc.player.isScoping();
+        return !FTBChunksClientConfig.MINIMAP_ENABLED.get() || mc.getDebugOverlay().showDebugScreen();
       }
       case XAERO, XAERO_FAIRPLAY -> {
-        return !HudMod.INSTANCE.getSettings().getMinimap()
-            || mc.getDebugOverlay().showDebugScreen() && mc.player.isScoping();
+        return !HudMod.INSTANCE.getSettings().getMinimap() || mc.getDebugOverlay().showDebugScreen();
       }
       case MAP_ATLASES -> {
         return !MapAtlases.shouldDraw(mc);
