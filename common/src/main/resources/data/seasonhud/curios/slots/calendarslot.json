@@ -1,0 +1,8 @@
+{
+  "icon": "seasonhud:slot/calendarslot",
+  "size": 1,
+  "order": -256,
+  "validator_predicates": [
+    "curios:tag"
+  ]
+}

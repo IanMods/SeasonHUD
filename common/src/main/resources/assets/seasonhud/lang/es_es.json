@@ -95,5 +95,6 @@
   "desc.seasonhud.month.november": "Noviembre",
   "desc.seasonhud.month.december": "Diciembre",
   "item.seasonhud.tooltip.calendar": "Ranura: Amuleto",
-  "trinkets.slot.calendar.calendarslot": "Calendario"
+  "trinkets.slot.calendar.calendarslot": "Calendario",
+  "curios.identifier.calendarslot": "Calendario"
 }

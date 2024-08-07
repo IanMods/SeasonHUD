@@ -95,5 +95,6 @@
   "desc.seasonhud.month.november": "November",
   "desc.seasonhud.month.december": "December",
   "item.seasonhud.tooltip.calendar": "Slot: Charm",
-  "trinkets.slot.calendar.calendarslot": "Calendar"
+  "trinkets.slot.calendar.calendarslot": "Calendar",
+  "curios.identifier.calendarslot": "Calendar"
 }
