@@ -96,5 +96,6 @@
   "desc.seasonhud.month.december": "Декабрь",
   "item.seasonhud.tooltip.calendar": "Используется как Амулет",
   "trinkets.slot.calendar.calendarslot": "Календарь",
-  "curios.identifier.calendarslot": "Календарь"
+  "curios.identifier.calendarslot": "Календарь",
+  "accessories.slot.calendarslot": "Календарь"
 }

@@ -96,5 +96,6 @@
   "desc.seasonhud.month.december": "十二月",
   "item.seasonhud.tooltip.calendar": "欄位：護身符",
   "trinkets.slot.calendar.calendarslot": "日曆",
-  "curios.identifier.calendarslot": "日曆"
+  "curios.identifier.calendarslot": "日曆",
+  "accessories.slot.calendarslot": "日曆"
 }

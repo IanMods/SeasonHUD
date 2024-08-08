@@ -6,9 +6,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 
 ## [1.9.9] - 2024-08-07
 
-### Added
+### Changed
 
 - Switched Curios to use a custom Calendar slot instead of Charm.
+- Switched Accessories to use a custom Calendar slot instead of Charm.
 
 ## [1.9.8] - 2024-07-28
 

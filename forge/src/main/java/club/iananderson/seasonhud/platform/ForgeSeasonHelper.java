@@ -110,7 +110,7 @@ public class ForgeSeasonHelper implements ISeasonHelper {
       }
     }
     if (Common.accessoriesLoaded() && !Common.curiosLoaded()) {
-      AccessoriesContainer accessoriesContainer = AccessoriesCapability.get(player).getContainers().get("charm");
+      AccessoriesContainer accessoriesContainer = AccessoriesCapability.get(player).getContainers().get("calendarslot");
       slot += accessoriesContainer.getAccessories().countItem(item);
     }
     return slot;
