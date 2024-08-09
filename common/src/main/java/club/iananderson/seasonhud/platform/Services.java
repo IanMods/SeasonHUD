@@ -22,12 +22,12 @@ public class Services {
 
     if (iterator.hasNext()) {
       findFirst = Optional.of(iterator.next());
-    }
-    else {
+    } else {
       findFirst = Optional.empty();
     }
 
-    final T loadedService = findFirst.orElseThrow(() -> new NullPointerException("Failed to load service for " + clazz.getName()));
+    final T loadedService = findFirst.orElseThrow(
+        () -> new NullPointerException("Failed to load service for " + clazz.getName()));
     Common.LOG.debug("Loaded {} for service {}", loadedService, clazz);
     return loadedService;
   }

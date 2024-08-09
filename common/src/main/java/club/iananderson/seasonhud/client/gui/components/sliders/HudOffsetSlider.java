@@ -4,22 +4,19 @@ import club.iananderson.seasonhud.Common;
 import club.iananderson.seasonhud.client.gui.Location;
 import club.iananderson.seasonhud.config.Config;
 import com.mojang.blaze3d.vertex.PoseStack;
-import java.util.List;
+import java.util.function.Supplier;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.components.CycleButton;
-import net.minecraft.client.gui.components.CycleButton.TooltipSupplier;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.TextComponent;
-import net.minecraft.util.FormattedCharSequence;
 import org.jetbrains.annotations.NotNull;
 
 public class HudOffsetSlider extends BasicSlider {
   protected final Component prefix;
   private final double defaultValue;
-  private final TooltipSupplier<List<FormattedCharSequence>> tooltipSupplier;
+  private final Supplier<BasicSlider> tooltipSupplier;
 
   protected HudOffsetSlider(int x, int y, int width, int height, Component prefix, double initial, double minValue,
-      double maxValue, double defaultValue, TooltipSupplier<List<FormattedCharSequence>> tooltipSupplier) {
+      double maxValue, double defaultValue, Supplier<BasicSlider> tooltipSupplier) {
     super(x, y, width, height, true, initial, minValue, maxValue);
     this.prefix = prefix;
     this.defaultValue = snapToNearest(defaultValue);
@@ -76,7 +73,7 @@ public class HudOffsetSlider extends BasicSlider {
     protected double maxValue;
     protected double initial;
     protected double defaultValue;
-    protected CycleButton.TooltipSupplier<List<FormattedCharSequence>> tooltipSupplier;
+    protected Supplier<BasicSlider> tooltipSupplier;
 
     public Builder(Component prefix) {
       this.prefix = prefix;
@@ -130,7 +127,7 @@ public class HudOffsetSlider extends BasicSlider {
       return this;
     }
 
-    public Builder withTooltip(TooltipSupplier<List<FormattedCharSequence>> tooltipSupplier) {
+    public Builder withTooltip(Supplier<BasicSlider> tooltipSupplier) {
       this.tooltipSupplier = tooltipSupplier;
       return this;
     }

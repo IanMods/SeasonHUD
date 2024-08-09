@@ -20,7 +20,7 @@ public class Calendar {
 
     if (Config.getNeedCalendar() && CALENDAR_LOADED && player != null) {
       Inventory inv = player.inventory;
-      Item calendar = Services.SEASON.calendar();
+      ItemStack calendar = Services.SEASON.calendar();
       int slot = findCalendar(inv, calendar) + Services.SEASON.findCuriosCalendar(player, calendar);
 
       return (slot >= 0);
@@ -30,9 +30,9 @@ public class Calendar {
   }
 
   private static int findCalendar(Inventory inv, ItemStack item) {
-    for(int i = 0; i < inv.items.size(); ++i) {
-      if ((!inv.items.get(i).isEmpty() && inv.items.get(i).sameItem(item))
-          || (!inv.offhand.get(0).isEmpty() && inv.offhand.get(0).sameItem(item))) {
+    for (int i = 0; i < inv.items.size(); ++i) {
+      if ((!inv.items.get(i).isEmpty() && inv.items.get(i).sameItem(item)) || (!inv.offhand.get(0).isEmpty()
+          && inv.offhand.get(0).sameItem(item))) {
         return i;
       }
     }

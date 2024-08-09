@@ -26,26 +26,30 @@ public class SeasonHUDOverlayCommon {
 
     if (Common.drawDefaultHud() && Common.vanillaShouldDrawHud() && Calendar.calendarFound()) {
       switch (Config.getHudLocation()) {
-        case TOP_LEFT -> {
+        case TOP_LEFT:
           x = xOffset;
           y = yOffset;
-        }
-        case TOP_CENTER -> {
+          break;
+
+        case TOP_CENTER:
           x = (screenWidth / 2) - (stringWidth / 2);
           y = yOffset;
-        }
-        case TOP_RIGHT -> {
+          break;
+
+        case TOP_RIGHT:
           x = screenWidth - stringWidth - xOffset;
           y = yOffset;
-        }
-        case BOTTOM_LEFT -> {
+          break;
+
+        case BOTTOM_LEFT:
           x = xOffset;
           y = screenHeight - stringHeight - yOffset;
-        }
-        case BOTTOM_RIGHT -> {
+          break;
+
+        case BOTTOM_RIGHT:
           x = screenWidth - stringWidth - xOffset;
           y = screenHeight - stringHeight - yOffset;
-        }
+          break;
       }
 
       //Text

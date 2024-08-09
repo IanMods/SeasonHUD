@@ -3,6 +3,7 @@ package club.iananderson.seasonhud.client.gui.screens;
 import club.iananderson.seasonhud.Common;
 import club.iananderson.seasonhud.client.gui.Location;
 import club.iananderson.seasonhud.client.gui.ShowDay;
+import club.iananderson.seasonhud.client.gui.components.buttons.CycleButton;
 import club.iananderson.seasonhud.client.gui.components.buttons.MenuButton;
 import club.iananderson.seasonhud.client.gui.components.buttons.MenuButton.MenuButtons;
 import club.iananderson.seasonhud.client.gui.components.sliders.BasicSlider;
@@ -16,7 +17,6 @@ import java.util.Arrays;
 import java.util.List;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.components.AbstractWidget;
-import net.minecraft.client.gui.components.CycleButton;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
@@ -185,8 +185,8 @@ public class SeasonHUDScreen extends Screen {
                       showSubSeasonButton, showTropicalSeasonButton, needCalendarButton, showMinimapHiddenButton,
                       enableMinimapIntegrationButton));
 
-    optionButtons.forEach(this::addRenderableWidget);
-    this.addRenderableWidget(doneButton);
+    optionButtons.forEach(this::addButton);
+    this.addButton(doneButton);
   }
 
   @Override

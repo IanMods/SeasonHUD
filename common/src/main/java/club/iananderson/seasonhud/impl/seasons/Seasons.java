@@ -71,12 +71,24 @@ public enum Seasons {
     this.seasonColor = rgbColor;
 
     switch (season) {
-      case SPRING -> Config.setSpringColor(rgbColor);
-      case SUMMER -> Config.setSummerColor(rgbColor);
-      case AUTUMN -> Config.setAutumnColor(rgbColor);
-      case WINTER -> Config.setWinterColor(rgbColor);
-      case DRY -> Config.setDryColor(rgbColor);
-      case WET -> Config.setWetColor(rgbColor);
+      case SPRING:
+        Config.setSpringColor(rgbColor);
+        break;
+      case SUMMER:
+        Config.setSummerColor(rgbColor);
+        break;
+      case AUTUMN:
+        Config.setAutumnColor(rgbColor);
+        break;
+      case WINTER:
+        Config.setWinterColor(rgbColor);
+        break;
+      case DRY:
+        Config.setDryColor(rgbColor);
+        break;
+      case WET:
+        Config.setWetColor(rgbColor);
+        break;
     }
   }
 

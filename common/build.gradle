@@ -21,7 +21,7 @@ dependencies {
 
     //To get the Journeymap map values, since they are the same between the mod loaders.
     // Not used unless Journeymap is actually  loaded.
-    compileOnly "curse.maven:journeymap-32274:${project.journeymap_forge_file_id}"
+//    compileOnly "curse.maven:journeymap-32274:${project.journeymap_forge_file_id}"
 }
 
 configurations {

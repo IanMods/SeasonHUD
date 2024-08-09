@@ -1,11 +1,7 @@
 package club.iananderson.seasonhud.client.overlays;
 
-import club.iananderson.seasonhud.impl.minimaps.CurrentMinimap;
-import club.iananderson.seasonhud.impl.minimaps.CurrentMinimap.Minimaps;
 import com.mojang.blaze3d.vertex.PoseStack;
-import journeymap.client.render.draw.DrawUtil;
 import net.fabricmc.fabric.api.client.rendering.v1.HudRenderCallback;
-import net.minecraft.client.Minecraft;
 
 public class JourneyMap implements HudRenderCallback {
   public static JourneyMap HUD_INSTANCE;
@@ -17,14 +13,14 @@ public class JourneyMap implements HudRenderCallback {
 
   @Override
   public void onHudRender(PoseStack graphics, float alpha) {
-    if (CurrentMinimap.journeyMapLoaded() && CurrentMinimap.shouldDrawMinimapHud(Minimaps.JOURNEYMAP)) {
-      JourneyMapCommon journeyMapCommon = JourneyMapCommon.getInstance(Minecraft.getInstance());
-
-      graphics.pushPose();
-      graphics.scale(1 / journeyMapCommon.getFontScale(), 1 / journeyMapCommon.getFontScale(), 0);
-      DrawUtil.sizeDisplay(graphics, journeyMapCommon.getScreenWidth(), journeyMapCommon.getScreenHeight());
-      graphics.popPose();
-      journeyMapCommon.drawSeasonLabel(graphics);
-    }
+//    if (CurrentMinimap.journeyMapLoaded() && CurrentMinimap.shouldDrawMinimapHud(Minimaps.JOURNEYMAP)) {
+//      JourneyMapCommon journeyMapCommon = JourneyMapCommon.getInstance(Minecraft.getInstance());
+//
+//      graphics.pushPose();
+//      graphics.scale(1 / journeyMapCommon.getFontScale(), 1 / journeyMapCommon.getFontScale(), 0);
+//      DrawUtil.sizeDisplay(graphics, journeyMapCommon.getScreenWidth(), journeyMapCommon.getScreenHeight());
+//      graphics.popPose();
+//      journeyMapCommon.drawSeasonLabel(graphics);
+//    }
   }
 }

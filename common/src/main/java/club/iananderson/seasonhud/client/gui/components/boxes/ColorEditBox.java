@@ -12,9 +12,7 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.components.EditBox;
 import net.minecraft.network.chat.MutableComponent;
-import net.minecraft.network.chat.Style;
 import net.minecraft.network.chat.TextColor;
-import net.minecraft.network.chat.TranslatableComponent;
 import org.jetbrains.annotations.NotNull;
 
 public class ColorEditBox extends EditBox {
@@ -103,7 +101,7 @@ public class ColorEditBox extends EditBox {
     boolean seasonShort = (scaledWidth < widgetTotalSize);
 
     MutableComponent seasonCombined = CurrentSeason.getInstance(mc)
-        .getSeasonMenuText(this.boxSeason, this.newSeasonColor, seasonShort);
+        .getSeasonMenuText(this.boxSeason, TextColor.fromRgb(this.newSeasonColor), seasonShort);
 
     graphics.pushPose();
     if ((mc.font.width(seasonCombined) > this.getWidth() - PADDING)) {

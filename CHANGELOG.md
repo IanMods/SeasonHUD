@@ -4,7 +4,56 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 
-## [1.9.0] - 2024-07-07
+## [1.9.8] - 2024-07-28
+
+### Fixed
+
+- Fixed JourneyMap hud appearing when the gui is hidden via F1
+
+## [1.9.7] - 2024-07-26
+
+### Added
+
+- Added custom Trinkets slot for the calendar, rather than using the ring slot
+- Added the ability to disable the slot via data pack. See description page for the link to the data pack.
+
+## [1.9.6] - 2024-07-22
+
+### Added
+
+- Added Finnish translation (via @N0aW)
+
+## [1.9.5] - 2024-07-21
+
+### Added
+
+- Added Traditional Chinese translation (via @yichifauzi)
+
+## [1.9.4] - 2024-07-19
+
+### Fixed
+
+- Fixed translation key for FTB Chunks menu entry.
+
+## [1.9.3] - 2024-07-16
+
+### Fixed
+
+- Crash when using Accessories mod instead of Curios.
+
+## [1.9.2] - 2024-07-15
+
+### Fixed
+
+- Fixed translation key not being updated in the keybind menu.
+
+## [1.9.1] - 2024-07-12
+
+### Changed
+
+- Updated ru_ru.json translations (via @mpustovoi)
+
+## [1.9.0] - 2024-07-11
 
 ### Added
 
@@ -14,6 +63,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 
 ### Changed
 
+- Changed the default offsets from 0,0 from 2,2 due to some changes in the offset calculation
+    - If you aren't using a minimap mod, you may need to manually change these values if the text isn't offset.
 - More common code for JourneyMap and MapAtlases to make porting easier.
 - Improved logic for detecting hidden minimaps if multiple minimap mods are installed.
 - Updated Curios support to more modern implementation.

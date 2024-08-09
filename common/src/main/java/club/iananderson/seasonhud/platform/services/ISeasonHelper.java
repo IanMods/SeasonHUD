@@ -1,16 +1,17 @@
 package club.iananderson.seasonhud.platform.services;
 
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.Level;
 
 public interface ISeasonHelper {
-  /**
-   * Checks if the tropical season should be displayed (SereneSeasons only). Always false for FabricSeasons.
-   *
-   * @return If the tropical season should be displayed for the platform.
-   */
-  boolean isTropicalSeason(Level level, Player player);
+
+//  /**
+//   * Checks if the tropical season should be displayed (SereneSeasons only). Always false for FabricSeasons.
+//   *
+//   * @return If the tropical season should be displayed for the platform.
+//   */
+//  boolean isTropicalSeason(Level level, Player player);
 
   /**
    * Checks if "isSeasonTiedWithSystemTime" config option is enabled (FabricSeasons only). Always false for
@@ -65,5 +66,5 @@ public interface ISeasonHelper {
    * @param item   The item that is being searched for.
    * @return The int for the Curios/Trinket inventory location
    */
-  int findCuriosCalendar(Player player, ItemStack  item);
+  int findCuriosCalendar(Player player, ItemStack item);
 }

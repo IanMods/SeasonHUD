@@ -40,6 +40,10 @@ public class DefaultColorButton extends Button {
     }
   }
 
+  public boolean isHoveredOrFocused() {
+    return this.isHovered() || this.isFocused();
+  }
+
   public int getTextureY() {
     int k = 1;
     if (!this.active) {

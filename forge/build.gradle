@@ -21,6 +21,8 @@ minecraft {
     mappings channel: 'official', version: minecraft_version
 //    mappings channel: mapping_channel, version: "${mapping_version}-${minecraft_version}"
 
+    copyIdeResources = true
+
     def at = file('src/main/resources/META-INF/accesstransformer.cfg')
     if (at.exists()) {
         accessTransformer = at
@@ -75,8 +77,7 @@ dependencies {
 
     /Curios/
     compileOnly fg.deobf("top.theillusivec4.curios:curios-forge:${project.curios_file_id}:api")
-    compileOnly fg.deobf("top.theillusivec4.curios:curios-forge:${project.curios_file_id}")
-
+//    implementation fg.deobf("top.theillusivec4.curios:curios-forge:${project.curios_file_id}")
 
     /Xaero's Minimap/
     compileOnly fg.deobf("curse.maven:xaeros-minimap-263420:${project.xaeros_forge_file_id}")
@@ -95,7 +96,7 @@ dependencies {
     compileOnly fg.deobf("curse.maven:ftb-chunks-forge-314906:${project.ftb_chunks_forge_file_id}")
 
     /JourneyMap/
-    compileOnly fg.deobf("curse.maven:journeymap-32274:${project.journeymap_forge_file_id}")
+//    compileOnly fg.deobf("curse.maven:journeymap-32274:${project.journeymap_forge_file_id}")
 
     /Map Atlases/
 //    compileOnly fg.deobf("curse.maven:map-atlases-forge-519759:${project.map_atlases_forge_file_id}")

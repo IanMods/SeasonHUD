@@ -42,7 +42,7 @@
   "menu.seasonhud.editbox.color.wet": "Húmedo",
   "menu.seasonhud.editbox.color.invalid": "Color no válido",
   "menu.seasonhud.infodisplay.season": "Estación",
-  "menu.seasonhud.ftbchunks.season": "Estación",
+  "ftbchunks.minimap.season": "Estación",
   "location.seasonhud.topLeft": "Arriba a la izquierda",
   "location.seasonhud.topCenter": "Centro superior",
   "location.seasonhud.topRight": "Arriba a la derecha",
@@ -94,5 +94,6 @@
   "desc.seasonhud.month.october": "Octubre",
   "desc.seasonhud.month.november": "Noviembre",
   "desc.seasonhud.month.december": "Diciembre",
-  "item.seasonhud.tooltip.calendar": "Ranura: Amuleto"
+  "item.seasonhud.tooltip.calendar": "Ranura: Amuleto",
+  "trinkets.slot.calendar.calendarslot": "Calendario"
 }

@@ -1,10 +1,10 @@
 package club.iananderson.seasonhud.client.gui.screens;
 
 import club.iananderson.seasonhud.client.gui.components.boxes.ColorEditBox;
+import club.iananderson.seasonhud.client.gui.components.buttons.CycleButton;
 import club.iananderson.seasonhud.client.gui.components.buttons.DefaultColorButton;
 import club.iananderson.seasonhud.client.gui.components.buttons.MenuButton;
 import club.iananderson.seasonhud.client.gui.components.buttons.MenuButton.MenuButtons;
-import club.iananderson.seasonhud.client.gui.components.button.CycleButton;
 import club.iananderson.seasonhud.client.gui.components.sliders.rgb.BlueSlider;
 import club.iananderson.seasonhud.client.gui.components.sliders.rgb.GreenSlider;
 import club.iananderson.seasonhud.client.gui.components.sliders.rgb.RedSlider;
@@ -20,7 +20,6 @@ import java.util.EnumSet;
 import java.util.List;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.components.AbstractWidget;
-import net.minecraft.client.gui.components.Button;
 import net.minecraft.client.gui.components.EditBox;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.network.chat.Component;
@@ -113,6 +112,11 @@ public class ColorScreen extends Screen {
 
   public List<DefaultColorButton> getDefaultColorButtons() {
     return defaultColorButtons;
+  }
+
+  protected void clearWidgets() {
+    this.buttons.clear();
+    this.children.clear();
   }
 
   private List<AbstractWidget> seasonWidget(int x, int y, Seasons season) {

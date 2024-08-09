@@ -1,12 +1,14 @@
 package club.iananderson.seasonhud.impl.minimaps;
 
-import club.iananderson.seasonhud.Common;
 import club.iananderson.seasonhud.config.Config;
 import club.iananderson.seasonhud.impl.seasons.Calendar;
 import club.iananderson.seasonhud.platform.Services;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.screens.ChatScreen;
+import net.minecraft.client.gui.screens.DeathScreen;
 
 public class CurrentMinimap {
   private static boolean minimapLoaded(Minimaps minimap) {
@@ -15,7 +17,7 @@ public class CurrentMinimap {
   }
 
   public static List<Minimaps> getLoadedMinimaps() {
-    List<Minimaps> values = new ArrayList<>(List.of(Minimaps.values()));
+    List<Minimaps> values = Arrays.asList(Minimaps.values());
     List<Minimaps> loaded = new ArrayList<>();
 
     values.forEach(minimaps -> {
@@ -58,8 +60,10 @@ public class CurrentMinimap {
       return false;
     }
 
-    return (Config.getEnableMod() && Config.getEnableMinimapIntegration() && Calendar.calendarFound()
-        && !Services.MINIMAP.hideHudInCurrentDimension() && !Services.MINIMAP.hiddenMinimap(minimap) && Common.vanillaShouldDrawHud());
+    return
+        (Config.getEnableMod() && Config.getEnableMinimapIntegration() && Calendar.calendarFound() && (mc.screen == null
+            || mc.screen instanceof ChatScreen || mc.screen instanceof DeathScreen) && !mc.options.hideGui)
+            && !Services.MINIMAP.hideHudInCurrentDimension() && !Services.MINIMAP.hiddenMinimap(minimap);
   }
 
   public enum Minimaps {

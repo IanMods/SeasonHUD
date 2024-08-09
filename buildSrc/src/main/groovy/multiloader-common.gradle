@@ -73,10 +73,12 @@ repositories {
         url = 'https://maven.ladysnake.org/releases'
     }
 
-    maven {
-        name = "JourneyMap (Public)"
-        url = "https://jm.gserv.me/repository/maven-public/"
-    }
+//    maven {
+//        name = "JourneyMap (Public)"
+//        url = "https://jm.gserv.me/repository/maven-public/"
+//    }
+
+    maven { url "https://maven.shedaniel.me/" }
 }
 
 dependencies {

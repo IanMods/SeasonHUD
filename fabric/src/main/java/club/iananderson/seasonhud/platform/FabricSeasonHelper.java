@@ -12,14 +12,15 @@ import net.minecraft.core.Registry;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 
 public class FabricSeasonHelper implements ISeasonHelper {
 
-  @Override
-  public boolean isTropicalSeason(Level level, Player player) {
-    return false;
-  }
+//  @Override
+//  public boolean isTropicalSeason(Level level, Player player) {
+//    return false;
+//  }
 
   @Override
   public boolean isSeasonTiedWithSystemTime() {
@@ -68,8 +69,8 @@ public class FabricSeasonHelper implements ISeasonHelper {
   }
 
   @Override
-  public Item calendar() {
-    return Registry.ITEM.get(new ResourceLocation("seasons", "season_calendar"));
+  public ItemStack calendar() {
+    return Registry.ITEM.get(new ResourceLocation("seasons", "season_calendar")).getDefaultInstance();
   }
 
   @Override

@@ -21,6 +21,7 @@ public class Common {
   public static final ResourceLocation SEASON_ICONS = new ResourceLocation(MOD_ID, "season_icons");
   public static final Style SEASON_ICON_STYLE = Style.EMPTY.withFont(SEASON_ICONS);
   private static boolean curiosLoaded;
+  private static boolean accessoriesLoaded;
   private static boolean extrasLoaded;
   private static String platformName;
 
@@ -29,6 +30,7 @@ public class Common {
 
   public static void init() {
     curiosLoaded = Services.PLATFORM.isModLoaded("trinkets") || Services.PLATFORM.isModLoaded("curios");
+    accessoriesLoaded = Services.PLATFORM.isModLoaded("accessories");
     extrasLoaded = Services.PLATFORM.isModLoaded("seasonsextras");
     platformName = Services.PLATFORM.getPlatformName();
   }
@@ -39,6 +41,10 @@ public class Common {
 
   public static boolean curiosLoaded() {
     return Common.curiosLoaded;
+  }
+
+  public static boolean accessoriesLoaded() {
+    return Common.accessoriesLoaded;
   }
 
   public static String platformName() {
@@ -53,7 +59,7 @@ public class Common {
     }
 
     return (mc.screen == null || mc.screen instanceof ChatScreen || mc.screen instanceof DeathScreen) && !mc.isPaused()
-        && !mc.options.renderDebug && !mc.options.hideGui && !mc.player.isScoping();
+        && !mc.options.renderDebug && !mc.options.hideGui;
   }
 
   public static boolean drawDefaultHud() {
