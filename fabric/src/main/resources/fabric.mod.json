@@ -16,10 +16,10 @@
   "environment": "client",
   "entrypoints": {
     "client": [
-      "club.iananderson.seasonhud.client.SeasonHUDClientFabric"
+      "club.iananderson.seasonhud.fabric.client.SeasonHUDClientFabric"
     ],
     "main": [
-      "club.iananderson.seasonhud.SeasonHUD"
+      "club.iananderson.seasonhud.fabric.SeasonHudFabric"
     ]
   },
   "mixins": [

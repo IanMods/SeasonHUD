@@ -6,32 +6,32 @@ import net.minecraft.ChatFormatting;
 import net.minecraft.util.Mth;
 
 public class BlueSlider extends RgbSlider {
-  public BlueSlider(int x, int y, ColorEditBox seasonBox) {
-    super(x, y, seasonBox);
-    this.maxValue = 255;
-    this.b = Rgb.rgbColor(Integer.parseInt(seasonBox.getValue())).getBlue();
-    this.value = snapToNearest(this.b);
-    this.textColor = ChatFormatting.BLUE;
-    this.updateMessage();
-  }
-
-  public void setSliderValue(int newValue) {
-    int oldValue = (int) this.value;
-    this.value = snapToNearest(Rgb.rgbColor(newValue).getBlue());
-    if (!Mth.equal(oldValue, this.value)) {
-      this.b = Rgb.rgbColor(newValue).getBlue();
+    public BlueSlider(int x, int y, ColorEditBox seasonBox) {
+        super(x, y, seasonBox);
+        this.maxValue = 255;
+        this.b = Rgb.rgbColor(Integer.parseInt(seasonBox.getValue())).getBlue();
+        this.value = snapToNearest(this.b);
+        this.textColor = ChatFormatting.BLUE;
+        this.updateMessage();
     }
 
-    this.updateMessage();
-  }
+    public void setSliderValue(int newValue) {
+        int oldValue = (int) this.value;
+        this.value = snapToNearest(Rgb.rgbColor(newValue).getBlue());
+        if (!Mth.equal(oldValue, this.value)) {
+            this.b = Rgb.rgbColor(newValue).getBlue();
+        }
 
-  @Override
-  public void applyValue() {
-    this.r = Rgb.getRed(season);
-    this.g = Rgb.getGreen(season);
-    this.rgb = Rgb.rgbInt(this.r, this.g, getValueInt());
+        this.updateMessage();
+    }
 
-    Rgb.setRgb(season, this.rgb);
-    seasonBox.setValue(String.valueOf(this.rgb));
-  }
+    @Override
+    public void applyValue() {
+        this.r = Rgb.getRed(season);
+        this.g = Rgb.getGreen(season);
+        this.rgb = Rgb.rgbInt(this.r, this.g, getValueInt());
+
+        Rgb.setRgb(season, this.rgb);
+        seasonBox.setValue(String.valueOf(this.rgb));
+    }
 }
