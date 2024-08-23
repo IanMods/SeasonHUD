@@ -4,32 +4,31 @@ import club.iananderson.seasonhud.Common;
 import club.iananderson.seasonhud.platform.services.IMinimapHelper;
 import club.iananderson.seasonhud.platform.services.IPlatformHelper;
 import club.iananderson.seasonhud.platform.services.ISeasonHelper;
-
 import java.util.Iterator;
 import java.util.Optional;
 import java.util.ServiceLoader;
 
 public class Services {
-    public static final IPlatformHelper PLATFORM = load(IPlatformHelper.class);
-    public static final ISeasonHelper SEASON = load(ISeasonHelper.class);
-    public static final IMinimapHelper MINIMAP = load(IMinimapHelper.class);
+  public static final IPlatformHelper PLATFORM = load(IPlatformHelper.class);
+  public static final ISeasonHelper SEASON = load(ISeasonHelper.class);
+  public static final IMinimapHelper MINIMAP = load(IMinimapHelper.class);
 
-    private Services() {
+  private Services() {
+  }
+
+  public static <T> T load(Class<T> clazz) {
+    Optional<T> findFirst;
+    final Iterator<T> iterator = ServiceLoader.load(clazz).iterator();
+
+    if (iterator.hasNext()) {
+      findFirst = Optional.of(iterator.next());
+    } else {
+      findFirst = Optional.empty();
     }
 
-    public static <T> T load(Class<T> clazz) {
-        Optional<T> findFirst;
-        final Iterator<T> iterator = ServiceLoader.load(clazz).iterator();
-
-        if (iterator.hasNext()) {
-            findFirst = Optional.of(iterator.next());
-        } else {
-            findFirst = Optional.empty();
-        }
-
-        final T loadedService = findFirst.orElseThrow(
-                () -> new NullPointerException("Failed to load service for " + clazz.getName()));
-        Common.LOG.debug("Loaded {} for service {}", loadedService, clazz);
-        return loadedService;
-    }
+    final T loadedService = findFirst.orElseThrow(
+        () -> new NullPointerException("Failed to load service for " + clazz.getName()));
+    Common.LOG.debug("Loaded {} for service {}", loadedService, clazz);
+    return loadedService;
+  }
 }

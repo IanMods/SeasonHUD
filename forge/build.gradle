@@ -1,7 +1,7 @@
 plugins {
     id 'com.github.johnrengelman.shadow'
-    id 'net.darkhax.curseforgegradle' version '1.1.18'
-    id "com.modrinth.minotaur" version "2.+"
+    id 'net.darkhax.curseforgegradle'
+    id "com.modrinth.minotaur"
 }
 
 loom {
@@ -39,31 +39,58 @@ dependencies {
     shadowBundle project(path: ':common', configuration: 'transformProductionForge')
 
     //Serene Seasons
-    modImplementation "curse.maven:serene-seasons-291874:${project.serene_seasons_forge_version}"
-    modImplementation "curse.maven:serene-seasons-291874:${project.serene_seasons_deobf_forge_version}"
+    modImplementation "maven.modrinth:serene-seasons:${project.serene_seasons_version}"
 
     //Xaero's Minimap
-    modCompileOnly "curse.maven:xaeros-minimap-263420:${project.xaeros_minimap_forge_version}"
+    modCompileOnly "maven.modrinth:xaeros-minimap:${project.xaeros_minimap_version}_Forge_${project.minecraft_version}"
 
     //JourneyMap
-    modCompileOnly "curse.maven:journeymap-32274:${project.journeymap_forge_version}"
+    modCompileOnly "maven.modrinth:journeymap:${project.minecraft_version}-${project.journeymap_version}"
 
     //FTB Chunks + Dependencies
     modCompileOnly "curse.maven:ftb-chunks-forge-314906:${project.ftb_chunks_forge_version}"
     modCompileOnly "curse.maven:ftb-library-forge-404465:${project.ftb_library_forge_version}"
     modCompileOnly "curse.maven:ftb-teams-forge-404468:${project.ftb_teams_forge_version}"
-    modCompileOnly "curse.maven:architectury-api-419699:${project.architectury_api_forge_version}"
+    modCompileOnly "maven.modrinth:architectury-api:${project.architectury_version}+forge"
 
-    /Map Atlases/
-//    modCompileOnly "curse.maven:map-atlases-forge-519759:${project.map_atlases_forge_version}"
-//    modCompileOnly "curse.maven:selene-499980:4843863"
-//    modCompileOnly "curse.maven:supplementaries-412082:4823730"
+    //Map Atlases
+    modCompileOnly "curse.maven:map-atlases-forge-519759:${project.map_atlases_forge_version}"
+
+    //VoxelMap
+    modCompileOnly "curse.maven:voxelmap-225179:${project.voxelmap_forge_version}"
 
     //Curios + Accessories
-    modCompileOnly "top.theillusivec4.curios:curios-forge:${project.curios_file_id}:api"
+    modCompileOnly "top.theillusivec4.curios:curios-forge:${project.minecraft_version}-${project.curios_file_id}:api"
 
     // Development QOL
 //    modLocalRuntime("mezz.jei:jei-${minecraft_version}-forge:${jei_version}") { transitive = false }
+
+    // Minimap Mod Dev Tests
+    // See root gradle.properties to choose which to use at runtime.
+    switch (fabric_minimap.toLowerCase(Locale.ROOT)) {
+        case "xaero":
+            modLocalRuntime "maven.modrinth:xaeros-minimap:${project.xaeros_minimap_version}_Forge_${project.minecraft_version}"
+            break
+        case "journey":
+            modLocalRuntime "maven.modrinth:journeymap:${project.minecraft_version}-${project.journeymap_version}"
+            break
+        case "ftb":
+            modLocalRuntime "curse.maven:ftb-chunks-forge-314906:${project.ftb_chunks_forge_version}"
+            modLocalRuntime "curse.maven:ftb-library-forge-404465:${project.ftb_library_forge_version}"
+            modLocalRuntime "curse.maven:ftb-teams-forge-404468:${project.ftb_teams_forge_version}"
+            modLocalRuntime "maven.modrinth:architectury-api:${project.architectury_version}+forge"
+            break
+        case "atlas":
+            modLocalRuntime "curse.maven:map-atlases-forge-519759:${project.map_atlases_forge_version}"
+            break
+        case "voxel":
+            modLocalRuntime("curse.maven:voxelmap-225179:${project.voxelmap_forge_version}")
+            break
+        case "none":
+            break
+        default: println("Unknown recipe viewer specified: ${fabric_minimap}. Must be xaero, journey, ftb, atlas, " +
+                "voxel, or none")
+    }
 }
 
 processResources {

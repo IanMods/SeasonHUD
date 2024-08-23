@@ -1,6 +1,7 @@
-package club.iananderson.seasonhud.impl.curios.item;
+package club.iananderson.seasonhud.forge.impl.curios.item;
 
 import club.iananderson.seasonhud.platform.Services;
+import javax.annotation.Nonnull;
 import net.minecraft.core.Direction;
 import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.common.capabilities.Capability;
@@ -11,31 +12,23 @@ import top.theillusivec4.curios.api.CuriosCapability;
 import top.theillusivec4.curios.api.type.capability.ICurio;
 import top.theillusivec4.curios.api.type.capability.ICurioItem;
 
-import javax.annotation.Nonnull;
-
 public class CuriosCalendar implements ICurioItem {
-    public CuriosCalendar() {
-    }
+  public CuriosCalendar() {
+  }
 
-    public static ICapabilityProvider initCapabilities() {
-        ICurio curio = new ICurio() {
-            final ItemStack stack = new ItemStack(Services.SEASON.calendar().asItem());
+  public static ICapabilityProvider initCapabilities() {
+    ICurio curio = new ICurio() {
+      final ItemStack stack = Services.SEASON.calendar();
+    };
+    return new ICapabilityProvider() {
+      private final LazyOptional<ICurio> curioOpt = LazyOptional.of(() -> curio);
 
-            @Override
-            public ItemStack getStack() {
-                return stack;
-            }
+      @Nonnull
+      @Override
+      public <T> LazyOptional<T> getCapability(@Nonnull Capability<T> cap, @Nullable Direction side) {
 
-        };
-        return new ICapabilityProvider() {
-            private final LazyOptional<ICurio> curioOpt = LazyOptional.of(() -> curio);
-
-            @Nonnull
-            @Override
-            public <T> LazyOptional<T> getCapability(@Nonnull Capability<T> cap, @Nullable Direction side) {
-
-                return CuriosCapability.ITEM.orEmpty(cap, curioOpt);
-            }
-        };
-    }
+        return CuriosCapability.ITEM.orEmpty(cap, curioOpt);
+      }
+    };
+  }
 }

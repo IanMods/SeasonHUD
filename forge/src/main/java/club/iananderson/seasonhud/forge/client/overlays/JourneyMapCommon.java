@@ -1,4 +1,4 @@
-package club.iananderson.seasonhud.client.overlays;
+package club.iananderson.seasonhud.forge.client.overlays;
 
 import club.iananderson.seasonhud.config.Config;
 import club.iananderson.seasonhud.impl.seasons.CurrentSeason;
@@ -14,10 +14,10 @@ import journeymap.client.ui.theme.ThemeLabelSource;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
 import net.minecraft.client.renderer.MultiBufferSource;
-import net.minecraft.network.chat.MutableComponent;
+import net.minecraft.network.chat.Component;
 
 public class JourneyMapCommon {
-  private final MutableComponent seasonCombined;
+  private final Component seasonCombined;
   private final boolean fontShadow;
   private final float fontScale;
   private final float labelAlpha;
@@ -50,8 +50,8 @@ public class JourneyMapCommon {
     this.textAlpha = currentTheme.foreground.alpha;
     this.textureX = vars.textureX;
     this.textureY = vars.textureY;
-    this.minimapHeight = vars.minimapWidth;
     int minimapWidth = vars.minimapWidth;
+    this.minimapHeight = minimapWidth;
     this.halfWidth = minimapWidth / 2;
     this.margin = ThemeLoader.getCurrentTheme().minimap.square.margin;
     this.labelColor = currentTheme.background.getColor();
@@ -103,9 +103,9 @@ public class JourneyMapCommon {
   public void drawSeasonLabel(PoseStack graphics) {
     MultiBufferSource.BufferSource buffers = Minecraft.getInstance().renderBuffers().bufferSource();
     buffers.endBatch();
-    DrawUtil.drawBatchLabel(graphics, seasonCombined, buffers, labelX(), labelY(), DrawUtil.HAlign.Center,
-                            DrawUtil.VAlign.Below, labelColor, labelAlpha, textColor, textAlpha, fontScale, fontShadow);
+    DrawUtil.drawLabel(graphics, seasonCombined, labelX(), labelY(), DrawUtil.HAlign.Center, DrawUtil.VAlign.Below,
+                       labelColor, labelAlpha, textColor, textAlpha, fontScale, fontShadow);
     buffers.endBatch();
-    DrawUtil.sizeDisplay(graphics, scaledWidth, scaledHeight);
+    DrawUtil.sizeDisplay(scaledWidth, scaledHeight);
   }
 }

@@ -1,14 +1,16 @@
 {
   "required": true,
   "minVersion": "0.8",
-  "package": "club.iananderson.seasonhud.forge.mixin",
+  "package": "club.iananderson.seasonhud.fabric.mixin",
   "refmap": "seasonhud.refmap.json",
-  "plugin": "club.iananderson.seasonhud.mixin.SeasonHUDMixinPlugin",
-  "compatibilityLevel": "JAVA_17",
+  "plugin": "club.iananderson.seasonhud.fabric.mixin.SeasonHUDMixinPlugin",
+  "compatibilityLevel": "JAVA_8",
   "mixins": [
   ],
   "client": [
-    "club.iananderson.seasonhud.fabric.mixin.xaero.XaeroBuiltInInfoDisplays"
+    "ftbchunks.FTBChunksClientMixin",
+    "voxel.VoxelMapMixin",
+    "xaero.XaeroBuiltInInfoDisplays"
   ],
   "injectors": {
     "defaultRequire": 1

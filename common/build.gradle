@@ -1,5 +1,5 @@
 architectury {
-    common rootProject.enabled_platforms.split(',')
+    common enabled_platforms.split(',')
 }
 
 dependencies {
@@ -14,5 +14,5 @@ dependencies {
 
     //To get the Journeymap map values, since they are the same between the mod loaders.
     // Not used unless Journeymap is actually  loaded.
-    compileOnly "curse.maven:journeymap-32274:${project.journeymap_forge_version}"
+    modCompileOnly "maven.modrinth:xaeros-minimap:${project.xaeros_minimap_version}_Forge_${project.minecraft_version}"
 }

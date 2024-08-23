@@ -9,10 +9,10 @@ import net.minecraftforge.fml.config.ModConfig;
 
 public class SeasonHUDClientFabric implements ClientModInitializer {
 
-    @Override
-    public void onInitializeClient() {
-        ModLoadingContext.registerConfig(Common.MOD_ID, ModConfig.Type.CLIENT, Config.GENERAL_SPEC,
-                "SeasonHUD-client.toml");
-        ClientEvents.register();
-    }
+  @Override
+  public void onInitializeClient() {
+    ModLoadingContext.registerConfig(Common.MOD_ID, ModConfig.Type.CLIENT, Config.GENERAL_SPEC,
+                                     "SeasonHUD-client.toml");
+    ClientEvents.register();
+  }
 }

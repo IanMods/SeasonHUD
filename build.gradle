@@ -1,5 +1,5 @@
 plugins {
-    id 'dev.architectury.loom' version '1.7-SNAPSHOT' apply false
+    id 'dev.architectury.loom' version '1.6-SNAPSHOT' apply false
     id 'architectury-plugin' version '3.4-SNAPSHOT'
     id 'com.github.johnrengelman.shadow' version '8.1.1' apply false
     id 'net.darkhax.curseforgegradle' version '1.1.18'
@@ -35,82 +35,93 @@ subprojects {
         maven { url = "https://maven.quiltmc.org/repository/release" } // Quilt Mappings
         maven { url = "https://maven.theillusivec4.top/" } //Curios
         maven { url = "https://maven.ladysnake.org/releases" } // Cardinal Components
-        maven { url = "https://raw.githubusercontent.com/Fuzss/modresources/main/maven/"} //ForgeConfigAPiPort
-        maven { url = "https://cursemaven.com"
-            content {
+        maven { url = "https://raw.githubusercontent.com/Fuzss/modresources/main/maven/" } //ForgeConfigAPiPort
+        exclusiveContent {
+            forRepository {
+                maven { url = "https://cursemaven.com" }
+            }
+            filter {
                 includeGroup "curse.maven"
             }
         }
-    }
-
-    loom {
-        silentMojangMappingsLicense()
-    }
-
-    dependencies {
-        minecraft "net.minecraft:minecraft:${project.minecraft_version}"
-        mappings loom.officialMojangMappings()
-    }
-
-    java {
-        // Loom will automatically attach sourcesJar to a RemapSourcesJar task and to the "build" task
-        // if it is present.
-        // If you remove this line, sources will not be generated.
-        withSourcesJar()
-
-        sourceCompatibility = JavaVersion.VERSION_1_8
-        targetCompatibility = JavaVersion.VERSION_1_8
-    }
-
-    tasks.withType(JavaCompile).configureEach {
-        it.options.release = 8
-    }
-
-    // Configure Maven publishing.
-    publishing {
-        publications {
-            mavenJava(MavenPublication) {
-                artifactId = base.archivesName.get()
-                from components.java
+        exclusiveContent {
+            forRepository {
+                maven { url = "https://api.modrinth.com/maven" }
+            }
+            filter {
+                includeGroup "maven.modrinth"
             }
         }
 
-        // See https://docs.gradle.org/current/userguide/publishing_maven.html for information on how to set up publishing.
-        repositories {
-            // Add repositories to publish to here.
-            // Notice: This block does NOT have the same function as the block in the top level.
-            // The repositories here will be used for publishing your artifact, not for
-            // retrieving dependencies.
+        loom {
+            silentMojangMappingsLicense()
         }
-    }
 
-
-    processResources {
-        def expandProps = [
-                "version"                   : mod_version,
-                "group"                     : project.group, //Else we target the task's group.
-                "minecraft_version"         : minecraft_version,
-                "forge_version"             : forge_version,
-                "forge_loader_version_range": forge_loader_version_range,
-                "forge_version_range"       : forge_version_range,
-                "minecraft_version_range"   : minecraft_version_range,
-                "fabric_api_version"        : fabric_api_version,
-                "fabric_loader_version"     : fabric_loader_version,
-                "mod_name"                  : mod_name,
-                "mod_author"                : mod_author,
-                "mod_id"                    : mod_id,
-                "license"                   : license,
-                "description"               : description,
-                "credits"                   : credits,
-                "java_version"              : java_version
-        ]
-
-        filesMatching(['pack.mcmeta', 'fabric.mod.json', 'META-INF/mods.toml', 'META-INF/neoforge.mods.toml', '*.mixins.json']) {
-            expand project.properties
+        dependencies {
+            minecraft "net.minecraft:minecraft:${project.minecraft_version}"
+            mappings loom.officialMojangMappings()
         }
-        inputs.properties(expandProps)
+
+        java {
+            // Loom will automatically attach sourcesJar to a RemapSourcesJar task and to the "build" task
+            // if it is present.
+            // If you remove this line, sources will not be generated.
+            withSourcesJar()
+
+            sourceCompatibility = JavaVersion.VERSION_1_8
+            targetCompatibility = JavaVersion.VERSION_1_8
+        }
+
+        tasks.withType(JavaCompile).configureEach {
+            it.options.release = 8
+        }
+
+        // Configure Maven publishing.
+        publishing {
+            publications {
+                mavenJava(MavenPublication) {
+                    artifactId = base.archivesName.get()
+                    from components.java
+                }
+            }
+
+            // See https://docs.gradle.org/current/userguide/publishing_maven.html for information on how to set up publishing.
+            repositories {
+                // Add repositories to publish to here.
+                // Notice: This block does NOT have the same function as the block in the top level.
+                // The repositories here will be used for publishing your artifact, not for
+                // retrieving dependencies.
+            }
+        }
+
+        processResources {
+            def expandProps = [
+                    "version"                   : mod_version,
+                    "group"                     : project.group, //Else we target the task's group.
+                    "minecraft_version"         : minecraft_version,
+                    "forge_version"             : forge_version,
+                    "forge_loader_version_range": forge_loader_version_range,
+                    "forge_version_range"       : forge_version_range,
+                    "minecraft_version_range"   : minecraft_version_range,
+                    "fabric_api_version"        : fabric_api_version,
+                    "fabric_loader_version"     : fabric_loader_version,
+                    "mod_name"                  : mod_name,
+                    "mod_author"                : mod_author,
+                    "mod_id"                    : mod_id,
+                    "license"                   : license,
+                    "description"               : description,
+                    "credits"                   : credits,
+                    "java_version"              : java_version
+            ]
+
+            filesMatching(['pack.mcmeta', 'fabric.mod.json', 'META-INF/mods.toml', 'META-INF/neoforge.mods.toml', '*.mixins.json']) {
+                expand project.properties
+            }
+            inputs.properties(expandProps)
+        }
     }
 }
+
 
 task publishAll {
     group = "upload"

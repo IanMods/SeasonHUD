@@ -29,7 +29,7 @@ side = "BOTH"
 [[dependencies.${ mod_id }]]
 modId = "sereneseasons"
 mandatory = true
-versionRange = "[6.0.0.0,)"
+versionRange = "[1.16.5-4.0.1.130,)"
 ordering = "AFTER"
 side = "BOTH"
 
@@ -37,12 +37,5 @@ side = "BOTH"
 modId = "xaerominimap"
 mandatory = false
 versionRange = "[24.0.0,)"
-ordering = "AFTER"
-side = "CLIENT"
-
-[[dependencies.${ mod_id }]]
-modId = "ftbchunks"
-mandatory = false
-versionRange = "[1802.3.17-build.265,)"
 ordering = "AFTER"
 side = "CLIENT"

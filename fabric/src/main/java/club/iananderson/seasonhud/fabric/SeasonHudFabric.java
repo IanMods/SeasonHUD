@@ -5,14 +5,14 @@ import net.fabricmc.api.ModInitializer;
 
 public class SeasonHudFabric implements ModInitializer {
 
-    public SeasonHudFabric() {
-    }
+  public SeasonHudFabric() {
+  }
 
-    /**
-     * Runs the mod initializer.
-     */
-    @Override
-    public void onInitialize() {
-        Common.init();
-    }
+  /**
+   * Runs the mod initializer.
+   */
+  @Override
+  public void onInitialize() {
+    Common.init();
+  }
 }
