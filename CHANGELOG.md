@@ -4,6 +4,12 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 
+## [1.9.9] - 2024-08-25
+
+### Added
+
+- Updated the 1.16.5 version, and created a Fabric version.  
+
 ## [1.9.8] - 2024-07-28
 
 ### Fixed
