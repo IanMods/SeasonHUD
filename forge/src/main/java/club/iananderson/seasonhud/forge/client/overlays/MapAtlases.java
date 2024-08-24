@@ -27,7 +27,7 @@ public class MapAtlases extends GuiComponent {
       ItemStack atlas = MapAtlasesAccessUtils.getAtlasFromPlayerByConfig(inv);
       BooleanValue mapAtlasesConfig = pepjebs.dicemc.config.Config.DRAW_MINIMAP_HUD;
 
-      if (mapAtlasesConfig.get()) {
+      if (!mapAtlasesConfig.get()) {
         return false;
       } else {
         return !mc.options.renderDebug && atlas.getCount() > 0;
@@ -57,7 +57,7 @@ public class MapAtlases extends GuiComponent {
           float scale = mapBgScaledSize / 142.0F;
           int textHeightOffset = mapBgScaledSize - 2;
 
-          MapAtlasesCommon.drawMapComponentSeasonOld(graphics, x, y, mapBgScaledSize, textHeightOffset, scale);
+          MapAtlasesCommon.drawMapComponentSeasonOld(graphics, x - 3, y, mapBgScaledSize, textHeightOffset, scale);
         }
       }
     }

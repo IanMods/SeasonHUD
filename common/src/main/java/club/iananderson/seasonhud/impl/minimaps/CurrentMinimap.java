@@ -45,7 +45,7 @@ public class CurrentMinimap {
   }
 
   public static boolean mapAtlasesLoaded() {
-    return getLoadedMinimaps().contains(Minimaps.MAP_ATLASES);
+    return getLoadedMinimaps().contains(Minimaps.MAP_ATLASES) || getLoadedMinimaps().contains(Minimaps.MAP_ATLASES_FORGE);
   }
 
   public static boolean voxelMapLoaded() {
@@ -80,6 +80,8 @@ public class CurrentMinimap {
     FTB_CHUNKS("ftbchunks"),
 
     MAP_ATLASES("map_atlases"),
+
+    MAP_ATLASES_FORGE("mapatlases"),
 
     VOXELMAP("voxelmap");
 
