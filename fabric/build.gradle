@@ -40,8 +40,10 @@ dependencies {
         exclude group: 'net.fabricmc', module: 'fabric-loader'
     }
 
-    //Fabric Seasons Extras
-//    modCompileOnly "curse.maven:fabric-seasons-extras-839878:${project.fabric_seasons_extras_fabric_version}"
+//    //Fabric Seasons Extras
+//    modCompileOnly("maven.modrinth:fabric-seasons-extras:${project.fabric_seasons_extras_version}") {
+//        exclude group: 'net.fabricmc', module: 'fabric-loader'
+//    }
 
     //Xaero's Minimap
     modCompileOnly("maven.modrinth:xaeros-minimap:${project.xaeros_minimap_version}_Fabric_${project.minecraft_version}") {
