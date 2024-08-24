@@ -12,7 +12,11 @@ dependencies {
     modImplementation "com.electronwill.night-config:toml:3.6.3"
     modCompileOnly "net.minecraftforge:forgeconfigapiport-fabric:${project.forge_config_api_port_version}"
 
-    //To get the Journeymap map values, since they are the same between the mod loaders.
-    // Not used unless Journeymap is actually  loaded.
+    // Minimap Mods
+    // Not used in common unless they are actually  loaded.
     modCompileOnly "maven.modrinth:xaeros-minimap:${project.xaeros_minimap_version}_Forge_${project.minecraft_version}"
+    modCompileOnly "curse.maven:ftb-chunks-forge-314906:${project.ftb_chunks_forge_version}"
+    modCompileOnly "curse.maven:ftb-library-forge-404465:${project.ftb_library_forge_version}"
+    modCompileOnly "maven.modrinth:journeymap:${project.minecraft_version}-${project.journeymap_version}"
+    modCompileOnly "curse.maven:voxelmap-225179:${project.voxelmap_forge_version}"
 }

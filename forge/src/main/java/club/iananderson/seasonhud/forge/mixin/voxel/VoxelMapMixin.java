@@ -28,6 +28,8 @@ public class VoxelMapMixin {
   @Shadow
   private MapSettingsManager options;
   @Shadow
+  private String error;
+  @Shadow
   private boolean fullscreenMap;
   @Shadow
   private Minecraft game;
@@ -51,12 +53,15 @@ public class VoxelMapMixin {
     if (y > this.scHeight - 37 - 32 - 4 - 15) {
       textStart = y - 32 - 4 - 9;
       if (this.options.coords) {
-        textStart -= 10;
+        textStart -= 5;
       }
     } else {
       textStart = y + 32 + 4;
       if (this.options.coords) {
         textStart += 10;
+      }
+      if (!this.error.isEmpty()) {
+        textStart += 5;
       }
     }
 
