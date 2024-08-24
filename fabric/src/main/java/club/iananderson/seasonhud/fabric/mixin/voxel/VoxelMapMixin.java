@@ -15,7 +15,6 @@ import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
-import org.spongepowered.asm.mixin.injection.Slice;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Mixin(Map.class)
@@ -46,7 +45,7 @@ public class VoxelMapMixin {
   }
 
   @Unique
-  private void showSeason(PoseStack graphics, int x, int y) {
+  private void seasonhud$showSeason(PoseStack graphics, int x, int y) {
     int textStart;
 
     if (y > this.scHeight - 37 - 32 - 4 - 15) {
@@ -73,10 +72,11 @@ public class VoxelMapMixin {
     }
   }
 
-  @Inject(method = "drawMinimap", at = @At(value = "INVOKE", target = "Lcom/mamiyaotaru/voxelmap/util/GLShim;glMatrixMode(I)V"), slice = @Slice(from = @At(value = "INVOKE", target = "Lcom/mamiyaotaru/voxelmap/util/GLShim;glColor4f(FFFF)V"), to = @At(value = "INVOKE", target = "Lcom/mamiyaotaru/voxelmap/util/GLShim;glPopMatrix()V")))
+  @Inject(method = "drawMinimap", at = @At(value = "INVOKE", target = "Lcom/mamiyaotaru/voxelmap/Map;showCoords"
+      + "(Lcom/mojang/blaze3d/vertex/PoseStack;II)V", shift = At.Shift.BY, by = 2))
   private void drawMinimap(PoseStack matrixStack, Minecraft mc, CallbackInfo ci) {
     if (Config.getEnableMod() && Config.getEnableMinimapIntegration()) {
-      this.showSeason(matrixStack, this.mapX, this.mapY);
+      this.seasonhud$showSeason(matrixStack, this.mapX, this.mapY);
     }
   }
 }

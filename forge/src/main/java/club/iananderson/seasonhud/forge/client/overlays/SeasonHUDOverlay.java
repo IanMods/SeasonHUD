@@ -4,19 +4,20 @@ import club.iananderson.seasonhud.client.overlays.SeasonHUDOverlayCommon;
 import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Gui;
+import net.minecraft.client.gui.GuiComponent;
+import net.minecraftforge.client.gui.ForgeIngameGui;
 
-public class SeasonHUDOverlay extends Gui {
+public class SeasonHUDOverlay extends GuiComponent {
   public static SeasonHUDOverlay HUD_INSTANCE;
 
-  public SeasonHUDOverlay(Minecraft mc) {
-    super(mc);
+  public SeasonHUDOverlay() {
   }
 
-  public static void init(Minecraft mc) {
-    HUD_INSTANCE = new SeasonHUDOverlay(mc);
+  public static void init() {
+    HUD_INSTANCE = new SeasonHUDOverlay();
   }
 
-  public void render(PoseStack graphics, float partialTick) {
+  public void render(PoseStack graphics) {
     SeasonHUDOverlayCommon.render(graphics);
   }
 }

@@ -4,6 +4,7 @@ import club.iananderson.seasonhud.Common;
 import club.iananderson.seasonhud.client.KeyBindings;
 import club.iananderson.seasonhud.client.gui.screens.SeasonHUDScreen;
 import club.iananderson.seasonhud.forge.client.overlays.JourneyMap;
+import club.iananderson.seasonhud.forge.client.overlays.MapAtlases;
 import club.iananderson.seasonhud.forge.client.overlays.SeasonHUDOverlay;
 import club.iananderson.seasonhud.impl.minimaps.CurrentMinimap;
 import com.mojang.blaze3d.vertex.PoseStack;
@@ -11,6 +12,7 @@ import net.minecraft.client.Minecraft;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.client.event.InputEvent;
 import net.minecraftforge.client.event.RenderGameOverlayEvent;
+import net.minecraftforge.client.event.RenderGameOverlayEvent.ElementType;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.client.registry.ClientRegistry;
 import net.minecraftforge.fml.common.Mod;
@@ -22,22 +24,22 @@ public class ClientEvents {
   public static class ClientForgeEvents {
     @SubscribeEvent
     public static void renderSeasonHUDOverlay(RenderGameOverlayEvent.Post event) {
-      if (event.getType() == RenderGameOverlayEvent.ElementType.ALL) {
-        Minecraft mc = Minecraft.getInstance();
+      if (event.getType() == ElementType.ALL) {
         PoseStack graphics = event.getMatrixStack();
-        float partialTicks = event.getPartialTicks();
-
-        if (mc.level == null || mc.player == null) {
-          return;
-        }
 
         if (CurrentMinimap.journeyMapLoaded()) {
-          JourneyMap.init(mc);
-          JourneyMap.HUD_INSTANCE.render(graphics, partialTicks);
+          JourneyMap.init();
+          JourneyMap.HUD_INSTANCE.render(graphics);
         }
 
-        SeasonHUDOverlay.init(mc);
-        SeasonHUDOverlay.HUD_INSTANCE.render(graphics, partialTicks);
+        if (CurrentMinimap.mapAtlasesLoaded()) {
+          MapAtlases.init();
+          MapAtlases.HUD_INSTANCE.render(graphics);
+        }
+
+
+        SeasonHUDOverlay.init();
+        SeasonHUDOverlay.HUD_INSTANCE.render(graphics);
       }
     }
 

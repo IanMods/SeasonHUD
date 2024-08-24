@@ -102,7 +102,7 @@ dependencies {
 
     // Minimap Mod Dev Tests
     // See root gradle.properties to choose which to use at runtime.
-    switch (fabric_minimap.toLowerCase(Locale.ROOT)) {
+    switch (minimap_mod.toLowerCase(Locale.ROOT)) {
         case "xaero":
             modLocalRuntime("maven.modrinth:xaeros-minimap:${project.xaeros_minimap_version}_Fabric_${project.minecraft_version}")
             break
@@ -124,7 +124,7 @@ dependencies {
             break
         case "none":
             break
-        default: println("Unknown recipe viewer specified: ${fabric_minimap}. Must be xaero, journey, ftb, atlas, " +
+        default: println("Unknown recipe viewer specified: ${minimap_mod}. Must be xaero, journey, ftb, atlas, " +
                 "voxel, or none")
     }
 

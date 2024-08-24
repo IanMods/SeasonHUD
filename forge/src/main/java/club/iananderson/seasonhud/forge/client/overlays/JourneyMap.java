@@ -6,20 +6,20 @@ import com.mojang.blaze3d.vertex.PoseStack;
 import journeymap.client.render.draw.DrawUtil;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Gui;
+import net.minecraft.client.gui.GuiComponent;
+import net.minecraftforge.client.gui.ForgeIngameGui;
 
-public class JourneyMap extends Gui {
+public class JourneyMap extends GuiComponent {
   public static JourneyMap HUD_INSTANCE;
 
-  public JourneyMap(Minecraft mc) {
-    super(mc);
+  public JourneyMap() {
   }
 
-  public static void init(Minecraft mc) {
-    HUD_INSTANCE = new JourneyMap(mc);
+  public static void init() {
+    HUD_INSTANCE = new JourneyMap();
   }
 
-  @Override
-  public void render(PoseStack graphics, float partialTick) {
+  public void render(PoseStack graphics) {
     if (CurrentMinimap.journeyMapLoaded() && CurrentMinimap.shouldDrawMinimapHud(Minimaps.JOURNEYMAP)) {
       JourneyMapCommon journeyMapCommon = JourneyMapCommon.getInstance(Minecraft.getInstance());
 
