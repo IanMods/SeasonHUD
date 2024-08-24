@@ -79,7 +79,7 @@ dependencies {
     }
 
     //Trinkets + Accessories
-    modCompileOnly("dev.emi:trinkets:${project.trinkets_file_id}") {
+    modCompileOnly("dev.emi:trinkets:${project.trinkets_version}") {
         exclude group: 'net.fabricmc', module: 'fabric-loader'
     }
     modCompileOnly "dev.onyxstudios.cardinal-components-api:cardinal-components-base:5.0.2"
@@ -93,16 +93,19 @@ dependencies {
     }
 
     // Development QOL
-    modLocalRuntime("maven.modrinth:lazydfu:${lazydfu_version}") {
+    modLocalRuntime("maven.modrinth:lazydfu:${project.lazydfu_version}") {
         exclude group: 'net.fabricmc', module: 'fabric-loader'
     }
-    modLocalRuntime("com.terraformersmc:modmenu:${modmenu_version}") {
+    modLocalRuntime("com.terraformersmc:modmenu:${project.modmenu_version}") {
         exclude group: 'net.fabricmc', module: 'fabric-loader'
     }
+//    modLocalRuntime("mezz.jei:jei-${project.minecraft_version}-fabric:${project.jei_version}") {
+//        exclude group: 'net.fabricmc', module: 'fabric-loader'
+//    }
 
     // Minimap Mod Dev Tests
     // See root gradle.properties to choose which to use at runtime.
-    switch (minimap_mod.toLowerCase(Locale.ROOT)) {
+    switch (project.minimap_mod.toLowerCase(Locale.ROOT)) {
         case "xaero":
             modLocalRuntime("maven.modrinth:xaeros-minimap:${project.xaeros_minimap_version}_Fabric_${project.minecraft_version}")
             break
@@ -124,26 +127,9 @@ dependencies {
             break
         case "none":
             break
-        default: println("Unknown recipe viewer specified: ${minimap_mod}. Must be xaero, journey, ftb, atlas, " +
+        default: println("Unknown recipe viewer specified: ${project.minimap_mod}. Must be xaero, journey, ftb, " +
+                "atlas, " +
                 "voxel, or none")
-    }
-
-    // Recipe Viewers - Create Fabric supports JEI, REI, and EMI.
-    // See root gradle.properties to choose which to use at runtime.
-//    switch (fabric_recipe_viewer.toLowerCase(Locale.ROOT)) {
-//        case "jei": modLocalRuntime("mezz.jei:jei-${minecraft_version}-fabric:${jei_version}"); break
-//        case "rei": modLocalRuntime("me.shedaniel:RoughlyEnoughItems-fabric:${rei_version}"); break
-//        case "emi": modLocalRuntime("dev.emi:emi:${emi_version}"); break
-//        case "disabled": break
-//        default: println("Unknown recipe viewer specified: ${fabric_recipe_viewer}. Must be JEI, REI, EMI, or disabled.")
-//    }
-}
-
-processResources {
-    inputs.property 'version', project.version
-
-    filesMatching('fabric.mod.json') {
-        expand version: project.version
     }
 }
 
@@ -186,6 +172,7 @@ modrinth {
         optional.project "xaeros-minimap"
         optional.project "xaeros-minimap-fair"
         optional.project "map-atlases"
+        optional.project "voxelmap"
     }
 }
 
@@ -206,7 +193,7 @@ task publishCurseForge(type: net.darkhax.curseforgegradle.TaskPublishCurseForge)
     List<String> mcVersions = curseforge_gameVersions.split(",")
     mainFile.gameVersions = mcVersions
     mainFile.addGameVersion("Fabric")
-    mainFile.addGameVersion("Java 17")
+    mainFile.addGameVersion("Java 8")
 
     mainFile.addRequirement("fabric-seasons")
     mainFile.addRequirement("forge-config-api-port-fabric")
@@ -217,6 +204,7 @@ task publishCurseForge(type: net.darkhax.curseforgegradle.TaskPublishCurseForge)
     mainFile.addOptional("xaeros-minimap")
     mainFile.addOptional("xaeros-minimap-fair-play-edition")
     mainFile.addOptional("map-atlases")
+    mainFile.addOptional("voxelmap")
 }
 
 task publishFabric {

@@ -33,7 +33,7 @@ configurations {
 }
 
 dependencies {
-    forge "net.minecraftforge:forge:${minecraft_version}-${forge_version}"
+    forge "net.minecraftforge:forge:${project.minecraft_version}-${project.forge_version}"
 
     common(project(path: ':common', configuration: 'namedElements')) { transitive false }
     shadowBundle project(path: ':common', configuration: 'transformProductionForge')
@@ -60,14 +60,14 @@ dependencies {
     modCompileOnly "curse.maven:voxelmap-225179:${project.voxelmap_forge_version}"
 
     //Curios + Accessories
-    modCompileOnly "top.theillusivec4.curios:curios-forge:${project.minecraft_version}-${project.curios_file_id}:api"
+    modCompileOnly "top.theillusivec4.curios:curios-forge:${project.minecraft_version}-${project.curios_version}:api"
 
     // Development QOL
 //    modLocalRuntime("mezz.jei:jei-${minecraft_version}-forge:${jei_version}") { transitive = false }
 
     // Minimap Mod Dev Tests
     // See root gradle.properties to choose which to use at runtime.
-    switch (minimap_mod.toLowerCase(Locale.ROOT)) {
+    switch (project.minimap_mod.toLowerCase(Locale.ROOT)) {
         case "xaero":
             modLocalRuntime "maven.modrinth:xaeros-minimap:${project.xaeros_minimap_version}_Forge_${project.minecraft_version}"
             break
@@ -88,16 +88,9 @@ dependencies {
             break
         case "none":
             break
-        default: println("Unknown recipe viewer specified: ${minimap_mod}. Must be xaero, journey, ftb, atlas, " +
+        default: println("Unknown recipe viewer specified: ${project.minimap_mod}. Must be xaero, journey, ftb, " +
+                "atlas, " +
                 "voxel, or none")
-    }
-}
-
-processResources {
-    inputs.property 'version', project.version
-
-    filesMatching('META-INF/mods.toml') {
-        expand version: project.version
     }
 }
 
@@ -138,6 +131,7 @@ modrinth {
         optional.project "xaeros-minimap"
         optional.project "xaeros-minimap-fair"
         optional.project "map-atlases"
+        optional.project "voxelmap"
     }
 }
 
@@ -158,7 +152,7 @@ task publishCurseForge(type: net.darkhax.curseforgegradle.TaskPublishCurseForge)
     List<String> mcVersions = curseforge_gameVersions.split(",")
     mainFile.gameVersions = mcVersions
     mainFile.addGameVersion("Forge")
-    mainFile.addGameVersion("Java 17")
+    mainFile.addGameVersion("Java 8")
 
     mainFile.addRequirement("serene-seasons")
     mainFile.addOptional("curios")
@@ -167,6 +161,7 @@ task publishCurseForge(type: net.darkhax.curseforgegradle.TaskPublishCurseForge)
     mainFile.addOptional("xaeros-minimap")
     mainFile.addOptional("xaeros-minimap-fair-play-edition")
     mainFile.addOptional("map-atlases-forge")
+    mainFile.addOptional("voxelmap")
 }
 
 task publishForge {
