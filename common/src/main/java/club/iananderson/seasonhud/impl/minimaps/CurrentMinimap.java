@@ -59,10 +59,11 @@ public class CurrentMinimap {
       return false;
     }
 
-    return
-        (Config.getEnableMod() && Config.getEnableMinimapIntegration() && Calendar.calendarFound() && (mc.screen == null
-            || mc.screen instanceof ChatScreen || mc.screen instanceof DeathScreen) && !mc.options.hideGui)
-            && !Services.MINIMAP.hideHudInCurrentDimension() && !Services.MINIMAP.hiddenMinimap(minimap);
+    boolean enabled = Config.getEnableMod() && Config.getEnableMinimapIntegration();
+    boolean validScreens = mc.screen == null || mc.screen instanceof ChatScreen || mc.screen instanceof DeathScreen;
+    boolean hiddenMinimap = Services.MINIMAP.hideHudInCurrentDimension() || Services.MINIMAP.hiddenMinimap(minimap);
+
+    return enabled && Calendar.calendarFound() && validScreens && !mc.options.hideGui && !hiddenMinimap;
   }
 
   public enum Minimaps {

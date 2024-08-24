@@ -4,12 +4,18 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 
-## [1.9.9] - 2024-08-07
+## [1.9.9] - 2024-08-24
+
+### Added
+
+- Updated the 1.16.5 version, and created a Fabric version.
 
 ### Changed
 
 - Switched Curios to use a custom Calendar slot instead of Charm.
 - Switched Accessories to use a custom Calendar slot instead of Charm.
+- Improved detection of curios/trinkets/accessories
+- Switched to Architectury Loom (not the API) for developing
 
 ## [1.9.8] - 2024-07-28
 
@@ -66,12 +72,12 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 
 - Added tooltips to the options screen buttons
 - Added sliders for the Hud offset in the options screen
-  - Right click will set them back to default
+    - Right click will set them back to default
 
 ### Changed
 
 - Changed the default offsets from 0,0 from 2,2 due to some changes in the offset calculation
-  - If you aren't using a minimap mod, you may need to manually change these values if the text isn't offset.
+    - If you aren't using a minimap mod, you may need to manually change these values if the text isn't offset.
 - More common code for JourneyMap and MapAtlases to make porting easier.
 - Improved logic for detecting hidden minimaps if multiple minimap mods are installed.
 - Updated Curios support to more modern implementation.
