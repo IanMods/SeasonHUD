@@ -13,12 +13,10 @@ public class SeasonHUDMixinPlugin implements IMixinConfigPlugin {
 
   private static final boolean HAS_XAERO;
   private static final boolean HAS_FTB;
-  private static final boolean HAS_MAP_ATLASES;
 
   static {
     HAS_XAERO = hasClass("xaero.common.HudMod");
     HAS_FTB = hasClass("dev.ftb.mods.ftbchunks.FTBChunks");
-    HAS_MAP_ATLASES = hasClass("pepjebs.mapatlases.MapAtlasesMod");
   }
 
   private String prefix = null;
@@ -53,8 +51,6 @@ public class SeasonHUDMixinPlugin implements IMixinConfigPlugin {
       return HAS_XAERO;
     } else if (mixinClassName.startsWith("club.iananderson.seasonhud.mixin.ftbchunks")) {
       return HAS_FTB;
-    } else if (mixinClassName.startsWith("club.iananderson.seasonhud.mixin.mapatlases")) {
-      return HAS_MAP_ATLASES;
     } else {
       return true;
     }

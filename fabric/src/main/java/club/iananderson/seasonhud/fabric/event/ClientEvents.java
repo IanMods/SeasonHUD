@@ -3,6 +3,7 @@ package club.iananderson.seasonhud.fabric.event;
 import club.iananderson.seasonhud.client.KeyBindings;
 import club.iananderson.seasonhud.client.gui.screens.SeasonHUDScreen;
 import club.iananderson.seasonhud.fabric.client.overlays.JourneyMap;
+import club.iananderson.seasonhud.fabric.client.overlays.MapAtlases;
 import club.iananderson.seasonhud.fabric.client.overlays.SeasonHUDOverlay;
 import club.iananderson.seasonhud.impl.minimaps.CurrentMinimap;
 import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
@@ -31,6 +32,10 @@ public class ClientEvents {
 
     if (CurrentMinimap.journeyMapLoaded()) {
       JourneyMap.init();
+    }
+
+    if (CurrentMinimap.mapAtlasesLoaded()) {
+      MapAtlases.init();
     }
   }
 

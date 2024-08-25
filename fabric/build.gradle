@@ -40,13 +40,8 @@ dependencies {
         exclude group: 'net.fabricmc', module: 'fabric-loader'
     }
 
-    //Fabric Seasons Extras
-    modCompileOnly("maven.modrinth:fabric-seasons-extras:${project.fabric_seasons_extras_version}") {
-        exclude group: 'net.fabricmc', module: 'fabric-loader'
-    }
-
     //Xaero's Minimap
-    modCompileOnly("maven.modrinth:xaeros-minimap:${project.xaeros_minimap_version}_Fabric_1.19.1") {
+    modCompileOnly("maven.modrinth:xaeros-minimap:${project.xaeros_minimap_version}_Fabric_1.18.2") {
         exclude group: 'net.fabricmc', module: 'fabric-loader'
     }
 
@@ -74,12 +69,7 @@ dependencies {
     modCompileOnly("curse.maven:map-atlases-436298:${project.map_atlases_fabric_version}") {
         exclude group: 'net.fabricmc', module: 'fabric-loader'
     }
-    modCompileOnly("maven.modrinth:moonlight:1.19.2-${project.moonlight_version}-fabric") {
-        exclude group: 'net.fabricmc', module: 'fabric-loader'
-    }
-    modCompileOnly("maven.modrinth:immediatelyfast:${project.immediatelyfast_version}+1.19.2-fabric") {
-        exclude group: 'net.fabricmc', module: 'fabric-loader'
-    }
+
 
     modCompileOnly("me.shedaniel.cloth:cloth-config-fabric:${project.cloth_config_version}") {
         exclude group: 'net.fabricmc', module: 'fabric-loader'
@@ -89,12 +79,12 @@ dependencies {
     modCompileOnly("dev.emi:trinkets:${project.trinkets_version}") {
         exclude group: 'net.fabricmc', module: 'fabric-loader'
     }
-    modCompileOnly "dev.onyxstudios.cardinal-components-api:cardinal-components-base:5.2.1"
-    modCompileOnly "dev.onyxstudios.cardinal-components-api:cardinal-components-entity:5.2.1"
+    modCompileOnly "dev.onyxstudios.cardinal-components-api:cardinal-components-base:5.0.2"
+    modCompileOnly "dev.onyxstudios.cardinal-components-api:cardinal-components-entity:5.0.2"
 
     //Forge Config API Port
-    modImplementation 'com.electronwill.night-config:core:3.6.5'
-    modImplementation 'com.electronwill.night-config:toml:3.6.5'
+    modImplementation 'com.electronwill.night-config:core:3.6.3'
+    modImplementation 'com.electronwill.night-config:toml:3.6.3'
     modImplementation("net.minecraftforge:forgeconfigapiport-fabric:${project.forge_config_api_port_version}") {
         exclude group: 'net.fabricmc', module: 'fabric-loader'
     }
@@ -115,7 +105,7 @@ dependencies {
     // See root gradle.properties to choose which to use at runtime.
     switch (project.minimap_mod.toLowerCase(Locale.ROOT)) {
         case "xaero":
-            modLocalRuntime("maven.modrinth:xaeros-minimap:${project.xaeros_minimap_version}_Fabric_1.19.1")
+            modLocalRuntime("maven.modrinth:xaeros-minimap:${project.xaeros_minimap_version}_Fabric_1.18.2")
             break
         case "journey":
             modLocalRuntime("maven.modrinth:journeymap:${project.minecraft_version}-${project.journeymap_version}-fabric")
@@ -128,9 +118,8 @@ dependencies {
             break
         case "atlas":
             modLocalRuntime("curse.maven:map-atlases-436298:${project.map_atlases_fabric_version}")
-            modLocalRuntime("maven.modrinth:moonlight:1.19.2-${project.moonlight_version}-fabric")
-            modLocalRuntime("dev.onyxstudios.cardinal-components-api:cardinal-components-item:5.2.1")
-            modLocalRuntime("dev.onyxstudios.cardinal-components-api:cardinal-components-base:5.2.1")
+            modLocalRuntime("dev.onyxstudios.cardinal-components-api:cardinal-components-item:5.0.2")
+            modLocalRuntime("dev.onyxstudios.cardinal-components-api:cardinal-components-base:5.0.2")
             break
         case "none":
             break

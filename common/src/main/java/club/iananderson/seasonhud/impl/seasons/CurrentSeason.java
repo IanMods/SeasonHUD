@@ -9,6 +9,7 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.network.chat.Style;
+import net.minecraft.network.chat.TextComponent;
 import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
@@ -59,11 +60,11 @@ public class CurrentSeason {
   //Localized name for the hud with icon
   public Component getText() {
     Component season = new TranslatableComponent("desc.seasonhud.season." + getSeasonStateLower());
-    Component text = Component.literal("");
+    Component text = new TextComponent("");
 
     switch (Config.getShowDay()) {
       case NONE:
-        text = Component.translatable(ShowDay.NONE.getKey(), season);
+        text = new TranslatableComponent(ShowDay.NONE.getKey(), season);
         break;
 
       case SHOW_DAY:
