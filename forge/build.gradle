@@ -107,7 +107,7 @@ modrinth {
     int nextHeading = changelogText.indexOf("## [", firstHeading + 1)
     String recentChangelogText = changelogText.substring(firstHeading, nextHeading)
 
-    debugMode = true
+    debugMode = false
     token = System.getenv("MODRINTH_TOKEN")
     projectId = modrinth_forge_id
     versionNumber = minecraft_version + "-" + version
@@ -136,7 +136,7 @@ task publishCurseForge(type: net.darkhax.curseforgegradle.TaskPublishCurseForge)
     int nextHeading = changelogText.indexOf("## [", firstHeading + 1)
     String recentChangelogText = changelogText.substring(firstHeading, nextHeading)
 
-    debugMode = true
+    debugMode = false
     disableVersionDetection()
     apiToken = System.getenv("CURSEFORGE_TOKEN")
 
