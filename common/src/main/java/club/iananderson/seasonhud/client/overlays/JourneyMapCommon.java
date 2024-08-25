@@ -83,9 +83,10 @@ public class JourneyMapCommon {
   }
 
   private int labelY() {
-    int startY = (int) (textureY + (Config.getJourneyMapMacOS() ? -margin - labelHeight : minimapHeight + margin));
+    int startY = (int) (textureY + (Config.getJourneyMapAboveMap() ? 0 : (Config.getJourneyMapMacOS() ? -margin
+        - labelHeight : minimapHeight + margin)));
 
-    return startY + (Config.getJourneyMapAboveMap() ? -topLabelHeight : bottomLabelHeight);
+    return startY + (Config.getJourneyMapAboveMap() ? -topLabelHeight - margin - labelHeight : bottomLabelHeight);
   }
 
   public float getFontScale() {

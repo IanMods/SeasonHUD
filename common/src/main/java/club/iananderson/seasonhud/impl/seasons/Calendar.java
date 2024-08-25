@@ -4,38 +4,32 @@ import club.iananderson.seasonhud.Common;
 import club.iananderson.seasonhud.config.Config;
 import club.iananderson.seasonhud.platform.Services;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.item.Item;
 
 public class Calendar {
-  public static final boolean CALENDAR_LOADED = (Services.PLATFORM.getPlatformName().equals("Forge") || (
-      Services.PLATFORM.getPlatformName().equals("Fabric") && Common.extrasLoaded()));
-
   private Calendar() {
   }
 
   public static boolean calendarFound() {
-    LocalPlayer player = Minecraft.getInstance().player;
+    Minecraft mc = Minecraft.getInstance();
+    Item calendar = Services.SEASON.calendar();
 
-    if (Config.getNeedCalendar() && CALENDAR_LOADED && player != null) {
-      Inventory inv = player.getInventory();
-      Item calendar = Services.SEASON.calendar();
-      int slot = findCalendar(inv, calendar) + Services.SEASON.findCuriosCalendar(player, calendar);
-
-      return (slot >= 0);
-    } else {
+    if (Services.PLATFORM.getPlatformName().equals("Fabric") && !Common.extrasLoaded()) {
       return true;
     }
+
+    if (mc.level == null || mc.player == null || calendar == null) {
+      return false;
+    }
+
+    boolean inventorySlot = findCalendar(mc.player.getInventory(), calendar);
+    boolean curioSlot = Services.SEASON.findCuriosCalendar(mc.player, calendar) > 0;
+
+    return inventorySlot || curioSlot || !Config.getNeedCalendar();
   }
 
-  private static int findCalendar(Inventory inv, Item item) {
-    for (int i = 0; i < inv.items.size(); ++i) {
-      if ((!inv.items.get(i).isEmpty() && inv.items.get(i).is(item)) || (!inv.offhand.get(0).isEmpty()
-          && inv.offhand.get(0).is(item))) {
-        return i;
-      }
-    }
-    return -1;
+  private static boolean findCalendar(Inventory inv, Item item) {
+    return inv.contains(item.getDefaultInstance());
   }
 }

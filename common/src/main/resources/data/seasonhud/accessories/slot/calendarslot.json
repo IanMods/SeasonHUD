@@ -1,0 +1,7 @@
+{
+  "replace": false,
+  "icon": "seasonhud:gui/slot/calendarslot",
+  "amount": 1,
+  "order": -256,
+  "operation": "set"
+}

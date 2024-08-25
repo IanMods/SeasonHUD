@@ -59,23 +59,33 @@ public class CurrentSeason {
   //Localized name for the hud with icon
   public Component getText() {
     Component season = new TranslatableComponent("desc.seasonhud.season." + getSeasonStateLower());
+    Component text = Component.literal("");
 
-    return switch (Config.getShowDay()) {
-      case NONE -> new TranslatableComponent(ShowDay.NONE.getKey(), season);
-      case SHOW_DAY -> new TranslatableComponent(ShowDay.SHOW_DAY.getKey(), season, seasonDate);
-      case SHOW_WITH_TOTAL_DAYS ->
-          new TranslatableComponent(ShowDay.SHOW_WITH_TOTAL_DAYS.getKey(), season, seasonDate, seasonDuration);
-      case SHOW_WITH_MONTH -> {
+    switch (Config.getShowDay()) {
+      case NONE:
+        text = Component.translatable(ShowDay.NONE.getKey(), season);
+        break;
+
+      case SHOW_DAY:
+        text = new TranslatableComponent(ShowDay.SHOW_DAY.getKey(), season, seasonDate);
+        break;
+
+      case SHOW_WITH_TOTAL_DAYS:
+        text = new TranslatableComponent(ShowDay.SHOW_WITH_TOTAL_DAYS.getKey(), season, seasonDate, seasonDuration);
+        break;
+
+      case SHOW_WITH_MONTH:
         if (Services.SEASON.isSeasonTiedWithSystemTime()) {
           String systemMonth = LocalDateTime.now().getMonth().name().toLowerCase();
           Component currentMonth = new TranslatableComponent("desc.seasonhud.month." + systemMonth);
 
-          yield new TranslatableComponent(ShowDay.SHOW_WITH_MONTH.getKey(), season, currentMonth, seasonDate);
+          text = new TranslatableComponent(ShowDay.SHOW_WITH_MONTH.getKey(), season, currentMonth, seasonDate);
         } else {
-          yield new TranslatableComponent(ShowDay.SHOW_DAY.getKey(), season, seasonDate);
+          text = new TranslatableComponent(ShowDay.SHOW_DAY.getKey(), season, seasonDate);
         }
-      }
-    };
+        break;
+    }
+    return text;
   }
 
   //Get the current season and match it to the icon for the font

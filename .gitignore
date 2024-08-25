@@ -1,11 +1,16 @@
-# eclipse
-bin
-*.launch
-.settings
-.metadata
-.classpath
-.project
-
+# Project exclude paths
+/.architectury-transformer/
+/.gradle/
+/build/
+/common/.gradle/
+/common/build/
+/common/run/
+/fabric/.gradle/
+/fabric/build/
+/fabric/run/
+/forge/.gradle/
+/forge/build/
+/forge/run/
 # idea
 out
 *.ipr
@@ -15,13 +20,9 @@ out
 !/.idea/scopes
 !/.idea/codeStyles
 !/.idea/fileColors.xml
-
 # gradle
 build
 .gradle
-
 # other
-eclipse
 run
 runs
-
