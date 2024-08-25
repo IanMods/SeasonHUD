@@ -4,7 +4,6 @@ import club.iananderson.seasonhud.Common;
 import club.iananderson.seasonhud.client.KeyBindings;
 import club.iananderson.seasonhud.client.gui.screens.SeasonHUDScreen;
 import club.iananderson.seasonhud.forge.client.overlays.JourneyMap;
-import club.iananderson.seasonhud.forge.client.overlays.MapAtlases;
 import club.iananderson.seasonhud.forge.client.overlays.SeasonHUDOverlay;
 import club.iananderson.seasonhud.impl.minimaps.CurrentMinimap;
 import net.minecraftforge.api.distmarker.Dist;
@@ -43,14 +42,6 @@ public class ClientEvents {
       if (CurrentMinimap.journeyMapLoaded()) {
         JourneyMap.init();
         event.registerAbove(VanillaGuiOverlay.FROSTBITE.id(), "journeymap", JourneyMap.HUD_INSTANCE);
-      }
-    }
-
-    @SubscribeEvent
-    public static void registerMapAtlasesOverlay(RegisterGuiOverlaysEvent event) {
-      if (CurrentMinimap.mapAtlasesLoaded()) {
-        MapAtlases.init();
-        event.registerAbove(VanillaGuiOverlay.FROSTBITE.id(), "mapatlases", MapAtlases.HUD_INSTANCE);
       }
     }
 
