@@ -45,20 +45,20 @@ public class MapAtlases implements IGuiOverlay {
     Minecraft mc = Minecraft.getInstance();
 
     if (CurrentMinimap.mapAtlasesLoaded() && shouldDraw(mc)) {
-      Anchoring anchorLocation = MapAtlasesClientConfig.miniMapAnchoring.get();
       float textScaling = (float) (double) MapAtlasesClientConfig.minimapCoordsAndBiomeScale.get();
       float globalScale = MapAtlasesClientConfig.miniMapScale.get().floatValue();
-      int actualBgSize = (int) (BG_SIZE * globalScale);
-      int offset = 5;
-      int x = anchorLocation.isLeft ? offset : (int) (screenWidth / globalScale) - (BG_SIZE + offset);
-      int y = anchorLocation.isUp ? offset : (int) (screenHeight / globalScale) - (BG_SIZE + offset);
 
       graphics.pushPose();
       graphics.scale(globalScale, globalScale, 1);
 
+      int mapWidgetSize = 58;
+      int actualBgSize = (int) (64.0F * globalScale);
+      Anchoring anchorLocation = MapAtlasesClientConfig.miniMapAnchoring.get();
+      int x = anchorLocation.isLeft ? 0 : (int) ((float) screenWidth / globalScale) - BG_SIZE;
+      int y = anchorLocation.isUp ? 0 : (int) ((float) screenHeight / globalScale) - BG_SIZE;
       x += (int) (MapAtlasesClientConfig.miniMapHorizontalOffset.get() / globalScale);
       y += (int) (MapAtlasesClientConfig.miniMapVerticalOffset.get() / globalScale);
-
+      int offsetForEffects;
       if (anchorLocation.isUp && !anchorLocation.isLeft) {
         boolean hasBeneficial = false;
         boolean hasNegative = false;
@@ -70,7 +70,8 @@ public class MapAtlases implements IGuiOverlay {
             hasNegative = true;
           }
         }
-        int offsetForEffects = MapAtlasesClientConfig.activePotionVerticalOffset.get();
+
+        offsetForEffects = MapAtlasesClientConfig.activePotionVerticalOffset.get();
         if (hasNegative && y < 2 * offsetForEffects) {
           y += (2 * offsetForEffects - y);
         } else if (hasBeneficial && y < offsetForEffects) {
@@ -78,14 +79,14 @@ public class MapAtlases implements IGuiOverlay {
         }
       }
 
-      float textHeightOffset = 2.0F;
+      float textHeightOffset = 0F;
 
       if (MapAtlasesClientConfig.drawMinimapCoords.get()) {
         textHeightOffset += (10.0F * textScaling);
       }
-//      if (MapAtlasesClientConfig.drawMinimapChunkCoords.get()) {
-//        textHeightOffset += (10.0F * textScaling);
-//      }
+      if (MapAtlasesClientConfig.drawMinimapChunkCoords.get()) {
+        textHeightOffset += (10.0F * textScaling);
+      }
       if (MapAtlasesClientConfig.drawMinimapBiome.get()) {
         textHeightOffset += (10.0F * textScaling);
       }

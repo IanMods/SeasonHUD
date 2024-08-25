@@ -2,7 +2,8 @@ package club.iananderson.seasonhud.forge;
 
 import club.iananderson.seasonhud.Common;
 import club.iananderson.seasonhud.config.Config;
-import club.iananderson.seasonhud.impl.curios.CuriosCompat;
+import club.iananderson.seasonhud.forge.impl.curios.CuriosCompat;
+import net.minecraftforge.client.event.TextureStitchEvent;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
@@ -33,6 +34,11 @@ public class SeasonHudForge {
         Common.LOG.info("Talking to Curios");
         new CuriosCompat().setup(event);
       }
+    }
+
+    @SubscribeEvent
+    public static void curioTexture(TextureStitchEvent.Pre evt) {
+      evt.addSprite(Common.slotIcon);
     }
   }
 }

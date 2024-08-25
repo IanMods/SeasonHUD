@@ -1,7 +1,7 @@
 package club.iananderson.seasonhud.fabric.client.overlays;
 
-import com.mojang.blaze3d.vertex.PoseStack;
 import club.iananderson.seasonhud.client.overlays.SeasonHUDOverlayCommon;
+import com.mojang.blaze3d.vertex.PoseStack;
 import net.fabricmc.fabric.api.client.rendering.v1.HudRenderCallback;
 
 public class SeasonHUDOverlay implements HudRenderCallback {

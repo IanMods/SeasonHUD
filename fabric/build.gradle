@@ -46,7 +46,7 @@ dependencies {
     }
 
     //Xaero's Minimap
-    modCompileOnly("maven.modrinth:xaeros-minimap:${project.xaeros_minimap_version}_Fabric_1.20") {
+    modCompileOnly("maven.modrinth:xaeros-minimap:${project.xaeros_minimap_version}_Fabric_1.19.1") {
         exclude group: 'net.fabricmc', module: 'fabric-loader'
     }
 
@@ -74,10 +74,10 @@ dependencies {
     modCompileOnly("curse.maven:map-atlases-436298:${project.map_atlases_fabric_version}") {
         exclude group: 'net.fabricmc', module: 'fabric-loader'
     }
-    modCompileOnly("maven.modrinth:moonlight:fabric_1.20-${project.moonlight_version}") {
+    modCompileOnly("maven.modrinth:moonlight:1.19.2-${project.moonlight_version}-fabric") {
         exclude group: 'net.fabricmc', module: 'fabric-loader'
     }
-    modCompileOnly("maven.modrinth:immediatelyfast:${project.immediatelyfast_version}+1.20.4-fabric") {
+    modCompileOnly("maven.modrinth:immediatelyfast:${project.immediatelyfast_version}+1.19.2-fabric") {
         exclude group: 'net.fabricmc', module: 'fabric-loader'
     }
 
@@ -91,11 +91,11 @@ dependencies {
     }
     modCompileOnly "dev.onyxstudios.cardinal-components-api:cardinal-components-base:5.2.1"
     modCompileOnly "dev.onyxstudios.cardinal-components-api:cardinal-components-entity:5.2.1"
-    modCompileOnly "maven.modrinth:accessories:${project.accessories_fabric_version}"
 
     //Forge Config API Port
-    modApi "fuzs.forgeconfigapiport:forgeconfigapiport-fabric:${project.forge_config_api_port_version}"
-    modImplementation("maven.modrinth:forge-config-api-port:v${project.forge_config_api_port_version}-${project.minecraft_version}-Fabric") {
+    modImplementation 'com.electronwill.night-config:core:3.6.5'
+    modImplementation 'com.electronwill.night-config:toml:3.6.5'
+    modImplementation("net.minecraftforge:forgeconfigapiport-fabric:${project.forge_config_api_port_version}") {
         exclude group: 'net.fabricmc', module: 'fabric-loader'
     }
 
@@ -103,17 +103,19 @@ dependencies {
     modLocalRuntime("maven.modrinth:lazydfu:${project.lazydfu_version}") {
         exclude group: 'net.fabricmc', module: 'fabric-loader'
     }
-    modLocalRuntime("com.terraformersmc:modmenu:${project.modmenu_version}")
-
-    modLocalRuntime("mezz.jei:jei-${project.minecraft_version}-fabric:${project.jei_version}") {
+    modLocalRuntime("com.terraformersmc:modmenu:${project.modmenu_version}") {
         exclude group: 'net.fabricmc', module: 'fabric-loader'
     }
+
+//    modLocalRuntime("mezz.jei:jei-${project.minecraft_version}-fabric:${project.jei_version}") {
+//        exclude group: 'net.fabricmc', module: 'fabric-loader'
+//    }
 
     // Minimap Mod Dev Tests
     // See root gradle.properties to choose which to use at runtime.
     switch (project.minimap_mod.toLowerCase(Locale.ROOT)) {
         case "xaero":
-            modLocalRuntime("maven.modrinth:xaeros-minimap:${project.xaeros_minimap_version}_Fabric_1.20")
+            modLocalRuntime("maven.modrinth:xaeros-minimap:${project.xaeros_minimap_version}_Fabric_1.19.1")
             break
         case "journey":
             modLocalRuntime("maven.modrinth:journeymap:${project.minecraft_version}-${project.journeymap_version}-fabric")
@@ -126,11 +128,9 @@ dependencies {
             break
         case "atlas":
             modLocalRuntime("curse.maven:map-atlases-436298:${project.map_atlases_fabric_version}")
-            modLocalRuntime("maven.modrinth:moonlight:fabric_1.20-${project.moonlight_version}")
-            modLocalRuntime("maven.modrinth:immediatelyfast:${project.immediatelyfast_version}+1.20.4-fabric")
+            modLocalRuntime("maven.modrinth:moonlight:1.19.2-${project.moonlight_version}-fabric")
             modLocalRuntime("dev.onyxstudios.cardinal-components-api:cardinal-components-item:5.2.1")
             modLocalRuntime("dev.onyxstudios.cardinal-components-api:cardinal-components-base:5.2.1")
-            modLocalRuntime("dev.onyxstudios.cardinal-components-api:cardinal-components-entity:5.2.1")
             break
         case "none":
             break

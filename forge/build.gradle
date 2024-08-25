@@ -42,7 +42,7 @@ dependencies {
     modImplementation "maven.modrinth:serene-seasons:${project.serene_seasons_version}"
 
     //Xaero's Minimap
-    modCompileOnly "maven.modrinth:xaeros-minimap:${project.xaeros_minimap_version}_Forge_1.20"
+    modCompileOnly "maven.modrinth:xaeros-minimap:${project.xaeros_minimap_version}_Forge_1.19.1"
 
     //JourneyMap
     modCompileOnly "maven.modrinth:journeymap:${project.minecraft_version}-${project.journeymap_version}-forge"
@@ -55,8 +55,8 @@ dependencies {
 
     //Map Atlases
     modCompileOnly "curse.maven:map-atlases-forge-519759:${project.map_atlases_forge_version}"
-    modCompileOnly "maven.modrinth:moonlight:forge_1.20-${project.moonlight_version}"
-    modCompileOnly "maven.modrinth:immediatelyfast:${project.immediatelyfast_version}+1.20.4-forge"
+    modCompileOnly "maven.modrinth:moonlight:1.19.2-${project.moonlight_version}-forge"
+    modCompileOnly "maven.modrinth:immediatelyfast:${project.immediatelyfast_version}+1.19.2-forge"
 
     //Curios + Accessories
     modLocalRuntime "top.theillusivec4.curios:curios-forge:${project.curios_version}"
@@ -69,7 +69,7 @@ dependencies {
     // See root gradle.properties to choose which to use at runtime.
     switch (project.minimap_mod.toLowerCase(Locale.ROOT)) {
         case "xaero":
-            modLocalRuntime "maven.modrinth:xaeros-minimap:${project.xaeros_minimap_version}_Forge_1.20"
+            modLocalRuntime "maven.modrinth:xaeros-minimap:${project.xaeros_minimap_version}_Forge_1.19.1"
             break
         case "journey":
             modLocalRuntime "maven.modrinth:journeymap:${project.minecraft_version}-${project.journeymap_version}-forge"
@@ -82,10 +82,10 @@ dependencies {
             break
         case "atlas":
             modLocalRuntime "curse.maven:map-atlases-forge-519759:${project.map_atlases_forge_version}"
-            modLocalRuntime("maven.modrinth:immediatelyfast:${project.immediatelyfast_version}+1.20.4-forge")
-            modLocalRuntime "maven.modrinth:moonlight:forge_1.20-${project.moonlight_version}"
-            compileOnly(annotationProcessor("io.github.llamalad7:mixinextras-common:0.4.1"))
-            implementation("io.github.llamalad7:mixinextras-forge:0.4.1")
+            modLocalRuntime "curse.maven:supplementaries-412082:5152602"
+            modLocalRuntime "maven.modrinth:moonlight:1.19.2-${project.moonlight_version}-forge"
+            compileOnly(annotationProcessor("io.github.llamalad7:mixinextras-common:0.2.1-beta.2"))
+            implementation("io.github.llamalad7:mixinextras-forge:0.2.1-beta.2")
             break
         case "none":
             break
