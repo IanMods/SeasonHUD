@@ -15,7 +15,7 @@ public class Calendar {
     Minecraft mc = Minecraft.getInstance();
     Item calendar = Services.SEASON.calendar();
 
-    if (!Common.extrasLoaded()) {
+    if (Services.PLATFORM.getPlatformName().equals("Fabric") && !Common.extrasLoaded()) {
       return true;
     }
 
