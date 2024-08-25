@@ -1,6 +1,13 @@
 {
   "replace": false,
   "values": [
-    "sereneseasons:calendar"
+    {
+      "id": "seasonsextras:season_calendar",
+      "required": false
+    },
+    {
+      "id": "sereneseasons:calendar",
+      "required": false
+    }
   ]
 }

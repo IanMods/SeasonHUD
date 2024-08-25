@@ -1,38 +1,21 @@
-plugins {
-    id 'multiloader-common'
-    id 'org.spongepowered.gradle.vanilla' version '0.2.1-SNAPSHOT'
-}
-
-minecraft {
-    version(minecraft_version)
-    def aw = file("src/main/resources/${mod_id}.accesswidener")
-    if (aw.exists()) {
-        accessWideners(aw)
-    }
+architectury {
+    common enabled_platforms.split(',')
 }
 
 dependencies {
-    compileOnly group: 'org.spongepowered', name: 'mixin', version: '0.8.5'
+    // We depend on Fabric Loader here to use the Fabric @Environment annotations,
+    // which get remapped to the correct annotations on each platform.
+    // Do NOT use other classes from Fabric Loader.
+    modImplementation "net.fabricmc:fabric-loader:${project.fabric_loader_version}"
 
-    api "fuzs.forgeconfigapiport:forgeconfigapiport-common:${forgeconfigapiport_version}"
+    api "fuzs.forgeconfigapiport:forgeconfigapiport-common:${project.forge_config_api_port_version}"
 
-    //To get the Journeymap map values, since they are the same between the mod loaders.
-    // Not used unless Journeymap is actually  loaded.
-    compileOnly "curse.maven:journeymap-32274:${project.journeymap_forge_file_id}"
-}
+    // Minimap Mods
+    // Not used in common unless they are actually  loaded.
+    modCompileOnly "maven.modrinth:xaeros-minimap:${project.xaeros_minimap_version}_Forge_1.20"
+    modCompileOnly "curse.maven:ftb-chunks-forge-314906:${project.ftb_chunks_forge_version}"
+    modCompileOnly "curse.maven:ftb-library-forge-404465:${project.ftb_library_forge_version}"
+    modCompileOnly "maven.modrinth:journeymap:${project.minecraft_version}-${project.journeymap_version}-forge"
+    modCompileOnly "curse.maven:map-atlases-forge-519759:${project.map_atlases_forge_version}"
 
-configurations {
-    commonJava {
-        canBeResolved = false
-        canBeConsumed = true
-    }
-    commonResources {
-        canBeResolved = false
-        canBeConsumed = true
-    }
-}
-
-artifacts {
-    commonJava sourceSets.main.java.sourceDirectories.singleFile
-    commonResources sourceSets.main.resources.sourceDirectories.singleFile
 }
