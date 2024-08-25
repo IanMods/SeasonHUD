@@ -70,7 +70,6 @@ dependencies {
         exclude group: 'net.fabricmc', module: 'fabric-loader'
     }
 
-
     modCompileOnly("me.shedaniel.cloth:cloth-config-fabric:${project.cloth_config_version}") {
         exclude group: 'net.fabricmc', module: 'fabric-loader'
     }
@@ -79,8 +78,13 @@ dependencies {
     modCompileOnly("dev.emi:trinkets:${project.trinkets_version}") {
         exclude group: 'net.fabricmc', module: 'fabric-loader'
     }
-    modCompileOnly "dev.onyxstudios.cardinal-components-api:cardinal-components-base:5.0.2"
-    modCompileOnly "dev.onyxstudios.cardinal-components-api:cardinal-components-entity:5.0.2"
+    modCompileOnly ("dev.onyxstudios.cardinal-components-api:cardinal-components-base:5.0.2") {
+        exclude group: 'net.fabricmc', module: 'fabric-loader'
+    }
+
+    modCompileOnly ("dev.onyxstudios.cardinal-components-api:cardinal-components-entity:5.0.2") {
+        exclude group: 'net.fabricmc', module: 'fabric-loader'
+    }
 
     //Forge Config API Port
     modImplementation 'com.electronwill.night-config:core:3.6.3'
@@ -118,8 +122,7 @@ dependencies {
             break
         case "atlas":
             modLocalRuntime("curse.maven:map-atlases-436298:${project.map_atlases_fabric_version}")
-            modLocalRuntime("dev.onyxstudios.cardinal-components-api:cardinal-components-item:5.0.2")
-            modLocalRuntime("dev.onyxstudios.cardinal-components-api:cardinal-components-base:5.0.2")
+            modLocalRuntime("me.shedaniel.cloth:cloth-config-fabric:${project.cloth_config_version}")
             break
         case "none":
             break
