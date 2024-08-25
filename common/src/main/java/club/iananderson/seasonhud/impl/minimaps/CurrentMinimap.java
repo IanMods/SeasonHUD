@@ -65,19 +65,19 @@ public class CurrentMinimap {
       return false;
     }
 
+    boolean enabled = Config.getEnableMod() && Config.getEnableMinimapIntegration();
+    boolean validScreens = mc.screen == null || mc.screen instanceof ChatScreen || mc.screen instanceof DeathScreen;
+
+    if (journeyMapLoaded()) {
+      validScreens = MiniMap.uiState().active;
+    }
+
+    boolean hiddenMinimap = Services.MINIMAP.hideHudInCurrentDimension() || Services.MINIMAP.hiddenMinimap(minimap);
+
+    return enabled && Calendar.calendarFound() && validScreens && !mc.options.hideGui && !hiddenMinimap;
     return Config.getEnableMod() && Config.getEnableMinimapIntegration() && Calendar.calendarFound() && validScreen(
         mc.screen) && !mc.options.hideGui && !Services.MINIMAP.hideHudInCurrentDimension()
         && !Services.MINIMAP.hiddenMinimap(minimap);
-  }
-
-  public static boolean validScreen(Screen screen) {
-    boolean valid = (screen == null || screen instanceof ChatScreen || screen instanceof DeathScreen);
-
-    if (journeyMapLoaded()) {
-      return MiniMap.uiState().active;
-    } else {
-      return valid;
-    }
   }
 
   public enum Minimaps {

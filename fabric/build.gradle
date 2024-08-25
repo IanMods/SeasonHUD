@@ -1,85 +1,151 @@
 plugins {
-    id 'multiloader-loader'
-    id 'fabric-loom' version '1.7-SNAPSHOT'
-    id 'net.darkhax.curseforgegradle' version '1.1.18'
-    id "com.modrinth.minotaur" version "2.+"
+    id 'com.github.johnrengelman.shadow'
+    id 'net.darkhax.curseforgegradle'
+    id 'com.modrinth.minotaur'
+}
+
+architectury {
+    platformSetupLoomIde()
+    fabric()
+}
+
+configurations {
+    common {
+        canBeResolved = true
+        canBeConsumed = false
+    }
+    compileClasspath.extendsFrom common
+    runtimeClasspath.extendsFrom common
+    developmentFabric.extendsFrom common
+
+    // Files in this configuration will be bundled into your mod using the Shadow plugin.
+    // Don't use the `shadow` configuration from the plugin itself as it's meant for excluding files.
+    shadowBundle {
+        canBeResolved = true
+        canBeConsumed = false
+    }
 }
 
 dependencies {
-    minecraft "com.mojang:minecraft:${minecraft_version}"
-    mappings loom.officialMojangMappings()
-    modImplementation "net.fabricmc:fabric-loader:${fabric_loader_version}"
-    modImplementation "net.fabricmc.fabric-api:fabric-api:${fabric_version}"
+    modImplementation("net.fabricmc:fabric-loader:${project.fabric_loader_version}")
 
-    implementation("com.electronwill.night-config:core:3.6.7")
-    implementation("com.electronwill.night-config:toml:3.6.7")
-    include implementation("net.jodah:typetools:0.6.3")
+    // Fabric API. This is technically optional, but you probably want it anyway.
+    modImplementation("net.fabricmc.fabric-api:fabric-api:${project.fabric_api_version}")
 
-    /Serene Seasons/
-    modImplementation "curse.maven:serene-seasons-291874:${project.serene_seasons_fabric_file_id}"
-    modImplementation "com.github.glitchfiend:GlitchCore-fabric:${minecraft_version}-${project.glitchcore_version}"
+    common(project(path: ':common', configuration: 'namedElements')) { transitive false }
+    shadowBundle project(path: ':common', configuration: 'transformProductionFabric')
 
-    /Xaero's Minimap/
-    modCompileOnly "curse.maven:xaeros-minimap-263420:${project.xaeros_fabric_file_id}"
+    //Fabric Seasons
+    modImplementation("maven.modrinth:fabric-seasons:${project.fabric_seasons_version}") {
+        exclude group: 'net.fabricmc', module: 'fabric-loader'
+    }
 
-    /Xaero's Minimap Fair Play/
-//    modCompileOnly "curse.maven:xaeros-minimap-fair-play-edition-263466:${project.xaeros_fairplay_fabric_file_id}"
+    //Fabric Seasons Extras
+    modCompileOnly("maven.modrinth:fabric-seasons-extras:${project.fabric_seasons_extras_version}") {
+        exclude group: 'net.fabricmc', module: 'fabric-loader'
+    }
 
-    /FTB Chunks/
-    modCompileOnly "curse.maven:ftb-library-fabric-438495:${project.ftb_lib_fabric_file_id}"
-    modCompileOnly "curse.maven:architectury-api-419699:${project.architectury_fabric_file_id}"
-    modCompileOnly "curse.maven:ftb-teams-fabric-438497:${ftb_teams_fabric_file_id}"
-    modCompileOnly "curse.maven:ftb-chunks-fabric-472657:${ftb_chunks_fabric_file_id}"
+    //Xaero's Minimap
+    modCompileOnly("maven.modrinth:xaeros-minimap:${project.xaeros_minimap_version}_Fabric_1.20") {
+        exclude group: 'net.fabricmc', module: 'fabric-loader'
+    }
 
-    /Trinkets/
-//    modCompileOnly "dev.emi:trinkets:${trinkets_file_id}"
-    modCompileOnly "curse.maven:accessories-938917:${project.accessories_fabric_file_id}"
-    modCompileOnly "curse.maven:accessories-tc-layer-1005680:${project.tclayer_fabric_file_id}"
-    modCompileOnly "me.shedaniel.cloth:cloth-config-fabric:${project.cloth_config_version}"
-    modCompileOnly "dev.onyxstudios.cardinal-components-api:cardinal-components-base:${project.cca_version}"
-    modCompileOnly "dev.onyxstudios.cardinal-components-api:cardinal-components-item:${project.cca_version}"
-    modCompileOnly "dev.onyxstudios.cardinal-components-api:cardinal-components-entity:${project.cca_version}"
+    //JourneyMap
+    modCompileOnlyApi group: 'info.journeymap', name: 'journeymap-api', version: project.journeymap_api_version_fabric, changing: true
+    modCompileOnly("maven.modrinth:journeymap:${project.minecraft_version}-${project.journeymap_version}-fabric") {
+        exclude group: 'net.fabricmc', module: 'fabric-loader'
+    }
 
-    /Forge Config API Port/
-    modApi "fuzs.forgeconfigapiport:forgeconfigapiport-fabric:${forgeconfigapiport_version}"
-    modImplementation "curse.maven:forge-config-api-port-fabric-547434:${forgeconfigapiport_fabric_file_id}"
+    //FTB Chunks + Dependencies
+    modCompileOnly("curse.maven:ftb-chunks-fabric-472657:${project.ftb_chunks_fabric_version}") {
+        exclude group: 'net.fabricmc', module: 'fabric-loader'
+    }
+    modCompileOnly("curse.maven:ftb-library-fabric-438495:${project.ftb_library_fabric_version}") {
+        exclude group: 'net.fabricmc', module: 'fabric-loader'
+    }
+    modCompileOnly("curse.maven:ftb-teams-fabric-438497:${project.ftb_teams_fabric_version}") {
+        exclude group: 'net.fabricmc', module: 'fabric-loader'
+    }
+    modCompileOnly("maven.modrinth:architectury-api:${project.architectury_version}+fabric") {
+        exclude group: 'net.fabricmc', module: 'fabric-loader'
+    }
 
-    /JourneyMap/
-    modCompileOnlyApi group: 'info.journeymap', name: 'journeymap-api-fabric', version: journeymap_api_version, changing: true
-    modCompileOnly "curse.maven:journeymap-${project.jm_project_id}:${project.journeymap_fabric_file_id}"
+    //Map Atlases
+    modCompileOnly("curse.maven:map-atlases-436298:${project.map_atlases_fabric_version}") {
+        exclude group: 'net.fabricmc', module: 'fabric-loader'
+    }
+    modCompileOnly("maven.modrinth:moonlight:fabric_1.20-${project.moonlight_version}") {
+        exclude group: 'net.fabricmc', module: 'fabric-loader'
+    }
+    modCompileOnly("maven.modrinth:immediatelyfast:${project.immediatelyfast_version}+1.20.4-fabric") {
+        exclude group: 'net.fabricmc', module: 'fabric-loader'
+    }
 
-    /Map Atlases/
-    //Fabric only version, only for 1.20.4 even though it is marked as 1.20.5 as well
-    modCompileOnly "maven.modrinth:map-atlases:Cm1VPyWo"
-    modCompileOnly "maven.modrinth:cloth-config:eBZiZ9NS"
+    modCompileOnly("me.shedaniel.cloth:cloth-config-fabric:${project.cloth_config_version}") {
+        exclude group: 'net.fabricmc', module: 'fabric-loader'
+    }
 
-//    modCompileOnly "curse.maven:map-atlases-436298:${project.map_atlases_fabric_file_id}"
-//    modCompileOnly("curse.maven:selene-499980:5061469")
-//    modCompileOnly "curse.maven:immediatelyfast-686911:4937544"
+    //Trinkets + Accessories
+    modCompileOnly("dev.emi:trinkets:${project.trinkets_version}") {
+        exclude group: 'net.fabricmc', module: 'fabric-loader'
+    }
+    modCompileOnly "dev.onyxstudios.cardinal-components-api:cardinal-components-base:5.2.1"
+    modCompileOnly "dev.onyxstudios.cardinal-components-api:cardinal-components-entity:5.2.1"
+    modCompileOnly "maven.modrinth:accessories:${project.accessories_fabric_version}"
+
+    //Forge Config API Port
+    modApi "fuzs.forgeconfigapiport:forgeconfigapiport-fabric:${project.forge_config_api_port_version}"
+    modImplementation("maven.modrinth:forge-config-api-port:v${project.forge_config_api_port_version}-${project.minecraft_version}-Fabric") {
+        exclude group: 'net.fabricmc', module: 'fabric-loader'
+    }
+
+    // Development QOL
+    modLocalRuntime("maven.modrinth:lazydfu:${project.lazydfu_version}") {
+        exclude group: 'net.fabricmc', module: 'fabric-loader'
+    }
+    modLocalRuntime("com.terraformersmc:modmenu:${project.modmenu_version}")
+
+    modLocalRuntime("mezz.jei:jei-${project.minecraft_version}-fabric:${project.jei_version}") {
+        exclude group: 'net.fabricmc', module: 'fabric-loader'
+    }
+
+    // Minimap Mod Dev Tests
+    // See root gradle.properties to choose which to use at runtime.
+    switch (project.minimap_mod.toLowerCase(Locale.ROOT)) {
+        case "xaero":
+            modLocalRuntime("maven.modrinth:xaeros-minimap:${project.xaeros_minimap_version}_Fabric_1.20")
+            break
+        case "journey":
+            modLocalRuntime("maven.modrinth:journeymap:${project.minecraft_version}-${project.journeymap_version}-fabric")
+            break
+        case "ftb":
+            modLocalRuntime("curse.maven:ftb-chunks-fabric-472657:${project.ftb_chunks_fabric_version}")
+            modLocalRuntime("curse.maven:ftb-library-fabric-438495:${project.ftb_library_fabric_version}")
+            modLocalRuntime("curse.maven:ftb-teams-fabric-438497:${project.ftb_teams_fabric_version}")
+            modLocalRuntime("maven.modrinth:architectury-api:${project.architectury_version}+fabric")
+            break
+        case "atlas":
+            modLocalRuntime("curse.maven:map-atlases-436298:${project.map_atlases_fabric_version}")
+            modLocalRuntime("maven.modrinth:moonlight:fabric_1.20-${project.moonlight_version}")
+            modLocalRuntime("maven.modrinth:immediatelyfast:${project.immediatelyfast_version}+1.20.4-fabric")
+            modLocalRuntime("dev.onyxstudios.cardinal-components-api:cardinal-components-item:5.2.1")
+            modLocalRuntime("dev.onyxstudios.cardinal-components-api:cardinal-components-base:5.2.1")
+            modLocalRuntime("dev.onyxstudios.cardinal-components-api:cardinal-components-entity:5.2.1")
+            break
+        case "none":
+            break
+        default: println("Unknown recipe viewer specified: ${project.minimap_mod}. Must be xaero, journey, ftb, " +
+                "atlas, voxel, or none")
+    }
 }
 
-loom {
-    def aw = project(":common").file("src/main/resources/${mod_id}.accesswidener")
-    if (aw.exists()) {
-        accessWidenerPath.set(aw)
-    }
-    mixin {
-        defaultRefmapName.set("${mod_id}.refmap.json")
-    }
-    runs {
-        client {
-            client()
-            setConfigName("Fabric Client")
-            ideConfigGenerated(true)
-            runDir("runs/client")
-        }
-        server {
-            server()
-            setConfigName("Fabric Server")
-            ideConfigGenerated(true)
-            runDir("runs/server")
-        }
-    }
+shadowJar {
+    configurations = [project.configurations.shadowBundle]
+    archiveClassifier = 'dev-shadow'
+}
+
+remapJar {
+    input.set shadowJar.archiveFile
 }
 
 String changelogText = projectDir.toPath().getParent().resolve("CHANGELOG.md").getText('UTF-8')
@@ -104,7 +170,8 @@ modrinth {
     changelog = recentChangelogText
 
     dependencies {
-        required.project "serene-seasons"
+        required.project "fabric-seasons"
+        optional.project "fabric-seasons-extras"
         required.project "forge-config-api-port"
         optional.project "journeymap"
         optional.project "trinkets"
@@ -123,7 +190,7 @@ task publishCurseForge(type: net.darkhax.curseforgegradle.TaskPublishCurseForge)
     disableVersionDetection()
     apiToken = System.getenv("CURSEFORGE_TOKEN")
 
-    def mainFile = upload(curseforge_fabric_id, file("${project.buildDir}/libs/${archivesBaseName}-${version}.jar"))
+    def mainFile = upload(curseforge_fabric_id, jar)
     mainFile.changelogType = "markdown"
     mainFile.changelog = recentChangelogText
     mainFile.releaseType = "release"
@@ -131,14 +198,23 @@ task publishCurseForge(type: net.darkhax.curseforgegradle.TaskPublishCurseForge)
     List<String> mcVersions = curseforge_gameVersions.split(",")
     mainFile.gameVersions = mcVersions
     mainFile.addGameVersion("Fabric")
-    mainFile.addGameVersion("Java 21")
+    mainFile.addGameVersion("Java 17")
 
-    mainFile.addRequirement("serene-seasons")
+    mainFile.addRequirement("fabric-seasons")
     mainFile.addRequirement("forge-config-api-port-fabric")
+    mainFile.addOptional("fabric-seasons-extras")
     mainFile.addOptional("ftb-chunks-fabric")
     mainFile.addOptional("journeymap")
     mainFile.addOptional("trinkets")
     mainFile.addOptional("xaeros-minimap")
     mainFile.addOptional("xaeros-minimap-fair-play-edition")
     mainFile.addOptional("map-atlases")
+}
+
+task publishFabric {
+    group = "publishing"
+    afterEvaluate {
+        dependsOn(tasks.publishCurseForge)
+        dependsOn(tasks.modrinth)
+    }
 }

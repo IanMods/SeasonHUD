@@ -3,13 +3,11 @@
   "minVersion": "0.8",
   "package": "club.iananderson.seasonhud.mixin",
   "refmap": "seasonhud.refmap.json",
-  "compatibilityLevel": "JAVA_17",
+  "compatibilityLevel": "JAVA_21",
   "mixins": [
   ],
   "client": [
-    "GuiMixin",
-    "ftbchunks.FTBChunksClientMixin",
-    "xaero.XaeroBuiltInInfoDisplays"
+    "GuiMixin"
   ],
   "plugin": "club.iananderson.seasonhud.mixin.SeasonHUDMixinPlugin",
   "injectors": {

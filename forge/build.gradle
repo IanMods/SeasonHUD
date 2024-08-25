@@ -1,151 +1,107 @@
 plugins {
-    id 'multiloader-loader'
-    id "net.minecraftforge.gradle" version '[6.0.24,6.2)'
-    id 'org.spongepowered.mixin' version '0.7-SNAPSHOT'
-    id 'net.darkhax.curseforgegradle' version '1.1.16'
-    id "com.modrinth.minotaur" version "2.+"
+    id 'com.github.johnrengelman.shadow'
+    id 'net.darkhax.curseforgegradle'
+    id "com.modrinth.minotaur"
 }
 
-base {
-    archivesName = "${mod_id}-forge-${minecraft_version}"
-}
-
-mixin {
-    add(sourceSets.main, "${mod_id}.refmap.json")
-
-    config("${mod_id}.mixins.json")
-    config("${mod_id}.forge.mixins.json")
-}
-
-jar {
-    manifest {
-        attributes([
-                'MixinConfigs': "${mod_id}.mixins.json" + "," + "${mod_id}.forge.mixins.json",
-        ])
+loom {
+    forge {
+        mixinConfig "seasonhud.mixins.json"
     }
 }
 
-minecraft {
-    mappings channel: 'official', version: minecraft_version
-//    mappings channel: 'official', version: minecraft_version
-    reobf = false
-    copyIdeResources = true
-
-    def at = file('src/main/resources/META-INF/accesstransformer.cfg')
-    if (at.exists()) {
-        accessTransformer = at
-    }
-
-    runs {
-        client {
-            workingDirectory file('runs/client')
-            ideaModule "${rootProject.name}.${project.name}.main"
-            taskName 'Client'
-            mods {
-                modClientRun {
-                    source sourceSets.main
-                }
-            }
-        }
-
-        server {
-            workingDirectory file('runs/server')
-            ideaModule "${rootProject.name}.${project.name}.main"
-            taskName 'Server'
-            mods {
-                modServerRun {
-                    source sourceSets.main
-                }
-            }
-        }
-
-        data {
-            workingDirectory file('runs/data')
-            ideaModule "${rootProject.name}.${project.name}.main"
-            args '--mod', mod_id, '--all', '--output', file('src/generated/resources/'), '--existing', file('src/main/resources/')
-            taskName 'Data'
-            mods {
-                modDataRun {
-                    source sourceSets.main
-                }
-            }
-        }
-    }
+architectury {
+    platformSetupLoomIde()
+    forge()
 }
 
-sourceSets.main.resources { srcDir 'src/generated/resources' }
+configurations {
+    common {
+        canBeResolved = true
+        canBeConsumed = false
+    }
+    compileClasspath.extendsFrom common
+    runtimeClasspath.extendsFrom common
+    developmentForge.extendsFrom common
+
+    // Files in this configuration will be bundled into your mod using the Shadow plugin.
+    // Don't use the `shadow` configuration from the plugin itself as it's meant for excluding files.
+    shadowBundle {
+        canBeResolved = true
+        canBeConsumed = false
+    }
+}
 
 dependencies {
-    minecraft "net.minecraftforge:forge:${minecraft_version}-${forge_version}"
-    implementation('net.sf.jopt-simple:jopt-simple:5.0.4') { version { strictly '5.0.4' } }
-    annotationProcessor 'org.spongepowered:mixin:0.8.5-SNAPSHOT:processor'
+    forge "net.minecraftforge:forge:${project.minecraft_version}-${project.forge_version}"
 
-    //required for forgeconfigapiport because the transitive dep causes issues
-    implementation "io.github.llamalad7:mixinextras-forge:0.3.5"
+    common(project(path: ':common', configuration: 'namedElements')) { transitive false }
+    shadowBundle project(path: ':common', configuration: 'transformProductionForge')
 
+    //Serene Seasons
+    modImplementation "maven.modrinth:serene-seasons:${project.serene_seasons_version}"
 
-    api("fuzs.forgeconfigapiport:forgeconfigapiport-forge:${project.forgeconfigapiport_version}") {
-        transitive = false
-    }
-    implementation("curse.maven:forge-config-api-port-fabric-547434:${forgeconfigapiport_forge_file_id}") {
-        transitive = false
-    }
+    //Xaero's Minimap
+    modCompileOnly "maven.modrinth:xaeros-minimap:${project.xaeros_minimap_version}_Forge_1.20"
 
-    /Serene Seasons/
-    implementation "curse.maven:serene-seasons-291874:${project.serene_seasons_forge_file_id}"
-    implementation "com.github.glitchfiend:GlitchCore-forge:${minecraft_version}-${project.glitchcore_version}"
+    //JourneyMap
+    modCompileOnly "maven.modrinth:journeymap:${project.minecraft_version}-${project.journeymap_version}-forge"
 
-    /Curios/
-    compileOnly "top.theillusivec4.curios:curios-forge:${project.curios_file_id}:api"
-//    implementation "top.theillusivec4.curios:curios-forge:${project.curios_file_id}"
-    compileOnly "curse.maven:accessories-938917:${project.accessories_forge_file_id}"
-//    compileOnly "curse.maven:accessories-cc-layer-1005683:${project.cclayer_forge_file_id}"
-    compileOnly "me.shedaniel.cloth:cloth-config-neoforge:${project.cloth_config_version}"
+    //FTB Chunks + Dependencies
+    modCompileOnly "curse.maven:ftb-chunks-forge-314906:${project.ftb_chunks_forge_version}"
+    modCompileOnly "curse.maven:ftb-library-forge-404465:${project.ftb_library_forge_version}"
+    modCompileOnly "curse.maven:ftb-teams-forge-404468:${project.ftb_teams_forge_version}"
+    modCompileOnly "maven.modrinth:architectury-api:${project.architectury_version}+forge"
 
-    /Forge Config API Port/
-    implementation "fuzs.forgeconfigapiport:forgeconfigapiport-forge:${project.forgeconfigapiport_version}"
+    //Map Atlases
+    modCompileOnly "curse.maven:map-atlases-forge-519759:${project.map_atlases_forge_version}"
+    modCompileOnly "maven.modrinth:moonlight:forge_1.20-${project.moonlight_version}"
+    modCompileOnly "maven.modrinth:immediatelyfast:${project.immediatelyfast_version}+1.20.4-forge"
 
-    /Xaero's Minimap/
-    compileOnly "curse.maven:xaeros-minimap-263420:${project.xaeros_forge_file_id}"
+    //Curios + Accessories
+    modLocalRuntime "top.theillusivec4.curios:curios-forge:${project.curios_version}"
+    modCompileOnly "top.theillusivec4.curios:curios-forge:${project.curios_version}:api"
+    modCompileOnly "maven.modrinth:accessories:${project.accessories_forge_version}"
 
-    /Xaero's Minimap Fair Play/
-//    compileOnly "curse.maven:xaeros-minimap-fair-play-edition-263466:${project.xaeros_fairplay_forge_file_id}"
+    // Development QOL
+    modLocalRuntime("mezz.jei:jei-${project.minecraft_version}-forge:${project.jei_version}") { transitive = false }
 
-    /FTB Chunks/
-    //FTB Library
-    compileOnly "curse.maven:ftb-library-forge-404465:${project.ftb_lib_forge_file_id}"
-    //Architectury
-    compileOnly "curse.maven:architectury-api-419699:${project.architectury_forge_file_id}"
-    //FTB Teams
-    compileOnly "curse.maven:ftb-teams-forge-404468:${project.ftb_teams_forge_file_id}"
-    //FTB Chunks
-    compileOnly "curse.maven:ftb-chunks-forge-314906:${project.ftb_chunks_forge_file_id}"
-
-    /JourneyMap/
-    compileOnly "curse.maven:journeymap-32274:${project.journeymap_forge_file_id}"
-
-    /Map Atlases/
-    compileOnly("curse.maven:map-atlases-forge-519759:${project.map_atlases_forge_file_id}") {
-        transitive = false
-    }
-//    compileOnly "curse.maven:selene-499980:5061472"
-//    compileOnly "curse.maven:supplementaries-412082:5053567"
-//    compileOnly "curse.maven:immediatelyfast-686911:4937545"
-}
-
-// Example configuration to allow publishing using the maven-publish plugin
-publishing {
-    publications {
-        mavenJava(MavenPublication) {
-            fg.component(it)
-        }
+    // Minimap Mod Dev Tests
+    // See root gradle.properties to choose which to use at runtime.
+    switch (project.minimap_mod.toLowerCase(Locale.ROOT)) {
+        case "xaero":
+            modLocalRuntime "maven.modrinth:xaeros-minimap:${project.xaeros_minimap_version}_Forge_1.20"
+            break
+        case "journey":
+            modLocalRuntime "maven.modrinth:journeymap:${project.minecraft_version}-${project.journeymap_version}-forge"
+            break
+        case "ftb":
+            modLocalRuntime "curse.maven:ftb-chunks-forge-314906:${project.ftb_chunks_forge_version}"
+            modLocalRuntime "curse.maven:ftb-library-forge-404465:${project.ftb_library_forge_version}"
+            modLocalRuntime "curse.maven:ftb-teams-forge-404468:${project.ftb_teams_forge_version}"
+            modLocalRuntime "maven.modrinth:architectury-api:${project.architectury_version}+forge"
+            break
+        case "atlas":
+            modLocalRuntime "curse.maven:map-atlases-forge-519759:${project.map_atlases_forge_version}"
+            modLocalRuntime("maven.modrinth:immediatelyfast:${project.immediatelyfast_version}+1.20.4-forge")
+            modLocalRuntime "maven.modrinth:moonlight:forge_1.20-${project.moonlight_version}"
+            compileOnly(annotationProcessor("io.github.llamalad7:mixinextras-common:0.4.1"))
+            implementation("io.github.llamalad7:mixinextras-forge:0.4.1")
+            break
+        case "none":
+            break
+        default: println("Unknown recipe viewer specified: ${project.minimap_mod}. Must be xaero, journey, ftb, " +
+                "atlas, or none")
     }
 }
 
-sourceSets.each {
-    def dir = layout.buildDirectory.dir("sourcesSets/$it.name")
-    it.output.resourcesDir = dir
-    it.java.destinationDirectory = dir
+shadowJar {
+    configurations = [project.configurations.shadowBundle]
+    archiveClassifier = 'dev-shadow'
+}
+
+remapJar {
+    input.set shadowJar.archiveFile
 }
 
 String changelogText = projectDir.toPath().getParent().resolve("CHANGELOG.md").getText('UTF-8')
@@ -165,14 +121,14 @@ modrinth {
 
     List<String> mcVersions = modrinth_gameVersions.split(",")
     gameVersions = mcVersions
-    loaders = ["forge"]
+    loaders = ["forge", "neoforge"]
 
     changelog = recentChangelogText
 
     dependencies {
         required.project "serene-seasons"
-        required.project "forge-config-api-port"
         optional.project "curios"
+        optional.project "accessories"
         optional.project "journeymap"
         optional.project "xaeros-minimap"
         optional.project "xaeros-minimap-fair"
@@ -197,14 +153,23 @@ task publishCurseForge(type: net.darkhax.curseforgegradle.TaskPublishCurseForge)
     List<String> mcVersions = curseforge_gameVersions.split(",")
     mainFile.gameVersions = mcVersions
     mainFile.addGameVersion("Forge")
-    mainFile.addGameVersion("Java 21")
+    mainFile.addGameVersion("Neoforge")
+    mainFile.addGameVersion("Java 17")
 
     mainFile.addRequirement("serene-seasons")
-    mainFile.addRequirement("forge-config-api-port-fabric")
     mainFile.addOptional("curios")
+    mainFile.addOptional("accessories")
     mainFile.addOptional("ftb-chunks-forge")
     mainFile.addOptional("journeymap")
     mainFile.addOptional("xaeros-minimap")
     mainFile.addOptional("xaeros-minimap-fair-play-edition")
     mainFile.addOptional("map-atlases-forge")
+}
+
+task publishForge {
+    group = "publishing"
+    afterEvaluate {
+        dependsOn(tasks.publishCurseForge)
+        dependsOn(tasks.modrinth)
+    }
 }

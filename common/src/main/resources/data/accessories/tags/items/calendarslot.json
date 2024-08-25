@@ -1,0 +1,13 @@
+{
+  "replace": false,
+  "values": [
+    {
+      "id": "seasonsextras:season_calendar",
+      "required": false
+    },
+    {
+      "id": "sereneseasons:calendar",
+      "required": false
+    }
+  ]
+}
