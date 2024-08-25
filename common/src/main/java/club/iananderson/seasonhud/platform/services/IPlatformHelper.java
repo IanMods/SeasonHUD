@@ -17,6 +17,8 @@ public interface IPlatformHelper {
    */
   boolean isModLoaded(String modId);
 
+  String getModVersion(String modId);
+
   /**
    * Check if the game is currently in a development environment.
    *
