@@ -26,7 +26,6 @@ public class FTBChunksClientMixin {
       .comment(new String[]{"Show season under minimap"});
 
   @Inject(method = "buildMinimapTextData", at = @At("RETURN"), remap = false, cancellable = true)
-
   private void buildMinimapTextData(Minecraft mc, double playerX, double playerY, double playerZ, MapDimension dim,
       CallbackInfoReturnable<List<Component>> cir) {
     MutableComponent seasonCombined = CurrentSeason.getInstance(mc).getSeasonHudText();

@@ -8,9 +8,11 @@
   ],
   "client": [
     "ftbchunks.FTBChunksClientMixin",
+    "mapatlases.MapAtlasHudMixin",
     "xaero.XaeroBuiltInInfoDisplays"
   ],
   "injectors": {
-    "defaultRequire": 1
+    "defaultRequire": 1,
+    "maxShiftBy": 2
   }
 }

@@ -1,9 +1,10 @@
 package club.iananderson.seasonhud.forge.platform;
 
 import club.iananderson.seasonhud.Common;
-import club.iananderson.seasonhud.forge.client.overlays.MapAtlases;
+import club.iananderson.seasonhud.config.Config;
 import club.iananderson.seasonhud.impl.minimaps.CurrentMinimap;
 import club.iananderson.seasonhud.impl.minimaps.CurrentMinimap.Minimaps;
+import club.iananderson.seasonhud.impl.seasons.Calendar;
 import club.iananderson.seasonhud.platform.Services;
 import club.iananderson.seasonhud.platform.services.IMinimapHelper;
 import dev.ftb.mods.ftbchunks.client.FTBChunksClientConfig;
@@ -48,7 +49,8 @@ public class ForgeMinimapHelper implements IMinimapHelper {
         return !HudMod.INSTANCE.getSettings().getMinimap() || mc.options.renderDebug;
       }
       case MAP_ATLASES -> {
-        return !MapAtlases.shouldDraw(mc);
+        return !Config.getEnableMinimapIntegration() || !Config.getEnableMod() || !Calendar.calendarFound()
+            || Services.MINIMAP.hideHudInCurrentDimension();
       }
       default -> {
         return false;
