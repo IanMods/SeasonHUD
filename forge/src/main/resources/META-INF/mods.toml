@@ -46,3 +46,10 @@ mandatory = false
 versionRange = "[1902.3.22-build.271,)"
 ordering = "AFTER"
 side = "CLIENT"
+
+[[dependencies.${ mod_id }]]
+modId = "map_atlases"
+mandatory = false
+versionRange = "[1.19-6.0.0,)"
+ordering = "AFTER"
+side = "CLIENT"
