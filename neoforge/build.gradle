@@ -149,3 +149,11 @@ task publishCurseForge(type: net.darkhax.curseforgegradle.TaskPublishCurseForge)
     mainFile.addOptional("xaeros-minimap-fair-play-edition")
     mainFile.addOptional("map-atlases-forge")
 }
+
+task publishNeoForge {
+    group = "publishing"
+    afterEvaluate {
+        dependsOn(tasks.publishCurseForge)
+        dependsOn(tasks.modrinth)
+    }
+}
