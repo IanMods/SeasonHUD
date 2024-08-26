@@ -171,7 +171,7 @@ task publishCurseForge(type: net.darkhax.curseforgegradle.TaskPublishCurseForge)
     disableVersionDetection()
     apiToken = System.getenv("CURSEFORGE_TOKEN")
 
-    def mainFile = upload(curseforge_fabric_id, jar)
+    def mainFile = upload(curseforge_fabric_id, remapJar)
     mainFile.changelogType = "markdown"
     mainFile.changelog = recentChangelogText
     mainFile.releaseType = "release"
@@ -179,7 +179,7 @@ task publishCurseForge(type: net.darkhax.curseforgegradle.TaskPublishCurseForge)
     List<String> mcVersions = curseforge_gameVersions.split(",")
     mainFile.gameVersions = mcVersions
     mainFile.addGameVersion("Fabric")
-    mainFile.addGameVersion("Java 17")
+    mainFile.addGameVersion("Java 21")
 
     mainFile.addRequirement("fabric-seasons")
     mainFile.addRequirement("forge-config-api-port-fabric")

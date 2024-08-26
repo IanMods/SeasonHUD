@@ -104,7 +104,7 @@ modrinth {
     versionNumber = minecraft_version + "-" + version
     versionName = base.archivesName.get() + "-" + mod_version
     versionType = "release"
-    uploadFile = jar
+    uploadFile = remapJar
 
     List<String> mcVersions = modrinth_gameVersions.split(",")
     gameVersions = mcVersions
@@ -131,7 +131,7 @@ task publishCurseForge(type: net.darkhax.curseforgegradle.TaskPublishCurseForge)
     disableVersionDetection()
     apiToken = System.getenv("CURSEFORGE_TOKEN")
 
-    def mainFile = upload(curseforge_forge_id, jar)
+    def mainFile = upload(curseforge_forge_id, remapJar)
     mainFile.changelogType = "markdown"
     mainFile.changelog = recentChangelogText
     mainFile.releaseType = "release"
