@@ -182,7 +182,7 @@ task publishCurseForge(type: net.darkhax.curseforgegradle.TaskPublishCurseForge)
     disableVersionDetection()
     apiToken = System.getenv("CURSEFORGE_TOKEN")
 
-    def mainFile = upload(curseforge_fabric_id, jar)
+    def mainFile = upload(curseforge_fabric_id, remapJar)
     mainFile.changelogType = "markdown"
     mainFile.changelog = recentChangelogText
     mainFile.releaseType = "release"
