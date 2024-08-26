@@ -157,7 +157,7 @@ modrinth {
     versionNumber = minecraft_version + "-" + version
     versionName = base.archivesName.get() + "-" + version
     versionType = "release"
-    uploadFile = remapJar
+    uploadFile = jar
 
     List<String> mcVersions = modrinth_gameVersions.split(",")
     gameVersions = mcVersions
@@ -174,7 +174,6 @@ modrinth {
         optional.project "xaeros-minimap"
         optional.project "xaeros-minimap-fair"
         optional.project "map-atlases"
-        optional.project "voxelmap"
     }
 }
 
@@ -187,7 +186,7 @@ task publishCurseForge(type: net.darkhax.curseforgegradle.TaskPublishCurseForge)
     disableVersionDetection()
     apiToken = System.getenv("CURSEFORGE_TOKEN")
 
-    def mainFile = upload(curseforge_fabric_id, file("${project.buildDir}/libs/${archivesBaseName}-${version}.jar"))
+    def mainFile = upload(curseforge_fabric_id, jar)
     mainFile.changelogType = "markdown"
     mainFile.changelog = recentChangelogText
     mainFile.releaseType = "release"

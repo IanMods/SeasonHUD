@@ -131,7 +131,6 @@ modrinth {
         optional.project "xaeros-minimap"
         optional.project "xaeros-minimap-fair"
         optional.project "map-atlases"
-        optional.project "voxelmap"
     }
 }
 
