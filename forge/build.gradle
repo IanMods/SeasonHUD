@@ -7,6 +7,7 @@ plugins {
 loom {
     forge {
         mixinConfig "seasonhud.mixins.json"
+        mixinConfig "seasonhud.forge.mixins.json"
     }
 }
 
@@ -30,6 +31,10 @@ configurations {
         canBeResolved = true
         canBeConsumed = false
     }
+
+    configureEach {
+        resolutionStrategy.force("net.sf.jopt-simple:jopt-simple:5.0.4")
+    }
 }
 
 dependencies {
@@ -39,54 +44,35 @@ dependencies {
     shadowBundle project(path: ':common', configuration: 'transformProductionForge')
 
     //Serene Seasons
-    modImplementation "maven.modrinth:serene-seasons:${project.serene_seasons_version}"
+    modImplementation "maven.modrinth:serene-seasons:${project.serene_seasons_version}-forge"
+    modImplementation "maven.modrinth:glitchcore:${project.glitchcore_version}-forge"
 
     //Xaero's Minimap
-    modCompileOnly "maven.modrinth:xaeros-minimap:${project.xaeros_minimap_version}_Forge_1.20"
+    modCompileOnly "maven.modrinth:xaeros-minimap:${project.xaeros_minimap_version}_Forge_1.21"
 
     //JourneyMap
-    modCompileOnly "maven.modrinth:journeymap:${project.minecraft_version}-${project.journeymap_version}-forge"
+    modCompileOnlyApi group: 'info.journeymap', name: 'journeymap-api-forge', version: project.journeymap_api_version_fabric, changing: true
+    modCompileOnly "maven.modrinth:journeymap:1.21-${project.journeymap_version}+forge"
 
-    //FTB Chunks + Dependencies
-    modCompileOnly "curse.maven:ftb-chunks-forge-314906:${project.ftb_chunks_forge_version}"
-    modCompileOnly "curse.maven:ftb-library-forge-404465:${project.ftb_library_forge_version}"
-    modCompileOnly "curse.maven:ftb-teams-forge-404468:${project.ftb_teams_forge_version}"
-    modCompileOnly "maven.modrinth:architectury-api:${project.architectury_version}+forge"
+    //Forge Config API Port
+    modImplementation "maven.modrinth:forge-config-api-port:v${project.forge_config_api_port_version}-${project.minecraft_version}-Forge"
 
-    //Map Atlases
-    modCompileOnly "curse.maven:map-atlases-forge-519759:${project.map_atlases_forge_version}"
-    modCompileOnly "maven.modrinth:moonlight:forge_1.20-${project.moonlight_version}"
-    modCompileOnly "maven.modrinth:immediatelyfast:${project.immediatelyfast_version}+1.20.4-forge"
-
-    //Curios + Accessories
-    modLocalRuntime "top.theillusivec4.curios:curios-forge:${project.curios_version}"
-    modCompileOnly "top.theillusivec4.curios:curios-forge:${project.curios_version}:api"
-    modCompileOnly "maven.modrinth:accessories:${project.accessories_forge_version}"
 
     // Development QOL
-    modLocalRuntime("mezz.jei:jei-${project.minecraft_version}-forge:${project.jei_version}") { transitive = false }
+//    modLocalRuntime("mezz.jei:jei-${project.minecraft_version}-forge:${project.jei_version}") { transitive = false }
 
     // Minimap Mod Dev Tests
     // See root gradle.properties to choose which to use at runtime.
     switch (project.minimap_mod.toLowerCase(Locale.ROOT)) {
         case "xaero":
-            modLocalRuntime "maven.modrinth:xaeros-minimap:${project.xaeros_minimap_version}_Forge_1.20"
+            modLocalRuntime "maven.modrinth:xaeros-minimap:${project.xaeros_minimap_version}_Forge_1.21"
             break
         case "journey":
-            modLocalRuntime "maven.modrinth:journeymap:${project.minecraft_version}-${project.journeymap_version}-forge"
+            modLocalRuntime "maven.modrinth:journeymap:1.21-${project.journeymap_version}+forge"
             break
         case "ftb":
-            modLocalRuntime "curse.maven:ftb-chunks-forge-314906:${project.ftb_chunks_forge_version}"
-            modLocalRuntime "curse.maven:ftb-library-forge-404465:${project.ftb_library_forge_version}"
-            modLocalRuntime "curse.maven:ftb-teams-forge-404468:${project.ftb_teams_forge_version}"
-            modLocalRuntime "maven.modrinth:architectury-api:${project.architectury_version}+forge"
             break
         case "atlas":
-            modLocalRuntime "curse.maven:map-atlases-forge-519759:${project.map_atlases_forge_version}"
-            modLocalRuntime("maven.modrinth:immediatelyfast:${project.immediatelyfast_version}+1.20.4-forge")
-            modLocalRuntime "maven.modrinth:moonlight:forge_1.20-${project.moonlight_version}"
-            compileOnly(annotationProcessor("io.github.llamalad7:mixinextras-common:0.4.1"))
-            implementation("io.github.llamalad7:mixinextras-forge:0.4.1")
             break
         case "none":
             break

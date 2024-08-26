@@ -34,25 +34,24 @@ dependencies {
 
     common(project(path: ':common', configuration: 'namedElements')) { transitive false }
     shadowBundle project(path: ':common', configuration: 'transformProductionFabric')
+    include implementation("net.jodah:typetools:0.6.3")
 
-    //Fabric Seasons
-    modImplementation("maven.modrinth:fabric-seasons:${project.fabric_seasons_version}") {
+    //Serene Seasons
+    modImplementation("maven.modrinth:serene-seasons:${project.serene_seasons_version}-fabric") {
         exclude group: 'net.fabricmc', module: 'fabric-loader'
     }
-
-    //Fabric Seasons Extras
-    modCompileOnly("maven.modrinth:fabric-seasons-extras:${project.fabric_seasons_extras_version}") {
+    modImplementation("maven.modrinth:glitchcore:${project.glitchcore_version}-fabric") {
         exclude group: 'net.fabricmc', module: 'fabric-loader'
     }
 
     //Xaero's Minimap
-    modCompileOnly("maven.modrinth:xaeros-minimap:${project.xaeros_minimap_version}_Fabric_1.20") {
+    modCompileOnly("maven.modrinth:xaeros-minimap:${project.xaeros_minimap_version}_Fabric_1.21") {
         exclude group: 'net.fabricmc', module: 'fabric-loader'
     }
 
     //JourneyMap
-    modCompileOnlyApi group: 'info.journeymap', name: 'journeymap-api', version: project.journeymap_api_version_fabric, changing: true
-    modCompileOnly("maven.modrinth:journeymap:${project.minecraft_version}-${project.journeymap_version}-fabric") {
+    modCompileOnlyApi group: 'info.journeymap', name: 'journeymap-api-fabric', version: project.journeymap_api_version_fabric, changing: true
+    modCompileOnly("maven.modrinth:journeymap:1.21-${project.journeymap_version}+fabric") {
         exclude group: 'net.fabricmc', module: 'fabric-loader'
     }
 
@@ -70,28 +69,19 @@ dependencies {
         exclude group: 'net.fabricmc', module: 'fabric-loader'
     }
 
-    //Map Atlases
-    modCompileOnly("curse.maven:map-atlases-436298:${project.map_atlases_fabric_version}") {
-        exclude group: 'net.fabricmc', module: 'fabric-loader'
-    }
-    modCompileOnly("maven.modrinth:moonlight:fabric_1.20-${project.moonlight_version}") {
-        exclude group: 'net.fabricmc', module: 'fabric-loader'
-    }
-    modCompileOnly("maven.modrinth:immediatelyfast:${project.immediatelyfast_version}+1.20.4-fabric") {
-        exclude group: 'net.fabricmc', module: 'fabric-loader'
-    }
-
-    modCompileOnly("me.shedaniel.cloth:cloth-config-fabric:${project.cloth_config_version}") {
-        exclude group: 'net.fabricmc', module: 'fabric-loader'
-    }
-
     //Trinkets + Accessories
     modCompileOnly("dev.emi:trinkets:${project.trinkets_version}") {
         exclude group: 'net.fabricmc', module: 'fabric-loader'
     }
-    modCompileOnly "dev.onyxstudios.cardinal-components-api:cardinal-components-base:5.2.1"
-    modCompileOnly "dev.onyxstudios.cardinal-components-api:cardinal-components-entity:5.2.1"
-    modCompileOnly "maven.modrinth:accessories:${project.accessories_fabric_version}"
+    modCompileOnly "org.ladysnake.cardinal-components-api:cardinal-components-base:6.1.0"
+    modCompileOnly "org.ladysnake.cardinal-components-api:cardinal-components-entity:6.1.0"
+
+    modLocalRuntime("io.wispforest:accessories-fabric:${project.accessories_version}")
+
+    modLocalRuntime("me.shedaniel.cloth:cloth-config-fabric:${project.cloth_config_version}") {
+        exclude group: 'net.fabricmc', module: 'fabric-loader'
+    }
+
 
     //Forge Config API Port
     modApi "fuzs.forgeconfigapiport:forgeconfigapiport-fabric:${project.forge_config_api_port_version}"
@@ -100,23 +90,20 @@ dependencies {
     }
 
     // Development QOL
-    modLocalRuntime("maven.modrinth:lazydfu:${project.lazydfu_version}") {
-        exclude group: 'net.fabricmc', module: 'fabric-loader'
-    }
-    modLocalRuntime("com.terraformersmc:modmenu:${project.modmenu_version}")
-
     modLocalRuntime("mezz.jei:jei-${project.minecraft_version}-fabric:${project.jei_version}") {
         exclude group: 'net.fabricmc', module: 'fabric-loader'
     }
+
+    modLocalRuntime("com.terraformersmc:modmenu:${modmenu_version}")
 
     // Minimap Mod Dev Tests
     // See root gradle.properties to choose which to use at runtime.
     switch (project.minimap_mod.toLowerCase(Locale.ROOT)) {
         case "xaero":
-            modLocalRuntime("maven.modrinth:xaeros-minimap:${project.xaeros_minimap_version}_Fabric_1.20")
+            modLocalRuntime("maven.modrinth:xaeros-minimap:${project.xaeros_minimap_version}_Fabric_1.21")
             break
         case "journey":
-            modLocalRuntime("maven.modrinth:journeymap:${project.minecraft_version}-${project.journeymap_version}-fabric")
+            modLocalRuntime("maven.modrinth:journeymap:1.21-${project.journeymap_version}+fabric")
             break
         case "ftb":
             modLocalRuntime("curse.maven:ftb-chunks-fabric-472657:${project.ftb_chunks_fabric_version}")
@@ -125,17 +112,11 @@ dependencies {
             modLocalRuntime("maven.modrinth:architectury-api:${project.architectury_version}+fabric")
             break
         case "atlas":
-            modLocalRuntime("curse.maven:map-atlases-436298:${project.map_atlases_fabric_version}")
-            modLocalRuntime("maven.modrinth:moonlight:fabric_1.20-${project.moonlight_version}")
-            modLocalRuntime("maven.modrinth:immediatelyfast:${project.immediatelyfast_version}+1.20.4-fabric")
-            modLocalRuntime("dev.onyxstudios.cardinal-components-api:cardinal-components-item:5.2.1")
-            modLocalRuntime("dev.onyxstudios.cardinal-components-api:cardinal-components-base:5.2.1")
-            modLocalRuntime("dev.onyxstudios.cardinal-components-api:cardinal-components-entity:5.2.1")
             break
         case "none":
             break
         default: println("Unknown recipe viewer specified: ${project.minimap_mod}. Must be xaero, journey, ftb, " +
-                "atlas, voxel, or none")
+                "atlas, or none")
     }
 }
 

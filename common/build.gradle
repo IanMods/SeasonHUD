@@ -8,14 +8,15 @@ dependencies {
     // Do NOT use other classes from Fabric Loader.
     modImplementation "net.fabricmc:fabric-loader:${project.fabric_loader_version}"
 
-    api "fuzs.forgeconfigapiport:forgeconfigapiport-common:${project.forge_config_api_port_version}"
+    api "fuzs.forgeconfigapiport:forgeconfigapiport-common-neoforgeapi:${project.forge_config_api_port_version}"
+    api group: 'info.journeymap', name: 'journeymap-api-common', version: project.journeymap_api_version_fabric, changing: true
+    compileOnly "com.github.glitchfiend:GlitchCore-common:${minecraft_version}-${glitchcore_version}"
+    compileOnly("io.wispforest:accessories-common:${project.accessories_version}-mojmap")
 
     // Minimap Mods
     // Not used in common unless they are actually  loaded.
-    modCompileOnly "maven.modrinth:xaeros-minimap:${project.xaeros_minimap_version}_Forge_1.20"
-    modCompileOnly "curse.maven:ftb-chunks-forge-314906:${project.ftb_chunks_forge_version}"
-    modCompileOnly "curse.maven:ftb-library-forge-404465:${project.ftb_library_forge_version}"
-    modCompileOnly "maven.modrinth:journeymap:${project.minecraft_version}-${project.journeymap_version}-forge"
-    modCompileOnly "curse.maven:map-atlases-forge-519759:${project.map_atlases_forge_version}"
-
+    modCompileOnly "maven.modrinth:xaeros-minimap:${project.xaeros_minimap_version}_NeoForge_1.21"
+    modCompileOnly "curse.maven:ftb-chunks-forge-314906:${project.ftb_chunks_neoforge_version}"
+    modCompileOnly "curse.maven:ftb-library-forge-404465:${project.ftb_library_neoforge_version}"
+    modCompileOnly "maven.modrinth:journeymap:1.21-${project.journeymap_version}+neoforge"
 }

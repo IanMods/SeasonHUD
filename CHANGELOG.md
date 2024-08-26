@@ -16,6 +16,15 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 - Improved detection of curios/trinkets/accessories
 - Switched to Architectury Loom (not the API) for developing
 
+### Added
+
+- Added 1.21.1 support
+
+### Fixed
+
+- (1.21.x) Fixed the crash with FTB Chunks.
+  - Added a custom Minimap Component that can be controlled in the FTB Chunks minimap menu
+
 ## [1.9.8] - 2024-07-28
 
 ### Fixed

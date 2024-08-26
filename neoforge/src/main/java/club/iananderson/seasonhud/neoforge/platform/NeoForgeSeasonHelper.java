@@ -1,4 +1,4 @@
-package club.iananderson.seasonhud.forge.platform;
+package club.iananderson.seasonhud.neoforge.platform;
 
 import club.iananderson.seasonhud.config.Config;
 import club.iananderson.seasonhud.platform.services.ISeasonHelper;
@@ -10,7 +10,7 @@ import sereneseasons.api.season.ISeasonState;
 import sereneseasons.api.season.SeasonHelper;
 import sereneseasons.init.ModConfig;
 
-public class ForgeSeasonHelper implements ISeasonHelper {
+public class NeoForgeSeasonHelper implements ISeasonHelper {
   @Override
   public boolean isTropicalSeason(Level level, Player player) {
     boolean showTropicalSeasons = Config.getShowTropicalSeason();
@@ -97,14 +97,8 @@ public class ForgeSeasonHelper implements ISeasonHelper {
   public int findCuriosCalendar(Player player, Item item) {
     int slot = 0;
 
-//    if (Common.curiosLoaded()) {
-//      ICuriosItemHandler curiosInventory = CuriosApi.getCuriosInventory(player).get();
-//      if (curiosInventory.findFirstCurio(item).isPresent()) {
-//        slot += 1;
-//      }
-//    }
 //    if (Common.accessoriesLoaded() && !Common.curiosLoaded()) {
-//      AccessoriesContainer accessoriesContainer = AccessoriesCapability.get(player).getContainers().get("calendarslot");
+//      AccessoriesContainer accessoriesContainer = AccessoriesCapability.get(player).getContainers().get("charm");
 //      slot += accessoriesContainer.getAccessories().countItem(item);
 //    }
     return slot;

@@ -36,8 +36,12 @@ subprojects {
         maven { url = "https://maven.theillusivec4.top/" } //Curios
         maven { url = "https://maven.ladysnake.org/releases" } // Cardinal Components
         maven { url = "https://jm.gserv.me/repository/maven-public/" } //Journeymap API for Fabric
-
+        maven { url = 'https://maven.minecraftforge.net' } //Forge
+        maven { url = 'https://maven.neoforged.net/releases' } //NeoForge
         maven { url = "https://raw.githubusercontent.com/Fuzss/modresources/main/maven/" } //ForgeConfigAPiPort
+        maven { url 'https://maven.wispforest.io/releases' } //Accessories
+        maven { url 'https://maven.su5ed.dev/releases' } //Accessories
+
         exclusiveContent {
             forRepository {
                 maven { url = "https://cursemaven.com" }
@@ -69,12 +73,12 @@ subprojects {
         // Loom will automatically attach sourcesJar to a RemapSourcesJar task and to the "build" task
         // if it is present.
         // If you remove this line, sources will not be generated.
-        sourceCompatibility = JavaVersion.VERSION_17
-        targetCompatibility = JavaVersion.VERSION_17
+        sourceCompatibility = JavaVersion.VERSION_21
+        targetCompatibility = JavaVersion.VERSION_21
     }
 
     tasks.withType(JavaCompile).configureEach {
-        it.options.release = 17
+        it.options.release = 21
     }
 
     // Configure Maven publishing.
@@ -127,4 +131,5 @@ task publishAll {
     group = "upload"
     dependsOn("fabric:publishFabric")
     dependsOn("forge:publishForge")
+    dependsOn("neoforge:publishForge")
 }

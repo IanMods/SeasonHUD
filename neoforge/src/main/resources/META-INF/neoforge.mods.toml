@@ -14,9 +14,6 @@ description = '''${description}'''
 [[mixins]]
 config = "${mod_id}.mixins.json"
 
-[[mixins]]
-config = "${mod_id}.neoforge.mixins.json"
-
 # A dependency - use the . to indicate dependency for a specific modid. Dependencies are optional.
 [[dependencies.${ mod_id }]] #optional
 modId = "neoforge"

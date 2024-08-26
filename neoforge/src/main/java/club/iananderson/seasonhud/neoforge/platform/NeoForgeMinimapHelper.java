@@ -1,4 +1,4 @@
-package club.iananderson.seasonhud.forge.platform;
+package club.iananderson.seasonhud.neoforge.platform;
 
 import club.iananderson.seasonhud.Common;
 import club.iananderson.seasonhud.config.Config;
@@ -7,6 +7,7 @@ import club.iananderson.seasonhud.impl.minimaps.CurrentMinimap.Minimaps;
 import club.iananderson.seasonhud.impl.seasons.Calendar;
 import club.iananderson.seasonhud.platform.Services;
 import club.iananderson.seasonhud.platform.services.IMinimapHelper;
+import dev.ftb.mods.ftbchunks.client.FTBChunksClientConfig;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -19,7 +20,7 @@ import net.minecraft.world.level.Level;
 import sereneseasons.init.ModConfig;
 import xaero.common.HudMod;
 
-public class ForgeMinimapHelper implements IMinimapHelper {
+public class NeoForgeMinimapHelper implements IMinimapHelper {
   @Override
   public boolean hideHudInCurrentDimension() {
     ResourceKey<Level> currentDim = Objects.requireNonNull(Minecraft.getInstance().level).dimension();
@@ -42,9 +43,9 @@ public class ForgeMinimapHelper implements IMinimapHelper {
         return (!properties.enabled.get() && !(Fullscreen.uiState().active && UIManager.INSTANCE.getMiniMap()
             .isDrawingInPreviewMode()));
       }
-//      case FTB_CHUNKS -> {
-//        return !FTBChunksClientConfig.MINIMAP_ENABLED.get() || mc.getDebugOverlay().showDebugScreen();
-//      }
+      case FTB_CHUNKS -> {
+        return !FTBChunksClientConfig.MINIMAP_ENABLED.get() || mc.getDebugOverlay().showDebugScreen();
+      }
       case XAERO, XAERO_FAIRPLAY -> {
         return !HudMod.INSTANCE.getSettings().getMinimap() || mc.getDebugOverlay().showDebugScreen();
       }

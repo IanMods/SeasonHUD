@@ -1,8 +1,7 @@
 {
   "required": true,
   "minVersion": "0.8",
-  "package": "club.iananderson.seasonhud.mixin",
-  "refmap": "seasonhud.refmap.json",
+  "package": "club.iananderson.seasonhud.forge.mixin",
   "compatibilityLevel": "JAVA_21",
   "mixins": [
   ],

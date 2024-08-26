@@ -2,8 +2,6 @@ package club.iananderson.seasonhud.forge;
 
 import club.iananderson.seasonhud.Common;
 import club.iananderson.seasonhud.config.Config;
-import club.iananderson.seasonhud.forge.impl.accessories.AccessoriesCompat;
-import club.iananderson.seasonhud.forge.impl.curios.CuriosCompat;
 import fuzs.forgeconfigapiport.forge.api.neoforge.v4.NeoForgeConfigRegistry;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.eventbus.api.IEventBus;
@@ -30,14 +28,14 @@ public class SeasonHudForge {
   public static class ClientModEvents {
     @SubscribeEvent
     public static void commonSetup(FMLCommonSetupEvent event) {
-      if (Common.curiosLoaded()) {
-        Common.LOG.info("Talking to Curios");
-        new CuriosCompat().setup(event);
-      }
-      if (Common.accessoriesLoaded() && !Common.curiosLoaded()) {
-        Common.LOG.info("Talking to Accessories");
-        new AccessoriesCompat().setup(event);
-      }
+//      if (Common.curiosLoaded()) {
+//        Common.LOG.info("Talking to Curios");
+//        new CuriosCompat().setup(event);
+//      }
+//      if (Common.accessoriesLoaded() && !Common.curiosLoaded()) {
+//        Common.LOG.info("Talking to Accessories");
+//        new AccessoriesCompat().setup(event);
+//      }
     }
   }
 }
