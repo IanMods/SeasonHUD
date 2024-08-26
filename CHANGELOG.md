@@ -10,11 +10,20 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 
 - Starting with this release, the **1.20.2**, **1.20.4**, and **1.20.6** versions will no longer be updated.
     - I updated the **1.16.5** version to be in line with all the current features, and ported it to Fabric.
-    - Current active versions are: **1.16.5**, **1.18.2**, **1.19.x**, **1.20.1**, **1.21.x**
+  - Current active versions are: **1.16.5**, **1.18.2**, **1.19.x**, **1.20.1**, **1.21.x**.
 - Switched Curios to use a custom Calendar slot instead of Charm.
 - Switched Accessories to use a custom Calendar slot instead of Charm.
-- Improved detection of curios/trinkets/accessories
+- Improved detection of curios/trinkets/accessories.
 - Switched to Architectury Loom (not the API) for developing
+
+### Added
+
+- Added 1.21.1 support.
+
+### Fixed
+
+- (1.21.x) Fixed the crash with FTB Chunks.
+  - Added a custom Minimap Component that can be controlled in the FTB Chunks minimap menu.
 
 ## [1.9.8] - 2024-07-28
 
