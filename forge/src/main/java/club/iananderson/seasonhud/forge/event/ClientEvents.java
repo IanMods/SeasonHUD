@@ -8,7 +8,6 @@ import club.iananderson.seasonhud.forge.client.overlays.MapAtlases;
 import club.iananderson.seasonhud.forge.client.overlays.SeasonHUDOverlay;
 import club.iananderson.seasonhud.impl.minimaps.CurrentMinimap;
 import com.mojang.blaze3d.vertex.PoseStack;
-import net.minecraft.client.Minecraft;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.client.event.InputEvent;
 import net.minecraftforge.client.event.RenderGameOverlayEvent;
@@ -36,7 +35,6 @@ public class ClientEvents {
           MapAtlases.init();
           MapAtlases.HUD_INSTANCE.render(graphics);
         }
-
 
         SeasonHUDOverlay.init();
         SeasonHUDOverlay.HUD_INSTANCE.render(graphics);

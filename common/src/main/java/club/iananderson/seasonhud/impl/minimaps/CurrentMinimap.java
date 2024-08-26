@@ -45,7 +45,8 @@ public class CurrentMinimap {
   }
 
   public static boolean mapAtlasesLoaded() {
-    return getLoadedMinimaps().contains(Minimaps.MAP_ATLASES) || getLoadedMinimaps().contains(Minimaps.MAP_ATLASES_FORGE);
+    return getLoadedMinimaps().contains(Minimaps.MAP_ATLASES) || getLoadedMinimaps().contains(
+        Minimaps.MAP_ATLASES_FORGE);
   }
 
   public static boolean voxelMapLoaded() {

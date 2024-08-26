@@ -5,9 +5,7 @@ import club.iananderson.seasonhud.impl.minimaps.CurrentMinimap.Minimaps;
 import com.mojang.blaze3d.vertex.PoseStack;
 import journeymap.client.render.draw.DrawUtil;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.Gui;
 import net.minecraft.client.gui.GuiComponent;
-import net.minecraftforge.client.gui.ForgeIngameGui;
 
 public class JourneyMap extends GuiComponent {
   public static JourneyMap HUD_INSTANCE;

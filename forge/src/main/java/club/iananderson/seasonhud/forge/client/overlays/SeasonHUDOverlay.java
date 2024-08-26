@@ -2,10 +2,7 @@ package club.iananderson.seasonhud.forge.client.overlays;
 
 import club.iananderson.seasonhud.client.overlays.SeasonHUDOverlayCommon;
 import com.mojang.blaze3d.vertex.PoseStack;
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.Gui;
 import net.minecraft.client.gui.GuiComponent;
-import net.minecraftforge.client.gui.ForgeIngameGui;
 
 public class SeasonHUDOverlay extends GuiComponent {
   public static SeasonHUDOverlay HUD_INSTANCE;
