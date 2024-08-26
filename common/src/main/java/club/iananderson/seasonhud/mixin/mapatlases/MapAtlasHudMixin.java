@@ -29,8 +29,7 @@ public class MapAtlasHudMixin {
   private float globalScale;
 
   @Inject(method = "render", at = @At(value = "INVOKE", target = "Lpepjebs/mapatlases/client/ui/MapAtlasesHUD;"
-      + "drawMapComponentBiome(Lcom/mojang/blaze3d/vertex/PoseStack;"
-      + "Lnet/minecraft/client/gui/Font;"
+      + "drawMapComponentBiome(Lcom/mojang/blaze3d/vertex/PoseStack;" + "Lnet/minecraft/client/gui/Font;"
       + "IIIFLnet/minecraft/core/BlockPos;"
       + "Lnet/minecraft/world/level/Level;)V", shift = At.Shift.BY, by = 2), locals = LocalCapture.CAPTURE_FAILSOFT)
   private void render(PoseStack poseStack, float partialTick, int screenWidth, int screenHeight, CallbackInfo ci,
@@ -42,8 +41,9 @@ public class MapAtlasHudMixin {
       if (MapAtlasesClientConfig.drawMinimapBiome.get()) {
         textHeightOffset += (int) (10.0F * textScaling);
       }
-      MapAtlasesCommon.drawMapComponentSeason(poseStack, font, x, (int) (y + BG_SIZE + (textHeightOffset / globalScale)),
-                                              actualBgSize, textScaling, globalScale);
+      MapAtlasesCommon.drawMapComponentSeason(poseStack, font, x,
+                                              (int) (y + BG_SIZE + (textHeightOffset / globalScale)), actualBgSize,
+                                              textScaling, globalScale);
     }
   }
 }
