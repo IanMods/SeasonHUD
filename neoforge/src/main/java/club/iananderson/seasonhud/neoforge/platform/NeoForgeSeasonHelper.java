@@ -1,7 +1,11 @@
 package club.iananderson.seasonhud.neoforge.platform;
 
+import club.iananderson.seasonhud.Common;
 import club.iananderson.seasonhud.config.Config;
 import club.iananderson.seasonhud.platform.services.ISeasonHelper;
+import io.wispforest.accessories.api.AccessoriesCapability;
+import java.util.Optional;
+import net.minecraft.client.Minecraft;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.Level;
@@ -94,14 +98,21 @@ public class NeoForgeSeasonHelper implements ISeasonHelper {
   }
 
   @Override
-  public int findCuriosCalendar(Player player, Item item) {
-    int slot = 0;
+  public boolean findCuriosCalendar(Player player, Item item) {
+    Minecraft mc = Minecraft.getInstance();
+    boolean curioEquipped = false;
 
-//    if (Common.accessoriesLoaded() && !Common.curiosLoaded()) {
-//      AccessoriesContainer accessoriesContainer = AccessoriesCapability.get(player).getContainers().get("charm");
-//      slot += accessoriesContainer.getAccessories().countItem(item);
-//    }
-    return slot;
+    if (mc.level == null || mc.player == null || item == null) {
+      return false;
+    }
+
+    if (Common.accessoriesLoaded()) {
+      Optional<AccessoriesCapability> accessoriesContainer = AccessoriesCapability.getOptionally(player);
+      if (accessoriesContainer.isPresent()) {
+        curioEquipped = !accessoriesContainer.get().getEquipped(item).isEmpty();
+      }
+    }
+    return curioEquipped;
   }
 
   private ISeasonState currentSeasonState(Level level) {

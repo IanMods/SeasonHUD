@@ -75,12 +75,10 @@ dependencies {
     modCompileOnly "org.ladysnake.cardinal-components-api:cardinal-components-base:6.1.0"
     modCompileOnly "org.ladysnake.cardinal-components-api:cardinal-components-entity:6.1.0"
 
-    modLocalRuntime("io.wispforest:accessories-fabric:${project.accessories_version}")
-
-    modLocalRuntime("me.shedaniel.cloth:cloth-config-fabric:${project.cloth_config_version}") {
+    modImplementation("io.wispforest:accessories-fabric:${project.accessories_version}")
+    modImplementation("me.shedaniel.cloth:cloth-config-fabric:${project.cloth_config_version}") {
         exclude group: 'net.fabricmc', module: 'fabric-loader'
     }
-
 
     //Forge Config API Port
     modApi "fuzs.forgeconfigapiport:forgeconfigapiport-fabric:${project.forge_config_api_port_version}"

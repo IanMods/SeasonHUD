@@ -16,10 +16,9 @@ public class SeasonHudFabric implements ModInitializer {
   public void onInitialize() {
     Common.init();
 
-    if (Common.accessoriesLoaded() && Common.extrasLoaded()) {
+    if (Common.accessoriesLoaded()) {
       Common.LOG.info("Talking to Accessories");
       AccessoriesCompat.init();
     }
   }
-
 }

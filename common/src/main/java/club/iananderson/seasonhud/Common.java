@@ -25,10 +25,6 @@ public class Common {
   private Common() {
   }
 
-  public static ResourceLocation location(String path) {
-    return ResourceLocation.fromNamespaceAndPath(MOD_ID, path);
-  }
-
   public static void init() {
     platformName = Services.PLATFORM.getPlatformName();
     curiosLoaded = Services.PLATFORM.isModLoaded("trinkets") || Services.PLATFORM.isModLoaded("curios");
@@ -73,6 +69,6 @@ public class Common {
   }
 
   public static ResourceLocation location(String path) {
-    return new ResourceLocation(MOD_ID, path);
+    return ResourceLocation.fromNamespaceAndPath(MOD_ID, path);
   }
 }
