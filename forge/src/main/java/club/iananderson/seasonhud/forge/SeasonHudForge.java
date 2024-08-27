@@ -25,11 +25,10 @@ public class SeasonHudForge {
   }
 
   public static void onInitialize(FMLCommonSetupEvent event) {
-    Common.init();
     if (Common.curiosLoaded()) {
       Common.LOG.info("Talking to Curios");
       CuriosCompat.init();
-    } else if (Common.accessoriesLoaded() && Common.extrasLoaded()) {
+    } else if (Common.accessoriesLoaded()) {
       Common.LOG.info("Talking to Accessories");
       AccessoriesCompat.init();
     }
