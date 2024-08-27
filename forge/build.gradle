@@ -59,7 +59,7 @@ dependencies {
     modCompileOnly "maven.modrinth:immediatelyfast:${project.immediatelyfast_version}+1.19.2-forge"
 
     //Curios + Accessories
-    modLocalRuntime "top.theillusivec4.curios:curios-forge:${project.curios_version}"
+    modCompileOnly "top.theillusivec4.curios:curios-forge:${project.curios_version}"
     modCompileOnly "top.theillusivec4.curios:curios-forge:${project.curios_version}:api"
 
     // Development QOL
@@ -135,6 +135,8 @@ modrinth {
 }
 
 task publishCurseForge(type: net.darkhax.curseforgegradle.TaskPublishCurseForge) {
+    group = "curseforge"
+
     int firstHeading = changelogText.indexOf("## [")
     int nextHeading = changelogText.indexOf("## [", firstHeading + 1)
     String recentChangelogText = changelogText.substring(firstHeading, nextHeading)
@@ -163,7 +165,7 @@ task publishCurseForge(type: net.darkhax.curseforgegradle.TaskPublishCurseForge)
 }
 
 task publishForge {
-    group = "publishing"
+    group = "upload"
     afterEvaluate {
         dependsOn(tasks.publishCurseForge)
         dependsOn(tasks.modrinth)

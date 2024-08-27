@@ -4,11 +4,16 @@ import club.iananderson.seasonhud.Common;
 import club.iananderson.seasonhud.config.Config;
 import club.iananderson.seasonhud.platform.Services;
 import net.minecraft.client.Minecraft;
-import net.minecraft.world.entity.player.Inventory;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 
 public class Calendar {
   private Calendar() {
+  }
+
+  private static boolean findCalendar(Player player, Item item) {
+    return player.getInventory().contains(item.getDefaultInstance()) || Services.SEASON.findCuriosCalendar(player,
+                                                                                                           item);
   }
 
   public static boolean calendarFound() {
@@ -23,13 +28,10 @@ public class Calendar {
       return false;
     }
 
-    boolean inventorySlot = findCalendar(mc.player.getInventory(), calendar);
+    boolean inventorySlot = findCalendar(mc.player, calendar);
     boolean curioSlot = Services.SEASON.findCuriosCalendar(mc.player, calendar) > 0;
 
     return inventorySlot || curioSlot || !Config.getNeedCalendar();
   }
 
-  private static boolean findCalendar(Inventory inv, Item item) {
-    return inv.contains(item.getDefaultInstance());
-  }
 }

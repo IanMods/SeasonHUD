@@ -10,8 +10,6 @@ import top.theillusivec4.curios.api.SlotTypeMessage;
 
 public class CuriosCompat {
   public CuriosCompat() {
-    final IEventBus eventBus = FMLJavaModLoadingContext.get().getModEventBus();
-    eventBus.addListener(this::setup);
   }
 
   public static void registerSlots() {

@@ -81,9 +81,6 @@ dependencies {
         exclude group: 'net.fabricmc', module: 'fabric-loader'
     }
 
-    modCompileOnly("me.shedaniel.cloth:cloth-config-fabric:${project.cloth_config_version}") {
-        exclude group: 'net.fabricmc', module: 'fabric-loader'
-    }
 
     //Trinkets + Accessories
     modCompileOnly("dev.emi:trinkets:${project.trinkets_version}") {
@@ -182,6 +179,8 @@ modrinth {
 }
 
 task publishCurseForge(type: net.darkhax.curseforgegradle.TaskPublishCurseForge) {
+    group = "curseforge"
+
     int firstHeading = changelogText.indexOf("## [")
     int nextHeading = changelogText.indexOf("## [", firstHeading + 1)
     String recentChangelogText = changelogText.substring(firstHeading, nextHeading)
@@ -198,7 +197,7 @@ task publishCurseForge(type: net.darkhax.curseforgegradle.TaskPublishCurseForge)
     List<String> mcVersions = curseforge_gameVersions.split(",")
     mainFile.gameVersions = mcVersions
     mainFile.addGameVersion("Fabric")
-    mainFile.addGameVersion("Java 17")
+    mainFile.addJavaVersion("Java 17")
 
     mainFile.addRequirement("fabric-seasons")
     mainFile.addRequirement("forge-config-api-port-fabric")
@@ -212,7 +211,7 @@ task publishCurseForge(type: net.darkhax.curseforgegradle.TaskPublishCurseForge)
 }
 
 task publishFabric {
-    group = "publishing"
+    group = "upload"
     afterEvaluate {
         dependsOn(tasks.publishCurseForge)
         dependsOn(tasks.modrinth)

@@ -99,14 +99,19 @@ public class ForgeSeasonHelper implements ISeasonHelper {
   }
 
   @Override
-  public int findCuriosCalendar(Player player, Item item) {
-    int slot = 0;
+  public boolean findCuriosCalendar(Player player, Item item) {
+    Minecraft mc = Minecraft.getInstance();
+    boolean curioEquipped = false;
+
+    if (mc.level == null || mc.player == null || item == null) {
+      return false;
+    }
 
     if (Common.curiosLoaded()) {
       List<SlotResult> findCalendar = CuriosApi.getCuriosHelper().findCurios(player, item);
-      slot += findCalendar.size();
+      curioEquipped = !findCalendar.isEmpty();
     }
-    return slot;
+    return curioEquipped;
   }
 
   private ISeasonState currentSeasonState(Level level) {
