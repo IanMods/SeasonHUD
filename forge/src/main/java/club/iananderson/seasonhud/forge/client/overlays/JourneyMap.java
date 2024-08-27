@@ -1,6 +1,5 @@
 package club.iananderson.seasonhud.forge.client.overlays;
 
-import club.iananderson.seasonhud.client.overlays.JourneyMapCommon;
 import club.iananderson.seasonhud.impl.minimaps.CurrentMinimap;
 import club.iananderson.seasonhud.impl.minimaps.CurrentMinimap.Minimaps;
 import com.mojang.blaze3d.vertex.PoseStack;

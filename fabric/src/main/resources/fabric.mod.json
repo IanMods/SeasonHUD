@@ -16,7 +16,7 @@
   "environment": "client",
   "entrypoints": {
     "client": [
-      "club.iananderson.seasonhud.fabric.client.SeasonHUDClientFabric"
+      "club.iananderson.seasonhud.fabric.client.SeasonHudClientFabric"
     ],
     "main": [
       "club.iananderson.seasonhud.fabric.SeasonHudFabric"

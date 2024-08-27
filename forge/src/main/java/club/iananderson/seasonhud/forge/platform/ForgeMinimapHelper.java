@@ -4,6 +4,7 @@ import club.iananderson.seasonhud.Common;
 import club.iananderson.seasonhud.forge.client.overlays.MapAtlases;
 import club.iananderson.seasonhud.impl.minimaps.CurrentMinimap;
 import club.iananderson.seasonhud.impl.minimaps.CurrentMinimap.Minimaps;
+import club.iananderson.seasonhud.impl.seasons.Calendar;
 import club.iananderson.seasonhud.platform.Services;
 import club.iananderson.seasonhud.platform.services.IMinimapHelper;
 import com.mamiyaotaru.voxelmap.MapSettingsManager;
@@ -56,13 +57,13 @@ public class ForgeMinimapHelper implements IMinimapHelper {
         break;
 
       case MAP_ATLASES:
-        hidden = !Config.getEnableMinimapIntegration() || !Config.getEnableMod() || !Calendar.calendarFound()
-            || Services.MINIMAP.hideHudInCurrentDimension();
+        hidden = !MapAtlases.shouldDraw(mc) || !Calendar.calendarFound();
         break;
 
       case VOXELMAP:
         MapSettingsManager voxelOptions = VoxelMap.getInstance().getMapOptions();
-        hidden = voxelOptions.hide || (!voxelOptions.showUnderMenus && (mc.screen != null || mc.options.renderDebug));
+        hidden = voxelOptions.hide || (!voxelOptions.showUnderMenus && (mc.screen != null || mc.options.renderDebug))
+            || !Calendar.calendarFound();
         break;
     }
     return hidden;

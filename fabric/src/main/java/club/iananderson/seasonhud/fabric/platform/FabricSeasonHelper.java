@@ -75,7 +75,7 @@ public class FabricSeasonHelper implements ISeasonHelper {
   }
 
   @Override
-  public boolean findCuriosCalendar(Player player, Item item) {
+  public boolean findCuriosCalendar(Player player, ItemStack item) {
     Minecraft mc = Minecraft.getInstance();
     boolean curioEquipped = false;
 

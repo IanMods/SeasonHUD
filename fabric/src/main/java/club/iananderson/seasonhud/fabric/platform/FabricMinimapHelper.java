@@ -10,15 +10,9 @@ import club.iananderson.seasonhud.platform.services.IMinimapHelper;
 import com.mamiyaotaru.voxelmap.MapSettingsManager;
 import com.mamiyaotaru.voxelmap.VoxelMap;
 import dev.ftb.mods.ftbchunks.client.FTBChunksClientConfig;
-import io.github.lucaargolo.seasons.FabricSeasons;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
-import journeymap.client.properties.MiniMapProperties;
-import journeymap.client.ui.UIManager;
 import net.minecraft.client.Minecraft;
-import net.minecraft.resources.ResourceKey;
-import net.minecraft.world.level.Level;
 import xaero.common.HudMod;
 
 public class FabricMinimapHelper implements IMinimapHelper {
@@ -38,8 +32,8 @@ public class FabricMinimapHelper implements IMinimapHelper {
     }
 
     switch (minimap) {
-      case FTB_CHUNKS :
-        hidden =  !FTBChunksClientConfig.MINIMAP_ENABLED.get() || mc.options.renderDebug;
+      case FTB_CHUNKS:
+        hidden = !FTBChunksClientConfig.MINIMAP_ENABLED.get() || mc.options.renderDebug;
         break;
 
       case XAERO:
@@ -51,11 +45,13 @@ public class FabricMinimapHelper implements IMinimapHelper {
         break;
 
       case MAP_ATLASES:
-        hidden = !MapAtlases.shouldDraw(mc);
+        hidden = !MapAtlases.shouldDraw(mc) || !Calendar.calendarFound();
         break;
+
       case VOXELMAP:
         MapSettingsManager voxelOptions = VoxelMap.getInstance().getMapOptions();
-        hidden = voxelOptions.hide || (!voxelOptions.showUnderMenus && (mc.screen != null || mc.options.renderDebug));
+        hidden = voxelOptions.hide || (!voxelOptions.showUnderMenus && (mc.screen != null || mc.options.renderDebug))
+            || !Calendar.calendarFound();
         break;
     }
     return hidden;
