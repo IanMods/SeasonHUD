@@ -59,9 +59,10 @@ dependencies {
     modCompileOnly "maven.modrinth:immediatelyfast:${project.immediatelyfast_version}+1.20.4-forge"
 
     //Curios + Accessories
-    modLocalRuntime "top.theillusivec4.curios:curios-forge:${project.curios_version}"
+    modCompileOnly "top.theillusivec4.curios:curios-forge:${project.curios_version}"
     modCompileOnly "top.theillusivec4.curios:curios-forge:${project.curios_version}:api"
-    modCompileOnly "maven.modrinth:accessories:${project.accessories_forge_version}"
+    modCompileOnly "io.wispforest:accessories-neoforge:${project.accessories_version}"
+    modCompileOnly "me.shedaniel.cloth:cloth-config-forge:${project.cloth_config_version}"
 
     // Development QOL
     modLocalRuntime("mezz.jei:jei-${project.minecraft_version}-forge:${project.jei_version}") { transitive = false }
@@ -137,11 +138,13 @@ modrinth {
 }
 
 task publishCurseForge(type: net.darkhax.curseforgegradle.TaskPublishCurseForge) {
+    group = "curseforge"
+
     int firstHeading = changelogText.indexOf("## [")
     int nextHeading = changelogText.indexOf("## [", firstHeading + 1)
     String recentChangelogText = changelogText.substring(firstHeading, nextHeading)
 
-    debugMode = false
+    debugMode = true
     disableVersionDetection()
     apiToken = System.getenv("CURSEFORGE_TOKEN")
 
@@ -154,7 +157,7 @@ task publishCurseForge(type: net.darkhax.curseforgegradle.TaskPublishCurseForge)
     mainFile.gameVersions = mcVersions
     mainFile.addGameVersion("Forge")
     mainFile.addGameVersion("NeoForge")
-    mainFile.addGameVersion("Java 17")
+    mainFile.addJavaVersion("Java 17")
 
     mainFile.addRequirement("serene-seasons")
     mainFile.addOptional("curios")
@@ -167,7 +170,7 @@ task publishCurseForge(type: net.darkhax.curseforgegradle.TaskPublishCurseForge)
 }
 
 task publishForge {
-    group = "publishing"
+    group = "upload"
     afterEvaluate {
         dependsOn(tasks.publishCurseForge)
         dependsOn(tasks.modrinth)

@@ -9,6 +9,7 @@ dependencies {
     modImplementation "net.fabricmc:fabric-loader:${project.fabric_loader_version}"
 
     api "fuzs.forgeconfigapiport:forgeconfigapiport-common:${project.forge_config_api_port_version}"
+    modImplementation("io.wispforest:accessories-common:${project.accessories_version}")
 
     // Minimap Mods
     // Not used in common unless they are actually  loaded.

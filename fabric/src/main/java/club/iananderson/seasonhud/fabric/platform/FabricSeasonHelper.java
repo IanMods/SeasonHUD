@@ -7,8 +7,10 @@ import dev.emi.trinkets.api.TrinketsApi;
 import io.github.lucaargolo.seasons.FabricSeasons;
 import io.github.lucaargolo.seasons.utils.Season;
 import io.github.lucaargolo.seasonsextras.FabricSeasonsExtras;
+import io.wispforest.accessories.api.AccessoriesCapability;
 import java.time.LocalDateTime;
 import java.util.Optional;
+import net.minecraft.client.Minecraft;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.Level;
@@ -76,21 +78,28 @@ public class FabricSeasonHelper implements ISeasonHelper {
   }
 
   @Override
-  public int findCuriosCalendar(Player player, Item item) {
-    if (Common.curiosLoaded() && Common.extrasLoaded()) {
-      Optional<TrinketComponent> findCalendar = TrinketsApi.getTrinketComponent(player);
-      if (findCalendar.isPresent()) {
-        if (findCalendar.get().isEquipped(item)) {
-          return 1;
-        } else {
-          return 0;
-        }
-      } else {
-        return 0;
-      }
-    } else {
-      return 0;
+  public boolean findCuriosCalendar(Player player, Item item) {
+    Minecraft mc = Minecraft.getInstance();
+    boolean curioEquipped = false;
+
+    if (mc.level == null || mc.player == null || item == null) {
+      return false;
     }
+
+    if (Common.curiosLoaded()) {
+      Optional<TrinketComponent> findCalendar = TrinketsApi.getTrinketComponent(player);
+
+      if (findCalendar.isPresent()) {
+        curioEquipped = findCalendar.get().isEquipped(item);
+      }
+    } else if (Common.accessoriesLoaded()) {
+      Optional<AccessoriesCapability> accessoriesContainer = AccessoriesCapability.getOptionally(player);
+      if (accessoriesContainer.isPresent()) {
+        curioEquipped = !accessoriesContainer.get().getEquipped(item).isEmpty();
+      }
+    }
+
+    return curioEquipped;
   }
 
   private Season currentSeasonState(Level level) {
