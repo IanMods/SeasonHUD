@@ -34,7 +34,6 @@ dependencies {
 
     common(project(path: ':common', configuration: 'namedElements')) { transitive false }
     shadowBundle project(path: ':common', configuration: 'transformProductionFabric')
-    include implementation("net.jodah:typetools:0.6.3")
 
     //Serene Seasons
     modImplementation("maven.modrinth:serene-seasons:${project.serene_seasons_version}-fabric") {
