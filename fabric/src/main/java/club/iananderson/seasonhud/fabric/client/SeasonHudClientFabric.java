@@ -3,6 +3,8 @@ package club.iananderson.seasonhud.fabric.client;
 import club.iananderson.seasonhud.Common;
 import club.iananderson.seasonhud.config.Config;
 import club.iananderson.seasonhud.fabric.event.ClientEvents;
+import club.iananderson.seasonhud.impl.accessories.AccessoriesCompat;
+import fuzs.forgeconfigapiport.api.config.v2.ForgeConfigRegistry;
 import club.iananderson.seasonhud.impl.minimaps.CurrentMinimap.Minimaps;
 import club.iananderson.seasonhud.impl.minimaps.SeasonComponent;
 import club.iananderson.seasonhud.platform.Services;
@@ -20,6 +22,11 @@ public class SeasonHudClientFabric implements ClientModInitializer {
 
     if (Services.PLATFORM.isModLoaded(Minimaps.FTB_CHUNKS.getModID())) {
       SeasonComponent.registerFtbSeason();
+    }
+
+    if (Common.accessoriesLoaded() && Common.extrasLoaded() && !Common.curiosLoaded()) {
+      Common.LOG.info("Talking to Accessories Client");
+      AccessoriesCompat.clientInit();
     }
   }
 }

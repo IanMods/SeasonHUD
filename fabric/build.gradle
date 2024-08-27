@@ -162,11 +162,13 @@ modrinth {
 }
 
 task publishCurseForge(type: net.darkhax.curseforgegradle.TaskPublishCurseForge) {
+    group = "curseforge"
+
     int firstHeading = changelogText.indexOf("## [")
     int nextHeading = changelogText.indexOf("## [", firstHeading + 1)
     String recentChangelogText = changelogText.substring(firstHeading, nextHeading)
 
-    debugMode = false
+    debugMode = true
     disableVersionDetection()
     apiToken = System.getenv("CURSEFORGE_TOKEN")
 
@@ -178,7 +180,7 @@ task publishCurseForge(type: net.darkhax.curseforgegradle.TaskPublishCurseForge)
     List<String> mcVersions = curseforge_gameVersions.split(",")
     mainFile.gameVersions = mcVersions
     mainFile.addGameVersion("Fabric")
-    mainFile.addGameVersion("Java 21")
+    mainFile.addJavaVersion("Java 21")
 
     mainFile.addRequirement("fabric-seasons")
     mainFile.addRequirement("forge-config-api-port-fabric")
@@ -192,7 +194,7 @@ task publishCurseForge(type: net.darkhax.curseforgegradle.TaskPublishCurseForge)
 }
 
 task publishFabric {
-    group = "publishing"
+    group = "upload"
     afterEvaluate {
         dependsOn(tasks.publishCurseForge)
         dependsOn(tasks.modrinth)

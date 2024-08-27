@@ -2,6 +2,9 @@ package club.iananderson.seasonhud.forge.platform;
 
 import club.iananderson.seasonhud.config.Config;
 import club.iananderson.seasonhud.platform.services.ISeasonHelper;
+import io.wispforest.accessories.api.AccessoriesCapability;
+import java.util.Optional;
+import net.minecraft.client.Minecraft;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.Level;
@@ -94,20 +97,26 @@ public class ForgeSeasonHelper implements ISeasonHelper {
   }
 
   @Override
-  public int findCuriosCalendar(Player player, Item item) {
-    int slot = 0;
-
+  public boolean findCuriosCalendar(Player player, Item item) {
+    Minecraft mc = Minecraft.getInstance();
+    boolean curioEquipped = false;
+//
+//    if (mc.level == null || mc.player == null || item == null) {
+//      return false;
+//    }
+//
 //    if (Common.curiosLoaded()) {
-//      ICuriosItemHandler curiosInventory = CuriosApi.getCuriosInventory(player).get();
-//      if (curiosInventory.findFirstCurio(item).isPresent()) {
-//        slot += 1;
+//      Optional<ICuriosItemHandler> curiosInventory = CuriosApi.getCuriosInventory(player).resolve();
+//      if (curiosInventory.isPresent()) {
+//        curioEquipped = curiosInventory.get().findFirstCurio(item).isPresent();
+//      }
+//    } else if (Common.accessoriesLoaded()) {
+//      Optional<AccessoriesCapability> accessoriesContainer = AccessoriesCapability.getOptionally(player);
+//      if (accessoriesContainer.isPresent()) {
+//        curioEquipped = !accessoriesContainer.get().getEquipped(item).isEmpty();
 //      }
 //    }
-//    if (Common.accessoriesLoaded() && !Common.curiosLoaded()) {
-//      AccessoriesContainer accessoriesContainer = AccessoriesCapability.get(player).getContainers().get("calendarslot");
-//      slot += accessoriesContainer.getAccessories().countItem(item);
-//    }
-    return slot;
+    return curioEquipped;
   }
 
   private ISeasonState currentSeasonState(Level level) {

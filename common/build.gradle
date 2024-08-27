@@ -11,7 +11,7 @@ dependencies {
     api "fuzs.forgeconfigapiport:forgeconfigapiport-common-neoforgeapi:${project.forge_config_api_port_version}"
     api group: 'info.journeymap', name: 'journeymap-api-common', version: project.journeymap_api_version_fabric, changing: true
     compileOnly "com.github.glitchfiend:GlitchCore-common:${minecraft_version}-${glitchcore_version}"
-    compileOnly("io.wispforest:accessories-common:${project.accessories_version}-mojmap")
+    modImplementation("io.wispforest:accessories-common:${project.accessories_version}")
 
     // Minimap Mods
     // Not used in common unless they are actually  loaded.

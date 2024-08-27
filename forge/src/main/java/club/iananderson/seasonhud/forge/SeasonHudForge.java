@@ -13,29 +13,23 @@ import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 
 @Mod(Common.MOD_ID)
 public class SeasonHudForge {
-
   public SeasonHudForge() {
     IEventBus modEventBus = FMLJavaModLoadingContext.get().getModEventBus();
     MinecraftForge.EVENT_BUS.register(this);
-
     Common.init();
-    modEventBus.addListener(ClientModEvents::commonSetup);
 
     NeoForgeConfigRegistry.INSTANCE.register(ModConfig.Type.CLIENT, Config.GENERAL_SPEC, "SeasonHUD-client.toml");
+
+    modEventBus.addListener(SeasonHudForge::onInitialize);
   }
 
-  @Mod.EventBusSubscriber(modid = Common.MOD_ID, bus = Mod.EventBusSubscriber.Bus.MOD)
-  public static class ClientModEvents {
-    @SubscribeEvent
-    public static void commonSetup(FMLCommonSetupEvent event) {
-//      if (Common.curiosLoaded()) {
-//        Common.LOG.info("Talking to Curios");
-//        new CuriosCompat().setup(event);
-//      }
-//      if (Common.accessoriesLoaded() && !Common.curiosLoaded()) {
-//        Common.LOG.info("Talking to Accessories");
-//        new AccessoriesCompat().setup(event);
-//      }
-    }
+  public static void onInitialize(FMLCommonSetupEvent event) {
+//    if (Common.curiosLoaded()) {
+//      Common.LOG.info("Talking to Curios");
+//      CuriosCompat.init();
+//    } else if (Common.accessoriesLoaded() && Common.extrasLoaded()) {
+//      Common.LOG.info("Talking to Accessories");
+//      AccessoriesCompat.init();
+//    }
   }
 }
