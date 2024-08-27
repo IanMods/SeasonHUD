@@ -7,7 +7,6 @@ import dev.emi.trinkets.api.TrinketsApi;
 import io.github.lucaargolo.seasons.FabricSeasons;
 import io.github.lucaargolo.seasons.utils.Season;
 import io.github.lucaargolo.seasonsextras.FabricSeasonsExtras;
-import io.wispforest.accessories.api.AccessoriesCapability;
 import java.time.LocalDateTime;
 import java.util.Optional;
 import net.minecraft.client.Minecraft;
@@ -91,11 +90,6 @@ public class FabricSeasonHelper implements ISeasonHelper {
 
       if (findCalendar.isPresent()) {
         curioEquipped = findCalendar.get().isEquipped(item);
-      }
-    } else if (Common.accessoriesLoaded()) {
-      Optional<AccessoriesCapability> accessoriesContainer = AccessoriesCapability.getOptionally(player);
-      if (accessoriesContainer.isPresent()) {
-        curioEquipped = !accessoriesContainer.get().getEquipped(item).isEmpty();
       }
     }
 

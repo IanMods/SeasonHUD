@@ -59,7 +59,7 @@ dependencies {
     modCompileOnly "maven.modrinth:immediatelyfast:${project.immediatelyfast_version}+1.19.2-forge"
 
     //Curios + Accessories
-    modCompileOnly "top.theillusivec4.curios:curios-forge:${project.curios_version}"
+    modLocalRuntime "top.theillusivec4.curios:curios-forge:${project.curios_version}"
     modCompileOnly "top.theillusivec4.curios:curios-forge:${project.curios_version}:api"
 
     // Development QOL

@@ -25,7 +25,6 @@ public class SeasonHudForge {
     modEventBus.addListener(ClientModEvents::onInitialize);
   }
 
-
   @Mod.EventBusSubscriber(modid = Common.MOD_ID, bus = Mod.EventBusSubscriber.Bus.MOD)
   public static class ClientModEvents {
     @SubscribeEvent

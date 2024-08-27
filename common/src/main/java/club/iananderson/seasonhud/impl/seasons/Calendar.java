@@ -29,7 +29,7 @@ public class Calendar {
     }
 
     boolean inventorySlot = findCalendar(mc.player, calendar);
-    boolean curioSlot = Services.SEASON.findCuriosCalendar(mc.player, calendar) > 0;
+    boolean curioSlot = Services.SEASON.findCuriosCalendar(mc.player, calendar);
 
     return inventorySlot || curioSlot || !Config.getNeedCalendar();
   }
