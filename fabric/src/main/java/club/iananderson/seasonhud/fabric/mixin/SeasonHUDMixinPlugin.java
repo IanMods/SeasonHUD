@@ -55,6 +55,8 @@ public class SeasonHUDMixinPlugin implements IMixinConfigPlugin {
       return HAS_FTB;
     } else if (mixinClassName.startsWith("club.iananderson.seasonhud.fabric.mixin.voxel")) {
       return HAS_VOXEL;
+    } else if (mixinClassName.startsWith("club.iananderson.seasonhud.mixin.ftbchunks")) {
+      return HAS_FTB;
     } else {
       return true;
     }

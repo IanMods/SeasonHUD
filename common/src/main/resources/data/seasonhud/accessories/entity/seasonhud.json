@@ -1,6 +1,6 @@
 {
   "entities": [
-    "minecraft:player"
+    "#accessories:defaulted_targets"
   ],
   "slots": [
     "calendarslot"

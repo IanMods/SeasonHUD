@@ -8,6 +8,7 @@ Also includes optional support for the following minimap mods, to display under 
 - FTB Chunks
 - JourneyMap
 - MapAtlases
+- Voxelmap (1.16.5 only)
 
 ***
 

@@ -40,11 +40,6 @@ dependencies {
         exclude group: 'net.fabricmc', module: 'fabric-loader'
     }
 
-//    //Fabric Seasons Extras
-//    modCompileOnly("maven.modrinth:fabric-seasons-extras:${project.fabric_seasons_extras_version}") {
-//        exclude group: 'net.fabricmc', module: 'fabric-loader'
-//    }
-
     //Xaero's Minimap
     modCompileOnly("maven.modrinth:xaeros-minimap:${project.xaeros_minimap_version}_Fabric_${project.minecraft_version}") {
         exclude group: 'net.fabricmc', module: 'fabric-loader'
@@ -130,8 +125,7 @@ dependencies {
         case "none":
             break
         default: println("Unknown recipe viewer specified: ${project.minimap_mod}. Must be xaero, journey, ftb, " +
-                "atlas, " +
-                "voxel, or none")
+                "atlas, voxel, or none")
     }
 }
 
@@ -178,6 +172,8 @@ modrinth {
 }
 
 task publishCurseForge(type: net.darkhax.curseforgegradle.TaskPublishCurseForge) {
+    group = "curseforge"
+
     int firstHeading = changelogText.indexOf("## [")
     int nextHeading = changelogText.indexOf("## [", firstHeading + 1)
     String recentChangelogText = changelogText.substring(firstHeading, nextHeading)
@@ -194,7 +190,7 @@ task publishCurseForge(type: net.darkhax.curseforgegradle.TaskPublishCurseForge)
     List<String> mcVersions = curseforge_gameVersions.split(",")
     mainFile.gameVersions = mcVersions
     mainFile.addGameVersion("Fabric")
-    mainFile.addGameVersion("Java 8")
+    mainFile.addJavaVersion("Java 8")
 
     mainFile.addRequirement("fabric-seasons")
     mainFile.addRequirement("forge-config-api-port-fabric")
@@ -209,7 +205,7 @@ task publishCurseForge(type: net.darkhax.curseforgegradle.TaskPublishCurseForge)
 }
 
 task publishFabric {
-    group = "publishing"
+    group = "upload"
     afterEvaluate {
         dependsOn(tasks.publishCurseForge)
         dependsOn(tasks.modrinth)

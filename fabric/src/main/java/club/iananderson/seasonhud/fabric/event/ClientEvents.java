@@ -29,11 +29,13 @@ public class ClientEvents {
 
   private static void registerHud() {
     SeasonHUDOverlay.init();
-    if (CurrentMinimap.mapAtlasesLoaded()) {
-      MapAtlases.init();
-    }
+
     if (CurrentMinimap.journeyMapLoaded()) {
       JourneyMap.init();
+    }
+
+    if (CurrentMinimap.mapAtlasesLoaded()) {
+      MapAtlases.init();
     }
   }
 

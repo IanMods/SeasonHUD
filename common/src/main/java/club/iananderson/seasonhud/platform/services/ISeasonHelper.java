@@ -66,5 +66,5 @@ public interface ISeasonHelper {
    * @param item   The item that is being searched for.
    * @return The int for the Curios/Trinket inventory location
    */
-  int findCuriosCalendar(Player player, ItemStack item);
+  boolean findCuriosCalendar(Player player, ItemStack item);
 }

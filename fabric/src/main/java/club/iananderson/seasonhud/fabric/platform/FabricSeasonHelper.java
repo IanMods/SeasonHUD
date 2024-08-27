@@ -8,6 +8,7 @@ import io.github.lucaargolo.seasons.utils.Season;
 import java.time.LocalDateTime;
 import java.util.Collections;
 import java.util.Set;
+import net.minecraft.client.Minecraft;
 import net.minecraft.core.Registry;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.Container;
@@ -74,23 +75,24 @@ public class FabricSeasonHelper implements ISeasonHelper {
   }
 
   @Override
-  public int findCuriosCalendar(Player player, ItemStack item) {
+  public boolean findCuriosCalendar(Player player, Item item) {
+    Minecraft mc = Minecraft.getInstance();
+    boolean curioEquipped = false;
+
+    if (mc.level == null || mc.player == null || item == null) {
+      return false;
+    }
     Set<Item> curioSet = Collections.singleton(calendar().getItem());
 
     if (Common.curiosLoaded()) {
       Container findCalendar = TrinketsApi.getTrinketComponent(player).getInventory();
+
       if (!findCalendar.isEmpty()) {
-        if (findCalendar.hasAnyOf(curioSet)) {
-          return 1;
-        } else {
-          return 0;
-        }
-      } else {
-        return 0;
+        curioEquipped = findCalendar.hasAnyOf(curioSet);
       }
-    } else {
-      return 0;
     }
+
+    return curioEquipped;
   }
 
   private Season currentSeasonState(Level level) {

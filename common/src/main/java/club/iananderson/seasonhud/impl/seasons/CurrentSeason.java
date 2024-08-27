@@ -87,7 +87,6 @@ public class CurrentSeason {
         }
         break;
     }
-
     return text;
   }
 

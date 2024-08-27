@@ -56,7 +56,8 @@ public class ForgeMinimapHelper implements IMinimapHelper {
         break;
 
       case MAP_ATLASES:
-        hidden = !MapAtlases.shouldDraw(mc);
+        hidden = !Config.getEnableMinimapIntegration() || !Config.getEnableMod() || !Calendar.calendarFound()
+            || Services.MINIMAP.hideHudInCurrentDimension();
         break;
 
       case VOXELMAP:

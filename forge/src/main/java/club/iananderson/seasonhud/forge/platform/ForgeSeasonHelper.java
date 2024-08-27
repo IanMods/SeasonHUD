@@ -4,6 +4,7 @@ import club.iananderson.seasonhud.Common;
 import club.iananderson.seasonhud.config.Config;
 import club.iananderson.seasonhud.platform.services.ISeasonHelper;
 import java.util.List;
+import net.minecraft.client.Minecraft;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
@@ -85,14 +86,19 @@ public class ForgeSeasonHelper implements ISeasonHelper {
   }
 
   @Override
-  public int findCuriosCalendar(Player player, ItemStack item) {
-    int slot = 0;
+  public boolean findCuriosCalendar(Player player, ItemStack item) {
+    Minecraft mc = Minecraft.getInstance();
+    boolean curioEquipped = false;
+
+    if (mc.level == null || mc.player == null || item == null) {
+      return false;
+    }
 
     if (Common.curiosLoaded()) {
       List<SlotResult> findCalendar = CuriosApi.getCuriosHelper().findCurios(player, item.getItem());
-      slot += findCalendar.size();
+      curioEquipped = !findCalendar.isEmpty();
     }
-    return slot;
+    return curioEquipped;
   }
 
   private ISeasonState currentSeasonState(Level level) {

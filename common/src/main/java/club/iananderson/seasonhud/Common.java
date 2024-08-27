@@ -18,8 +18,9 @@ public class Common {
 
   public static final Logger LOG = LogManager.getLogger(MOD_NAME);
 
-  public static final ResourceLocation SEASON_ICONS = new ResourceLocation(MOD_ID, "season_icons");
+  public static final ResourceLocation SEASON_ICONS = location("season_icons");
   public static final Style SEASON_ICON_STYLE = Style.EMPTY.withFont(SEASON_ICONS);
+  public static ResourceLocation slotIcon = new ResourceLocation(MOD_ID, "slot/calendarslot");
   private static boolean curiosLoaded;
   private static boolean accessoriesLoaded;
   private static boolean extrasLoaded;
@@ -29,10 +30,14 @@ public class Common {
   }
 
   public static void init() {
+    platformName = Services.PLATFORM.getPlatformName();
+    extrasLoaded = Services.PLATFORM.isModLoaded("seasonsextras");
     curiosLoaded = Services.PLATFORM.isModLoaded("trinkets") || Services.PLATFORM.isModLoaded("curios");
     accessoriesLoaded = Services.PLATFORM.isModLoaded("accessories");
-    extrasLoaded = Services.PLATFORM.isModLoaded("seasonsextras");
-    platformName = Services.PLATFORM.getPlatformName();
+  }
+
+  public static String platformName() {
+    return Common.platformName;
   }
 
   public static boolean extrasLoaded() {
@@ -45,10 +50,6 @@ public class Common {
 
   public static boolean accessoriesLoaded() {
     return Common.accessoriesLoaded;
-  }
-
-  public static String platformName() {
-    return Common.platformName;
   }
 
   public static boolean vanillaShouldDrawHud() {
@@ -74,5 +75,9 @@ public class Common {
       }
     }
     return true;
+  }
+
+  public static ResourceLocation location(String path) {
+    return new ResourceLocation(MOD_ID, path);
   }
 }
