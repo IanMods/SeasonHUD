@@ -73,21 +73,23 @@ public class FabricSeasonHelper implements ISeasonHelper {
   }
 
   @Override
-  public int findCuriosCalendar(Player player, Item item) {
+  public boolean findCuriosCalendar(Player player, Item item) {
+    Minecraft mc = Minecraft.getInstance();
+    boolean curioEquipped = false;
+
+    if (mc.level == null || mc.player == null || item == null) {
+      return false;
+    }
+
     if (Common.curiosLoaded()) {
       Optional<TrinketComponent> findCalendar = TrinketsApi.getTrinketComponent(player);
+
       if (findCalendar.isPresent()) {
-        if (findCalendar.get().isEquipped(item)) {
-          return 1;
-        } else {
-          return 0;
-        }
-      } else {
-        return 0;
+        curioEquipped = findCalendar.get().isEquipped(item);
       }
-    } else {
-      return 0;
     }
+
+    return curioEquipped;
   }
 
   private Season currentSeasonState(Level level) {
