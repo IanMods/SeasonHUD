@@ -1,7 +1,6 @@
 {
   "entities": [
-    "minecraft:player",
-    "minecraft:armor_stand"
+    "minecraft:player"
   ],
   "slots": [
     "calendarslot"

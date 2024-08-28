@@ -113,6 +113,7 @@ modrinth {
 
     dependencies {
         required.project "serene-seasons"
+        required.project "forge-config-api-port"
         optional.project "curios"
         optional.project "accessories"
         optional.project "xaeros-minimap"
@@ -144,6 +145,7 @@ task publishCurseForge(type: net.darkhax.curseforgegradle.TaskPublishCurseForge)
     mainFile.addJavaVersion("Java 21")
 
     mainFile.addRequirement("serene-seasons")
+    mainFile.addRequirement("forge-config-api-port-fabric")
     mainFile.addOptional("curios")
     mainFile.addOptional("accessories")
     mainFile.addOptional("xaeros-minimap")
