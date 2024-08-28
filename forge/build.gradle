@@ -115,9 +115,9 @@ modrinth {
         required.project "serene-seasons"
         optional.project "curios"
         optional.project "accessories"
-        optional.project "journeymap"
         optional.project "xaeros-minimap"
         optional.project "xaeros-minimap-fair"
+        optional.project "journeymap"
         optional.project "map-atlases"
     }
 }
@@ -141,15 +141,15 @@ task publishCurseForge(type: net.darkhax.curseforgegradle.TaskPublishCurseForge)
     List<String> mcVersions = curseforge_gameVersions.split(",")
     mainFile.gameVersions = mcVersions
     mainFile.addGameVersion("Forge")
-    mainFile.addGameVersion("Java 21")
+    mainFile.addJavaVersion("Java 21")
 
     mainFile.addRequirement("serene-seasons")
     mainFile.addOptional("curios")
     mainFile.addOptional("accessories")
-    mainFile.addOptional("ftb-chunks-forge")
-    mainFile.addOptional("journeymap")
     mainFile.addOptional("xaeros-minimap")
     mainFile.addOptional("xaeros-minimap-fair-play-edition")
+    mainFile.addOptional("ftb-chunks-forge")
+    mainFile.addOptional("journeymap")
     mainFile.addOptional("map-atlases-forge")
 }
 

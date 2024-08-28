@@ -148,13 +148,13 @@ modrinth {
     changelog = recentChangelogText
 
     dependencies {
-        required.project "fabric-seasons"
-        optional.project "fabric-seasons-extras"
+        required.project "serene-seasons"
         required.project "forge-config-api-port"
-        optional.project "journeymap"
         optional.project "trinkets"
+        optional.project "accessories"
         optional.project "xaeros-minimap"
         optional.project "xaeros-minimap-fair"
+        optional.project "journeymap"
         optional.project "map-atlases"
     }
 }
@@ -166,7 +166,7 @@ task publishCurseForge(type: net.darkhax.curseforgegradle.TaskPublishCurseForge)
     int nextHeading = changelogText.indexOf("## [", firstHeading + 1)
     String recentChangelogText = changelogText.substring(firstHeading, nextHeading)
 
-    debugMode = true
+    debugMode = false
     disableVersionDetection()
     apiToken = System.getenv("CURSEFORGE_TOKEN")
 
@@ -180,14 +180,14 @@ task publishCurseForge(type: net.darkhax.curseforgegradle.TaskPublishCurseForge)
     mainFile.addGameVersion("Fabric")
     mainFile.addJavaVersion("Java 21")
 
-    mainFile.addRequirement("fabric-seasons")
+    mainFile.addRequirement("serene-seasons")
     mainFile.addRequirement("forge-config-api-port-fabric")
-    mainFile.addOptional("fabric-seasons-extras")
-    mainFile.addOptional("ftb-chunks-fabric")
-    mainFile.addOptional("journeymap")
     mainFile.addOptional("trinkets")
+    mainFile.addOptional("accessories")
     mainFile.addOptional("xaeros-minimap")
     mainFile.addOptional("xaeros-minimap-fair-play-edition")
+    mainFile.addOptional("ftb-chunks-fabric")
+    mainFile.addOptional("journeymap")
     mainFile.addOptional("map-atlases")
 }
 
