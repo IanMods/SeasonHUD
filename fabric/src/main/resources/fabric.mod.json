@@ -28,7 +28,7 @@
   "depends": {
     "fabricloader": ">=${fabric_loader_version}",
     "fabric-api": "*",
-    "minecraft": "${minecraft_version}",
+    "minecraft": "~${curseforge_gameVersions}",
     "java": ">=${java_version}",
     "sereneseasons": "*",
     "fabric-key-binding-api-v1": "*",
