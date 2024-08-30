@@ -12,12 +12,11 @@ import java.util.Optional;
 import net.minecraft.client.Minecraft;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
-import net.minecraft.world.level.Level;
 
 public class FabricSeasonHelper implements ISeasonHelper {
 
   @Override
-  public boolean isTropicalSeason(Level level, Player player) {
+  public boolean isTropicalSeason(Player player) {
     return false;
   }
 
@@ -27,43 +26,43 @@ public class FabricSeasonHelper implements ISeasonHelper {
   }
 
   @Override
-  public String getCurrentSubSeason(Level level, Player player) {
-    if (currentSeasonState(level).toString().equalsIgnoreCase("fall")) {
+  public String getCurrentSubSeason(Player player) {
+    if (currentSeasonState(player).toString().equalsIgnoreCase("fall")) {
       return "Autumn";
     } else {
-      return currentSeasonState(level).toString();
+      return currentSeasonState(player).toString();
     }
   }
 
   @Override
-  public String getCurrentSeason(Level level, Player player) {
-    if (currentSeasonState(level).toString().equalsIgnoreCase("fall")) {
+  public String getCurrentSeason(Player player) {
+    if (currentSeasonState(player).toString().equalsIgnoreCase("fall")) {
       return "Autumn";
     } else {
-      return currentSeasonState(level).toString();
+      return currentSeasonState(player).toString();
     }
   }
 
   @Override
-  public String getSeasonFileName(Level level, Player player) {
-    return getCurrentSeason(level, player).toLowerCase();
+  public String getSeasonFileName(Player player) {
+    return getCurrentSeason(player).toLowerCase();
   }
 
   @Override
-  public int getDate(Level level, Player player) {
+  public int getDate(Player player) {
     // Get the current day of month from the system. Used with fabric seasons' system time tied with season option
     if (isSeasonTiedWithSystemTime()) {
       return LocalDateTime.now().getDayOfMonth();
     } else {
       int seasonLength = FabricSeasons.CONFIG.getSpringLength();
-      int worldTime = Math.toIntExact(level.getDayTime());
+      int worldTime = Math.toIntExact(player.level.getDayTime());
 
       return ((worldTime - (worldTime / seasonLength * seasonLength)) % seasonLength / 24000) + 1;
     }
   }
 
   @Override
-  public int seasonDuration(Level level, Player player) {
+  public int seasonDuration(Player player) {
     return FabricSeasons.CONFIG.getSpringLength() / 24000;
   }
 
@@ -96,7 +95,7 @@ public class FabricSeasonHelper implements ISeasonHelper {
     return curioEquipped;
   }
 
-  private Season currentSeasonState(Level level) {
-    return FabricSeasons.getCurrentSeason(level);
+  private Season currentSeasonState(Player player) {
+    return FabricSeasons.getCurrentSeason(player.level);
   }
 }
