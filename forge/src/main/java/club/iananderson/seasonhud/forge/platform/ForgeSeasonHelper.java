@@ -7,7 +7,6 @@ import java.util.List;
 import net.minecraft.client.Minecraft;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.level.Level;
 import sereneseasons.api.SSItems;
 import sereneseasons.api.season.ISeasonState;
 import sereneseasons.api.season.SeasonHelper;
@@ -17,7 +16,7 @@ import top.theillusivec4.curios.api.SlotResult;
 
 public class ForgeSeasonHelper implements ISeasonHelper {
   @Override
-  public boolean isTropicalSeason(Level level, Player player) {
+  public boolean isTropicalSeason(Player player) {
     return false;
   }
 
@@ -27,33 +26,33 @@ public class ForgeSeasonHelper implements ISeasonHelper {
   }
 
   @Override
-  public String getCurrentSubSeason(Level level, Player player) {
-//    if (isTropicalSeason(level, player)) {
-//      return currentSeasonState(level).getTropicalSeason().toString();
+  public String getCurrentSubSeason(Player player) {
+//    if (isTropicalSeason(player)) {
+//      return currentSeasonState(player).getTropicalSeason().toString();
 //    } else {
-    return currentSeasonState(level).getSubSeason().toString();
+    return currentSeasonState(player).getSubSeason().toString();
 //    }
   }
 
   @Override
-  public String getCurrentSeason(Level level, Player player) {
-//    if (isTropicalSeason(level, player)) {
+  public String getCurrentSeason(Player player) {
+//    if (isTropicalSeason(player)) {
 //      // Removes the "Early", "Mid", "Late" from the tropical season.
-//      String currentSubSeason = getCurrentSubSeason(level, player);
+//      String currentSubSeason = getCurrentSubSeason(player);
 //      return currentSubSeason.substring(currentSubSeason.length() - 3);
 //    } else {
-    return currentSeasonState(level).getSeason().toString();
+    return currentSeasonState(player).getSeason().toString();
 //    }
   }
 
   @Override
-  public String getSeasonFileName(Level level, Player player) {
-    return getCurrentSeason(level, player).toLowerCase();
+  public String getSeasonFileName(Player player) {
+    return getCurrentSeason(player).toLowerCase();
   }
 
   @Override
-  public int getDate(Level level, Player player) {
-    int seasonDay = currentSeasonState(level).getDay(); //Current day out of the year (Default 24 days * 4 = 96 days)
+  public int getDate(Player player) {
+    int seasonDay = currentSeasonState(player).getDay(); //Current day out of the year (Default 24 days * 4 = 96 days)
     int subSeasonDuration = SeasonsConfig.subSeasonDuration.get(); //In case the default duration is changed
     int subSeasonDate = (seasonDay % subSeasonDuration) + 1; //Default 8 days in each sub-season (1 week)
     int seasonDate = (seasonDay % (subSeasonDuration * 3)) + 1; //Default 24 days in a season (8 days * 3)
@@ -66,10 +65,10 @@ public class ForgeSeasonHelper implements ISeasonHelper {
   }
 
   @Override
-  public int seasonDuration(Level level, Player player) {
+  public int seasonDuration(Player player) {
     int seasonDuration = SeasonsConfig.subSeasonDuration.get() * 3;
 
-//    if (isTropicalSeason(level, player)) {
+//    if (isTropicalSeason(player)) {
 //      seasonDuration *= 2; //Tropical seasons are twice as long (Default 48 days)
 //    }
 
@@ -101,7 +100,7 @@ public class ForgeSeasonHelper implements ISeasonHelper {
     return curioEquipped;
   }
 
-  private ISeasonState currentSeasonState(Level level) {
-    return SeasonHelper.getSeasonState(level);
+  private ISeasonState currentSeasonState(Player player) {
+    return SeasonHelper.getSeasonState(player.level);
   }
 }
