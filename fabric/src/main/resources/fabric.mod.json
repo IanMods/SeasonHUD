@@ -26,9 +26,9 @@
     "seasonhud.mixins.json"
   ],
   "depends": {
-    "fabricloader": ">=${fabric_loader_version}",
+    "fabricloader": "~${fabric_loader_version}",
     "fabric-api": "*",
-    "minecraft": "~${curseforge_gameVersions}",
+    "minecraft": "${fabric_mc_version_range}",
     "java": ">=${java_version}",
     "sereneseasons": "*",
     "fabric-key-binding-api-v1": "*",
