@@ -12,7 +12,6 @@ import net.minecraft.network.chat.Style;
 import net.minecraft.network.chat.TextComponent;
 import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.level.Level;
 
 public class CurrentSeason {
   private final String currentSeason;
@@ -23,14 +22,13 @@ public class CurrentSeason {
   private Style seasonFormat;
 
   public CurrentSeason(Minecraft mc) {
-    Level level = mc.level;
     Player player = mc.player;
     this.seasonFormat = Style.EMPTY;
-    this.currentSeason = Services.SEASON.getCurrentSeason(level, player);
-    this.currentSubSeason = Services.SEASON.getCurrentSubSeason(level, player);
-    this.seasonFileName = Services.SEASON.getSeasonFileName(level, player);
-    this.seasonDate = Services.SEASON.getDate(level, player);
-    this.seasonDuration = Services.SEASON.seasonDuration(level, player);
+    this.currentSeason = Services.SEASON.getCurrentSeason(player);
+    this.currentSubSeason = Services.SEASON.getCurrentSubSeason(player);
+    this.seasonFileName = Services.SEASON.getSeasonFileName(player);
+    this.seasonDate = Services.SEASON.getDate(player);
+    this.seasonDuration = Services.SEASON.seasonDuration(player);
   }
 
   public static CurrentSeason getInstance(Minecraft mc) {
