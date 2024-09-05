@@ -189,7 +189,7 @@ public class ColorScreen extends Screen {
                                                                 (b, enable) -> {
                                                                   Config.setEnableSeasonNameColor(enable);
                                                                   this.clearWidgets();
-          this.init();
+                                                                  this.init();
                                                                 });
 
     doneButton = MenuButton.builder(MenuButtons.DONE, press -> this.onDone())

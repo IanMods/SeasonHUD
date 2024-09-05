@@ -99,8 +99,8 @@ public class SeasonHUDScreen extends Screen {
     //noinspection ConstantValue
     CycleButton<Boolean> enableModButton = CycleButton.onOffBuilder(Config.getEnableMod())
                                                       .create(leftButtonX, (buttonStartY + (row * yOffset)),
-                                                              BUTTON_WIDTH, BUTTON_HEIGHT,
-                                                              new TranslatableComponent("menu.seasonhud.button.enableMod"),
+                                                              BUTTON_WIDTH, BUTTON_HEIGHT, new TranslatableComponent(
+                                                              "menu.seasonhud.button.enableMod"),
                                                               (b, set) -> Config.setEnableMod(set));
 
     //noinspection ConstantValue
@@ -143,8 +143,9 @@ public class SeasonHUDScreen extends Screen {
 
     CycleButton<Boolean> showSubSeasonButton = CycleButton.onOffBuilder(Config.getShowSubSeason())
                                                           .create(rightButtonX, (buttonStartY + (row * yOffset)),
-                                                                  BUTTON_WIDTH, BUTTON_HEIGHT, new TranslatableComponent(
-                                                                  "menu.seasonhud.button.showSubSeason"),
+                                                                  BUTTON_WIDTH, BUTTON_HEIGHT,
+                                                                  new TranslatableComponent(
+                                                                      "menu.seasonhud.button.showSubSeason"),
                                                                   (b, show) -> Config.setShowSubSeason(show));
 
     row = 3;
