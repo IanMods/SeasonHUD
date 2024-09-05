@@ -46,3 +46,10 @@ mandatory = true
 versionRange = "[20.4.1,)"
 ordering = "NONE"
 side = "BOTH"
+
+[[dependencies.${ mod_id }]]
+modId = "journeymap"
+mandatory = false
+versionRange = "[1.21-6.0.0-beta.23,)"
+ordering = "AFTER"
+side = "CLIENT"
