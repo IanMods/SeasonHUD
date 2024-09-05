@@ -28,7 +28,7 @@ public class SeasonComponent implements MinimapInfoComponent {
 
   public void render(MinimapContext context, GuiGraphics graphics, Font font) {
     if (CurrentMinimap.shouldDrawMinimapHud(Minimaps.FTB_CHUNKS)) {
-      MutableComponent seasonCombined = CurrentSeason.getInstance(context.minecraft()).getSeasonHudText();
+      MutableComponent seasonCombined = CurrentSeason.getInstance(context.minecraft()).getSeasonHudComponent();
 
       this.drawCenteredText(context.minecraft().font, graphics, seasonCombined, 0);
     }

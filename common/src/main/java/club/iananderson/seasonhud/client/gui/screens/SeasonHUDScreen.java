@@ -78,7 +78,7 @@ public class SeasonHUDScreen extends Screen {
     int rightButtonX = (this.width / 2) + BUTTON_PADDING;
     int buttonStartY = MENU_PADDING;
     int yOffset = BUTTON_HEIGHT + BUTTON_PADDING;
-    MutableComponent seasonCombined = CurrentSeason.getInstance(mc).getSeasonHudText();
+    MutableComponent seasonCombined = CurrentSeason.getInstance(mc).getSeasonHudComponent();
     double scaledWidth = mc.getWindow().getGuiScaledWidth();
     double scaledHeight = mc.getWindow().getGuiScaledHeight();
     double componentWidth = mc.font.width(seasonCombined);

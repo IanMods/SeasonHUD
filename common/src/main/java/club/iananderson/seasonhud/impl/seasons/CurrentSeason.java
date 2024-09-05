@@ -54,7 +54,7 @@ public class CurrentSeason {
   }
 
   //Localized name for the hud with icon
-  public Component getText() {
+  public Component getSeasonText() {
     Component season = Component.translatable("desc.seasonhud.season." + getSeasonStateLower());
     Component text = Component.literal("");
 
@@ -98,14 +98,14 @@ public class CurrentSeason {
   public MutableComponent getSeasonHudTextNoFormat() {
     Component seasonIcon = Component.translatable("desc.seasonhud.hud.icon", getSeasonIcon())
                                     .withStyle(Common.SEASON_ICON_STYLE);
-    MutableComponent seasonText = getText().copy();
+    MutableComponent seasonText = getSeasonText().copy();
 
     return Component.translatable("desc.seasonhud.hud.combined", seasonIcon, seasonText);
   }
 
-  public MutableComponent getSeasonHudText() {
+  public MutableComponent getSeasonHudComponent() {
     MutableComponent seasonIcon = Component.translatable("desc.seasonhud.hud.icon", getSeasonIcon());
-    MutableComponent seasonText = getText().copy();
+    MutableComponent seasonText = getSeasonText().copy();
 
     if (Config.getEnableSeasonNameColor()) {
       seasonFormat = Style.EMPTY.withColor(getTextColor());
