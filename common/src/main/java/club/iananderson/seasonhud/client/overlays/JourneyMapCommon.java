@@ -2,67 +2,70 @@ package club.iananderson.seasonhud.client.overlays;
 
 import club.iananderson.seasonhud.config.Config;
 import club.iananderson.seasonhud.impl.seasons.CurrentSeason;
+import java.util.List;
+import journeymap.api.v2.client.util.tuple.Tuple2;
 import journeymap.client.JourneymapClient;
 import journeymap.client.io.ThemeLoader;
 import journeymap.client.properties.MiniMapProperties;
+import journeymap.client.render.RenderWrapper;
+import journeymap.client.render.draw.DrawStep.Pass;
 import journeymap.client.render.draw.DrawUtil;
+import journeymap.client.render.draw.DrawUtil.HAlign;
+import journeymap.client.render.draw.DrawUtil.VAlign;
 import journeymap.client.ui.UIManager;
 import journeymap.client.ui.minimap.DisplayVars;
 import journeymap.client.ui.theme.Theme.LabelSpec;
-import journeymap.client.ui.theme.ThemeLabelSource;
+import journeymap.client.ui.theme.Theme.Minimap.MinimapSpec;
+import journeymap.client.ui.theme.ThemeLabelSource.InfoSlot;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.renderer.MultiBufferSource;
+import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
+import net.minecraft.util.Mth;
 
 public class JourneyMapCommon {
   private final MutableComponent seasonCombined;
-  private final boolean fontShadow;
-  private final float fontScale;
+  private final Component seasonText;
+  private final float infoSlotScale;
   private final float labelAlpha;
   private final float textAlpha;
-  private final double textureX;
-  private final double textureY;
-  private final int minimapHeight;
   private final int halfWidth;
-  private final int margin;
   private final int labelColor;
   private final int textColor;
   private final int labelHeight;
-  private final int topLabelHeight;
-  private final int bottomLabelHeight;
+  private final int topLabelAreaHeight;
+  private final int bottomLabelAreaHeight;
   private final double scaledWidth;
   private final double scaledHeight;
   private double screenWidth;
   private double screenHeight;
+  private final DisplayVars vars;
+  private final LabelSpec labelSpec;
+  private final MinimapSpec minimapSpec;
 
   public JourneyMapCommon(Minecraft mc) {
+    this.seasonCombined = CurrentSeason.getInstance(mc).getSeasonHudComponent();
+    this.seasonText = CurrentSeason.getInstance(mc).getSeasonText();
     Font fontRenderer = mc.font;
-    this.seasonCombined = CurrentSeason.getInstance(mc).getSeasonHudText();
     JourneymapClient jm = JourneymapClient.getInstance();
-    DisplayVars vars = UIManager.INSTANCE.getMiniMap().getDisplayVars();
     MiniMapProperties mapProperties = jm.getActiveMiniMapProperties();
-    LabelSpec currentTheme = ThemeLoader.getCurrentTheme().minimap.square.labelBottom;
-    this.fontShadow = currentTheme.shadow;
-    this.fontScale = jm.getActiveMiniMapProperties().infoSlotFontScale.get();
-    this.labelAlpha = jm.getActiveMiniMapProperties().infoSlotAlpha.get();
-    this.textAlpha = currentTheme.foreground.alpha;
-    this.textureX = vars.textureX;
-    this.textureY = vars.textureY;
-    this.minimapHeight = vars.minimapHeight;
-    int minimapWidth = vars.minimapWidth;
-    this.halfWidth = minimapWidth / 2;
-    this.margin = ThemeLoader.getCurrentTheme().minimap.square.margin;
-    this.labelColor = currentTheme.background.getColor();
-    this.textColor = currentTheme.foreground.getColor();
-    this.labelHeight = (int) ((DrawUtil.getLabelHeight(fontRenderer, fontShadow) + currentTheme.margin) * fontScale);
-    this.topLabelHeight = vars.getInfoLabelAreaHeight(fontRenderer, currentTheme,
-                                                      ThemeLabelSource.values.get(mapProperties.info1Label.get()),
-                                                      ThemeLabelSource.values.get(mapProperties.info2Label.get()));
-    this.bottomLabelHeight = vars.getInfoLabelAreaHeight(fontRenderer, currentTheme,
-                                                         ThemeLabelSource.values.get(mapProperties.info3Label.get()),
-                                                         ThemeLabelSource.values.get(mapProperties.info4Label.get()));
+    this.vars = UIManager.INSTANCE.getMiniMap().getDisplayVars();
+    Tuple2<List<InfoSlot>, List<InfoSlot>> labelList = vars.getInfoSlotLabels(mapProperties);
+    List<InfoSlot> topLabels = labelList.a();
+    List<InfoSlot> bottomLabels = labelList.b();
+    this.minimapSpec = ThemeLoader.getCurrentTheme().minimap.square;
+    this.labelSpec = minimapSpec.labelBottom;
+    this.infoSlotScale = mapProperties.infoSlotFontScale.get();
+    this.labelAlpha = mapProperties.infoSlotAlpha.get();
+    this.textAlpha = labelSpec.foreground.alpha;
+    this.halfWidth = vars.minimapWidth / 2;
+    this.labelColor = labelSpec.background.getColor();
+    this.textColor = labelSpec.foreground.getColor();
+    this.labelHeight = (int)((double)(DrawUtil.getLabelHeight(fontRenderer, labelSpec.shadow) + labelSpec.margin) * infoSlotScale);
+    this.topLabelAreaHeight = vars.getInfoLabelAreaHeight(fontRenderer, minimapSpec.labelTop, topLabels);
+    this.bottomLabelAreaHeight = vars.getInfoLabelAreaHeight(fontRenderer, minimapSpec.labelBottom, bottomLabels);
     this.screenWidth = mc.getWindow().getWidth();
     this.screenHeight = mc.getWindow().getHeight();
     if (Config.getJourneyMapMacOS()) {
@@ -78,19 +81,25 @@ public class JourneyMapCommon {
     return new JourneyMapCommon(mc);
   }
 
-  private int labelX() {
-    return (int) (textureX + halfWidth);
+  private double labelX() {
+    return (vars.textureX + halfWidth);
   }
 
-  private int labelY() {
-    int startY = (int) (textureY + (Config.getJourneyMapAboveMap() ? 0 : (Config.getJourneyMapMacOS() ? -margin
-        - labelHeight : minimapHeight + margin)));
+  private double labelY() {
+    double padding = 2.0 / infoSlotScale * (double) Mth.floor(infoSlotScale);
+    double startY = vars.textureY;
 
-    return startY + (Config.getJourneyMapAboveMap() ? -topLabelHeight - margin - labelHeight : bottomLabelHeight);
+    if (Config.getJourneyMapAboveMap()) {
+      startY -= ((minimapSpec.margin + topLabelAreaHeight + labelHeight));
+    } else {
+      startY += (vars.minimapHeight + minimapSpec.margin + bottomLabelAreaHeight);
+    }
+
+    return startY;
   }
 
-  public float getFontScale() {
-    return fontScale;
+  public float getInfoSlotScale() {
+    return infoSlotScale;
   }
 
   public double getScreenWidth() {
@@ -104,9 +113,12 @@ public class JourneyMapCommon {
   public void drawSeasonLabel(GuiGraphics graphics) {
     MultiBufferSource.BufferSource buffers = graphics.bufferSource();
     buffers.endBatch();
-    DrawUtil.drawBatchLabel(graphics, seasonCombined, labelX(), labelY(), DrawUtil.HAlign.Center, DrawUtil.VAlign.Below,
-                            labelColor, labelAlpha, textColor, textAlpha, fontScale, fontShadow, 0);
-    graphics.bufferSource().endBatch();
+    RenderWrapper.enableBlend();
+    DrawUtil.drawBatchLabel(graphics.pose(), seasonCombined, Pass.TextBG, buffers, labelX(), labelY(), HAlign.Center, VAlign.Below, labelColor, labelAlpha, textColor, textAlpha, infoSlotScale, !(labelAlpha >= 0.05F) || labelSpec.shadow, 0.0);
+    graphics.pose().translate(0.0F, 0.0F, 1.0F);
+    DrawUtil.drawBatchLabel(graphics.pose(), seasonCombined, Pass.Text, buffers, labelX(), labelY(), HAlign.Center, VAlign.Below, labelColor, labelAlpha, textColor, textAlpha, infoSlotScale, !(labelAlpha >= 0.05F) || labelSpec.shadow, 0.0);
+    RenderWrapper.disableBlend();
+    buffers.endBatch();
     DrawUtil.sizeDisplay(scaledWidth, scaledHeight);
   }
 }

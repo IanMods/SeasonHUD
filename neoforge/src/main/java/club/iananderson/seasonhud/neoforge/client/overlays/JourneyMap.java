@@ -23,7 +23,7 @@ public class JourneyMap implements LayeredDraw.Layer {
       JourneyMapCommon journeyMapCommon = JourneyMapCommon.getInstance(Minecraft.getInstance());
 
       graphics.pose().pushPose();
-      graphics.pose().scale(1 / journeyMapCommon.getFontScale(), 1 / journeyMapCommon.getFontScale(), 0);
+      graphics.pose().scale(1 / journeyMapCommon.getInfoSlotScale(), 1 / journeyMapCommon.getInfoSlotScale(), 0);
       DrawUtil.sizeDisplay(journeyMapCommon.getScreenWidth(), journeyMapCommon.getScreenHeight());
       graphics.pose().popPose();
       journeyMapCommon.drawSeasonLabel(graphics);
