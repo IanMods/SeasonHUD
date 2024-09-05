@@ -28,6 +28,12 @@ public class FabricMinimapHelper implements IMinimapHelper {
     return !ModConfig.seasons.isDimensionWhitelisted(currentDim);
   }
 
+  /* Todo:
+   * Change this to be part of common code
+   * Double check all logic
+   * Add option to display current loaded integration
+   * Add a dropdown to override this if more than one are loaded
+   */
   @Override
   public boolean hiddenMinimap(Minimaps minimap) {
     Minecraft mc = Minecraft.getInstance();

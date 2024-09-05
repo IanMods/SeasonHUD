@@ -135,7 +135,7 @@ public class HudOffsetSlider extends BasicSlider {
 
     public HudOffsetSlider build() {
       HudOffsetSlider slider = new HudOffsetSlider(this.x, this.y, this.width, this.height, this.prefix, this.initial,
-                                                   this.minValue, this.maxValue, this.defaultValue);
+          this.minValue, this.maxValue, this.defaultValue);
       slider.setTooltip(this.tooltip);
       return slider;
     }

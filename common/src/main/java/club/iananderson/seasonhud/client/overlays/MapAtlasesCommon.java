@@ -39,7 +39,7 @@ public class MapAtlasesCommon {
       MutableComponent seasonCombined = CurrentSeason.getInstance(Minecraft.getInstance()).getSeasonHudText();
       MutableComponent shadowText = CurrentSeason.getInstance(Minecraft.getInstance()).getSeasonHudTextNoFormat();
       drawScaledComponent(graphics, font, x, y, seasonCombined, shadowText, textScaling / globalScale, targetWidth,
-                          (int) (targetWidth / globalScale));
+          (int) (targetWidth / globalScale));
     }
   }
 

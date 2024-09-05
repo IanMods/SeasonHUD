@@ -41,7 +41,6 @@ subprojects {
         maven { url = "https://raw.githubusercontent.com/Fuzss/modresources/main/maven/" } //ForgeConfigAPiPort
         maven { url 'https://maven.wispforest.io/releases' } //Accessories
         maven { url 'https://maven.su5ed.dev/releases' } //Accessories
-
         exclusiveContent {
             forRepository {
                 maven { url = "https://cursemaven.com" }
@@ -110,7 +109,7 @@ subprojects {
                 "minecraft_version_range"   : minecraft_version_range,
                 "fabric_api_version"        : fabric_api_version,
                 "fabric_loader_version"     : fabric_loader_version,
-                "fabric_mc_version_range"   : fabric_version_range,
+                "fabric_version_range"      : fabric_version_range,
                 "mod_name"                  : mod_name,
                 "mod_author"                : mod_author,
                 "mod_id"                    : mod_id,
