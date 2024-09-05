@@ -4,6 +4,16 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 
+## [1.10.3] - 2024-09-05
+
+### Changed
+
+- Slight cleanup and built against latest version of each minimap mod.
+
+### Fixed
+
+- (1.21.x) Fixed crash with Journeymap 1.21-6.0.0-beta.23
+
 ## [1.10.2] - 2024-08-30
 
 ### Fixed
@@ -24,9 +34,11 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 
 ### Changed
 
-- Starting with this release, the **1.20.2**, **1.20.4**, and **1.20.6** versions will no longer be updated.
-    - I updated the **1.16.5** version to be in line with all the current features, and ported it to Fabric.
-    - Current active versions are: **1.16.5**, **1.18.2**, **1.19.x**, **1.20.1**, **1.21.x**.
+- Starting with this release, the **1.20.2**, **1.20.4**, and **1.20.6** versions will no longer be
+  updated.
+    - I updated the **1.16.5** version to be in line with all the current features, and ported it to
+      Fabric.
+        - Current active versions are: **1.16.5**, **1.18.2**, **1.19.x**, **1.20.1**, **1.21.x**.
 - Switched Curios to use a custom Calendar slot instead of Charm.
 - Switched Accessories to use a custom Calendar slot instead of Charm.
 - Improved detection of curios/trinkets/accessories.
@@ -52,7 +64,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 ### Added
 
 - Added custom Trinkets slot for the calendar, rather than using the ring slot
-- Added the ability to disable the slot via data pack. See description page for the link to the data pack.
+- Added the ability to disable the slot via data pack. See description page for the link to the data
+  pack.
 
 ## [1.9.6] - 2024-07-22
 
@@ -101,14 +114,16 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 ### Changed
 
 - Changed the default offsets from 0,0 from 2,2 due to some changes in the offset calculation
-    - If you aren't using a minimap mod, you may need to manually change these values if the text isn't offset.
+    - If you aren't using a minimap mod, you may need to manually change these values if the text
+      isn't offset.
 - More common code for JourneyMap and MapAtlases to make porting easier.
 - Improved logic for detecting hidden minimaps if multiple minimap mods are installed.
 - Updated Curios support to more modern implementation.
 
 ### Fixed
 
-- Made the season name color sliders not editable and grayed out if the "Season Name Color" option is not enabled.
+- Made the season name color sliders not editable and grayed out if the "Season Name Color" option
+  is not enabled.
 - Fixed the bottom Hud location presets being too low and cutting off text.
 
 ## [1.8.9] - 2024-06-28

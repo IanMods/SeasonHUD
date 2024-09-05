@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<svg height="1600" shape-rendering="crispEdges" version="1.1" width="1600" xmlns="http://www.w3.org/2000/svg">
+<svg height="1600" shape-rendering="crispEdges" version="1.1" width="1600"
+  xmlns="http://www.w3.org/2000/svg">
   <rect fill="#1E1E23" height="100" width="100" x="500" y="100"/>
   <rect fill="#1E1E23" height="100" width="100" x="600" y="100"/>
   <rect fill="#1E1E23" height="100" width="100" x="500" y="200"/>

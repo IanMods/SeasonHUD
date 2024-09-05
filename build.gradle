@@ -2,7 +2,7 @@ plugins {
     id 'dev.architectury.loom' version '1.6-SNAPSHOT' apply false
     id 'architectury-plugin' version '3.4-SNAPSHOT'
     id 'com.github.johnrengelman.shadow' version '8.1.1' apply false
-    id 'net.darkhax.curseforgegradle' version '1.1.18'
+    id 'net.darkhax.curseforgegradle' version '1.1.25'
     id 'com.modrinth.minotaur' version '2.+'
 }
 
@@ -35,7 +35,7 @@ subprojects {
         maven { url = "https://maven.quiltmc.org/repository/release" } // Quilt Mappings
         maven { url = "https://maven.theillusivec4.top/" } //Curios
         maven { url = "https://maven.ladysnake.org/releases" } // Cardinal Components
-        maven { url = "https://raw.githubusercontent.com/Fuzss/modresources/main/maven/" } //ForgeConfigAPiPort
+        maven { url = "https://raw.githubusercontent.com/Fuzss/modresources/main/maven/" }
         exclusiveContent {
             forRepository {
                 maven { url = "https://cursemaven.com" }
@@ -103,7 +103,7 @@ subprojects {
                            "minecraft_version_range"   : minecraft_version_range,
                            "fabric_api_version"        : fabric_api_version,
                            "fabric_loader_version"     : fabric_loader_version,
-                           "fabric_mc_version_range"   : fabric_mc_version_range,
+                           "fabric_version_range"      : fabric_version_range,
                 "mod_name"                  : mod_name,
                            "mod_author"                : mod_author,
                            "mod_id"                    : mod_id,

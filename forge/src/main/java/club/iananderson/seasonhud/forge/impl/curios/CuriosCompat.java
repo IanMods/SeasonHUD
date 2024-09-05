@@ -16,8 +16,7 @@ public class CuriosCompat {
 
   public static void registerSlots() {
     InterModComms.sendTo("curios", SlotTypeMessage.REGISTER_TYPE,
-                         () -> new SlotTypeMessage.Builder("calendarslot").icon(Common.slotIcon).size(1)
-                             .build());
+                         () -> new SlotTypeMessage.Builder("calendarslot").icon(Common.slotIcon).size(1).build());
   }
 
   public void setup(final FMLCommonSetupEvent evt) {
