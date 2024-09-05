@@ -27,7 +27,6 @@ subprojects {
 
     repositories {
         mavenCentral()
-        maven { url = "https://api.modrinth.com/maven" } // LazyDFU
         maven { url = "https://maven.shedaniel.me/" } // Cloth Config, REI
         maven { url = "https://maven.terraformersmc.com/releases/" } // Mod Menu
         maven { url = "https://maven.blamejared.com/" } // JEI
@@ -38,9 +37,7 @@ subprojects {
         maven { url = "https://jm.gserv.me/repository/maven-public/" } //Journeymap API for Fabric
         maven { url 'https://maven.wispforest.io/releases' } //Accessories
         maven { url 'https://maven.su5ed.dev/releases' } //Accessories
-
         maven { url = "https://raw.githubusercontent.com/Fuzss/modresources/main/maven/" }
-        //ForgeConfigAPiPort
         exclusiveContent {
             forRepository {
                 maven { url = "https://cursemaven.com" }
