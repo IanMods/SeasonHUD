@@ -184,10 +184,11 @@ public class ColorScreen extends Screen {
     //Buttons
     CycleButton<Boolean> seasonColorButton = CycleButton.onOffBuilder(Config.getEnableSeasonNameColor())
                                                         .create(leftButtonX, MENU_PADDING_FULL, BUTTON_WIDTH,
-                                                            BUTTON_HEIGHT, ENABLE_SEASON_NAME_COLOR, (b, enable) -> {
-                                                              Config.setEnableSeasonNameColor(enable);
-                                                              this.rebuildWidgets();
-                                                            });
+                                                                BUTTON_HEIGHT, ENABLE_SEASON_NAME_COLOR,
+                                                                (b, enable) -> {
+                                                                  Config.setEnableSeasonNameColor(enable);
+                                                                  this.rebuildWidgets();
+                                                                });
 
     doneButton = MenuButton.builder(MenuButtons.DONE, press -> this.onDone())
         .withPos(leftButtonX, (getHeight() - BUTTON_HEIGHT - WIDGET_PADDING))

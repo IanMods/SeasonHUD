@@ -43,7 +43,7 @@ public class MapAtlasHudMixin {
         textHeightOffset += (int) (10.0F * textScaling);
       }
       MapAtlasesCommon.drawMapComponentSeason(graphics, font, x, (int) (y + BG_SIZE + (textHeightOffset / globalScale)),
-          actualBgSize, textScaling, globalScale);
+                                              actualBgSize, textScaling, globalScale);
     }
   }
 }
