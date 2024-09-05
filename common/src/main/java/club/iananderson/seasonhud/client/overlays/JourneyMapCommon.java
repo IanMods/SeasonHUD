@@ -87,7 +87,6 @@ public class JourneyMapCommon {
   }
 
   private double labelY() {
-    double padding = 2.0 / infoSlotScale * (double) Mth.floor(infoSlotScale);
     double startY = vars.textureY;
 
     if (Config.getJourneyMapAboveMap()) {
