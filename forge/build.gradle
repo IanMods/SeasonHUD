@@ -62,6 +62,22 @@ dependencies {
     //Curios + Accessories
     modCompileOnly "top.theillusivec4.curios:curios-forge:${project.minecraft_version}-${project.curios_version}:api"
 
+//    //ModernUI
+//    forgeRuntimeLibrary("icyllis.modernui:ModernUI-Core:1.7.0.104") {
+//        exclude group: "org.apache.logging.log4j", module: "log4j-core"
+//        exclude group: "org.apache.logging.log4j", module: "log4j-api"
+//        exclude group: "com.google.code.findbugs", module: "jsr305"
+//        exclude group: "org.jetbrains", module: "annotations"
+//        exclude group: "com.ibm.icu", module: "icu4j"
+//    }
+//    modImplementation("icyllis.modernui:ModernUI-Forge:${minecraft_version}-${modernui_version}.+") {
+//        exclude group: "org.apache.logging.log4j", module: "log4j-core"
+//        exclude group: "org.apache.logging.log4j", module: "log4j-api"
+//        exclude group: "com.google.code.findbugs", module: "jsr305"
+//        exclude group: "org.jetbrains", module: "annotations"
+//        exclude group: "com.ibm.icu", module: "icu4j"
+//    }
+
     // Development QOL
 //    modLocalRuntime("mezz.jei:jei-${minecraft_version}-forge:${jei_version}") { transitive = false }
 

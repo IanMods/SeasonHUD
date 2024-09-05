@@ -20,10 +20,11 @@ public class CurrentSeason {
   private final String seasonFileName;
   private final int seasonDate;
   private final int seasonDuration;
+  private final Player player;
   private Style seasonFormat;
 
   public CurrentSeason(Minecraft mc) {
-    Player player = mc.player;
+    this.player = mc.player;
     this.seasonFormat = Style.EMPTY;
     this.currentSeason = Services.SEASON.getCurrentSeason(player);
     this.currentSubSeason = Services.SEASON.getCurrentSubSeason(player);
@@ -113,9 +114,13 @@ public class CurrentSeason {
     if (Config.getEnableSeasonNameColor()) {
       seasonFormat = Style.EMPTY.withColor(getTextColor());
     }
-
+//
+//    if (Services.PLATFORM.isModLoaded("modernui")) {
+//      return seasonText.withStyle(seasonFormat);
+//    } else {
     return new TranslatableComponent("desc.seasonhud.hud.combined", seasonIcon.withStyle(Common.SEASON_ICON_STYLE),
                                      seasonText.withStyle(seasonFormat));
+//    }
   }
 
   public MutableComponent getSeasonMenuText(Seasons season, TextColor newRgb, boolean seasonShort) {
@@ -137,4 +142,29 @@ public class CurrentSeason {
     return new TranslatableComponent("desc.seasonhud.hud.combined", seasonIcon.withStyle(Common.SEASON_ICON_STYLE),
                                      seasonText.withStyle(seasonFormat));
   }
+//  public ResourceLocation getIconLocation() {
+//    return Common.location("textures/season/" + Services.SEASON.getSeasonFileName(player) + ".png");
+//  }
+//
+//  public void drawIcon(Minecraft mc, PoseStack graphics, float scale, int x, int y) {
+//    int iconWidth = 9;
+//    int iconSpace = 2;
+//    int iconX = x - iconWidth - iconSpace;
+//    int iconY = y - 1;
+//
+//    graphics.pushPose();
+//    graphics.scale(scale, scale, 1.0F);
+//    RenderSystem.enableBlend();
+//    RenderSystem.defaultBlendFunc();
+//    mc.getTextureManager().bind(getIconLocation());
+//    RenderSystem.color4f(0.25F, 0.25F, 0.25F, 0.75F);
+//    GuiComponent.blit(graphics, (int) ((iconX + 1) / scale), (int) ((iconY + 1) / scale), 0, 0, iconWidth, iconWidth,
+//                      iconWidth, iconWidth);
+//    RenderSystem.color4f(1F, 1F, 1F, 1F);
+//    GuiComponent.blit(graphics, (int) (iconX / scale), (int) (iconY / scale), 0, 0, iconWidth, iconWidth, iconWidth,
+//                      iconWidth);
+//    mc.getTextureManager().bind(GuiComponent.GUI_ICONS_LOCATION);
+//    RenderSystem.disableBlend();
+//    graphics.popPose();
+//  }
 }

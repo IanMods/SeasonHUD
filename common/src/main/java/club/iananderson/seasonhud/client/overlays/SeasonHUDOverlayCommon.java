@@ -17,38 +17,44 @@ public class SeasonHUDOverlayCommon {
     MutableComponent seasonCombined = CurrentSeason.getInstance(mc).getSeasonHudText();
     int screenWidth = mc.getWindow().getGuiScaledWidth();
     int screenHeight = mc.getWindow().getGuiScaledHeight();
+//    int iconWidth = 9;
+//    int iconSpace = 2;
     int x = 0;
     int y = 0;
     int xOffset = Config.getHudX();
     int yOffset = Config.getHudY();
     int stringWidth = mc.font.width(seasonCombined);
     int stringHeight = mc.font.lineHeight;
-
+//    if (Services.PLATFORM.isModLoaded("modernui")) {
+//      x += iconWidth + iconSpace;
+//      y += 1;
+//      stringWidth += iconWidth + iconSpace;
+//    }
     if (Common.drawDefaultHud() && Common.vanillaShouldDrawHud() && Calendar.calendarFound()) {
       switch (Config.getHudLocation()) {
         case TOP_LEFT:
-          x = xOffset;
-          y = yOffset;
+          x += xOffset;
+          y += yOffset;
           break;
 
         case TOP_CENTER:
-          x = (screenWidth / 2) - (stringWidth / 2);
-          y = yOffset;
+          x += (screenWidth / 2) - (stringWidth / 2);
+          y += yOffset;
           break;
 
         case TOP_RIGHT:
-          x = screenWidth - stringWidth - xOffset;
-          y = yOffset;
+          x += screenWidth - stringWidth - xOffset;
+          y += yOffset;
           break;
 
         case BOTTOM_LEFT:
-          x = xOffset;
-          y = screenHeight - stringHeight - yOffset;
+          x += xOffset;
+          y += screenHeight - stringHeight - yOffset;
           break;
 
         case BOTTOM_RIGHT:
-          x = screenWidth - stringWidth - xOffset;
-          y = screenHeight - stringHeight - yOffset;
+          x += screenWidth - stringWidth - xOffset;
+          y += screenHeight - stringHeight - yOffset;
           break;
       }
 
@@ -56,6 +62,10 @@ public class SeasonHUDOverlayCommon {
       graphics.pushPose();
       graphics.scale(1F, 1F, 1F);
       mc.font.drawShadow(graphics, seasonCombined, x, y, 0xffffff);
+//      //Icon
+//      if (Services.PLATFORM.isModLoaded("modernui")) {
+//        CurrentSeason.getInstance(mc).drawIcon(mc, graphics, 1F, x, y);
+//      }
       graphics.popPose();
     }
   }

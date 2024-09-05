@@ -101,7 +101,9 @@ public class ColorEditBox extends EditBox {
     boolean seasonShort = (scaledWidth < widgetTotalSize);
 
     MutableComponent seasonCombined = CurrentSeason.getInstance(mc)
-                                                   .getSeasonMenuText(this.boxSeason, TextColor.fromRgb(this.newSeasonColor), seasonShort);
+                                                   .getSeasonMenuText(this.boxSeason,
+                                                                      TextColor.fromRgb(this.newSeasonColor),
+                                                                      seasonShort);
 
     graphics.pushPose();
     if ((mc.font.width(seasonCombined) > this.getWidth() - PADDING)) {
