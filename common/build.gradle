@@ -9,7 +9,7 @@ dependencies {
     modImplementation "net.fabricmc:fabric-loader:${project.fabric_loader_version}"
 
     api "fuzs.forgeconfigapiport:forgeconfigapiport-common-neoforgeapi:${project.forge_config_api_port_version}"
-    api group: 'info.journeymap', name: 'journeymap-api-common', version: project.journeymap_api_version_fabric, changing: true
+    api group: 'info.journeymap', name: 'journeymap-api-common', version: project.journeymap_api_version, changing: true
     compileOnly "com.github.glitchfiend:GlitchCore-common:${minecraft_version}-${glitchcore_version}"
     modImplementation("io.wispforest:accessories-common:${project.accessories_version}")
 

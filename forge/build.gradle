@@ -46,17 +46,17 @@ dependencies {
     //Serene Seasons
     modImplementation "maven.modrinth:serene-seasons:${project.serene_seasons_version}-forge"
     modImplementation "maven.modrinth:glitchcore:${project.glitchcore_version}-forge"
+    implementation("net.jodah:typetools:0.6.3")
 
     //Xaero's Minimap
     modCompileOnly "maven.modrinth:xaeros-minimap:${project.xaeros_minimap_version}_Forge_1.21"
 
     //JourneyMap
-    modCompileOnlyApi group: 'info.journeymap', name: 'journeymap-api-forge', version: project.journeymap_api_version_fabric, changing: true
+    modCompileOnlyApi group: 'info.journeymap', name: 'journeymap-api-forge', version: project.journeymap_api_version, changing: true
     modCompileOnly "maven.modrinth:journeymap:1.21-${project.journeymap_version}+forge"
 
     //Forge Config API Port
     modImplementation "maven.modrinth:forge-config-api-port:v${project.forge_config_api_port_version}-${project.minecraft_version}-Forge"
-
 
     // Development QOL
 //    modLocalRuntime("mezz.jei:jei-${project.minecraft_version}-forge:${project.jei_version}") { transitive = false }
@@ -68,7 +68,9 @@ dependencies {
             modLocalRuntime "maven.modrinth:xaeros-minimap:${project.xaeros_minimap_version}_Forge_1.21"
             break
         case "journey":
-            modLocalRuntime "maven.modrinth:journeymap:1.21-${project.journeymap_version}+forge"
+            modImplementation group: 'info.journeymap', name: 'journeymap-api-forge', version: project.journeymap_api_version, changing: true
+            modImplementation("maven.modrinth:journeymap:1.21-${project.journeymap_version}+forge")
+            modImplementation("maven.modrinth:common-network:${project.common_network_version}-forge")
             break
         case "ftb":
             break

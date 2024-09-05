@@ -42,6 +42,7 @@ dependencies {
     modImplementation("maven.modrinth:glitchcore:${project.glitchcore_version}-fabric") {
         exclude group: 'net.fabricmc', module: 'fabric-loader'
     }
+    implementation("net.jodah:typetools:0.6.3")
 
     //Xaero's Minimap
     modCompileOnly("maven.modrinth:xaeros-minimap:${project.xaeros_minimap_version}_Fabric_1.21") {
@@ -49,7 +50,7 @@ dependencies {
     }
 
     //JourneyMap
-    modCompileOnlyApi group: 'info.journeymap', name: 'journeymap-api-fabric', version: project.journeymap_api_version_fabric, changing: true
+    modCompileOnlyApi group: 'info.journeymap', name: 'journeymap-api-fabric', version: project.journeymap_api_version, changing: true
     modCompileOnly("maven.modrinth:journeymap:1.21-${project.journeymap_version}+fabric") {
         exclude group: 'net.fabricmc', module: 'fabric-loader'
     }
@@ -100,7 +101,9 @@ dependencies {
             modLocalRuntime("maven.modrinth:xaeros-minimap:${project.xaeros_minimap_version}_Fabric_1.21")
             break
         case "journey":
-            modLocalRuntime("maven.modrinth:journeymap:1.21-${project.journeymap_version}+fabric")
+            modImplementation group: 'info.journeymap', name: 'journeymap-api-fabric', version: project.journeymap_api_version, changing: true
+            modImplementation("maven.modrinth:journeymap:1.21-${project.journeymap_version}+fabric")
+            modImplementation("maven.modrinth:common-network:${project.common_network_version}-fabric")
             break
         case "ftb":
             modLocalRuntime("curse.maven:ftb-chunks-fabric-472657:${project.ftb_chunks_fabric_version}")

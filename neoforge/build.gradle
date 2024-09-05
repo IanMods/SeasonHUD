@@ -35,12 +35,13 @@ dependencies {
     //Serene Seasons
     modImplementation "maven.modrinth:serene-seasons:${project.serene_seasons_version}-neoforge"
     modImplementation "maven.modrinth:glitchcore:${project.glitchcore_version}-neoforge"
+    implementation("net.jodah:typetools:0.6.3")
 
     //Xaero's Minimap
     modCompileOnly "maven.modrinth:xaeros-minimap:${project.xaeros_minimap_version}_NeoForge_1.21"
 
     //JourneyMap
-    modCompileOnlyApi group: 'info.journeymap', name: 'journeymap-api-neoforge', version: project.journeymap_api_version_fabric, changing: true
+    modCompileOnlyApi group: 'info.journeymap', name: 'journeymap-api-neoforge', version: project.journeymap_api_version, changing: true
     modCompileOnly "maven.modrinth:journeymap:1.21-${project.journeymap_version}+neoforge"
 
     //FTB Chunks + Dependencies
@@ -65,7 +66,9 @@ dependencies {
             modLocalRuntime "maven.modrinth:xaeros-minimap:${project.xaeros_minimap_version}_NeoForge_1.21"
             break
         case "journey":
-            modLocalRuntime "maven.modrinth:journeymap:1.21-${project.journeymap_version}+neoforge"
+            modImplementation group: 'info.journeymap', name: 'journeymap-api-neoforge', version: project.journeymap_api_version, changing: true
+            modImplementation("maven.modrinth:journeymap:1.21-${project.journeymap_version}+neoforge")
+            modImplementation("maven.modrinth:common-network:${project.common_network_version}-neoforge")
             break
         case "ftb":
             modLocalRuntime "curse.maven:ftb-chunks-forge-314906:${project.ftb_chunks_neoforge_version}"
