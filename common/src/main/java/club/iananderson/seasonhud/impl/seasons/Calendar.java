@@ -29,8 +29,9 @@ public class Calendar {
     boolean curio = false;
 
     if (Common.accessoriesLoaded() && !Common.curiosLoaded()) {
-      AccessoriesContainer accessoriesContainer = AccessoriesCapability.get(mc.player).getContainers()
-          .get("calendarslot");
+      AccessoriesContainer accessoriesContainer = AccessoriesCapability.get(mc.player)
+                                                                       .getContainers()
+                                                                       .get("calendarslot");
       curio = accessoriesContainer.getAccessories().countItem(calendar) > 0;
     }
 

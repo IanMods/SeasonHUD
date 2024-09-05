@@ -47,7 +47,7 @@ public class FabricMinimapHelper implements IMinimapHelper {
         MiniMapProperties properties = UIManager.INSTANCE.getMiniMap().getCurrentMinimapProperties();
 
         return (!properties.enabled.get() && !(Fullscreen.uiState().active && UIManager.INSTANCE.getMiniMap()
-            .isDrawingInPreviewMode()));
+                                                                                                .isDrawingInPreviewMode()));
       }
       case FTB_CHUNKS -> {
         return !FTBChunksClientConfig.MINIMAP_ENABLED.get() || mc.getDebugOverlay().showDebugScreen();
