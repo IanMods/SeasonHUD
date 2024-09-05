@@ -39,11 +39,11 @@ public class JourneyMapCommon {
   private final int bottomLabelAreaHeight;
   private final double scaledWidth;
   private final double scaledHeight;
-  private double screenWidth;
-  private double screenHeight;
   private final DisplayVars vars;
   private final LabelSpec labelSpec;
   private final MinimapSpec minimapSpec;
+  private double screenWidth;
+  private double screenHeight;
 
   public JourneyMapCommon(Minecraft mc) {
     this.seasonCombined = CurrentSeason.getInstance(mc).getSeasonHudComponent();
@@ -63,7 +63,8 @@ public class JourneyMapCommon {
     this.halfWidth = vars.minimapWidth / 2;
     this.labelColor = labelSpec.background.getColor();
     this.textColor = labelSpec.foreground.getColor();
-    this.labelHeight = (int)((double)(DrawUtil.getLabelHeight(fontRenderer, labelSpec.shadow) + labelSpec.margin) * infoSlotScale);
+    this.labelHeight = (int) ((double) (DrawUtil.getLabelHeight(fontRenderer, labelSpec.shadow) + labelSpec.margin)
+        * infoSlotScale);
     this.topLabelAreaHeight = vars.getInfoLabelAreaHeight(fontRenderer, minimapSpec.labelTop, topLabels);
     this.bottomLabelAreaHeight = vars.getInfoLabelAreaHeight(fontRenderer, minimapSpec.labelBottom, bottomLabels);
     this.screenWidth = mc.getWindow().getWidth();
@@ -114,9 +115,13 @@ public class JourneyMapCommon {
     MultiBufferSource.BufferSource buffers = graphics.bufferSource();
     buffers.endBatch();
     RenderWrapper.enableBlend();
-    DrawUtil.drawBatchLabel(graphics.pose(), seasonCombined, Pass.TextBG, buffers, labelX(), labelY(), HAlign.Center, VAlign.Below, labelColor, labelAlpha, textColor, textAlpha, infoSlotScale, !(labelAlpha >= 0.05F) || labelSpec.shadow, 0.0);
+    DrawUtil.drawBatchLabel(graphics.pose(), seasonCombined, Pass.TextBG, buffers, labelX(), labelY(), HAlign.Center,
+                            VAlign.Below, labelColor, labelAlpha, textColor, textAlpha, infoSlotScale,
+                            !(labelAlpha >= 0.05F) || labelSpec.shadow, 0.0);
     graphics.pose().translate(0.0F, 0.0F, 1.0F);
-    DrawUtil.drawBatchLabel(graphics.pose(), seasonCombined, Pass.Text, buffers, labelX(), labelY(), HAlign.Center, VAlign.Below, labelColor, labelAlpha, textColor, textAlpha, infoSlotScale, !(labelAlpha >= 0.05F) || labelSpec.shadow, 0.0);
+    DrawUtil.drawBatchLabel(graphics.pose(), seasonCombined, Pass.Text, buffers, labelX(), labelY(), HAlign.Center,
+                            VAlign.Below, labelColor, labelAlpha, textColor, textAlpha, infoSlotScale,
+                            !(labelAlpha >= 0.05F) || labelSpec.shadow, 0.0);
     RenderWrapper.disableBlend();
     buffers.endBatch();
     DrawUtil.sizeDisplay(scaledWidth, scaledHeight);
