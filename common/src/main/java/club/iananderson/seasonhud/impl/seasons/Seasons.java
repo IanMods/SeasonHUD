@@ -8,16 +8,16 @@ import net.minecraft.network.chat.Component;
 
 public enum Seasons {
   SPRING(0, Component.translatable("desc.seasonhud.season.spring"), "spring", "\uEA00", Config.DEFAULT_SPRING_COLOR,
-         Config.getSpringColor(), Rgb.seasonMap(Config.getSpringColor())),
+      Config.getSpringColor(), Rgb.seasonMap(Config.getSpringColor())),
 
   SUMMER(1, Component.translatable("desc.seasonhud.season.summer"), "summer", "\uEA01", Config.DEFAULT_SUMMER_COLOR,
-         Config.getSummerColor(), Rgb.seasonMap(Config.getSummerColor())),
+      Config.getSummerColor(), Rgb.seasonMap(Config.getSummerColor())),
 
   AUTUMN(2, Component.translatable("desc.seasonhud.season.autumn"), "autumn", "\uEA02", Config.DEFAULT_AUTUMN_COLOR,
-         Config.getAutumnColor(), Rgb.seasonMap(Config.getAutumnColor())),
+      Config.getAutumnColor(), Rgb.seasonMap(Config.getAutumnColor())),
 
   WINTER(3, Component.translatable("desc.seasonhud.season.winter"), "winter", "\uEA03", Config.DEFAULT_WINTER_COLOR,
-         Config.getWinterColor(), Rgb.seasonMap(Config.getWinterColor())),
+      Config.getWinterColor(), Rgb.seasonMap(Config.getWinterColor())),
 
   DRY(4, Component.translatable("desc.seasonhud.season.dry"), "dry", "\uEA04", Config.DEFAULT_DRY_COLOR,
       Config.getDryColor(), Rgb.seasonMap(Config.getDryColor())),

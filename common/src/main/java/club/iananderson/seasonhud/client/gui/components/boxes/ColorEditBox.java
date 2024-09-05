@@ -100,7 +100,7 @@ public class ColorEditBox extends EditBox {
     boolean seasonShort = (scaledWidth < widgetTotalSize);
 
     MutableComponent seasonCombined = CurrentSeason.getInstance(mc)
-        .getSeasonMenuText(this.boxSeason, this.newSeasonColor, seasonShort);
+                                                   .getSeasonMenuText(this.boxSeason, this.newSeasonColor, seasonShort);
 
     graphics.pose().pushPose();
     if ((mc.font.width(seasonCombined) > this.getWidth() - PADDING)) {
@@ -108,7 +108,7 @@ public class ColorEditBox extends EditBox {
     }
     graphics.pose().scale(textScale, textScale, 1);
     graphics.drawCenteredString(mc.font, seasonCombined, (int) ((getX() + (double) this.getWidth() / 2) / textScale),
-                                (int) ((getY() - (mc.font.lineHeight * textScale) - PADDING) / textScale), 0xffffff);
+        (int) ((getY() - (mc.font.lineHeight * textScale) - PADDING) / textScale), 0xffffff);
     graphics.pose().popPose();
 
     super.render(graphics, mouseX, mouseY, partialTicks);

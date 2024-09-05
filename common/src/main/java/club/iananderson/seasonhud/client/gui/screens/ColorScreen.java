@@ -137,19 +137,17 @@ public class ColorScreen extends Screen {
         + RgbSlider.SLIDER_PADDING);
 
     defaultButton = DefaultColorButton.builder(colorBox, press -> {
-          int defaultColorInt = season.getDefaultColor();
+      int defaultColorInt = season.getDefaultColor();
 
-          if (colorBox.getNewColor() != defaultColorInt) {
-            redSlider.setSliderValue(defaultColorInt);
-            greenSlider.setSliderValue(defaultColorInt);
-            blueSlider.setSliderValue(defaultColorInt);
-            colorBox.setValue(String.valueOf(defaultColorInt));
+      if (colorBox.getNewColor() != defaultColorInt) {
+        redSlider.setSliderValue(defaultColorInt);
+        greenSlider.setSliderValue(defaultColorInt);
+        blueSlider.setSliderValue(defaultColorInt);
+        colorBox.setValue(String.valueOf(defaultColorInt));
 
-            Rgb.setRgb(season, defaultColorInt);
-          }
-        })
-        .withPos(x, y)
-        .build();
+        Rgb.setRgb(season, defaultColorInt);
+      }
+    }).withPos(x, y).build();
 
     seasonBoxes.add(colorBox);
     defaultColorButtons.add(defaultButton);
@@ -185,10 +183,11 @@ public class ColorScreen extends Screen {
 
     //Buttons
     CycleButton<Boolean> seasonColorButton = CycleButton.onOffBuilder(Config.getEnableSeasonNameColor())
-        .create(leftButtonX, MENU_PADDING_FULL, BUTTON_WIDTH, BUTTON_HEIGHT, ENABLE_SEASON_NAME_COLOR, (b, enable) -> {
-          Config.setEnableSeasonNameColor(enable);
-          this.rebuildWidgets();
-        });
+                                                        .create(leftButtonX, MENU_PADDING_FULL, BUTTON_WIDTH,
+                                                            BUTTON_HEIGHT, ENABLE_SEASON_NAME_COLOR, (b, enable) -> {
+                                                              Config.setEnableSeasonNameColor(enable);
+                                                              this.rebuildWidgets();
+                                                            });
 
     doneButton = MenuButton.builder(MenuButtons.DONE, press -> this.onDone())
         .withPos(leftButtonX, (getHeight() - BUTTON_HEIGHT - WIDGET_PADDING))

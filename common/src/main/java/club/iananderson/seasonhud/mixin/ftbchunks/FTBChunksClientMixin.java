@@ -23,7 +23,8 @@ public class FTBChunksClientMixin {
 
   @Unique
   private static final BooleanValue MINIMAP_SEASON = FTBChunksClientConfig.MINIMAP.addBoolean("season", true)
-      .comment(new String[]{"Show season under minimap"});
+                                                                                  .comment(new String[]{
+                                                                                      "Show season under minimap"});
 
   @Inject(method = "buildMinimapTextData", at = @At("RETURN"), remap = false, cancellable = true)
   private void buildMinimapTextData(Minecraft mc, double playerX, double playerY, double playerZ, MapDimension dim,

@@ -39,7 +39,8 @@ subprojects {
         maven { url 'https://maven.wispforest.io/releases' } //Accessories
         maven { url 'https://maven.su5ed.dev/releases' } //Accessories
 
-        maven { url = "https://raw.githubusercontent.com/Fuzss/modresources/main/maven/" } //ForgeConfigAPiPort
+        maven { url = "https://raw.githubusercontent.com/Fuzss/modresources/main/maven/" }
+        //ForgeConfigAPiPort
         exclusiveContent {
             forRepository {
                 maven { url = "https://cursemaven.com" }
