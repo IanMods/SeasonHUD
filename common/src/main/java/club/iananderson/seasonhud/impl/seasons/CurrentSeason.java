@@ -97,7 +97,7 @@ public class CurrentSeason {
 
   public MutableComponent getSeasonHudTextNoFormat() {
     Component seasonIcon = Component.translatable("desc.seasonhud.hud.icon", getSeasonIcon())
-        .withStyle(Common.SEASON_ICON_STYLE);
+                                    .withStyle(Common.SEASON_ICON_STYLE);
     MutableComponent seasonText = getText().copy();
 
     return Component.translatable("desc.seasonhud.hud.combined", seasonIcon, seasonText);
