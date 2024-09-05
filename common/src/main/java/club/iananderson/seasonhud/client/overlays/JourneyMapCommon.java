@@ -58,11 +58,11 @@ public class JourneyMapCommon {
     this.textColor = currentTheme.foreground.getColor();
     this.labelHeight = (int) ((DrawUtil.getLabelHeight(fontRenderer, fontShadow) + currentTheme.margin) * fontScale);
     this.topLabelHeight = vars.getInfoLabelAreaHeight(fontRenderer, currentTheme,
-        ThemeLabelSource.values.get(mapProperties.info1Label.get()),
-        ThemeLabelSource.values.get(mapProperties.info2Label.get()));
+                                                      ThemeLabelSource.values.get(mapProperties.info1Label.get()),
+                                                      ThemeLabelSource.values.get(mapProperties.info2Label.get()));
     this.bottomLabelHeight = vars.getInfoLabelAreaHeight(fontRenderer, currentTheme,
-        ThemeLabelSource.values.get(mapProperties.info3Label.get()),
-        ThemeLabelSource.values.get(mapProperties.info4Label.get()));
+                                                         ThemeLabelSource.values.get(mapProperties.info3Label.get()),
+                                                         ThemeLabelSource.values.get(mapProperties.info4Label.get()));
     this.screenWidth = mc.getWindow().getWidth();
     this.screenHeight = mc.getWindow().getHeight();
     if (Config.getJourneyMapMacOS()) {

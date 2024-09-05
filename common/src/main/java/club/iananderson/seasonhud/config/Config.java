@@ -96,8 +96,8 @@ public class Config {
             + "Default is false.").define("need_calendar", false);
 
     showTropicalSeason = builder.comment("Show the Tropical seasons (Wet/Dry) in Tropical Biomes.\n"
-                                    + "Will not change the season behavior in the biomes.\n" + "(true/false)\n" + "Default is true.")
-                                .define("enable_show_tropical_season", true);
+                                             + "Will not change the season behavior in the biomes.\n" + "(true/false)\n"
+                                             + "Default is true.").define("enable_show_tropical_season", true);
 
     showSubSeason = builder.comment(
         "Show sub-season (i.e. Early Winter, Mid Autumn, Late Spring) instead of basic season?\n" + "(true/false)\n"
@@ -123,8 +123,8 @@ public class Config {
         "Display the season above the JourneyMap minimap, instead of below.\n" + "(true" + "/false)\n"
             + "Default is false.").define("enable_above_map", false);
     journeyMapMacOS = builder.comment("Toggle for macOS retina display scaling when using JourneyMap.\n"
-        + "Enable if the season line is rendering around the halfway point of the screen.\n" + "(true/false)\n"
-        + "Default is false.").define("enable_macOS", false);
+                                          + "Enable if the season line is rendering around the halfway point of the screen.\n"
+                                          + "(true/false)\n" + "Default is false.").define("enable_macOS", false);
     builder.pop();
     builder.pop();
     builder.pop();

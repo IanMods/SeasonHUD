@@ -15,7 +15,7 @@ public class Calendar {
 
   private static boolean findCalendar(Player player, Item item) {
     return player.getInventory().contains(item.getDefaultInstance()) || Services.SEASON.findCuriosCalendar(player,
-        item);
+                                                                                                           item);
   }
 
   public static boolean calendarFound() {
