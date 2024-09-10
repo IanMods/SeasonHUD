@@ -1,6 +1,5 @@
 package club.iananderson.seasonhud.client.gui;
 
-import club.iananderson.seasonhud.platform.Services;
 import java.util.ArrayList;
 import java.util.List;
 import net.minecraft.network.chat.Component;
@@ -10,9 +9,7 @@ public enum ShowDay {
 
   SHOW_DAY(1, "showDay", "desc.seasonhud.hud.detailed"),
 
-  SHOW_WITH_TOTAL_DAYS(2, "totalDays", "desc.seasonhud.hud.detailed.total"),
-
-  SHOW_WITH_MONTH(3, "showMonth", "desc.seasonhud.hud.month");
+  SHOW_WITH_TOTAL_DAYS(2, "totalDays", "desc.seasonhud.hud.detailed.total");
 
   private final int idNum;
   private final String currentDayDisplay;
@@ -27,12 +24,7 @@ public enum ShowDay {
   }
 
   public static List<ShowDay> getValues() {
-    List<ShowDay> values = new ArrayList<>(List.of(ShowDay.values()));
-
-    if (Services.PLATFORM.getPlatformName().equals("Forge")) {
-      values.remove(SHOW_WITH_MONTH.getId());
-    }
-    return values;
+    return new ArrayList<>(List.of(ShowDay.values()));
   }
 
   public int getId() {

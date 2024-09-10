@@ -32,8 +32,6 @@ public class Config {
   private static ModConfigSpec.ConfigValue<ShowDay> showDay;
   private static ModConfigSpec.BooleanValue enableMinimapIntegration;
   private static ModConfigSpec.BooleanValue showDefaultWhenMinimapHidden;
-  private static ModConfigSpec.BooleanValue journeyMapAboveMap;
-  private static ModConfigSpec.BooleanValue journeyMapMacOS;
 
   static {
     ModConfigSpec.Builder builder = new ModConfigSpec.Builder();
@@ -117,15 +115,6 @@ public class Config {
     showDefaultWhenMinimapHidden = builder.comment(
                                               "Show the default SeasonHUD display when the minimap is hidden?\n" + "(true/false)\n" + "Default is false.")
                                           .define("enable_show_minimap_hidden", false);
-
-    builder.push("Journeymap");
-    journeyMapAboveMap = builder.comment(
-        "Display the season above the JourneyMap minimap, instead of below.\n" + "(true" + "/false)\n"
-            + "Default is false.").define("enable_above_map", false);
-    journeyMapMacOS = builder.comment("Toggle for macOS retina display scaling when using JourneyMap.\n"
-                                          + "Enable if the season line is rendering around the halfway point of the screen.\n"
-                                          + "(true/false)\n" + "Default is false.").define("enable_macOS", false);
-    builder.pop();
     builder.pop();
     builder.pop();
   }
@@ -277,22 +266,5 @@ public class Config {
 
   public static void setEnableMinimapIntegration(boolean enable) {
     Config.enableMinimapIntegration.set(enable);
-  }
-
-  //Journeymap
-  public static boolean getJourneyMapAboveMap() {
-    return journeyMapAboveMap.get();
-  }
-
-  public static void setJourneyMapAboveMap(boolean enable) {
-    Config.journeyMapAboveMap.set(enable);
-  }
-
-  public static boolean getJourneyMapMacOS() {
-    return journeyMapMacOS.get();
-  }
-
-  public static void setJourneyMapMacOS(boolean enable) {
-    Config.journeyMapMacOS.set(enable);
   }
 }

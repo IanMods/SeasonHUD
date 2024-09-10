@@ -95,8 +95,10 @@
   "desc.seasonhud.month.october": "十月",
   "desc.seasonhud.month.november": "十一月",
   "desc.seasonhud.month.december": "十二月",
-  "item.seasonhud.tooltip.calendar": "Slot: Charm",
+  "item.seasonhud.tooltip.calendar": "Slot: 日历",
   "trinkets.slot.calendar.calendarslot": "日历",
   "curios.identifier.calendarslot": "日历",
-  "accessories.slot.calendarslot": "日历"
+  "accessories.slot.calendarslot": "日历",
+  "menu.seasonhud.button.journeymap_options": "JourneyMap Options",
+  "menu.seasonhud.button.journeymap_options.tooltip": "Opens the SeasonHUD Journeymap options."
 }

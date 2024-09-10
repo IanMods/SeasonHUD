@@ -4,7 +4,6 @@ import club.iananderson.seasonhud.Common;
 import club.iananderson.seasonhud.client.gui.ShowDay;
 import club.iananderson.seasonhud.config.Config;
 import club.iananderson.seasonhud.platform.Services;
-import java.time.LocalDateTime;
 import net.minecraft.client.Minecraft;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
@@ -71,16 +70,16 @@ public class CurrentSeason {
         text = Component.translatable(ShowDay.SHOW_WITH_TOTAL_DAYS.getKey(), season, seasonDate, seasonDuration);
         break;
 
-      case SHOW_WITH_MONTH:
-        if (Services.SEASON.isSeasonTiedWithSystemTime()) {
-          String systemMonth = LocalDateTime.now().getMonth().name().toLowerCase();
-          Component currentMonth = Component.translatable("desc.seasonhud.month." + systemMonth);
-
-          text = Component.translatable(ShowDay.SHOW_WITH_MONTH.getKey(), season, currentMonth, seasonDate);
-        } else {
-          text = Component.translatable(ShowDay.SHOW_DAY.getKey(), season, seasonDate);
-        }
-        break;
+//      case SHOW_WITH_MONTH:
+//        if (Services.SEASON.isSeasonTiedWithSystemTime()) {
+//          String systemMonth = LocalDateTime.now().getMonth().name().toLowerCase();
+//          Component currentMonth = Component.translatable("desc.seasonhud.month." + systemMonth);
+//
+//          text = Component.translatable(ShowDay.SHOW_WITH_MONTH.getKey(), season, currentMonth, seasonDate);
+//        } else {
+//          text = Component.translatable(ShowDay.SHOW_DAY.getKey(), season, seasonDate);
+//        }
+//        break;
     }
     return text;
   }
@@ -111,7 +110,8 @@ public class CurrentSeason {
       seasonFormat = Style.EMPTY.withColor(getTextColor());
     }
 
-    return Component.translatable("desc.seasonhud.hud.combined", seasonIcon.withStyle(Common.SEASON_ICON_STYLE),
+    return Component.translatable("desc.seasonhud.hud.combined",
+                                  seasonIcon.withStyle(Common.SEASON_ICON_STYLE).withColor(0xffffff),
                                   seasonText.withStyle(seasonFormat));
   }
 

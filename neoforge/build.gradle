@@ -66,7 +66,7 @@ dependencies {
             modLocalRuntime "maven.modrinth:xaeros-minimap:${project.xaeros_minimap_version}_NeoForge_1.21"
             break
         case "journey":
-            modImplementation group: 'info.journeymap', name: 'journeymap-api-neoforge', version: project.journeymap_api_version, changing: true
+            implementation group: 'info.journeymap', name: 'journeymap-api-neoforge', version: project.journeymap_api_version, changing: true
             modImplementation("maven.modrinth:journeymap:1.21-${project.journeymap_version}+neoforge")
             modImplementation("maven.modrinth:common-network:${project.common_network_version}-neoforge")
             break

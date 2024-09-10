@@ -95,8 +95,10 @@
   "desc.seasonhud.month.october": "October",
   "desc.seasonhud.month.november": "November",
   "desc.seasonhud.month.december": "December",
-  "item.seasonhud.tooltip.calendar": "Encaixe: Amuleto",
+  "item.seasonhud.tooltip.calendar": "Encaixe: Calendário",
   "trinkets.slot.calendar.calendarslot": "Calendário",
   "curios.identifier.calendarslot": "Calendário",
-  "accessories.slot.calendarslot": "Calendário"
+  "accessories.slot.calendarslot": "Calendário",
+  "menu.seasonhud.button.journeymap_options": "JourneyMap Options",
+  "menu.seasonhud.button.journeymap_options.tooltip": "Opens the SeasonHUD Journeymap options."
 }

@@ -95,8 +95,10 @@
   "desc.seasonhud.month.october": "Octubre",
   "desc.seasonhud.month.november": "Noviembre",
   "desc.seasonhud.month.december": "Diciembre",
-  "item.seasonhud.tooltip.calendar": "Ranura: Amuleto",
+  "item.seasonhud.tooltip.calendar": "Ranura: Calendario",
   "trinkets.slot.calendar.calendarslot": "Calendario",
   "curios.identifier.calendarslot": "Calendario",
-  "accessories.slot.calendarslot": "Calendario"
+  "accessories.slot.calendarslot": "Calendario",
+  "menu.seasonhud.button.journeymap_options": "JourneyMap Options",
+  "menu.seasonhud.button.journeymap_options.tooltip": "Opens the SeasonHUD Journeymap options."
 }

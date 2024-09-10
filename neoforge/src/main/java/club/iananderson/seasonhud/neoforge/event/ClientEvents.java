@@ -3,8 +3,6 @@ package club.iananderson.seasonhud.neoforge.event;
 import club.iananderson.seasonhud.Common;
 import club.iananderson.seasonhud.client.KeyBindings;
 import club.iananderson.seasonhud.client.gui.screens.SeasonHUDScreen;
-import club.iananderson.seasonhud.impl.minimaps.CurrentMinimap;
-import club.iananderson.seasonhud.neoforge.client.overlays.JourneyMap;
 import club.iananderson.seasonhud.neoforge.client.overlays.SeasonHUDOverlay;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.bus.api.SubscribeEvent;
@@ -32,14 +30,6 @@ public class ClientEvents {
       SeasonHUDOverlay.init();
       event.registerAbove(VanillaGuiLayers.CAMERA_OVERLAYS, Common.location("seasonhud"),
                           SeasonHUDOverlay.HUD_INSTANCE);
-    }
-
-    @SubscribeEvent
-    public static void registerJourneyMapOverlay(RegisterGuiLayersEvent event) {
-      if (CurrentMinimap.journeyMapLoaded()) {
-        JourneyMap.init();
-        event.registerAbove(VanillaGuiLayers.CAMERA_OVERLAYS, Common.location("journeymap"), JourneyMap.HUD_INSTANCE);
-      }
     }
 
     //Key Bindings

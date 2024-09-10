@@ -95,8 +95,10 @@
   "desc.seasonhud.month.october": "Октябрь",
   "desc.seasonhud.month.november": "Ноябрь",
   "desc.seasonhud.month.december": "Декабрь",
-  "item.seasonhud.tooltip.calendar": "Используется как Амулет",
+  "item.seasonhud.tooltip.calendar": "Используется как Календарь",
   "trinkets.slot.calendar.calendarslot": "Календарь",
   "curios.identifier.calendarslot": "Календарь",
-  "accessories.slot.calendarslot": "Календарь"
+  "accessories.slot.calendarslot": "Календарь",
+  "menu.seasonhud.button.journeymap_options": "JourneyMap Options",
+  "menu.seasonhud.button.journeymap_options.tooltip": "Opens the SeasonHUD Journeymap options."
 }

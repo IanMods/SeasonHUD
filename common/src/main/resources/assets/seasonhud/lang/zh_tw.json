@@ -98,5 +98,7 @@
   "item.seasonhud.tooltip.calendar": "欄位：護身符",
   "trinkets.slot.calendar.calendarslot": "日曆",
   "curios.identifier.calendarslot": "日曆",
-  "accessories.slot.calendarslot": "日曆"
+  "accessories.slot.calendarslot": "日曆",
+  "menu.seasonhud.button.journeymap_options": "JourneyMap Options",
+  "menu.seasonhud.button.journeymap_options.tooltip": "Opens the SeasonHUD Journeymap options.",
 }

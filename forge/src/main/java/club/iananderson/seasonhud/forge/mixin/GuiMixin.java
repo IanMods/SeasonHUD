@@ -14,6 +14,5 @@ public class GuiMixin {
   @Inject(method = "render", at = @At("RETURN"))
   private void render(GuiGraphics guiGraphics, DeltaTracker deltaTracker, CallbackInfo ci) {
     ClientEvents.ClientModBusEvents.registerGuiOverlays(guiGraphics, deltaTracker);
-    ClientEvents.ClientModBusEvents.registerJourneyMapOverlay(guiGraphics, deltaTracker);
   }
 }

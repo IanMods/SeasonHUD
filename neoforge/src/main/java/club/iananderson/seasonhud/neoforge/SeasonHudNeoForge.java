@@ -18,10 +18,10 @@ public class SeasonHudNeoForge {
   public SeasonHudNeoForge(IEventBus modEventBus, ModContainer modContainer) {
     Common.init();
 
+    modContainer.registerConfig(ModConfig.Type.CLIENT, Config.GENERAL_SPEC, "SeasonHUD-client.toml");
+
     modEventBus.addListener(SeasonHudNeoForge::onInitialize);
     modEventBus.addListener(SeasonHudNeoForge::ftbChunkSetup);
-
-    modContainer.registerConfig(ModConfig.Type.CLIENT, Config.GENERAL_SPEC, "SeasonHUD-client.toml");
   }
 
   public static void onInitialize(FMLCommonSetupEvent event) {

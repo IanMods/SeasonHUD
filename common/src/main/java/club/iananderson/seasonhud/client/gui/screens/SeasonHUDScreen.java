@@ -13,9 +13,11 @@ import club.iananderson.seasonhud.platform.Services;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import journeymap.client.ui.UIManager;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.components.AbstractWidget;
+import net.minecraft.client.gui.components.Button;
 import net.minecraft.client.gui.components.CycleButton;
 import net.minecraft.client.gui.components.Tooltip;
 import net.minecraft.client.gui.screens.Screen;
@@ -52,6 +54,7 @@ public class SeasonHUDScreen extends Screen {
   private void onDone() {
     Config.setHudX(xOffsetSlider.getValueInt());
     Config.setHudY(yOffsetSlider.getValueInt());
+    Config.GENERAL_SPEC.save();
     Minecraft.getInstance().setScreen(null);
   }
 
@@ -197,29 +200,13 @@ public class SeasonHUDScreen extends Screen {
 
     if (Services.PLATFORM.isModLoaded("journeymap")) {
       row += 2; //6
-      CycleButton<Boolean> journeyMapAboveMapButton = CycleButton.onOffBuilder(Config.getJourneyMapAboveMap())
-                                                                 .withTooltip(object -> Tooltip.create(
-                                                                     Component.translatable(
-                                                                         "menu.seasonhud.tooltip.journeyMapAboveMap")))
-                                                                 .create(leftButtonX, (buttonStartY + (row * yOffset)),
-                                                                         BUTTON_WIDTH, BUTTON_HEIGHT,
-                                                                         Component.translatable(
-                                                                             "menu.seasonhud.button.journeyMapAboveMap"),
-                                                                         (b, show) -> Config.setJourneyMapAboveMap(
-                                                                             show));
+      Button journeyMapButton = Button.builder(Component.translatable("menu.seasonhud.button.journeymap_options"),
+                                               (button) -> UIManager.INSTANCE.openAddonOptionsEditor(null, true))
+          .tooltip(Tooltip.create(Component.translatable("menu.seasonhud.button.journeymap_options.tooltip")))
+          .bounds(leftButtonX, (buttonStartY + (row * yOffset)), BUTTON_WIDTH, BUTTON_HEIGHT)
+          .build();
 
-      CycleButton<Boolean> journeyMapMacOSButton = CycleButton.onOffBuilder(Config.getJourneyMapMacOS())
-                                                              .withTooltip(object -> Tooltip.create(
-                                                                  Component.translatable(
-                                                                      "menu.seasonhud.tooltip.journeyMapMacOS")))
-                                                              .create(rightButtonX, (buttonStartY + (row * yOffset)),
-                                                                      BUTTON_WIDTH, BUTTON_HEIGHT,
-                                                                      Component.translatable(
-                                                                          "menu.seasonhud.button.journeyMapMacOS"),
-                                                                      (b, show) -> Config.setJourneyMapMacOS(show));
-
-      this.addRenderableWidget(journeyMapAboveMapButton);
-      this.addRenderableWidget(journeyMapMacOSButton);
+      this.addRenderableWidget(journeyMapButton);
     }
     optionButtons.addAll(
         Arrays.asList(enableModButton, colorButton, hudLocationButton, xOffsetSlider, yOffsetSlider, showDayButton,

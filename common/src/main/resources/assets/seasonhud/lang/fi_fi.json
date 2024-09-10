@@ -95,8 +95,10 @@
   "desc.seasonhud.month.october": "Lokakuu",
   "desc.seasonhud.month.november": "Marraskuu",
   "desc.seasonhud.month.december": "Joulukuu",
-  "item.seasonhud.tooltip.calendar": "Paikka: Amuletti",
+  "item.seasonhud.tooltip.calendar": "Paikka: Kalenterin",
   "trinkets.slot.calendar.calendarslot": "Kalenterin",
   "curios.identifier.calendarslot": "Kalenterin",
-  "accessories.slot.calendarslot": "Kalenterin"
+  "accessories.slot.calendarslot": "Kalenterin",
+  "menu.seasonhud.button.journeymap_options": "JourneyMap Options",
+  "menu.seasonhud.button.journeymap_options.tooltip": "Opens the SeasonHUD Journeymap options."
 }
