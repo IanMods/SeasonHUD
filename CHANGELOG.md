@@ -9,6 +9,19 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 ### Changed
 
 - Updated logo with current icons.
+- Updated Simplified Chinese translation (via @zrll12)
+
+### Added
+
+- (1.21) Added support JourneyMap's new custom InfoSlots (JourneyMap 1.21-6.0.0-beta.25+ required).
+  - By default, "Season" will be added as an InfoSlot option in JourneyMap's minimap settings.
+  - If you are already using all the InfoSlots:
+    - Go into the JourneyMap addon settings ("Addon Settings" button at the top of the JourneyMap
+      settings menu).
+      - Alternatively, I added a shortcut button in the SeasonHUD config menu (default "H") when
+        JourneyMap is loaded.
+    - Enable the "Add an additional InfoSlot?" option.
+    - Choose if you want it added to the top set or the bottom set.
 
 ### Added
 
