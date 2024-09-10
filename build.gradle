@@ -27,7 +27,6 @@ subprojects {
 
     repositories {
         mavenCentral()
-        maven { url = "https://api.modrinth.com/maven" } // LazyDFU
         maven { url = "https://maven.shedaniel.me/" } // Cloth Config, REI
         maven { url = "https://maven.terraformersmc.com/releases/" } // Mod Menu
         maven { url = "https://maven.blamejared.com/" } // JEI
