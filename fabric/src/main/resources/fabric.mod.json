@@ -20,6 +20,9 @@
     ],
     "main": [
       "club.iananderson.seasonhud.fabric.SeasonHudFabric"
+    ],
+    "journeymap": [
+      "club.iananderson.seasonhud.impl.minimaps.journeymap.JourneymapSeasonPlugin"
     ]
   },
   "mixins": [

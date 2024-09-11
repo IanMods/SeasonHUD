@@ -12,19 +12,20 @@ import journeymap.api.v2.common.event.ClientEventRegistry;
 import journeymap.api.v2.common.event.MinimapEventRegistry;
 import net.minecraft.client.Minecraft;
 import net.minecraft.network.chat.Component;
+import org.jetbrains.annotations.NotNull;
 
-@JourneyMapPlugin(apiVersion = "2.0.0")
+@JourneyMapPlugin(
+    apiVersion = "2.0.0"
+)
 public class JourneymapSeasonPlugin implements IClientPlugin {
   private static JourneymapSeasonPlugin INSTANCE;
-  // API reference
-  private IClientAPI jmAPI = null;
+  private IClientAPI api;
+  private ClientProperties clientProperties;
   private Minecraft mc;
   private String seasonKeyString = "menu.seasonhud.infodisplay.season";
   private Component seasonKey = Component.translatable("menu.seasonhud.infodisplay.season");
-  private ClientProperties clientProperties;
 
   public JourneymapSeasonPlugin() {
-    INSTANCE = this;
   }
 
   public static JourneymapSeasonPlugin getInstance() {
@@ -36,13 +37,14 @@ public class JourneymapSeasonPlugin implements IClientPlugin {
   }
 
   @Override
-  public void initialize(final IClientAPI jmAPI) {
-    this.jmAPI = jmAPI;
+  public void initialize(@NotNull IClientAPI api) {
+    INSTANCE = this;
+    this.api = api;
     this.mc = Minecraft.getInstance();
 
-    ClientEventRegistry.INFO_SLOT_REGISTRY_EVENT.subscribe(Common.MOD_ID, this::infoSlotRegistryEvent);
-    ClientEventRegistry.OPTIONS_REGISTRY_EVENT.subscribe(Common.MOD_ID, this::optionsRegistryEvent);
-    MinimapEventRegistry.INFO_SLOT_DISPLAY_EVENT.subscribe(Common.MOD_ID, this::infoSlotDisplayEvent);
+    ClientEventRegistry.INFO_SLOT_REGISTRY_EVENT.subscribe(this.getModId(), this::infoSlotRegistryEvent);
+    ClientEventRegistry.OPTIONS_REGISTRY_EVENT.subscribe(this.getModId(), this::optionsRegistryEvent);
+    MinimapEventRegistry.INFO_SLOT_DISPLAY_EVENT.subscribe(this.getModId(), this::infoSlotDisplayEvent);
 
     Common.LOG.info("Initialized JourneyMapAPI");
   }

@@ -52,7 +52,7 @@ dependencies {
     modCompileOnly "maven.modrinth:xaeros-minimap:${project.xaeros_minimap_version}_Forge_1.21"
 
     //JourneyMap
-    modCompileOnlyApi group: 'info.journeymap', name: 'journeymap-api-forge', version: project.journeymap_api_version, changing: true
+    compileOnly  group: 'info.journeymap', name: 'journeymap-api-forge', version: project.journeymap_api_version, changing: true
     modCompileOnly "maven.modrinth:journeymap:1.21-${project.journeymap_version}+forge"
 
     //Forge Config API Port
