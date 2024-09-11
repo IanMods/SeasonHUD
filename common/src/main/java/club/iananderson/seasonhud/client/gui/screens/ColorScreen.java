@@ -1,5 +1,6 @@
 package club.iananderson.seasonhud.client.gui.screens;
 
+import club.iananderson.seasonhud.Common;
 import club.iananderson.seasonhud.client.gui.components.boxes.ColorEditBox;
 import club.iananderson.seasonhud.client.gui.components.buttons.DefaultColorButton;
 import club.iananderson.seasonhud.client.gui.components.buttons.MenuButton;
@@ -10,7 +11,6 @@ import club.iananderson.seasonhud.client.gui.components.sliders.rgb.RedSlider;
 import club.iananderson.seasonhud.client.gui.components.sliders.rgb.RgbSlider;
 import club.iananderson.seasonhud.config.Config;
 import club.iananderson.seasonhud.impl.seasons.Seasons;
-import club.iananderson.seasonhud.platform.Services;
 import club.iananderson.seasonhud.util.Rgb;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -56,7 +56,7 @@ public class ColorScreen extends Screen {
   private static EnumSet<Seasons> seasonListSet() {
     EnumSet<Seasons> set = Seasons.SEASONS_ENUM_LIST.clone();
 
-    if (!Config.getShowTropicalSeason() || !Services.PLATFORM.getPlatformName().equals("Forge")) {
+    if (!Config.getShowTropicalSeason() || !Common.platformName().equals("Forge")) {
       set.remove(Seasons.DRY);
       set.remove(Seasons.WET);
     }

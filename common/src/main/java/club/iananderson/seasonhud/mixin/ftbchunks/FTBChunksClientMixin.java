@@ -2,7 +2,7 @@ package club.iananderson.seasonhud.mixin.ftbchunks;
 
 import club.iananderson.seasonhud.config.Config;
 import club.iananderson.seasonhud.impl.minimaps.CurrentMinimap;
-import club.iananderson.seasonhud.impl.minimaps.CurrentMinimap.Minimaps;
+import club.iananderson.seasonhud.impl.minimaps.CurrentMinimap.Minimap;
 import club.iananderson.seasonhud.impl.seasons.CurrentSeason;
 import dev.ftb.mods.ftbchunks.client.FTBChunksClient;
 import dev.ftb.mods.ftbchunks.client.FTBChunksClientConfig;
@@ -34,7 +34,7 @@ public class FTBChunksClientMixin {
 
     Config.setEnableMod(MINIMAP_SEASON.get());
 
-    if (CurrentMinimap.shouldDrawMinimapHud(Minimaps.FTB_CHUNKS)) {
+    if (CurrentMinimap.shouldDrawMinimapHud(Minimap.FTB_CHUNKS)) {
       res.add(seasonCombined);
     }
 

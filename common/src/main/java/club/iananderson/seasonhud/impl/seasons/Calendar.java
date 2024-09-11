@@ -20,7 +20,7 @@ public class Calendar {
     Minecraft mc = Minecraft.getInstance();
     Item calendar = Services.SEASON.calendar();
 
-    if (Services.PLATFORM.getPlatformName().equals("Fabric") && !Common.extrasLoaded()) {
+    if (Common.platformName().equals("Fabric") && !Common.extrasLoaded()) {
       return true;
     }
 

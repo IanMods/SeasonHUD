@@ -1,10 +1,10 @@
 package club.iananderson.seasonhud.client.gui.components.boxes;
 
+import club.iananderson.seasonhud.Common;
 import club.iananderson.seasonhud.client.gui.screens.ColorScreen;
 import club.iananderson.seasonhud.config.Config;
 import club.iananderson.seasonhud.impl.seasons.CurrentSeason;
 import club.iananderson.seasonhud.impl.seasons.Seasons;
-import club.iananderson.seasonhud.platform.Services;
 import club.iananderson.seasonhud.util.Rgb;
 import java.util.EnumSet;
 import net.minecraft.client.Minecraft;
@@ -50,7 +50,7 @@ public class ColorEditBox extends EditBox {
   private static EnumSet<Seasons> seasonListSet() {
     EnumSet<Seasons> set = Seasons.SEASONS_ENUM_LIST.clone();
 
-    if (!Config.getShowTropicalSeason() || !Services.PLATFORM.getPlatformName().equals("Forge")) {
+    if (!Config.getShowTropicalSeason() || !Common.platformName().equals("Forge")) {
       set.remove(Seasons.DRY);
       set.remove(Seasons.WET);
     }
