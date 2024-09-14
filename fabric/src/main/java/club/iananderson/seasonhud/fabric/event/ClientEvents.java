@@ -1,7 +1,7 @@
 package club.iananderson.seasonhud.fabric.event;
 
 import club.iananderson.seasonhud.client.KeyBindings;
-import club.iananderson.seasonhud.client.gui.screens.SeasonHUDScreen;
+import club.iananderson.seasonhud.client.gui.screens.MainConfigScreen;
 import club.iananderson.seasonhud.fabric.client.overlays.JourneyMap;
 import club.iananderson.seasonhud.fabric.client.overlays.SeasonHUDOverlay;
 import club.iananderson.seasonhud.impl.minimaps.CurrentMinimap;
@@ -16,7 +16,7 @@ public class ClientEvents {
   private static void registerKeyInputs() {
     ClientTickEvents.END_CLIENT_TICK.register(client -> {
       if (KeyBindings.seasonhudOptionsKeyMapping.consumeClick()) {
-        SeasonHUDScreen.open();
+        MainConfigScreen.open();
       }
     });
   }

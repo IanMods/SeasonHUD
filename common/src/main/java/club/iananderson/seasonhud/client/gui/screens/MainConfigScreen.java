@@ -23,7 +23,7 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
 import org.jetbrains.annotations.NotNull;
 
-public class SeasonHUDScreen extends Screen {
+public class MainConfigScreen extends Screen {
   private static final int MENU_PADDING = 50;
   private static final int TITLE_PADDING = 10;
   private static final int BUTTON_PADDING = 4;
@@ -31,17 +31,17 @@ public class SeasonHUDScreen extends Screen {
   private static final int BUTTON_HEIGHT = 20;
   private static final Component SCREEN_TITLE = Component.translatable("menu.seasonhud.title");
   private static final Component JOURNEYMAP = Component.translatable("menu.seasonhud.title.journeymap");
-  private static final SeasonHUDScreen instance = new SeasonHUDScreen();
+  private static final MainConfigScreen instance = new MainConfigScreen();
   private final List<AbstractWidget> optionButtons = new ArrayList<>();
   CycleButton<Location> hudLocationButton;
   private HudOffsetSlider xOffsetSlider;
   private HudOffsetSlider yOffsetSlider;
 
-  public SeasonHUDScreen() {
+  public MainConfigScreen() {
     super(SCREEN_TITLE);
   }
 
-  public static SeasonHUDScreen getInstance() {
+  public static MainConfigScreen getInstance() {
     return instance;
   }
 

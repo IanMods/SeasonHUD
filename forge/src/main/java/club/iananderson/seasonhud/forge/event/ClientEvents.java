@@ -2,7 +2,7 @@ package club.iananderson.seasonhud.forge.event;
 
 import club.iananderson.seasonhud.Common;
 import club.iananderson.seasonhud.client.KeyBindings;
-import club.iananderson.seasonhud.client.gui.screens.SeasonHUDScreen;
+import club.iananderson.seasonhud.client.gui.screens.MainConfigScreen;
 import club.iananderson.seasonhud.forge.client.overlays.JourneyMap;
 import club.iananderson.seasonhud.forge.client.overlays.SeasonHUDOverlay;
 import club.iananderson.seasonhud.impl.minimaps.CurrentMinimap;
@@ -22,7 +22,7 @@ public class ClientEvents {
     @SubscribeEvent
     public static void onKeyInput(InputEvent.Key Event) {
       if (KeyBindings.seasonhudOptionsKeyMapping.consumeClick()) {
-        SeasonHUDScreen.open();
+        MainConfigScreen.open();
       }
     }
   }
