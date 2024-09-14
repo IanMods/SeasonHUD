@@ -4,6 +4,12 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 
+## [1.10.6] - 2024-09-14
+
+### Changed
+
+- (Xaero's Minimap) Changed the season InfoDisplay to be at the top by default on initial load.
+
 ## [1.10.5] - 2024-09-11
 
 ### Changed
@@ -20,16 +26,16 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 ### Added
 
 - (1.21) Added support JourneyMap's new custom InfoSlots (JourneyMap 1.21-6.0.0-beta.25+ required).
-  - By default, "Season" will be added as an InfoSlot option in JourneyMap's minimap settings.
-  - If you are already using all the InfoSlots:
-    - Go into the JourneyMap addon settings ("Addon Settings" button at the top of the
-      JourneyMap
-      settings menu).
-      - Alternatively, I added a shortcut button in the SeasonHUD config menu (default "H")
-        when
-        JourneyMap is loaded.
-    - Enable the "Add an additional InfoSlot?" option.
-    - Choose if you want it added to the top set or the bottom set.
+    - By default, "Season" will be added as an InfoSlot option in JourneyMap's minimap settings.
+    - If you are already using all the InfoSlots:
+        - Go into the JourneyMap addon settings ("Addon Settings" button at the top of the
+          JourneyMap
+          settings menu).
+            - Alternatively, I added a shortcut button in the SeasonHUD config menu (default "H")
+              when
+              JourneyMap is loaded.
+        - Enable the "Add an additional InfoSlot?" option.
+        - Choose if you want it added to the top set or the bottom set.
 
 ## [1.10.3] - 2024-09-05
 
@@ -63,9 +69,9 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 
 - Starting with this release, the **1.20.2**, **1.20.4**, and **1.20.6** versions will no longer be
   updated.
-  - I updated the **1.16.5** version to be in line with all the current features, and ported it to
-    Fabric.
-    - Current active versions are: **1.16.5**, **1.18.2**, **1.19.x**, **1.20.1**, **1.21.x**.
+    - I updated the **1.16.5** version to be in line with all the current features, and ported it to
+      Fabric.
+        - Current active versions are: **1.16.5**, **1.18.2**, **1.19.x**, **1.20.1**, **1.21.x**.
 - Switched Curios to use a custom Calendar slot instead of Charm.
 - Switched Accessories to use a custom Calendar slot instead of Charm.
 - Improved detection of curios/trinkets/accessories.
@@ -141,8 +147,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 ### Changed
 
 - Changed the default offsets from 0,0 from 2,2 due to some changes in the offset calculation
-  - If you aren't using a minimap mod, you may need to manually change these values if the text
-    isn't offset.
+    - If you aren't using a minimap mod, you may need to manually change these values if the text
+      isn't offset.
 - More common code for JourneyMap and MapAtlases to make porting easier.
 - Improved logic for detecting hidden minimaps if multiple minimap mods are installed.
 - Updated Curios support to more modern implementation.
