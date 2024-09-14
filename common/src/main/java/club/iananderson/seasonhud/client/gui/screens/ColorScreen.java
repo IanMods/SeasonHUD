@@ -14,7 +14,6 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.EnumSet;
 import java.util.List;
-import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.components.AbstractWidget;
 import net.minecraft.client.gui.components.CycleButton;
 import net.minecraft.client.gui.components.EditBox;
@@ -22,23 +21,19 @@ import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.network.chat.Component;
 
 public class ColorScreen extends SeasonHudScreen {
-  private static final Component SCREEN_TITLE = Component.translatable("menu.seasonhud.title.color");
-  private static final Component ENABLE_SEASON_NAME_COLOR = Component.translatable(
-      "menu.seasonhud.button.color.enableSeasonNameColor");
+  private static final Component SCREEN_TITLE = Component.translatable("menu.seasonhud.options.color.title");
   private final List<ColorEditBox> seasonBoxes = new ArrayList<>();
-  private final List<DefaultColorButton> defaultColorButtons = new ArrayList<>();
-  private final List<RgbSlider> colorSliders = new ArrayList<>();
   private int x;
   private int y;
-  private CycleButton<Boolean> seasonColorButton;
+  private boolean seasonColor;
 
   public ColorScreen(Screen parentScreen) {
     super(parentScreen, SCREEN_TITLE);
-    this.widgets.toArray().clone();
+    loadConfig();
   }
 
-  public static void open(Screen parentScreen) {
-    Minecraft.getInstance().setScreen(new ColorScreen(parentScreen));
+  public static ColorScreen getInstance(Screen parentScreen) {
+    return new ColorScreen(parentScreen);
   }
 
   private static EnumSet<Seasons> seasonListSet() {
@@ -52,6 +47,10 @@ public class ColorScreen extends SeasonHudScreen {
     return set;
   }
 
+  public void loadConfig() {
+    seasonColor = Config.getEnableSeasonNameColor();
+  }
+
   @Override
   public void onDone() {
     seasonBoxes.forEach(editBox -> {
@@ -60,9 +59,13 @@ public class ColorScreen extends SeasonHudScreen {
       }
     });
 
-    seasonColorButton.getValue();
-
     super.onDone();
+  }
+
+  @Override
+  public void onClose() {
+    Config.setEnableSeasonNameColor(seasonColor);
+    super.onClose();
   }
 
   public int getBoxWidth() {
@@ -77,18 +80,6 @@ public class ColorScreen extends SeasonHudScreen {
     }
 
     return boxWidth;
-  }
-
-  public List<ColorEditBox> getSeasonBoxes() {
-    return seasonBoxes;
-  }
-
-  public List<RgbSlider> getColorSliders() {
-    return colorSliders;
-  }
-
-  public List<DefaultColorButton> getDefaultColorButtons() {
-    return defaultColorButtons;
   }
 
   private List<AbstractWidget> seasonWidget(int x, int y, Seasons season) {
@@ -128,10 +119,8 @@ public class ColorScreen extends SeasonHudScreen {
     }).withPos(x, y).build();
 
     seasonBoxes.add(colorBox);
-    defaultColorButtons.add(defaultButton);
-    colorSliders.addAll(Arrays.asList(redSlider, blueSlider, greenSlider));
 
-    return new ArrayList<>(Arrays.asList(colorBox, defaultButton, redSlider, blueSlider, greenSlider));
+    return new ArrayList<>(Arrays.asList(colorBox, defaultButton, redSlider, greenSlider, blueSlider));
   }
 
   @Override
@@ -151,13 +140,15 @@ public class ColorScreen extends SeasonHudScreen {
     });
 
     //Buttons
-    seasonColorButton = CycleButton.onOffBuilder(Config.getEnableSeasonNameColor())
-        .create(leftButtonX, MENU_PADDING_HALF, BUTTON_WIDTH, BUTTON_HEIGHT, ENABLE_SEASON_NAME_COLOR, (b, enable) -> {
-          Config.setEnableSeasonNameColor(enable);
-          rebuildWidgets();
-        });
+    CycleButton<Boolean> seasonColorButton = CycleButton.onOffBuilder(Config.getEnableSeasonNameColor())
+        .create(leftButtonX, MENU_PADDING_HALF, BUTTON_WIDTH, BUTTON_HEIGHT,
+                Component.translatable("menu.seasonhud.button.color.enableSeasonNameColor"), (b, val) -> {
+              Config.setEnableSeasonNameColor(val);
+              rebuildWidgets();
+            });
 
     this.widgets.add(seasonColorButton);
+
     this.widgets.forEach(this::addRenderableWidget);
   }
 

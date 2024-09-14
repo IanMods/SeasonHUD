@@ -1,9 +1,10 @@
 {
   "key.seasonhud.category": "SeasonHUD",
   "key.seasonhud.options": "SeasonHUD Opciones",
-  "menu.seasonhud.title": "SeasonHUD Opciones",
-  "menu.seasonhud.title.journeymap": "JourneyMap",
-  "menu.seasonhud.title.color": "SeasonHUD Colores",
+  "menu.seasonhud.options.title": "SeasonHUD Opciones",
+  "menu.seasonhud.options.journeymap.title": "JourneyMap",
+  "menu.seasonhud.options.color.title": "SeasonHUD Colores",
+  "menu.seasonhud.options.season.title": "Season Display Options",
   "menu.seasonhud.button.enableMod": "Habilitar mod",
   "menu.seasonhud.button.hudLocation": "Ubicación del HUD",
   "menu.seasonhud.slider.xOffset": "X Offset: ",

@@ -10,7 +10,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 
 - (Xaero's Minimap) Changed the season InfoDisplay to be at the top by default on initial load.
 - Cleaned up the config screen a bit.
-    - Cancel will now discard changes.
+    - Added a "Season Display Options" sub-screen for customizing the properties of the season
+      component.
+    - Moved several options into this sub-screen
+- Cancel will now properly discard changes made to any of the options.
 
 ## [1.10.5] - 2024-09-11
 

@@ -1,9 +1,10 @@
 {
   "key.seasonhud.category": "Сезонный интерфейс",
   "key.seasonhud.options": "Настройки сезонного интерфейса",
-  "menu.seasonhud.title": "Настройки сезонного интерфейса",
-  "menu.seasonhud.title.journeymap": "JourneyMap",
-  "menu.seasonhud.title.color": "Цвета сезонного интерфейса",
+  "menu.seasonhud.options.title": "Настройки сезонного интерфейса",
+  "menu.seasonhud.options.journeymap.title": "JourneyMap",
+  "menu.seasonhud.options.season.title": "Season Display Options",
+  "menu.seasonhud.options.color.title": "Цвета сезонного интерфейса",
   "menu.seasonhud.button.enableMod": "Включить мод",
   "menu.seasonhud.button.hudLocation": "Расположение интерфейса",
   "menu.seasonhud.slider.xOffset": "Смещение по X: ",

@@ -1,9 +1,10 @@
 {
   "key.seasonhud.category": "SeasonHUD",
   "key.seasonhud.options": "SeasonHUD 選項",
-  "menu.seasonhud.title": "SeasonHUD 選項",
-  "menu.seasonhud.title.journeymap": "JourneyMap",
-  "menu.seasonhud.title.color": "SeasonHUD 顏色",
+  "menu.seasonhud.options.title": "SeasonHUD 選項",
+  "menu.seasonhud.options.journeymap.title": "JourneyMap",
+  "menu.seasonhud.options.color.title": "SeasonHUD 顏色",
+  "menu.seasonhud.options.season.title": "Season Display Options",
   "menu.seasonhud.button.enableMod": "啟用模組",
   "menu.seasonhud.button.hudLocation": "HUD 位置",
   "menu.seasonhud.slider.xOffset": "X 偏移：",

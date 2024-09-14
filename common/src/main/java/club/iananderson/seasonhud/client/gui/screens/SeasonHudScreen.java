@@ -25,6 +25,9 @@ public class SeasonHudScreen extends Screen {
   public final Screen parentScreen;
   public int leftButtonX;
   public int rightButtonX;
+  public int row;
+  public int buttonStartY = MENU_PADDING;
+  public int yOffset = BUTTON_HEIGHT + BUTTON_PADDING;
 
   public SeasonHudScreen(Screen parentScreen, Component title) {
     super(title);
@@ -32,12 +35,10 @@ public class SeasonHudScreen extends Screen {
     this.minecraft = Minecraft.getInstance();
     this.width = minecraft.getWindow().getGuiScaledWidth();
     this.height = minecraft.getWindow().getGuiScaledHeight();
-    leftButtonX = (this.width / 2) - (BUTTON_WIDTH + BUTTON_PADDING);
-    rightButtonX = (this.width / 2) + BUTTON_PADDING;
   }
 
-  public static SeasonHudScreen getInstance(Screen parentScreen, Component title) {
-    return new SeasonHudScreen(parentScreen, title);
+  public void open() {
+    Minecraft.getInstance().setScreen(this);
   }
 
   @Override
@@ -45,15 +46,12 @@ public class SeasonHudScreen extends Screen {
     return true;
   }
 
-  public void open() {
-    Minecraft.getInstance().setScreen(this);
-  }
-
   public void onDone() {
     Minecraft.getInstance().setScreen(this.parentScreen);
   }
 
-  private void onCancel() {
+  @Override
+  public void onClose() {
     Minecraft.getInstance().setScreen(this.parentScreen);
   }
 
@@ -84,12 +82,14 @@ public class SeasonHudScreen extends Screen {
   public void init() {
     this.widgets.clear();
     super.init();
+    leftButtonX = (this.width / 2) - (BUTTON_WIDTH + BUTTON_PADDING);
+    rightButtonX = (this.width / 2) + BUTTON_PADDING;
 
     doneButton = MenuButton.builder(MenuButtons.DONE, press -> this.onDone())
         .withPos(rightButtonX, (this.height - BUTTON_HEIGHT - BUTTON_PADDING))
         .build();
 
-    cancelButton = MenuButton.builder(MenuButtons.CANCEL, press -> this.onCancel())
+    cancelButton = MenuButton.builder(MenuButtons.CANCEL, press -> this.onClose())
         .withPos(leftButtonX, (this.height - BUTTON_HEIGHT - BUTTON_PADDING))
         .build();
 

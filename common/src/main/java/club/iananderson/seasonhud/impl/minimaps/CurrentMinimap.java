@@ -14,6 +14,7 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screens.ChatScreen;
 import net.minecraft.client.gui.screens.DeathScreen;
 import xaero.common.HudMod;
+import xaero.common.gui.ScreenBase;
 
 public class CurrentMinimap {
   private static boolean minimapLoaded(Minimap minimap) {
@@ -82,7 +83,7 @@ public class CurrentMinimap {
       }
       case XAERO, XAERO_FAIRPLAY -> {
         return !HudMod.INSTANCE.getSettings().getMinimap() || mc.options.renderDebug || !(mc.screen == null
-            || mc.screen instanceof ChatScreen || mc.screen instanceof DeathScreen);
+            || mc.screen instanceof ChatScreen || mc.screen instanceof DeathScreen || mc.screen instanceof ScreenBase);
       }
       case MAP_ATLASES -> {
         return Services.MINIMAP.hideMapAtlases();

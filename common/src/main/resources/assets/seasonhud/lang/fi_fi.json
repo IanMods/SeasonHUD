@@ -1,9 +1,10 @@
 {
   "key.seasonhud.category": "SeasonHUD",
   "key.seasonhud.options": "SeasonHUD Asetukset",
-  "menu.seasonhud.title": "SeasonHUD Asetukset",
-  "menu.seasonhud.title.journeymap": "JourneyMap",
-  "menu.seasonhud.title.color": "SeasonHUD Värit",
+  "menu.seasonhud.options.title": "SeasonHUD Asetukset",
+  "menu.seasonhud.options.journeymap.title": "JourneyMap",
+  "menu.seasonhud.options.season.title": "Season Display Options",
+  "menu.seasonhud.options.color.title": "SeasonHUD Värit",
   "menu.seasonhud.button.enableMod": "Modi päällä",
   "menu.seasonhud.button.hudLocation": "HUD Sijainti",
   "menu.seasonhud.slider.xOffset": "X-Siirros: ",

@@ -102,7 +102,8 @@ public class HudOffsetSlider extends BasicSlider {
     }
 
     public Builder withBounds(int x, int y, int width, int height) {
-      this.withPos(x, y);
+      this.x = x;
+      this.y = y;
       this.width = width;
       this.height = height;
       return this;

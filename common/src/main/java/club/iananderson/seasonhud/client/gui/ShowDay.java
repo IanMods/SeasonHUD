@@ -1,6 +1,6 @@
 package club.iananderson.seasonhud.client.gui;
 
-import club.iananderson.seasonhud.Common;
+import club.iananderson.seasonhud.platform.Services;
 import java.util.ArrayList;
 import java.util.List;
 import net.minecraft.network.chat.Component;
@@ -29,7 +29,7 @@ public enum ShowDay {
   public static List<ShowDay> getValues() {
     List<ShowDay> values = new ArrayList<>(List.of(ShowDay.values()));
 
-    if (Common.platformName().equals("Forge")) {
+    if (!Services.SEASON.isSeasonTiedWithSystemTime()) {
       values.remove(SHOW_WITH_MONTH.getId());
     }
 
