@@ -15,7 +15,6 @@ import net.minecraft.network.chat.MutableComponent;
 import org.jetbrains.annotations.NotNull;
 
 public class ColorEditBox extends EditBox {
-
   private static final int PADDING = 4;
   private final Seasons boxSeason;
   private final int seasonColor;
@@ -96,7 +95,7 @@ public class ColorEditBox extends EditBox {
     Minecraft mc = Minecraft.getInstance();
     float textScale = 1;
     int scaledWidth = mc.getWindow().getGuiScaledWidth();
-    int widgetTotalSize = ((80 + ColorScreen.WIDGET_PADDING) * seasonListSet().size());
+    int widgetTotalSize = ((80 + ColorScreen.BUTTON_PADDING) * seasonListSet().size());
     boolean seasonShort = (scaledWidth < widgetTotalSize);
 
     MutableComponent seasonCombined = CurrentSeason.getInstance(mc)

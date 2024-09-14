@@ -32,6 +32,7 @@ public enum ShowDay {
     if (Common.platformName().equals("Forge")) {
       values.remove(SHOW_WITH_MONTH.getId());
     }
+
     return values;
   }
 

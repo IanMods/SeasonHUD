@@ -9,6 +9,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 ### Changed
 
 - (Xaero's Minimap) Changed the season InfoDisplay to be at the top by default on initial load.
+- Cleaned up the config screen a bit.
+    - Cancel will now discard changes.
 
 ## [1.10.5] - 2024-09-11
 

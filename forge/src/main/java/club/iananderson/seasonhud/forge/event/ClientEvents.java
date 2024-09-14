@@ -22,7 +22,7 @@ public class ClientEvents {
     @SubscribeEvent
     public static void onKeyInput(InputEvent.Key Event) {
       if (KeyBindings.seasonhudOptionsKeyMapping.consumeClick()) {
-        MainConfigScreen.open();
+        MainConfigScreen.getInstance().open();
       }
     }
   }
