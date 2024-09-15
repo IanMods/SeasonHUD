@@ -17,12 +17,12 @@ public class SeasonHudScreen extends Screen {
   public static final int MENU_PADDING = 50;
   public static final int TITLE_PADDING = 10;
   public static final int BUTTON_PADDING = 6;
-  public static final int BUTTON_WIDTH = 150;
-  public static final int BUTTON_HEIGHT = 20;
   public static MenuButton doneButton;
   public static MenuButton cancelButton;
   public final List<AbstractWidget> widgets = new ArrayList<>();
   public final Screen parentScreen;
+  public int BUTTON_WIDTH = 150;
+  public int BUTTON_HEIGHT = 20;
   public int leftButtonX;
   public int rightButtonX;
   public int row;
@@ -86,11 +86,12 @@ public class SeasonHudScreen extends Screen {
     rightButtonX = (this.width / 2) + BUTTON_PADDING;
 
     doneButton = MenuButton.builder(MenuButtons.DONE, press -> this.onDone())
-        .withPos(rightButtonX, (this.height - BUTTON_HEIGHT - BUTTON_PADDING))
+        .withPos(rightButtonX, (this.height - MenuButton.DEFAULT_HEIGHT - BUTTON_PADDING))
         .build();
 
     cancelButton = MenuButton.builder(MenuButtons.CANCEL, press -> this.onClose())
-        .withPos(leftButtonX, (this.height - BUTTON_HEIGHT - BUTTON_PADDING))
+        .withPos((this.width / 2) - (MenuButton.DEFAULT_WIDTH + BUTTON_PADDING),
+                 (this.height - MenuButton.DEFAULT_HEIGHT - BUTTON_PADDING))
         .build();
 
     this.widgets.addAll(Arrays.asList(doneButton, cancelButton));

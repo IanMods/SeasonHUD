@@ -127,12 +127,11 @@ public class ColorScreen extends SeasonHudScreen {
   public void init() {
     super.init();
 
-    int MENU_PADDING_HALF = MENU_PADDING / 2;
     int widgetWidth = getBoxWidth() + BUTTON_PADDING;
     int totalWidgetWidth = (seasonListSet().size() * widgetWidth) - BUTTON_PADDING;
 
     this.x = (this.width / 2) - (totalWidgetWidth / 2);
-    this.y = MENU_PADDING_HALF + BUTTON_HEIGHT + BUTTON_PADDING + BUTTON_HEIGHT;
+    this.y = MENU_PADDING + BUTTON_HEIGHT + BUTTON_PADDING + BUTTON_HEIGHT;
 
     seasonListSet().forEach(season -> {
       this.widgets.addAll(seasonWidget(this.x, this.y, season));
@@ -141,7 +140,7 @@ public class ColorScreen extends SeasonHudScreen {
 
     //Buttons
     CycleButton<Boolean> seasonColorButton = CycleButton.onOffBuilder(Config.getEnableSeasonNameColor())
-        .create(leftButtonX, MENU_PADDING_HALF, BUTTON_WIDTH, BUTTON_HEIGHT,
+        .create(leftButtonX, MENU_PADDING, BUTTON_WIDTH, BUTTON_HEIGHT,
                 Component.translatable("menu.seasonhud.button.color.enableSeasonNameColor"), (b, val) -> {
               Config.setEnableSeasonNameColor(val);
               rebuildWidgets();

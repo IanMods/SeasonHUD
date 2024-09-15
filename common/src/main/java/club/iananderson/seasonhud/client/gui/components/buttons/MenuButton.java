@@ -20,9 +20,9 @@ public class MenuButton extends Button {
 
     CANCEL(CommonComponents.GUI_CANCEL),
 
-    COLORS(Component.translatable("menu.seasonhud.options.color.title")),
+    COLORS(Component.translatable("menu.seasonhud.options.color.title").append("...")),
 
-    SEASON(Component.translatable("menu.seasonhud.options.season.title"));
+    SEASON(Component.translatable("menu.seasonhud.options.season.title").append("..."));
 
     private final Component buttonText;
 
