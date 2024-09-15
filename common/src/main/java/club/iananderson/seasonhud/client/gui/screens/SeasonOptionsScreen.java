@@ -134,7 +134,7 @@ public class SeasonOptionsScreen extends SeasonHudScreen {
 
     graphics.pushPose();
     graphics.translate(0, 0, 50);
-    GuiComponent.drawString(graphics,font, seasonCombined, x, y, 0xffffff);
+    GuiComponent.drawString(graphics, font, seasonCombined, x, y, 0xffffff);
     graphics.popPose();
   }
 
