@@ -127,7 +127,7 @@ public class SeasonOptionsScreen extends SeasonHudScreen {
 
     row = 0;
     hudLocationButton = CycleButton.builder(Location::getLocationName)
-        .withTooltip(object -> Tooltip.create(Component.translatable("menu.seasonhud.season.hudLocation.tooltip")))
+        .withTooltip(t -> Tooltip.create(Component.translatable("menu.seasonhud.season.hudLocation.tooltip")))
         .withValues(Location.TOP_LEFT, Location.TOP_CENTER, Location.TOP_RIGHT, Location.BOTTOM_LEFT,
                     Location.BOTTOM_RIGHT)
         .withInitialValue(hudLocation)
@@ -144,7 +144,7 @@ public class SeasonOptionsScreen extends SeasonHudScreen {
                     BUTTON_HEIGHT)
         .build();
 
-    ySlider = HudOffsetSlider.builder(Component.translatable("menu.seasonhud" + ".slider.yOffset"))
+    ySlider = HudOffsetSlider.builder(Component.translatable("menu.seasonhud.season.yOffset.slider"))
         .withTooltip(Tooltip.create(Component.translatable("menu.seasonhud.season.yOffset.tooltip")))
         .withValueRange(0, this.height - componentHeight)
         .withInitialValue(ySliderInt)
@@ -155,29 +155,27 @@ public class SeasonOptionsScreen extends SeasonHudScreen {
 
     row = 1;
     CycleButton<ShowDay> showDayButton = CycleButton.builder(ShowDay::getDayDisplayName)
-        .withTooltip(object -> Tooltip.create(Component.translatable("menu.seasonhud.season.showDay.tooltip")))
+        .withTooltip(t -> Tooltip.create(Component.translatable("menu.seasonhud.season.showDay.tooltip")))
         .withValues(ShowDay.getValues())
         .withInitialValue(showDay)
         .create(leftButtonX, (buttonStartY + (row * yOffset)), BUTTON_WIDTH, BUTTON_HEIGHT,
                 Component.translatable("menu.seasonhud.season.showDay.button"), (b, val) -> Config.setShowDay(val));
 
     CycleButton<Boolean> seasonColorButton = CycleButton.onOffBuilder(seasonColor)
-        .withTooltip(
-            object -> Tooltip.create(Component.translatable("menu.seasonhud.color.enableSeasonNameColor.tooltip")))
+        .withTooltip(t -> Tooltip.create(Component.translatable("menu.seasonhud.color.enableSeasonNameColor.tooltip")))
         .create(rightButtonX, (buttonStartY + (row * yOffset)), BUTTON_WIDTH, BUTTON_HEIGHT,
                 Component.translatable("menu.seasonhud.color.enableSeasonNameColor.button"),
                 (b, val) -> Config.setEnableSeasonNameColor(val));
 
     row = 2;
     CycleButton<Boolean> showSubSeasonButton = CycleButton.onOffBuilder(showSubSeason)
-        .withTooltip(object -> Tooltip.create(Component.translatable("menu.seasonhud.season.showSubSeason.tooltip")))
+        .withTooltip(t -> Tooltip.create(Component.translatable("menu.seasonhud.season.showSubSeason.tooltip")))
         .create(leftButtonX, (buttonStartY + (row * yOffset)), BUTTON_WIDTH, BUTTON_HEIGHT,
                 Component.translatable("menu.seasonhud.season.showSubSeason.button"),
                 (b, val) -> Config.setShowSubSeason(val));
 
     CycleButton<Boolean> showTropicalSeasonButton = CycleButton.onOffBuilder(showTropicalSeason)
-        .withTooltip(
-            object -> Tooltip.create(Component.translatable("menu.seasonhud.season.showTropicalSeason.tooltip")))
+        .withTooltip(t -> Tooltip.create(Component.translatable("menu.seasonhud.season.showTropicalSeason.tooltip")))
         .create(rightButtonX, (buttonStartY + (row * yOffset)), BUTTON_WIDTH, BUTTON_HEIGHT,
                 Component.translatable("menu.seasonhud.season.showTropicalSeason.button"),
                 (b, val) -> Config.setShowTropicalSeason(val));

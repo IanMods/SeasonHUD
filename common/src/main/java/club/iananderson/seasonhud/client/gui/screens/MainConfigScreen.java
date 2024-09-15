@@ -23,8 +23,11 @@ public class MainConfigScreen extends SeasonHudScreen {
   private boolean showMinimapHidden;
   private boolean enableMinimapIntegration;
   private boolean needCalendar;
+  private boolean enableCalanderDetail;
   private boolean journeyMapAboveMap;
   private boolean journeyMapMacOS;
+  private CycleButton<Boolean> needCalendarButton;
+  private CycleButton<Boolean> enableCalanderDetailMode;
 
   public MainConfigScreen() {
     super(null, SCREEN_TITLE);
@@ -41,6 +44,7 @@ public class MainConfigScreen extends SeasonHudScreen {
     showMinimapHidden = Config.getShowDefaultWhenMinimapHidden();
     enableMinimapIntegration = Config.getEnableMinimapIntegration();
     needCalendar = Config.getNeedCalendar();
+    enableCalanderDetail = Config.getCalanderDetailMode();
     if (CurrentMinimap.journeyMapLoaded()) {
       journeyMapAboveMap = Config.getEnableMod();
       journeyMapMacOS = Config.getEnableMod();
@@ -52,6 +56,7 @@ public class MainConfigScreen extends SeasonHudScreen {
     Config.setEnableMinimapIntegration(enableMinimapIntegration);
     Config.setShowDefaultWhenMinimapHidden(showMinimapHidden);
     Config.setNeedCalendar(needCalendar);
+    Config.setCalanderDetailMode(enableCalanderDetail);
     if (CurrentMinimap.journeyMapLoaded()) {
       Config.setEnableMod(journeyMapAboveMap);
       Config.setEnableMod(journeyMapMacOS);
@@ -99,44 +104,48 @@ public class MainConfigScreen extends SeasonHudScreen {
 
     row = 1;
     CycleButton<Boolean> enableModButton = CycleButton.onOffBuilder(enableMod)
-        .withTooltip(object -> Tooltip.create(Component.translatable("menu.seasonhud.main.enableMod.tooltip")))
+        .withTooltip(t -> Tooltip.create(Component.translatable("menu.seasonhud.main.enableMod.tooltip")))
         .create(leftButtonX, (buttonStartY + (row * yOffset)), BUTTON_WIDTH, BUTTON_HEIGHT,
                 Component.translatable("menu.seasonhud.main.enableMod.button"), (b, val) -> enableMod = val);
 
-    CycleButton<Boolean> needCalendarButton = CycleButton.onOffBuilder(needCalendar)
-        .withTooltip(object -> Tooltip.create(Component.translatable("menu.seasonhud.main.needCalendar.tooltip")))
-        .create(rightButtonX, (buttonStartY + (row * yOffset)), BUTTON_WIDTH, BUTTON_HEIGHT,
-                Component.translatable("menu.seasonhud.main.needCalendar.button"), (b, val) -> needCalendar = val);
-
     row = 2;
     CycleButton<Boolean> enableMinimapIntegrationButton = CycleButton.onOffBuilder(enableMinimapIntegration)
-        .withTooltip(
-            object -> Tooltip.create(Component.translatable("menu.seasonhud.main.enableMinimapIntegration.tooltip")))
+        .withTooltip(t -> Tooltip.create(Component.translatable("menu.seasonhud.main.minimapIntegration.tooltip")))
         .create(leftButtonX, (buttonStartY + (row * yOffset)), BUTTON_WIDTH, BUTTON_HEIGHT,
                 Component.translatable("menu.seasonhud.main.enableMinimapIntegration.button"),
                 (b, val) -> enableMinimapIntegration = val);
 
     CycleButton<Boolean> showMinimapHiddenButton = CycleButton.onOffBuilder(showMinimapHidden)
-        .withTooltip(object -> Tooltip.create(Component.translatable("menu.seasonhud.main.showMinimapHidden.tooltip")))
+        .withTooltip(t -> Tooltip.create(Component.translatable("menu.seasonhud.main.showMinimapHidden.tooltip")))
         .create(rightButtonX, (buttonStartY + (row * yOffset)), BUTTON_WIDTH, BUTTON_HEIGHT,
                 Component.translatable("menu.seasonhud.main.showMinimapHidden.button"),
                 (b, val) -> showMinimapHidden = val);
 
-    widgets.addAll(
-        Arrays.asList(seasonButton, colorButton, enableModButton, needCalendarButton, enableMinimapIntegrationButton,
-                      showMinimapHiddenButton));
+    row = 3;
+    needCalendarButton = CycleButton.onOffBuilder(needCalendar)
+        .withTooltip(t -> Tooltip.create(Component.translatable("menu.seasonhud.main.needCalendar.tooltip")))
+        .create(leftButtonX, (buttonStartY + (row * yOffset)), BUTTON_WIDTH, BUTTON_HEIGHT,
+                Component.translatable("menu.seasonhud.main.needCalendar.button"), (b, val) -> needCalendar = val);
+
+    enableCalanderDetailMode = CycleButton.onOffBuilder(enableCalanderDetail)
+        .withTooltip(t -> Tooltip.create(Component.translatable("menu.seasonhud.main.calendarDetail.tooltip")))
+        .create(rightButtonX, (buttonStartY + (row * yOffset)), BUTTON_WIDTH, BUTTON_HEIGHT,
+                Component.translatable("menu.seasonhud.main.calendarDetail.button"),
+                (b, val) -> enableCalanderDetail = val);
+
+    widgets.addAll(Arrays.asList(seasonButton, colorButton, enableModButton, enableMinimapIntegrationButton,
+                                 showMinimapHiddenButton, needCalendarButton, enableCalanderDetailMode));
 
     if (Services.PLATFORM.isModLoaded("journeymap")) {
-      row += 2; //6
+      row += 2;
       CycleButton<Boolean> journeyMapAboveMapButton = CycleButton.onOffBuilder(journeyMapAboveMap)
-          .withTooltip(
-              object -> Tooltip.create(Component.translatable("menu.seasonhud.main.journeymap.aboveMap.tooltip")))
+          .withTooltip(t -> Tooltip.create(Component.translatable("menu.seasonhud.main.journeymap.aboveMap.tooltip")))
           .create(leftButtonX, (buttonStartY + (row * yOffset)), BUTTON_WIDTH, BUTTON_HEIGHT,
                   Component.translatable("menu.seasonhud.main.journeymap.aboveMap.button"),
                   (b, val) -> journeyMapAboveMap = val);
 
       CycleButton<Boolean> journeyMapMacOSButton = CycleButton.onOffBuilder(journeyMapMacOS)
-          .withTooltip(object -> Tooltip.create(Component.translatable("menu.seasonhud.main.journeymap.macOS.tooltip")))
+          .withTooltip(t -> Tooltip.create(Component.translatable("menu.seasonhud.main.journeymap.macOS.tooltip")))
           .create(rightButtonX, (buttonStartY + (row * yOffset)), BUTTON_WIDTH, BUTTON_HEIGHT,
                   Component.translatable("menu.seasonhud.main.journeymap.macOS.button"),
                   (b, val) -> journeyMapMacOS = val);
