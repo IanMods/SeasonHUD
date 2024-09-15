@@ -65,7 +65,7 @@ public class CurrentSeason {
         text = new TranslatableComponent(ShowDay.NONE.getKey(), season);
 
         if (Calendar.calendarFoundDetailed()) {
-          text = Component.translatable(ShowDay.SHOW_WITH_TOTAL_DAYS.getKey(), season, seasonDate, seasonDuration);
+          text = new TranslatableComponent(ShowDay.SHOW_WITH_TOTAL_DAYS.getKey(), season, seasonDate, seasonDuration);
         }
         break;
 

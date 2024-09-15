@@ -6,11 +6,10 @@ import io.github.lucaargolo.seasons.FabricSeasons;
 import java.util.Objects;
 import net.minecraft.client.Minecraft;
 import net.minecraft.resources.ResourceKey;
-import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import pepjebs.mapatlases.MapAtlasesMod;
-import pepjebs.mapatlases.client.MapAtlasesClient;
-import pepjebs.mapatlases.config.MapAtlasesClientConfig;
+import pepjebs.mapatlases.utils.MapAtlasesAccessUtils;
 
 public class FabricMinimapHelper implements IMinimapHelper {
 
@@ -27,18 +26,17 @@ public class FabricMinimapHelper implements IMinimapHelper {
     if (CurrentMinimap.mapAtlasesLoaded()) {
       Minecraft mc = Minecraft.getInstance();
 
-      if (mc.level == null || mc.player == null || mc.options.renderDebug) {
+      if (mc.level == null || mc.player == null || mc.player.level.dimension() != Level.OVERWORLD) {
         return true;
       }
 
-      Item atlasItem = MapAtlasesMod.MAP_ATLAS.get();
+      ItemStack atlas = MapAtlasesAccessUtils.getAtlasFromPlayerByConfig(mc.player);
 
-      boolean drawMinimapHud = MapAtlasesClientConfig.drawMiniMapHUD.get();
-      boolean emptyAtlas = MapAtlasesClient.getCurrentActiveAtlas().isEmpty();
-      boolean hideInHand = MapAtlasesClientConfig.hideWhenInHand.get();
-      boolean hasAtlas = (mc.player.getMainHandItem().is(atlasItem) || mc.player.getOffhandItem().is(atlasItem));
+      boolean drawMinimapHud = MapAtlasesMod.CONFIG.drawMiniMapHUD;
+      ;
+      boolean hasAtlas = atlas.getCount() > 0;
 
-      return !drawMinimapHud || emptyAtlas || (hideInHand && hasAtlas);
+      return !drawMinimapHud || !hasAtlas;
     } else {
       return false;
     }

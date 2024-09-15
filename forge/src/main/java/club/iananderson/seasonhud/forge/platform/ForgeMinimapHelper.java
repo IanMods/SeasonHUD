@@ -3,13 +3,12 @@ package club.iananderson.seasonhud.forge.platform;
 import club.iananderson.seasonhud.impl.minimaps.CurrentMinimap;
 import club.iananderson.seasonhud.platform.services.IMinimapHelper;
 import java.util.Objects;
+import lilypuree.mapatlases.MapAtlasesMod;
+import lilypuree.mapatlases.util.MapAtlasesAccessUtils;
 import net.minecraft.client.Minecraft;
 import net.minecraft.resources.ResourceKey;
-import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
-import pepjebs.mapatlases.MapAtlasesMod;
-import pepjebs.mapatlases.client.MapAtlasesClient;
-import pepjebs.mapatlases.config.MapAtlasesClientConfig;
 import sereneseasons.config.ServerConfig;
 
 public class ForgeMinimapHelper implements IMinimapHelper {
@@ -31,14 +30,13 @@ public class ForgeMinimapHelper implements IMinimapHelper {
         return true;
       }
 
-      Item atlasItem = MapAtlasesMod.MAP_ATLAS.get();
+      ItemStack atlas = MapAtlasesAccessUtils.getAtlasFromPlayerByConfig(mc.player.getInventory());
 
-      boolean drawMinimapHud = MapAtlasesClientConfig.drawMiniMapHUD.get();
-      boolean emptyAtlas = MapAtlasesClient.getCurrentActiveAtlas().isEmpty();
-      boolean hideInHand = MapAtlasesClientConfig.hideWhenInHand.get();
-      boolean hasAtlas = (mc.player.getMainHandItem().is(atlasItem) || mc.player.getOffhandItem().is(atlasItem));
+      boolean drawMinimapHud = MapAtlasesMod.CONFIG.drawMiniMapHUD.get();
+      ;
+      boolean hasAtlas = atlas.getCount() > 0;
 
-      return !drawMinimapHud || emptyAtlas || (hideInHand && hasAtlas);
+      return !drawMinimapHud || !hasAtlas;
     } else {
       return false;
     }
