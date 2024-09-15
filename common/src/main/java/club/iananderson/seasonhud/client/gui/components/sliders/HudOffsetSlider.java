@@ -1,6 +1,5 @@
 package club.iananderson.seasonhud.client.gui.components.sliders;
 
-import club.iananderson.seasonhud.Common;
 import club.iananderson.seasonhud.client.gui.Location;
 import club.iananderson.seasonhud.config.Config;
 import com.mojang.blaze3d.vertex.PoseStack;
@@ -60,7 +59,7 @@ public class HudOffsetSlider extends BasicSlider {
 
   @Override
   public void renderBg(@NotNull PoseStack graphics, @NotNull Minecraft mc, int mouseX, int mouseY) {
-    if (!Common.drawDefaultHud() || Config.getHudLocation() != Location.TOP_LEFT) {
+    if (Config.getHudLocation() != Location.TOP_LEFT) {
       this.active = false;
     }
     super.renderBg(graphics, mc, mouseX, mouseY);
@@ -105,7 +104,8 @@ public class HudOffsetSlider extends BasicSlider {
     }
 
     public Builder withBounds(int x, int y, int width, int height) {
-      this.withPos(x, y);
+      this.x = x;
+      this.y = y;
       this.width = width;
       this.height = height;
       return this;

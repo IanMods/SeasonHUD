@@ -4,6 +4,27 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 
+## [1.10.6] - 2024-09-15
+
+### Added
+
+- Added a config option to only show the detailed season info if the player has a calendar.
+
+### Changed
+
+- (Xaero's Minimap) Changed the season InfoDisplay to be at the top by default on initial load.
+- Cleaned up the config screen a bit.
+    - Added a "Season Display Options" sub-screen for customizing the properties of the season
+      component.
+    - Moved several options into this sub-screen
+- Cancel will now properly discard changes made to any of the options.
+
+## [1.10.5] - 2024-09-11
+
+### Changed
+
+- General cleanup and moved more common code.
+
 ## [1.10.4] - 2024-09-10
 
 ### Changed
@@ -14,14 +35,16 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 ### Added
 
 - (1.21) Added support JourneyMap's new custom InfoSlots (JourneyMap 1.21-6.0.0-beta.25+ required).
-  - By default, "Season" will be added as an InfoSlot option in JourneyMap's minimap settings.
-  - If you are already using all the InfoSlots:
-    - Go into the JourneyMap addon settings ("Addon Settings" button at the top of the JourneyMap
-      settings menu).
-      - Alternatively, I added a shortcut button in the SeasonHUD config menu (default "H") when
-        JourneyMap is loaded.
-    - Enable the "Add an additional InfoSlot?" option.
-    - Choose if you want it added to the top set or the bottom set.
+    - By default, "Season" will be added as an InfoSlot option in JourneyMap's minimap settings.
+    - If you are already using all the InfoSlots:
+        - Go into the JourneyMap addon settings ("Addon Settings" button at the top of the
+          JourneyMap
+          settings menu).
+            - Alternatively, I added a shortcut button in the SeasonHUD config menu (default "H")
+              when
+              JourneyMap is loaded.
+        - Enable the "Add an additional InfoSlot?" option.
+        - Choose if you want it added to the top set or the bottom set.
 
 ## [1.10.3] - 2024-09-05
 

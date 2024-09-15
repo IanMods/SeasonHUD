@@ -29,7 +29,8 @@ public class Common {
 
   public static void init() {
     platformName = Services.PLATFORM.getPlatformName();
-    extrasLoaded = Services.PLATFORM.isModLoaded("seasonsextras");
+    extrasLoaded =
+        Services.PLATFORM.isModLoaded("seasonsextras") || Services.PLATFORM.getPlatformName().equals("Forge");
     curiosLoaded = Services.PLATFORM.isModLoaded("trinkets") || Services.PLATFORM.isModLoaded("curios");
     accessoriesLoaded = Services.PLATFORM.isModLoaded("accessories");
   }
@@ -57,13 +58,13 @@ public class Common {
       return false;
     }
 
-    return (mc.screen == null || mc.screen instanceof ChatScreen || mc.screen instanceof DeathScreen) && !mc.isPaused()
+    return (mc.screen == null || mc.screen instanceof ChatScreen || mc.screen instanceof DeathScreen)
         && !mc.options.renderDebug && !mc.options.hideGui && !mc.player.isScoping();
   }
 
   public static boolean drawDefaultHud() {
     return (Config.getEnableMod() && (CurrentMinimap.noMinimapLoaded() || !Config.getEnableMinimapIntegration() || (
-        Services.MINIMAP.allMinimapsHidden() && Config.getShowDefaultWhenMinimapHidden())));
+        CurrentMinimap.allMinimapsHidden() && Config.getShowDefaultWhenMinimapHidden())));
   }
 
   public static boolean allTrue(List<Boolean> values) {

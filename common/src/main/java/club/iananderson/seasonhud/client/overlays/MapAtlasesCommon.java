@@ -33,12 +33,10 @@ public class MapAtlasesCommon {
 
   public static void drawMapComponentSeason(PoseStack graphics, Font font, int x, int y, int targetWidth,
       float textScaling, float globalScale) {
-    if (CurrentMinimap.mapAtlasesLoaded()) {
-      MutableComponent seasonCombined = CurrentSeason.getInstance(Minecraft.getInstance()).getSeasonHudText();
-      MutableComponent shadowText = CurrentSeason.getInstance(Minecraft.getInstance()).getSeasonHudTextNoFormat();
-      drawScaledComponent(graphics, font, x, y, seasonCombined, shadowText, textScaling / globalScale, targetWidth,
-                          (int) (targetWidth / globalScale));
-    }
+    MutableComponent seasonCombined = CurrentSeason.getInstance(Minecraft.getInstance()).getSeasonHudText();
+    MutableComponent shadowText = CurrentSeason.getInstance(Minecraft.getInstance()).getSeasonHudTextNoFormat();
+    drawScaledComponent(graphics, font, x, y, seasonCombined, shadowText, textScaling / globalScale, targetWidth,
+                        (int) (targetWidth / globalScale));
   }
 
   public static void drawScaledText(PoseStack graphics, int x, int y, MutableComponent text,

@@ -10,7 +10,7 @@ import net.minecraft.network.chat.TranslatableComponent;
 import org.jetbrains.annotations.NotNull;
 
 public class DefaultColorButton extends Button {
-  private static final Component DEFAULT = new TranslatableComponent("menu.seasonhud.button.color.default");
+  private static final Component DEFAULT = new TranslatableComponent("menu.seasonhud.color.default.button");
   private final ColorEditBox colorEditBox;
   private final int defaultColor;
 

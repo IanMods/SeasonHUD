@@ -4,7 +4,7 @@ import static net.minecraftforge.client.gui.ForgeIngameGui.FROSTBITE_ELEMENT;
 
 import club.iananderson.seasonhud.Common;
 import club.iananderson.seasonhud.client.KeyBindings;
-import club.iananderson.seasonhud.client.gui.screens.SeasonHUDScreen;
+import club.iananderson.seasonhud.client.gui.screens.MainConfigScreen;
 import club.iananderson.seasonhud.forge.client.overlays.JourneyMap;
 import club.iananderson.seasonhud.forge.client.overlays.MapAtlases;
 import club.iananderson.seasonhud.forge.client.overlays.SeasonHUDOverlay;
@@ -25,7 +25,7 @@ public class ClientEvents {
     @SubscribeEvent
     public static void onKeyInput(InputEvent.KeyInputEvent event) {
       if (KeyBindings.seasonhudOptionsKeyMapping.consumeClick()) {
-        SeasonHUDScreen.open();
+        MainConfigScreen.getInstance().open();
       }
     }
   }
