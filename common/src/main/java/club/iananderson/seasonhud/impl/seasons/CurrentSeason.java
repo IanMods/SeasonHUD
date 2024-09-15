@@ -35,7 +35,7 @@ public class CurrentSeason {
 
   //Convert Season to lower case (for localized names)
   public String getSeasonStateLower() {
-    if (Config.getShowSubSeason() && currentSubSeason.contains("_")) {
+    if ((Config.getShowSubSeason() || Calendar.calendarFoundDetailed()) && currentSubSeason.contains("_")) {
       String lowerSubSeason = currentSubSeason.toLowerCase();
       return currentSeason.toLowerCase() + "." + lowerSubSeason.substring(0, lowerSubSeason.indexOf("_"));
     } else {
@@ -61,6 +61,10 @@ public class CurrentSeason {
     switch (Config.getShowDay()) {
       case NONE:
         text = Component.translatable(ShowDay.NONE.getKey(), season);
+
+        if (Calendar.calendarFoundDetailed()) {
+          text = Component.translatable(ShowDay.SHOW_WITH_TOTAL_DAYS.getKey(), season, seasonDate, seasonDuration);
+        }
         break;
 
       case SHOW_DAY:
@@ -88,6 +92,7 @@ public class CurrentSeason {
         }
         break;
     }
+
     return text;
   }
 

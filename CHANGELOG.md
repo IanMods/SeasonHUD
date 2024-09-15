@@ -6,6 +6,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 
 ## [1.10.6] - 2024-09-15
 
+### Added
+
+- Added a config option to only show the detailed season info if the player has a calendar.
+
 ### Changed
 
 - (Xaero's Minimap) Changed the season InfoDisplay to be at the top by default on initial load.

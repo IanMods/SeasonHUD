@@ -30,6 +30,7 @@ public class ColorScreen extends SeasonHudScreen {
 
   public ColorScreen(Screen parentScreen) {
     super(parentScreen, SCREEN_TITLE);
+    this.BUTTON_WIDTH = 170;
     loadConfig();
   }
 

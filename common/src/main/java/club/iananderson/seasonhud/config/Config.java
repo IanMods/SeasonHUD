@@ -100,7 +100,7 @@ public class Config {
 
     calanderDetailMode = builder.comment(
                                     "Having the calendar item shows the detailed version of the HUD" + "Default is false.")
-                                .define("need_calendar", false);
+                                .define("calendar_detail", false);
 
     showTropicalSeason = builder.comment("Show the Tropical seasons (Wet/Dry) in Tropical Biomes.\n"
                                              + "Will not change the season behavior in the biomes.\n" + "(true/false)\n"
