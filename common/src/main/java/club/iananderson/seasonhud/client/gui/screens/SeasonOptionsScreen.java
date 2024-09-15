@@ -130,13 +130,12 @@ public class SeasonOptionsScreen extends SeasonHudScreen {
         y = height - componentHeight - DEFAULT_Y_OFFSET;
         break;
     }
+    super.render(graphics, mouseX, mouseY, partialTicks);
 
     graphics.pushPose();
-    graphics.translate(1, 1, 50);
+    graphics.translate(0, 0, 50);
     GuiComponent.drawString(graphics,font, seasonCombined, x, y, 0xffffff);
     graphics.popPose();
-
-    super.render(graphics, mouseX, mouseY, partialTicks);
   }
 
   @Override
