@@ -2,6 +2,7 @@ package club.iananderson.seasonhud.forge.platform;
 
 import club.iananderson.seasonhud.Common;
 import club.iananderson.seasonhud.config.Config;
+import club.iananderson.seasonhud.impl.seasons.Calendar;
 import club.iananderson.seasonhud.platform.services.ISeasonHelper;
 import java.util.List;
 import net.minecraft.client.Minecraft;
@@ -57,7 +58,7 @@ public class ForgeSeasonHelper implements ISeasonHelper {
     int subSeasonDate = (seasonDay % subSeasonDuration) + 1; //Default 8 days in each sub-season (1 week)
     int seasonDate = (seasonDay % (subSeasonDuration * 3)) + 1; //Default 24 days in a season (8 days * 3)
 
-    if (Config.getShowSubSeason()) {
+    if (Config.getShowSubSeason() || Calendar.calendarFoundDetailed()) {
       return seasonDate;
     } else {
       return subSeasonDate;

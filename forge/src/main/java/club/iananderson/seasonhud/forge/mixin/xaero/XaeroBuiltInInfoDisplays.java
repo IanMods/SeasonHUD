@@ -11,7 +11,7 @@ import xaero.common.minimap.info.InfoDisplayManager;
 @Mixin(BuiltInInfoDisplays.class)
 public class XaeroBuiltInInfoDisplays {
 
-  @Inject(method = "addToManager", at = @At("TAIL"), remap = false)
+  @Inject(method = "addToManager", at = @At("HEAD"), remap = false)
 
   private static void addToManager(InfoDisplayManager manager, CallbackInfo ci) {
     manager.add(XaeroInfoDisplays.SEASON);

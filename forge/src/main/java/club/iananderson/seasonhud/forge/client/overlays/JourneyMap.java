@@ -1,7 +1,7 @@
 package club.iananderson.seasonhud.forge.client.overlays;
 
 import club.iananderson.seasonhud.impl.minimaps.CurrentMinimap;
-import club.iananderson.seasonhud.impl.minimaps.CurrentMinimap.Minimaps;
+import club.iananderson.seasonhud.impl.minimaps.CurrentMinimap.Minimap;
 import com.mojang.blaze3d.vertex.PoseStack;
 import journeymap.client.render.draw.DrawUtil;
 import net.minecraft.client.Minecraft;
@@ -18,7 +18,7 @@ public class JourneyMap extends GuiComponent {
   }
 
   public void render(PoseStack graphics) {
-    if (CurrentMinimap.journeyMapLoaded() && CurrentMinimap.shouldDrawMinimapHud(Minimaps.JOURNEYMAP)) {
+    if (CurrentMinimap.journeyMapLoaded() && CurrentMinimap.shouldDrawMinimapHud(Minimap.JOURNEYMAP)) {
       JourneyMapCommon journeyMapCommon = JourneyMapCommon.getInstance(Minecraft.getInstance());
 
       graphics.pushPose();

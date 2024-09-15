@@ -36,6 +36,7 @@ public class Config {
   private static ForgeConfigSpec.ConfigValue<Integer> dryColor;
   private static ForgeConfigSpec.ConfigValue<Integer> wetColor;
   private static ForgeConfigSpec.BooleanValue needCalendar;
+  private static ForgeConfigSpec.BooleanValue calanderDetailMode;
   private static ForgeConfigSpec.BooleanValue showTropicalSeason;
   private static ForgeConfigSpec.BooleanValue showSubSeason;
   private static ForgeConfigSpec.ConfigValue<ShowDay> showDay;
@@ -103,6 +104,10 @@ public class Config {
     needCalendar = builder.comment(
         "Require the calendar item to be in the players inventory to show the HUD?\n" + "(true/false)\n"
             + "Default is false.").define("need_calendar", false);
+
+    calanderDetailMode = builder.comment(
+                                    "Having the calendar item shows the detailed version of the HUD" + "Default is false.")
+                                .define("calendar_detail", false);
 
     showTropicalSeason = builder.comment("Show the Tropical seasons (Wet/Dry) in Tropical Biomes.\n"
                                              + "Will not change the season behavior in the biomes.\n" + "(true/false)\n"
@@ -254,6 +259,14 @@ public class Config {
 
   public static void setNeedCalendar(boolean enable) {
     Config.needCalendar.set(enable);
+  }
+
+  public static boolean getCalanderDetailMode() {
+    return calanderDetailMode.get();
+  }
+
+  public static void setCalanderDetailMode(boolean enable) {
+    Config.calanderDetailMode.set(enable);
   }
 
   public static boolean getShowTropicalSeason() {

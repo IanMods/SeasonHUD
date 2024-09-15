@@ -6,6 +6,9 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.TranslatableComponent;
 
 public class MenuButton extends Button {
+  public static final int SMALL_WIDTH = 120;
+  public static final int DEFAULT_WIDTH = 150;
+  public static final int DEFAULT_HEIGHT = 20;
 
   protected MenuButton(int x, int y, int width, int height, MenuButtons buttonType, OnPress onPress) {
     super(x, y, width, height, buttonType.getButtonText(), onPress);
@@ -20,7 +23,9 @@ public class MenuButton extends Button {
 
     CANCEL(CommonComponents.GUI_CANCEL),
 
-    COLORS(new TranslatableComponent("menu.seasonhud.title.color"));
+    COLORS(new TranslatableComponent("menu.seasonhud.main.color.button").append("...")),
+
+    SEASON(new TranslatableComponent("menu.seasonhud.main.season.button").append("..."));
 
     private final Component buttonText;
 
