@@ -56,7 +56,7 @@ public class HudOffsetSlider extends BasicSlider {
   public void renderWidget(@NotNull GuiGraphics graphics, int mouseX, int mouseY, float partialTick) {
     if (Config.getHudLocation() != Location.TOP_LEFT) {
       this.active = false;
-      this.setTooltip(Tooltip.create(Component.translatable("menu.seasonhud.tooltip.offsetError")));
+      this.setTooltip(Tooltip.create(Component.translatable("menu.seasonhud.season.offsetError.tooltip")));
     }
 
     super.renderWidget(graphics, mouseX, mouseY, partialTick);

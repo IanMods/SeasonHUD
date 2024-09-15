@@ -5,9 +5,9 @@ import net.minecraft.client.KeyMapping;
 import org.lwjgl.glfw.GLFW;
 
 public class KeyBindings {
-  public static KeyMapping seasonhudOptionsKeyMapping = new KeyMapping("key.seasonhud.options",
+  public static KeyMapping seasonhudOptionsKeyMapping = new KeyMapping("desc.seasonhud.keybind.options",
                                                                        InputConstants.Type.KEYSYM, GLFW.GLFW_KEY_H,
-                                                                       "key.seasonhud.category");
+                                                                       "desc.seasonhud.keybind.category");
 
   private KeyBindings() {
   }
