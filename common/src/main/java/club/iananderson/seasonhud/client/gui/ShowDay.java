@@ -8,11 +8,11 @@ import net.minecraft.network.chat.Component;
 public enum ShowDay {
   NONE(0, "none", "desc.seasonhud.hud.summary"),
 
-  SHOW_DAY(1, "showDay", "desc.seasonhud.hud.detailed"),
+  SHOW_DAY(1, "day", "desc.seasonhud.hud.detailed"),
 
   SHOW_WITH_TOTAL_DAYS(2, "totalDays", "desc.seasonhud.hud.detailed.total"),
 
-  SHOW_WITH_MONTH(3, "showMonth", "desc.seasonhud.hud.month");
+  SHOW_WITH_MONTH(3, "month", "desc.seasonhud.hud.month");
 
   private final int idNum;
   private final String currentDayDisplay;
@@ -22,16 +22,17 @@ public enum ShowDay {
   ShowDay(int id, String dayType, String key) {
     this.idNum = id;
     this.currentDayDisplay = dayType;
-    this.dayDisplayName = Component.translatable("showday.seasonhud." + dayType);
+    this.dayDisplayName = Component.translatable("desc.seasonhud.showday." + dayType);
     this.key = key;
   }
 
   public static List<ShowDay> getValues() {
     List<ShowDay> values = new ArrayList<>(List.of(ShowDay.values()));
 
-    if (Services.PLATFORM.getPlatformName().equals("Forge")) {
+    if (!Services.SEASON.isSeasonTiedWithSystemTime()) {
       values.remove(SHOW_WITH_MONTH.getId());
     }
+
     return values;
   }
 

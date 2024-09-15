@@ -20,7 +20,7 @@ public class Calendar {
     Minecraft mc = Minecraft.getInstance();
     Item calendar = Services.SEASON.calendar();
 
-    if (Services.PLATFORM.getPlatformName().equals("Fabric") && !Common.extrasLoaded()) {
+    if (Common.platformName().equals("Fabric") && !Common.extrasLoaded()) {
       return true;
     }
 
@@ -32,6 +32,21 @@ public class Calendar {
     boolean curioSlot = Services.SEASON.findCuriosCalendar(mc.player, calendar);
 
     return inventorySlot || curioSlot || !Config.getNeedCalendar();
+  }
+
+  public static boolean calendarFoundDetailed() {
+    Minecraft mc = Minecraft.getInstance();
+    Item calendar = Services.SEASON.calendar();
+
+    if (Common.platformName().equals("Fabric") && !Common.extrasLoaded()) {
+      return false;
+    }
+
+    if (mc.level == null || mc.player == null || calendar == null) {
+      return false;
+    }
+
+    return findCalendar(mc.player, calendar) && Config.getCalanderDetailMode();
   }
 
 }
