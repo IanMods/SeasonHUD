@@ -2,7 +2,7 @@ package club.iananderson.seasonhud.fabric.mixin.voxel;
 
 import club.iananderson.seasonhud.config.Config;
 import club.iananderson.seasonhud.impl.minimaps.CurrentMinimap;
-import club.iananderson.seasonhud.impl.minimaps.CurrentMinimap.Minimaps;
+import club.iananderson.seasonhud.impl.minimaps.CurrentMinimap.Minimap;
 import club.iananderson.seasonhud.impl.seasons.CurrentSeason;
 import com.mamiyaotaru.voxelmap.Map;
 import com.mamiyaotaru.voxelmap.MapSettingsManager;
@@ -83,7 +83,7 @@ public class VoxelMapMixin {
       + "(Lcom/mojang/blaze3d/vertex/PoseStack;II)V", shift = At.Shift.BY, by = 2))
   private void drawMinimap(PoseStack matrixStack, Minecraft mc, CallbackInfo ci) {
     if (Config.getEnableMod() && Config.getEnableMinimapIntegration() && CurrentMinimap.shouldDrawMinimapHud(
-        Minimaps.VOXELMAP)) {
+        Minimap.VOXELMAP)) {
       this.seasonhud$showSeason(matrixStack, this.mapX, this.mapY);
     }
   }

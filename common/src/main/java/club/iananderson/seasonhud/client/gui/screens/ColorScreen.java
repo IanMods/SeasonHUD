@@ -84,11 +84,6 @@ public class ColorScreen extends SeasonHudScreen {
     return boxWidth;
   }
 
-  protected void clearWidgets() {
-    this.buttons.clear();
-    this.children.clear();
-  }
-
   private List<AbstractWidget> seasonWidget(int x, int y, Seasons season) {
     ColorEditBox colorBox;
     RedSlider redSlider;

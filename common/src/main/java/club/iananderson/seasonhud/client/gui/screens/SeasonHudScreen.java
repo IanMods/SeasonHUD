@@ -56,6 +56,11 @@ public class SeasonHudScreen extends Screen {
     Minecraft.getInstance().setScreen(this.parentScreen);
   }
 
+  protected void clearWidgets() {
+    this.buttons.clear();
+    this.children.clear();
+  }
+
   protected void rebuildWidgets() {
     this.clearWidgets();
     this.setFocused((GuiEventListener) null);

@@ -1,7 +1,7 @@
 package club.iananderson.seasonhud.fabric.impl.minimaps;
 
 import club.iananderson.seasonhud.impl.minimaps.CurrentMinimap;
-import club.iananderson.seasonhud.impl.minimaps.CurrentMinimap.Minimaps;
+import club.iananderson.seasonhud.impl.minimaps.CurrentMinimap.Minimap;
 import club.iananderson.seasonhud.impl.seasons.CurrentSeason;
 import java.util.ArrayList;
 import java.util.List;
@@ -26,7 +26,7 @@ public class XaeroInfoDisplays {
                                  }
 
                                  if (displayInfo.getState() && CurrentMinimap.xaeroLoaded()
-                                     && CurrentMinimap.shouldDrawMinimapHud(Minimaps.XAERO)) {
+                                     && CurrentMinimap.shouldDrawMinimapHud(Minimap.XAERO)) {
                                    compiler.addLine(CurrentSeason.getInstance(mc).getSeasonHudText());
                                  }
                                }, ALL);

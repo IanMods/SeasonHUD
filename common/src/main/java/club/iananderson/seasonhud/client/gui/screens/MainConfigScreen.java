@@ -1,5 +1,6 @@
 package club.iananderson.seasonhud.client.gui.screens;
 
+import club.iananderson.seasonhud.client.gui.components.buttons.CycleButton;
 import club.iananderson.seasonhud.client.gui.components.buttons.MenuButton;
 import club.iananderson.seasonhud.client.gui.components.buttons.MenuButton.MenuButtons;
 import club.iananderson.seasonhud.config.Config;
@@ -11,7 +12,6 @@ import java.util.Arrays;
 import java.util.List;
 import net.minecraft.client.gui.GuiComponent;
 import net.minecraft.client.gui.components.AbstractWidget;
-import net.minecraft.client.gui.components.CycleButton;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.TranslatableComponent;
 import org.jetbrains.annotations.NotNull;
@@ -127,6 +127,6 @@ public class MainConfigScreen extends SeasonHudScreen {
       widgets.add(journeyMapMacOSButton);
     }
 
-    widgets.forEach(this::addRenderableWidget);
+    widgets.forEach(this::addButton);
   }
 }

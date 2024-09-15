@@ -3,6 +3,7 @@ package club.iananderson.seasonhud.client.gui.screens;
 import club.iananderson.seasonhud.Common;
 import club.iananderson.seasonhud.client.gui.Location;
 import club.iananderson.seasonhud.client.gui.ShowDay;
+import club.iananderson.seasonhud.client.gui.components.buttons.CycleButton;
 import club.iananderson.seasonhud.client.gui.components.sliders.BasicSlider;
 import club.iananderson.seasonhud.client.gui.components.sliders.HudOffsetSlider;
 import club.iananderson.seasonhud.config.Config;
@@ -10,7 +11,6 @@ import club.iananderson.seasonhud.impl.seasons.CurrentSeason;
 import com.mojang.blaze3d.vertex.PoseStack;
 import java.util.Arrays;
 import net.minecraft.client.gui.GuiComponent;
-import net.minecraft.client.gui.components.CycleButton;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
@@ -215,6 +215,6 @@ public class SeasonOptionsScreen extends SeasonHudScreen {
       widgets.addAll(Arrays.asList(needCalendarButton, calanderDetailModeButton));
     }
 
-    widgets.forEach(this::addRenderableWidget);
+    widgets.forEach(this::addButton);
   }
 }
