@@ -6,7 +6,7 @@ import net.minecraft.client.gui.components.Button;
 public class DropdownButton extends Button {
 
   protected DropdownButton(int x, int y, int width, int height, MenuButtons buttonType, OnPress onPress) {
-    super(x, y, width, height, buttonType.getButtonText(), onPress, DEFAULT_NARRATION);
+    super(x, y, width, height, buttonType.getButtonText(), onPress);
   }
 
 }
