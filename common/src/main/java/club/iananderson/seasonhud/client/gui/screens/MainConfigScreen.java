@@ -108,7 +108,7 @@ public class MainConfigScreen extends SeasonHudScreen {
     row = 3;
     CycleButton<Boolean> showMinimapHiddenButton = CycleButton.onOffBuilder(showMinimapHidden)
         .withTooltip(t -> Tooltip.create(Component.translatable("menu.seasonhud.main.showMinimapHidden.tooltip")))
-        .create(rightButtonX, (buttonStartY + (row * yOffset)), BUTTON_WIDTH, BUTTON_HEIGHT,
+        .create(leftButtonX, (buttonStartY + (row * yOffset)), BUTTON_WIDTH, BUTTON_HEIGHT,
                 Component.translatable("menu.seasonhud.main.showMinimapHidden.button"),
                 (b, val) -> showMinimapHidden = val);
 

@@ -28,7 +28,8 @@ public class Common {
 
   public static void init() {
     platformName = Services.PLATFORM.getPlatformName();
-    extrasLoaded = Services.PLATFORM.isModLoaded("seasonsextras");
+    extrasLoaded =
+        Services.PLATFORM.isModLoaded("seasonsextras") || Services.PLATFORM.getPlatformName().equals("Forge");
     curiosLoaded = Services.PLATFORM.isModLoaded("trinkets") || Services.PLATFORM.isModLoaded("curios");
     accessoriesLoaded = Services.PLATFORM.isModLoaded("accessories");
   }
