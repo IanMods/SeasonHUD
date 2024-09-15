@@ -132,7 +132,7 @@ public class SeasonOptionsScreen extends SeasonHudScreen {
     }
 
     graphics.pose().pushPose();
-    graphics.pose().translate(1, 1, 50);
+    graphics.pose().translate(0, 0, 50);
     graphics.drawString(font, seasonCombined, x, y, 0xffffff);
     graphics.pose().popPose();
 
