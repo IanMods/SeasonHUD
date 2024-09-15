@@ -44,7 +44,6 @@ public class MainConfigScreen extends SeasonHudScreen {
   private CycleButton<Boolean> journeyMapAboveMapButton;
   private CycleButton<Boolean> journeyMapMacOSButton;
 
-
   public MainConfigScreen() {
     super(null, SCREEN_TITLE);
     loadConfig();
@@ -139,7 +138,8 @@ public class MainConfigScreen extends SeasonHudScreen {
 
     xSlider = HudOffsetSlider.builder(Component.translatable("menu.seasonhud.slider.xOffset"))
         .withTooltip(Tooltip.create(Component.translatable("menu.seasonhud.tooltip.xOffset")))
-        .withValueRange(0, this.width - componentWidth).withInitialValue(xSliderInt)
+        .withValueRange(0, this.width - componentWidth)
+        .withInitialValue(xSliderInt)
         .withDefaultValue(Config.DEFAULT_X_OFFSET)
         .withBounds(rightButtonX, (buttonStartY + (row * yOffset)), BUTTON_WIDTH / 2 - BasicSlider.SLIDER_PADDING,
                     BUTTON_HEIGHT)
@@ -147,7 +147,8 @@ public class MainConfigScreen extends SeasonHudScreen {
 
     ySlider = HudOffsetSlider.builder(Component.translatable("menu.seasonhud" + ".slider.yOffset"))
         .withTooltip(Tooltip.create(Component.translatable("menu.seasonhud.tooltip.yOffset")))
-        .withValueRange(0, this.height - componentHeight).withInitialValue(ySliderInt)
+        .withValueRange(0, this.height - componentHeight)
+        .withInitialValue(ySliderInt)
         .withDefaultValue(Config.DEFAULT_Y_OFFSET)
         .withBounds(rightButtonX + BUTTON_WIDTH / 2 + BasicSlider.SLIDER_PADDING, (buttonStartY + (row * yOffset)),
                     BUTTON_WIDTH / 2 - BasicSlider.SLIDER_PADDING, BUTTON_HEIGHT)
