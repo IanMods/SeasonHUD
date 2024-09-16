@@ -72,7 +72,7 @@ public class MainConfigScreen extends SeasonHudScreen {
 
     if (Services.PLATFORM.isModLoaded("journeymap")) {
       graphics.drawCenteredString(font, JOURNEYMAP, this.width / 2,
-                                  MENU_PADDING + (6 * (BUTTON_HEIGHT + BUTTON_PADDING)) - (font.lineHeight
+                                  MENU_PADDING + (5 * (BUTTON_HEIGHT + BUTTON_PADDING)) - (font.lineHeight
                                       + BUTTON_PADDING), 16777215);
     }
   }
