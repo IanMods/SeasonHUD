@@ -9,7 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 import journeymap.client.properties.MiniMapProperties;
 import journeymap.client.ui.UIManager;
-import journeymap.client.ui.dialog.MinimapOptions;
+import journeymap.client.ui.option.MinimapOptions;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screens.ChatScreen;
 import net.minecraft.client.gui.screens.DeathScreen;
@@ -75,15 +75,18 @@ public class CurrentMinimap {
       case JOURNEYMAP -> {
         MiniMapProperties properties = UIManager.INSTANCE.getMiniMap().getCurrentMinimapProperties();
 
-        return !properties.enabled.get() || (!properties.isActive() && mc.isPaused()) || mc.player.isScoping() || !(
-            mc.screen == null || mc.screen instanceof ChatScreen || mc.screen instanceof MinimapOptions);
+        return !properties.enabled.get() || (!properties.isActive() && UIManager.INSTANCE.getMiniMap()
+                                                                                         .isDrawingInPreviewMode())
+            || mc.player.isScoping() || !(mc.screen == null || mc.screen instanceof ChatScreen
+            || mc.screen instanceof MinimapOptions);
       }
       case FTB_CHUNKS -> {
-        return !FTBChunksClientConfig.MINIMAP_ENABLED.get() || mc.options.renderDebug;
+        return !FTBChunksClientConfig.MINIMAP_ENABLED.get() || mc.getDebugOverlay().showDebugScreen();
       }
       case XAERO, XAERO_FAIRPLAY -> {
-        return !HudMod.INSTANCE.getSettings().getMinimap() || mc.options.renderDebug || !(mc.screen == null
-            || mc.screen instanceof ChatScreen || mc.screen instanceof DeathScreen || mc.screen instanceof ScreenBase);
+        return !HudMod.INSTANCE.getSettings().getMinimap() || mc.getDebugOverlay().showDebugScreen() || !(
+            mc.screen == null || mc.screen instanceof ChatScreen || mc.screen instanceof DeathScreen
+                || mc.screen instanceof ScreenBase);
       }
       case MAP_ATLASES -> {
         return Services.MINIMAP.hideMapAtlases();

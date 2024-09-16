@@ -1,6 +1,5 @@
 package club.iananderson.seasonhud.client.gui.screens;
 
-import club.iananderson.seasonhud.Common;
 import club.iananderson.seasonhud.client.gui.Location;
 import club.iananderson.seasonhud.client.gui.ShowDay;
 import club.iananderson.seasonhud.client.gui.components.sliders.BasicSlider;
@@ -85,14 +84,11 @@ public class SeasonOptionsScreen extends SeasonHudScreen {
     xSlider.active = hudLocationButton.getValue() == Location.TOP_LEFT;
     ySlider.active = hudLocationButton.getValue() == Location.TOP_LEFT;
 
-    if (Common.extrasLoaded() && Config.getCalanderDetailMode()) {
+    if (Config.getCalanderDetailMode()) {
       Config.setShowDay(ShowDay.NONE);
       showDayButton.active = false;
-
-      if (Common.platformName().equals("Forge")) {
-        Config.setShowSubSeason(false);
-        showSubSeasonButton.active = false;
-      }
+      Config.setShowSubSeason(false);
+      showSubSeasonButton.active = false;
     }
 
     MutableComponent seasonCombined = CurrentSeason.getInstance(this.minecraft).getSeasonHudText();
@@ -131,12 +127,12 @@ public class SeasonOptionsScreen extends SeasonHudScreen {
         break;
     }
 
+    super.render(graphics, mouseX, mouseY, partialTicks);
+
     graphics.pose().pushPose();
     graphics.pose().translate(0, 0, 50);
     graphics.drawString(font, seasonCombined, x, y, 0xffffff);
     graphics.pose().popPose();
-
-    super.render(graphics, mouseX, mouseY, partialTicks);
   }
 
   @Override
@@ -189,40 +185,36 @@ public class SeasonOptionsScreen extends SeasonHudScreen {
                 Component.translatable("menu.seasonhud.color.enableSeasonNameColor.button"),
                 (b, val) -> Config.setEnableSeasonNameColor(val));
 
-    widgets.addAll(Arrays.asList(hudLocationButton, xSlider, ySlider, showDayButton, seasonColorButton));
+    row = 2;
+    showSubSeasonButton = CycleButton.onOffBuilder(showSubSeason)
+        .withTooltip(t -> Tooltip.create(Component.translatable("menu.seasonhud.season.showSubSeason.tooltip")))
+        .create(leftButtonX, (buttonStartY + (row * yOffset)), BUTTON_WIDTH, BUTTON_HEIGHT,
+                Component.translatable("menu.seasonhud.season.showSubSeason.button"),
+                (b, val) -> Config.setShowSubSeason(val));
 
-    if (Common.platformName().equals("Forge")) {
-      row = 2;
-      showSubSeasonButton = CycleButton.onOffBuilder(showSubSeason)
-          .withTooltip(t -> Tooltip.create(Component.translatable("menu.seasonhud.season.showSubSeason.tooltip")))
-          .create(leftButtonX, (buttonStartY + (row * yOffset)), BUTTON_WIDTH, BUTTON_HEIGHT,
-                  Component.translatable("menu.seasonhud.season.showSubSeason.button"),
-                  (b, val) -> Config.setShowSubSeason(val));
+    CycleButton<Boolean> showTropicalSeasonButton = CycleButton.onOffBuilder(showTropicalSeason)
+        .withTooltip(t -> Tooltip.create(Component.translatable("menu.seasonhud.season.showTropicalSeason.tooltip")))
+        .create(rightButtonX, (buttonStartY + (row * yOffset)), BUTTON_WIDTH, BUTTON_HEIGHT,
+                Component.translatable("menu.seasonhud.season.showTropicalSeason.button"),
+                (b, val) -> Config.setShowTropicalSeason(val));
 
-      CycleButton<Boolean> showTropicalSeasonButton = CycleButton.onOffBuilder(showTropicalSeason)
-          .withTooltip(t -> Tooltip.create(Component.translatable("menu.seasonhud.season.showTropicalSeason.tooltip")))
-          .create(rightButtonX, (buttonStartY + (row * yOffset)), BUTTON_WIDTH, BUTTON_HEIGHT,
-                  Component.translatable("menu.seasonhud.season.showTropicalSeason.button"),
-                  (b, val) -> Config.setShowTropicalSeason(val));
+    row = 4;
+    needCalendarButton = CycleButton.onOffBuilder(needCalendar)
+        .withTooltip(t -> Tooltip.create(Component.translatable("menu.seasonhud.main.needCalendar.tooltip")))
+        .create(leftButtonX, (buttonStartY + (row * yOffset)), BUTTON_WIDTH, BUTTON_HEIGHT,
+                Component.translatable("menu.seasonhud.main.needCalendar.button"), (b, val) -> needCalendar = val);
 
-      widgets.addAll(Arrays.asList(showSubSeasonButton, showTropicalSeasonButton));
-    }
-    if (Common.extrasLoaded()) {
-      row = 4;
-      needCalendarButton = CycleButton.onOffBuilder(needCalendar)
-          .withTooltip(t -> Tooltip.create(Component.translatable("menu.seasonhud.main.needCalendar.tooltip")))
-          .create(leftButtonX, (buttonStartY + (row * yOffset)), BUTTON_WIDTH, BUTTON_HEIGHT,
-                  Component.translatable("menu.seasonhud.main.needCalendar.button"), (b, val) -> needCalendar = val);
+    calanderDetailModeButton = CycleButton.onOffBuilder(Config.getCalanderDetailMode())
+        .withTooltip(t -> Tooltip.create(Component.translatable("menu.seasonhud.main.calendarDetail.tooltip")))
+        .create(rightButtonX, (buttonStartY + (row * yOffset)), BUTTON_WIDTH, BUTTON_HEIGHT,
+                Component.translatable("menu.seasonhud.main.calendarDetail.button"), (b, val) -> {
+              Config.setCalanderDetailMode(val);
+              rebuildWidgets();
+            });
 
-      calanderDetailModeButton = CycleButton.onOffBuilder(Config.getCalanderDetailMode())
-          .withTooltip(t -> Tooltip.create(Component.translatable("menu.seasonhud.main.calendarDetail.tooltip")))
-          .create(rightButtonX, (buttonStartY + (row * yOffset)), BUTTON_WIDTH, BUTTON_HEIGHT,
-                  Component.translatable("menu.seasonhud.main.calendarDetail.button"), (b, val) -> {
-                Config.setCalanderDetailMode(val);
-                rebuildWidgets();
-              });
-      widgets.addAll(Arrays.asList(needCalendarButton, calanderDetailModeButton));
-    }
+    widgets.addAll(
+        Arrays.asList(hudLocationButton, xSlider, ySlider, showDayButton, seasonColorButton, showSubSeasonButton,
+                      showTropicalSeasonButton, needCalendarButton, calanderDetailModeButton));
 
     widgets.forEach(this::addRenderableWidget);
   }

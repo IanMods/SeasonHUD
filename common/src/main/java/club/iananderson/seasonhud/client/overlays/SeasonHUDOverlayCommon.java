@@ -14,7 +14,7 @@ public class SeasonHUDOverlayCommon {
 
   public static void render(GuiGraphics graphics) {
     Minecraft mc = Minecraft.getInstance();
-    MutableComponent seasonCombined = CurrentSeason.getInstance(mc).getSeasonHudComponent();
+    MutableComponent seasonCombined = CurrentSeason.getInstance(mc).getSeasonHudText();
     int screenWidth = mc.getWindow().getGuiScaledWidth();
     int screenHeight = mc.getWindow().getGuiScaledHeight();
     int x = 0;

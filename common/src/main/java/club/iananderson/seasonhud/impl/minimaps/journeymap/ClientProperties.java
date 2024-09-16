@@ -9,8 +9,8 @@ import journeymap.api.v2.client.option.OptionCategory;
 public class ClientProperties {
   public final BooleanOption addAdditional;
   public final EnumOption<Position> position;
-  private final OptionCategory seasonCategory = new OptionCategory(Common.MOD_ID, "key.seasonhud.category",
-                                                                   "key.seasonhud.options");
+  private final OptionCategory seasonCategory = new OptionCategory(Common.MOD_ID, "desc.seasonhud.keybind.category",
+                                                                   "desc.seasonhud.keybind.options");
 
   public ClientProperties() {
     this.addAdditional = new BooleanOption(seasonCategory, "addAdditional", "Add an additional InfoSlot?", true);

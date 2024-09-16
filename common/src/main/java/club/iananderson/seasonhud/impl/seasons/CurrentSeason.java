@@ -113,7 +113,7 @@ public class CurrentSeason {
     return Component.translatable("desc.seasonhud.hud.combined", seasonIcon, seasonText);
   }
 
-  public MutableComponent getSeasonHudComponent() {
+  public MutableComponent getSeasonHudText() {
     MutableComponent seasonIcon = Component.translatable("desc.seasonhud.hud.icon", getSeasonIcon());
     MutableComponent seasonText = getSeasonText().copy();
 

@@ -1,5 +1,6 @@
 package club.iananderson.seasonhud.client.overlays;
 
+import club.iananderson.seasonhud.impl.minimaps.CurrentMinimap;
 import club.iananderson.seasonhud.impl.seasons.CurrentSeason;
 import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.client.Minecraft;
@@ -34,7 +35,7 @@ public class MapAtlasesCommon {
 
   public static void drawMapComponentSeason(GuiGraphics graphics, Font font, int x, int y, int targetWidth,
       float textScaling, float globalScale) {
-    MutableComponent seasonCombined = CurrentSeason.getInstance(Minecraft.getInstance()).getSeasonHudComponent();
+    MutableComponent seasonCombined = CurrentSeason.getInstance(Minecraft.getInstance()).getSeasonHudText();
     MutableComponent shadowText = CurrentSeason.getInstance(Minecraft.getInstance()).getSeasonHudTextNoFormat();
     drawScaledComponent(graphics, font, x, y, seasonCombined, shadowText, textScaling / globalScale, targetWidth,
                         (int) (targetWidth / globalScale));
@@ -62,7 +63,7 @@ public class MapAtlasesCommon {
   public static void drawMapComponentSeasonOld(GuiGraphics poseStack, int x, int y, int originOffsetWidth,
       int originOffsetHeight, float textScaling) {
     if (CurrentMinimap.mapAtlasesLoaded()) {
-      MutableComponent seasonCombined = CurrentSeason.getInstance(Minecraft.getInstance()).getSeasonHudComponent();
+      MutableComponent seasonCombined = CurrentSeason.getInstance(Minecraft.getInstance()).getSeasonHudText();
       MutableComponent shadowText = CurrentSeason.getInstance(Minecraft.getInstance()).getSeasonHudTextNoFormat();
       drawScaledText(poseStack, x, y, seasonCombined, shadowText, textScaling, originOffsetWidth, originOffsetHeight);
     }

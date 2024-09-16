@@ -1,6 +1,6 @@
 package club.iananderson.seasonhud.impl.minimaps;
 
-import club.iananderson.seasonhud.impl.minimaps.CurrentMinimap.Minimaps;
+import club.iananderson.seasonhud.impl.minimaps.CurrentMinimap.Minimap;
 import club.iananderson.seasonhud.impl.seasons.CurrentSeason;
 import dev.ftb.mods.ftbchunks.api.FTBChunksAPI;
 import dev.ftb.mods.ftbchunks.api.client.FTBChunksClientAPI;
@@ -27,8 +27,8 @@ public class SeasonComponent implements MinimapInfoComponent {
   }
 
   public void render(MinimapContext context, GuiGraphics graphics, Font font) {
-    if (CurrentMinimap.shouldDrawMinimapHud(Minimaps.FTB_CHUNKS)) {
-      MutableComponent seasonCombined = CurrentSeason.getInstance(context.minecraft()).getSeasonHudComponent();
+    if (CurrentMinimap.shouldDrawMinimapHud(Minimap.FTB_CHUNKS)) {
+      MutableComponent seasonCombined = CurrentSeason.getInstance(context.minecraft()).getSeasonHudText();
 
       this.drawCenteredText(context.minecraft().font, graphics, seasonCombined, 0);
     }

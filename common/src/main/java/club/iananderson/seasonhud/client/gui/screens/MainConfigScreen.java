@@ -8,8 +8,10 @@ import club.iananderson.seasonhud.platform.Services;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import journeymap.client.ui.UIManager;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.components.AbstractWidget;
+import net.minecraft.client.gui.components.Button;
 import net.minecraft.client.gui.components.CycleButton;
 import net.minecraft.client.gui.components.Tooltip;
 import net.minecraft.network.chat.Component;
@@ -116,21 +118,14 @@ public class MainConfigScreen extends SeasonHudScreen {
                                  showMinimapHiddenButton));
 
     if (Services.PLATFORM.isModLoaded("journeymap")) {
-      row += 2;
-      CycleButton<Boolean> journeyMapAboveMapButton = CycleButton.onOffBuilder(journeyMapAboveMap)
-          .withTooltip(t -> Tooltip.create(Component.translatable("menu.seasonhud.main.journeymap.aboveMap.tooltip")))
-          .create(leftButtonX, (buttonStartY + (row * yOffset)), BUTTON_WIDTH, BUTTON_HEIGHT,
-                  Component.translatable("menu.seasonhud.main.journeymap.aboveMap.button"),
-                  (b, val) -> journeyMapAboveMap = val);
+      row += 2; //6
+      Button journeyMapButton = Button.builder(Component.translatable("menu.seasonhud.main.journeymap.options.button"),
+                                               (button) -> UIManager.INSTANCE.openAddonOptionsEditor(this, true))
+          .tooltip(Tooltip.create(Component.translatable("menu.seasonhud.main.journeymap.options.tooltip")))
+          .bounds(leftButtonX, (buttonStartY + (row * yOffset)), BUTTON_WIDTH, BUTTON_HEIGHT)
+          .build();
 
-      CycleButton<Boolean> journeyMapMacOSButton = CycleButton.onOffBuilder(journeyMapMacOS)
-          .withTooltip(t -> Tooltip.create(Component.translatable("menu.seasonhud.main.journeymap.macOS.tooltip")))
-          .create(rightButtonX, (buttonStartY + (row * yOffset)), BUTTON_WIDTH, BUTTON_HEIGHT,
-                  Component.translatable("menu.seasonhud.main.journeymap.macOS.button"),
-                  (b, val) -> journeyMapMacOS = val);
-
-      widgets.add(journeyMapAboveMapButton);
-      widgets.add(journeyMapMacOSButton);
+      this.addRenderableWidget(journeyMapButton);
     }
 
     widgets.forEach(this::addRenderableWidget);

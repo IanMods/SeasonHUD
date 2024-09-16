@@ -2,7 +2,7 @@ package club.iananderson.seasonhud.neoforge.event;
 
 import club.iananderson.seasonhud.Common;
 import club.iananderson.seasonhud.client.KeyBindings;
-import club.iananderson.seasonhud.client.gui.screens.SeasonHUDScreen;
+import club.iananderson.seasonhud.client.gui.screens.MainConfigScreen;
 import club.iananderson.seasonhud.neoforge.client.overlays.SeasonHUDOverlay;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.bus.api.SubscribeEvent;
@@ -18,7 +18,7 @@ public class ClientEvents {
   @SubscribeEvent
   public static void onKeyInput(InputEvent.Key Event) {
     if (KeyBindings.seasonhudOptionsKeyMapping.consumeClick()) {
-      SeasonHUDScreen.open();
+      MainConfigScreen.getInstance().open();
     }
   }
 

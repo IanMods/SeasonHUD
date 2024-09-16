@@ -41,7 +41,7 @@ dependencies {
     modCompileOnly "maven.modrinth:xaeros-minimap:${project.xaeros_minimap_version}_NeoForge_1.21"
 
     //JourneyMap
-    compileOnly  group: 'info.journeymap', name: 'journeymap-api-neoforge', version: project.journeymap_api_version, changing: true
+    compileOnly group: 'info.journeymap', name: 'journeymap-api-neoforge', version: project.journeymap_api_version, changing: true
     modCompileOnly "maven.modrinth:journeymap:1.21-${project.journeymap_version}+neoforge"
 
     //FTB Chunks + Dependencies

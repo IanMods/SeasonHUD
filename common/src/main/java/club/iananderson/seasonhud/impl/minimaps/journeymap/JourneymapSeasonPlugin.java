@@ -14,9 +14,7 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.network.chat.Component;
 import org.jetbrains.annotations.NotNull;
 
-@JourneyMapPlugin(
-    apiVersion = "2.0.0"
-)
+@JourneyMapPlugin(apiVersion = "2.0.0")
 public class JourneymapSeasonPlugin implements IClientPlugin {
   private static JourneymapSeasonPlugin INSTANCE;
   private IClientAPI api;
@@ -55,7 +53,7 @@ public class JourneymapSeasonPlugin implements IClientPlugin {
   }
 
   private void infoSlotRegistryEvent(InfoSlotRegistryEvent event) {
-    event.register(Common.MOD_ID, seasonKey, 1000L, () -> CurrentSeason.getInstance(mc).getSeasonHudComponent());
+    event.register(Common.MOD_ID, seasonKey, 1000L, () -> CurrentSeason.getInstance(mc).getSeasonHudText());
   }
 
   private void optionsRegistryEvent(OptionsRegistryEvent optionsRegistryEvent) {

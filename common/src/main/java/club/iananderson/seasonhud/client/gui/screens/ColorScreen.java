@@ -1,6 +1,5 @@
 package club.iananderson.seasonhud.client.gui.screens;
 
-import club.iananderson.seasonhud.Common;
 import club.iananderson.seasonhud.client.gui.components.boxes.ColorEditBox;
 import club.iananderson.seasonhud.client.gui.components.buttons.DefaultColorButton;
 import club.iananderson.seasonhud.client.gui.components.sliders.rgb.BlueSlider;
@@ -16,6 +15,7 @@ import java.util.EnumSet;
 import java.util.List;
 import net.minecraft.client.gui.components.AbstractWidget;
 import net.minecraft.client.gui.components.CycleButton;
+import net.minecraft.client.gui.components.Tooltip;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.network.chat.Component;
 
@@ -140,12 +140,15 @@ public class ColorScreen extends SeasonHudScreen {
 
     //Buttons
     CycleButton<Boolean> seasonColorButton = CycleButton.onOffBuilder(Config.getEnableSeasonNameColor())
-        .withTooltip(t -> Tooltip.create(Component.translatable("menu.seasonhud.color.enableSeasonNameColor.tooltip")))
-        .create(leftButtonX, MENU_PADDING, BUTTON_WIDTH, BUTTON_HEIGHT,
-                Component.translatable("menu.seasonhud.color.enableSeasonNameColor.button"), (b, val) -> {
-              Config.setEnableSeasonNameColor(val);
-              rebuildWidgets();
-            });
+                                                        .withTooltip(t -> Tooltip.create(Component.translatable(
+                                                            "menu.seasonhud.color.enableSeasonNameColor.tooltip")))
+                                                        .create(leftButtonX, MENU_PADDING, BUTTON_WIDTH, BUTTON_HEIGHT,
+                                                                Component.translatable(
+                                                                    "menu.seasonhud.color.enableSeasonNameColor.button"),
+                                                                (b, val) -> {
+                                                                  Config.setEnableSeasonNameColor(val);
+                                                                  rebuildWidgets();
+                                                                });
 
     this.widgets.add(seasonColorButton);
 

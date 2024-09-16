@@ -1,6 +1,5 @@
 package club.iananderson.seasonhud.client.gui.components.boxes;
 
-import club.iananderson.seasonhud.Common;
 import club.iananderson.seasonhud.client.gui.screens.ColorScreen;
 import club.iananderson.seasonhud.config.Config;
 import club.iananderson.seasonhud.impl.seasons.CurrentSeason;

@@ -28,7 +28,7 @@ public class Config {
   private static ModConfigSpec.ConfigValue<Integer> wetColor;
   private static ModConfigSpec.BooleanValue needCalendar;
   private static ModConfigSpec.BooleanValue calanderDetailMode;
-  private static ForgeConfigSpec.BooleanValue showTropicalSeason;
+  private static ModConfigSpec.BooleanValue showTropicalSeason;
   private static ModConfigSpec.BooleanValue showSubSeason;
   private static ModConfigSpec.ConfigValue<ShowDay> showDay;
   private static ModConfigSpec.BooleanValue enableMinimapIntegration;

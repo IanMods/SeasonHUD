@@ -4,7 +4,7 @@ import club.iananderson.seasonhud.Common;
 import club.iananderson.seasonhud.config.Config;
 import club.iananderson.seasonhud.fabric.event.ClientEvents;
 import club.iananderson.seasonhud.impl.accessories.AccessoriesCompat;
-import club.iananderson.seasonhud.impl.minimaps.CurrentMinimap.Minimaps;
+import club.iananderson.seasonhud.impl.minimaps.CurrentMinimap.Minimap;
 import club.iananderson.seasonhud.impl.minimaps.SeasonComponent;
 import club.iananderson.seasonhud.platform.Services;
 import fuzs.forgeconfigapiport.fabric.api.neoforge.v4.NeoForgeConfigRegistry;
@@ -19,7 +19,7 @@ public class SeasonHudClientFabric implements ClientModInitializer {
                                              "SeasonHUD-client.toml");
     ClientEvents.register();
 
-    if (Services.PLATFORM.isModLoaded(Minimaps.FTB_CHUNKS.getModID())) {
+    if (Services.PLATFORM.isModLoaded(Minimap.FTB_CHUNKS.getModID())) {
       SeasonComponent.registerFtbSeason();
     }
 

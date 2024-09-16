@@ -22,7 +22,7 @@ public class XaeroInfoDisplays {
                                (displayInfo, compiler, session, processor, x, y, w, h, scale, size, playerBlockX, playerBlockY, playerBlockZ, playerPos) -> {
                                  if (displayInfo.getState() && CurrentMinimap.xaeroLoaded()
                                      && CurrentMinimap.shouldDrawMinimapHud(Minimap.XAERO)) {
-                                   compiler.addLine(CurrentSeason.getInstance(mc).getSeasonHudComponent());
+                                   compiler.addLine(CurrentSeason.getInstance(mc).getSeasonHudText());
                                  }
                                }, ALL);
   }
