@@ -141,13 +141,11 @@ public class ColorScreen extends SeasonHudScreen {
 
     //Buttons
     CycleButton<Boolean> seasonColorButton = CycleButton.onOffBuilder(Config.getEnableSeasonNameColor())
-                                                        .create(leftButtonX, MENU_PADDING, BUTTON_WIDTH, BUTTON_HEIGHT,
-                                                                Component.translatable(
-                                                                    "menu.seasonhud.color.enableSeasonNameColor.button"),
-                                                                (b, val) -> {
-                                                                  Config.setEnableSeasonNameColor(val);
-                                                                  rebuildWidgets();
-                                                                });
+        .create(leftButtonX, MENU_PADDING, BUTTON_WIDTH, BUTTON_HEIGHT,
+                Component.translatable("menu.seasonhud.color.enableSeasonNameColor.button"), (b, val) -> {
+              Config.setEnableSeasonNameColor(val);
+              rebuildWidgets();
+            });
 
     this.widgets.add(seasonColorButton);
     this.widgets.forEach(this::addRenderableWidget);
