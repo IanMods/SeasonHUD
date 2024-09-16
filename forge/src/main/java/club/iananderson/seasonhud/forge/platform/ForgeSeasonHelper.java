@@ -1,6 +1,7 @@
 package club.iananderson.seasonhud.forge.platform;
 
 import club.iananderson.seasonhud.config.Config;
+import club.iananderson.seasonhud.impl.seasons.Calendar;
 import club.iananderson.seasonhud.platform.services.ISeasonHelper;
 import net.minecraft.client.Minecraft;
 import net.minecraft.world.entity.player.Player;
@@ -56,7 +57,7 @@ public class ForgeSeasonHelper implements ISeasonHelper {
     int subSeasonDate = (seasonDay % subSeasonDuration) + 1; //Default 8 days in each sub-season (1 week)
     int seasonDate = (seasonDay % (subSeasonDuration * 3)) + 1; //Default 24 days in a season (8 days * 3)
 
-    if (Config.getShowSubSeason()) {
+    if (Config.getShowSubSeason() || Calendar.calendarFoundDetailed()) {
       if (isTropicalSeason(player)) {
         // Default 16 days in each tropical "sub-season".
         // Starts are "Early Dry" (Summer 1), so need to offset Spring 1 -> Summer 1 (subSeasonDuration * 3)

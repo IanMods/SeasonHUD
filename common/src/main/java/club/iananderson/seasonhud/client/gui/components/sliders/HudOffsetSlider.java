@@ -1,6 +1,5 @@
 package club.iananderson.seasonhud.client.gui.components.sliders;
 
-import club.iananderson.seasonhud.Common;
 import club.iananderson.seasonhud.client.gui.Location;
 import club.iananderson.seasonhud.config.Config;
 import net.minecraft.client.Minecraft;
@@ -55,9 +54,9 @@ public class HudOffsetSlider extends BasicSlider {
 
   @Override
   public void renderWidget(@NotNull GuiGraphics graphics, int mouseX, int mouseY, float partialTick) {
-    if (!Common.drawDefaultHud() || Config.getHudLocation() != Location.TOP_LEFT) {
+    if (Config.getHudLocation() != Location.TOP_LEFT) {
       this.active = false;
-      this.setTooltip(Tooltip.create(Component.translatable("menu.seasonhud.tooltip.offsetError")));
+      this.setTooltip(Tooltip.create(Component.translatable("menu.seasonhud.season.offsetError.tooltip")));
     }
 
     super.renderWidget(graphics, mouseX, mouseY, partialTick);
@@ -102,7 +101,8 @@ public class HudOffsetSlider extends BasicSlider {
     }
 
     public Builder withBounds(int x, int y, int width, int height) {
-      this.withPos(x, y);
+      this.x = x;
+      this.y = y;
       this.width = width;
       this.height = height;
       return this;

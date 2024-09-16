@@ -24,14 +24,14 @@ modId = "minecraft"
 mandatory = true
 versionRange = "${minecraft_version_range}"
 ordering = "NONE"
-side = "BOTH"
+side = "CLIENT"
 
 [[dependencies.${ mod_id }]]
 modId = "sereneseasons"
 mandatory = true
 versionRange = "[10.0.0.0,)"
 ordering = "AFTER"
-side = "BOTH"
+side = "CLIENT"
 
 [[dependencies.${ mod_id }]]
 modId = "xaerominimap"

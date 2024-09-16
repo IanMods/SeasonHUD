@@ -11,7 +11,7 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 public class DefaultColorButton extends Button {
-  private static final Component DEFAULT = Component.translatable("menu.seasonhud.button.color.default");
+  private static final Component DEFAULT = Component.translatable("menu.seasonhud.color.default.button");
   private final ColorEditBox colorEditBox;
   private final int defaultColor;
 

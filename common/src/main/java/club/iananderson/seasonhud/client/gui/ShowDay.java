@@ -7,7 +7,7 @@ import net.minecraft.network.chat.Component;
 public enum ShowDay {
   NONE(0, "none", "desc.seasonhud.hud.summary"),
 
-  SHOW_DAY(1, "showDay", "desc.seasonhud.hud.detailed"),
+  SHOW_DAY(1, "day", "desc.seasonhud.hud.detailed"),
 
   SHOW_WITH_TOTAL_DAYS(2, "totalDays", "desc.seasonhud.hud.detailed.total");
 
@@ -19,7 +19,7 @@ public enum ShowDay {
   ShowDay(int id, String dayType, String key) {
     this.idNum = id;
     this.currentDayDisplay = dayType;
-    this.dayDisplayName = Component.translatable("showday.seasonhud." + dayType);
+    this.dayDisplayName = Component.translatable("desc.seasonhud.showday." + dayType);
     this.key = key;
   }
 

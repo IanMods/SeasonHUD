@@ -34,7 +34,7 @@ public class CurrentSeason {
 
   //Convert Season to lower case (for localized names)
   public String getSeasonStateLower() {
-    if (Config.getShowSubSeason() && currentSubSeason.contains("_")) {
+    if ((Config.getShowSubSeason() || Calendar.calendarFoundDetailed()) && currentSubSeason.contains("_")) {
       String lowerSubSeason = currentSubSeason.toLowerCase();
       return currentSeason.toLowerCase() + "." + lowerSubSeason.substring(0, lowerSubSeason.indexOf("_"));
     } else {
@@ -60,6 +60,10 @@ public class CurrentSeason {
     switch (Config.getShowDay()) {
       case NONE:
         text = Component.translatable(ShowDay.NONE.getKey(), season);
+
+        if (Calendar.calendarFoundDetailed()) {
+          text = Component.translatable(ShowDay.SHOW_WITH_TOTAL_DAYS.getKey(), season, seasonDate, seasonDuration);
+        }
         break;
 
       case SHOW_DAY:
@@ -72,8 +76,14 @@ public class CurrentSeason {
 
 //      case SHOW_WITH_MONTH:
 //        if (Services.SEASON.isSeasonTiedWithSystemTime()) {
-//          String systemMonth = LocalDateTime.now().getMonth().name().toLowerCase();
-//          Component currentMonth = Component.translatable("desc.seasonhud.month." + systemMonth);
+//          int systemMonth = LocalDateTime.now().getMonth().getValue();
+//          String systemMonthString = String.valueOf(systemMonth);
+//
+//          if (systemMonth < 10) {
+//            systemMonthString = "0" + systemMonthString;
+//          }
+//
+//          Component currentMonth = Component.translatable("desc.seasonhud.month." + systemMonthString);
 //
 //          text = Component.translatable(ShowDay.SHOW_WITH_MONTH.getKey(), season, currentMonth, seasonDate);
 //        } else {
@@ -81,6 +91,7 @@ public class CurrentSeason {
 //        }
 //        break;
     }
+
     return text;
   }
 
@@ -124,11 +135,11 @@ public class CurrentSeason {
     }
 
     if (season == Seasons.DRY && seasonShort) {
-      seasonText = Component.translatable("menu.seasonhud.editbox.color.dry");
+      seasonText = Component.translatable("menu.seasonhud.color.season.dry.editbox");
     }
 
     if (season == Seasons.WET && seasonShort) {
-      seasonText = Component.translatable("menu.seasonhud.editbox.color.wet");
+      seasonText = Component.translatable("menu.seasonhud.color.season.wet.editbox");
     }
 
     return Component.translatable("desc.seasonhud.hud.combined", seasonIcon.withStyle(Common.SEASON_ICON_STYLE),

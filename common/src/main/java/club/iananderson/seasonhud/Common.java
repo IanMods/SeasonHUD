@@ -50,13 +50,13 @@ public class Common {
       return false;
     }
 
-    return (mc.screen == null || mc.screen instanceof ChatScreen || mc.screen instanceof DeathScreen) && !mc.isPaused()
+    return (mc.screen == null || mc.screen instanceof ChatScreen || mc.screen instanceof DeathScreen)
         && !mc.getDebugOverlay().showDebugScreen() && !mc.options.hideGui && !mc.player.isScoping();
   }
 
   public static boolean drawDefaultHud() {
     return (Config.getEnableMod() && (CurrentMinimap.noMinimapLoaded() || !Config.getEnableMinimapIntegration() || (
-        Services.MINIMAP.allMinimapsHidden() && Config.getShowDefaultWhenMinimapHidden())));
+        CurrentMinimap.allMinimapsHidden() && Config.getShowDefaultWhenMinimapHidden())));
   }
 
   public static boolean allTrue(List<Boolean> values) {
