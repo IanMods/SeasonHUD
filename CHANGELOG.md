@@ -4,6 +4,20 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 
+## [1.10.7] - 2024-09-18
+
+### Fixed
+
+- Fixed the "Calendar Detail Mode" option showing the wrong total days
+
+### Changed
+
+- Changed to allow "Calendar Detail Mode" season/day display mode to be customized like normal.
+    - Now, if the option is enabled, it should force just the season name to be displayed when there
+      is not a calendar in the player's inventory.
+    - If a calendar is found, it will display using the season/day settings set in the
+      config/options screen.
+
 ## [1.10.6] - 2024-09-15
 
 ### Added

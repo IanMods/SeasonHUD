@@ -63,7 +63,7 @@ public class ForgeSeasonHelper implements ISeasonHelper {
     int subSeasonDate = (seasonDay % subSeasonDuration) + 1; //Default 8 days in each sub-season (1 week)
     int seasonDate = (seasonDay % (subSeasonDuration * 3)) + 1; //Default 24 days in a season (8 days * 3)
 
-    if (Config.getShowSubSeason() || Calendar.calendarFoundDetailed()) {
+    if (Config.getShowSubSeason()) {
       if (isTropicalSeason(player)) {
         // Default 16 days in each tropical "sub-season".
         // Starts are "Early Dry" (Summer 1), so need to offset Spring 1 -> Summer 1 (subSeasonDuration * 3)
@@ -88,7 +88,7 @@ public class ForgeSeasonHelper implements ISeasonHelper {
       seasonDuration *= 2; //Tropical seasons are twice as long (Default 48 days)
     }
 
-    if (Config.getShowSubSeason()) {
+    if (Config.getShowSubSeason() && Calendar.validDetailedMode()) {
       seasonDuration /= 3; //3 sub-seasons per season
     }
 
