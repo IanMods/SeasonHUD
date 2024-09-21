@@ -6,8 +6,6 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.GuiComponent;
 import net.minecraft.client.gui.components.AbstractButton;
-import net.minecraft.client.gui.narration.NarratedElementType;
-import net.minecraft.client.gui.narration.NarrationElementOutput;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.resources.ResourceLocation;
@@ -39,24 +37,6 @@ public class CheckButton extends AbstractButton {
 
   public boolean selected() {
     return this.selected;
-  }
-
-  public void updateWidgetNarration(NarrationElementOutput narrationElementOutput) {
-    narrationElementOutput.add(NarratedElementType.TITLE, this.createNarrationMessage());
-    if (this.active) {
-      if (this.isFocused()) {
-        narrationElementOutput.add(NarratedElementType.USAGE,
-                                   new TranslatableComponent("narration.checkbox.usage.focused"));
-      } else {
-        narrationElementOutput.add(NarratedElementType.USAGE,
-                                   new TranslatableComponent("narration.checkbox.usage.hovered"));
-      }
-    }
-  }
-
-  @Override
-  public void updateNarration(NarrationElementOutput narrationElementOutput) {
-
   }
 
   public interface OnPress {

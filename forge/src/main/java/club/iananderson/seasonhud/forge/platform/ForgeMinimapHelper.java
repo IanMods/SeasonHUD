@@ -93,8 +93,7 @@ public class ForgeMinimapHelper implements IMinimapHelper {
 
       case VOXELMAP:
         MapSettingsManager voxelOptions = VoxelMap.getInstance().getMapOptions();
-        hidden = voxelOptions.hide || (!voxelOptions.showUnderMenus && (mc.screen != null || mc.options.renderDebug))
-            || !Calendar.calendarFound();
+        hidden = voxelOptions.hide || (!voxelOptions.showUnderMenus && (mc.screen != null || mc.options.renderDebug));
         break;
     }
     return hidden;
