@@ -9,6 +9,7 @@ import net.minecraft.client.gui.components.AbstractButton;
 import net.minecraft.client.gui.narration.NarratedElementType;
 import net.minecraft.client.gui.narration.NarrationElementOutput;
 import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
 
@@ -45,10 +46,10 @@ public class CheckButton extends AbstractButton {
     if (this.active) {
       if (this.isFocused()) {
         narrationElementOutput.add(NarratedElementType.USAGE,
-                                   Component.translatable("narration.checkbox.usage.focused"));
+                                   new TranslatableComponent("narration.checkbox.usage.focused"));
       } else {
         narrationElementOutput.add(NarratedElementType.USAGE,
-                                   Component.translatable("narration.checkbox.usage.hovered"));
+                                   new TranslatableComponent("narration.checkbox.usage.hovered"));
       }
     }
   }

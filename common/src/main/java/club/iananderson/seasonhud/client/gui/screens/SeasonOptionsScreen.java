@@ -15,6 +15,7 @@ import net.minecraft.client.gui.components.CycleButton;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
+import net.minecraft.network.chat.TextComponent;
 import net.minecraft.network.chat.TranslatableComponent;
 import org.jetbrains.annotations.NotNull;
 
@@ -207,7 +208,7 @@ public class SeasonOptionsScreen extends SeasonHudScreen {
       float scale = 0.45F;
 
       CheckButton showTotal = new CheckButton((rightButtonX + BUTTON_WIDTH + BUTTON_PADDING),
-                                              (buttonStartY + (row * yOffset)), Component.literal("Show Total Days"),
+                                              (buttonStartY + (row * yOffset)), new TextComponent("Show Total Days"),
                                               scale, (b) -> {
         if (b.selected()) {
           Config.setShowDay(ShowDay.SHOW_WITH_TOTAL_DAYS);
@@ -218,7 +219,7 @@ public class SeasonOptionsScreen extends SeasonHudScreen {
 
       CheckButton showSubSeason = new CheckButton((rightButtonX + BUTTON_WIDTH + BUTTON_PADDING),
                                                   (int) (buttonStartY + (row * yOffset) + BUTTON_HEIGHT - (20 * scale)),
-                                                  Component.literal(String.valueOf(showTotal.selected())), scale,
+                                                  new TextComponent(String.valueOf(showTotal.selected())), scale,
                                                   (b) -> Config.setShowSubSeason(b.selected()),
                                                   Config.getShowSubSeason());
       widgets.addAll(Arrays.asList(needCalendarButton, calanderDetailModeButton));

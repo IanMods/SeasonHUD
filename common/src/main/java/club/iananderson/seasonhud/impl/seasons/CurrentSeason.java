@@ -53,7 +53,7 @@ public class CurrentSeason {
 
     else season = Config.getShowSubSeason() ? getSubSeasonLowerCase() : getSeasonLowerCase();
 
-    return Component.translatable("desc.seasonhud.season." + season);
+    return new TranslatableComponent("desc.seasonhud.season." + season);
   }
 
   //Get the current season and match it to the icon for the font
