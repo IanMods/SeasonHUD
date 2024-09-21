@@ -2,6 +2,7 @@ package club.iananderson.seasonhud.client.gui.screens;
 
 import club.iananderson.seasonhud.client.gui.Location;
 import club.iananderson.seasonhud.client.gui.ShowDay;
+import club.iananderson.seasonhud.client.gui.components.buttons.CheckButton;
 import club.iananderson.seasonhud.client.gui.components.sliders.BasicSlider;
 import club.iananderson.seasonhud.client.gui.components.sliders.HudOffsetSlider;
 import club.iananderson.seasonhud.config.Config;
@@ -83,13 +84,6 @@ public class SeasonOptionsScreen extends SeasonHudScreen {
   public void render(@NotNull GuiGraphics graphics, int mouseX, int mouseY, float partialTicks) {
     xSlider.active = hudLocationButton.getValue() == Location.TOP_LEFT;
     ySlider.active = hudLocationButton.getValue() == Location.TOP_LEFT;
-
-    if (Config.getCalanderDetailMode()) {
-      Config.setShowDay(ShowDay.NONE);
-      showDayButton.active = false;
-      Config.setShowSubSeason(false);
-      showSubSeasonButton.active = false;
-    }
 
     MutableComponent seasonCombined = CurrentSeason.getInstance(this.minecraft).getSeasonHudText();
 
@@ -212,7 +206,23 @@ public class SeasonOptionsScreen extends SeasonHudScreen {
               rebuildWidgets();
             });
 
-    widgets.addAll(
+float scale = 0.45F;
+
+      CheckButton showTotal = new CheckButton((rightButtonX + BUTTON_WIDTH + BUTTON_PADDING),
+                                              (buttonStartY + (row * yOffset)), Component.literal("Show Total Days"),
+                                              scale, (b) -> {
+        if (b.selected()) {
+          Config.setShowDay(ShowDay.SHOW_WITH_TOTAL_DAYS);
+        } else {
+          Config.setShowDay((ShowDay.SHOW_DAY));
+        }
+      }, Config.getShowDay() == ShowDay.SHOW_WITH_TOTAL_DAYS);
+
+      CheckButton showSubSeason = new CheckButton((rightButtonX + BUTTON_WIDTH + BUTTON_PADDING),
+                                                  (int) (buttonStartY + (row * yOffset) + BUTTON_HEIGHT - (20 * scale)),
+                                                  Component.literal(String.valueOf(showTotal.selected())), scale,
+                                                  (b) -> Config.setShowSubSeason(b.selected()),
+                                                  Config.getShowSubSeason());    widgets.addAll(
         Arrays.asList(hudLocationButton, xSlider, ySlider, showDayButton, seasonColorButton, showSubSeasonButton,
                       showTropicalSeasonButton, needCalendarButton, calanderDetailModeButton));
 
