@@ -1,5 +1,6 @@
 package club.iananderson.seasonhud.client.gui.components.buttons;
 
+import club.iananderson.seasonhud.Common;
 import com.mojang.blaze3d.systems.RenderSystem;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
@@ -12,7 +13,7 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
 
 public class CheckButton extends AbstractButton {
-  private static final ResourceLocation TEXTURE = new ResourceLocation("textures/gui/checkbox.png");
+  private static final ResourceLocation TEXTURE = Common.location("textures/gui/checkbox.png");
   private static final int TEXT_COLOR = 14737632;
   private final float scale;
   private final OnPress onPress;

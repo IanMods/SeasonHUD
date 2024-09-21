@@ -2,6 +2,7 @@ package club.iananderson.seasonhud.fabric.platform;
 
 import club.iananderson.seasonhud.Common;
 import club.iananderson.seasonhud.config.Config;
+import club.iananderson.seasonhud.impl.seasons.Calendar;
 import club.iananderson.seasonhud.platform.services.ISeasonHelper;
 import dev.emi.trinkets.api.TrinketComponent;
 import dev.emi.trinkets.api.TrinketsApi;
@@ -86,7 +87,7 @@ public class FabricSeasonHelper implements ISeasonHelper {
       seasonDuration *= 2; //Tropical seasons are twice as long (Default 48 days)
     }
 
-    if (Config.getShowSubSeason()) {
+    if (Config.getShowSubSeason() && Calendar.validDetailedMode()) {
       seasonDuration /= 3; //3 sub-seasons per season
     }
 
