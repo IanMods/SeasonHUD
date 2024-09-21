@@ -122,7 +122,7 @@ public class CurrentMinimap {
     boolean enabled = Config.getEnableMod() && Config.getEnableMinimapIntegration();
     boolean hiddenMinimap = Services.MINIMAP.hideHudInCurrentDimension() || hiddenMinimap(minimap);
 
-    return enabled && Calendar.calendarFound() && !mc.options.hideGui && !hiddenMinimap;
+    return enabled && Calendar.validNeedCalendar() && !mc.options.hideGui && !hiddenMinimap;
   }
 
   public enum Minimap {

@@ -16,7 +16,7 @@ public class Calendar {
                                                                                                            item);
   }
 
-  public static boolean calendarFound() {
+  private static boolean calendarFound() {
     Minecraft mc = Minecraft.getInstance();
     Item calendar = Services.SEASON.calendar();
 
@@ -28,22 +28,14 @@ public class Calendar {
       return false;
     }
 
-    return findCalendar(mc.player, calendar) || !Config.getNeedCalendar();
+    return findCalendar(mc.player, calendar);
   }
 
-  public static boolean calendarFoundDetailed() {
-    Minecraft mc = Minecraft.getInstance();
-    Item calendar = Services.SEASON.calendar();
-
-    if (Common.platformName().equals("Fabric") && !Common.extrasLoaded()) {
-      return false;
-    }
-
-    if (mc.level == null || mc.player == null || calendar == null) {
-      return false;
-    }
-
-    return findCalendar(mc.player, calendar) && Config.getCalanderDetailMode();
+  public static boolean validNeedCalendar() {
+    return (Config.getNeedCalendar() && Calendar.calendarFound()) || !Config.getNeedCalendar();
   }
 
+  public static boolean validDetailedMode() {
+    return (Config.getCalanderDetailMode() && Calendar.calendarFound()) || !Config.getCalanderDetailMode();
+  }
 }
