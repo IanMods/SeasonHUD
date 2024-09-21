@@ -35,14 +35,25 @@ public class CurrentSeason {
     return new CurrentSeason(mc);
   }
 
-  //Convert Season to lower case (for localized names)
-  public String getSeasonStateLower() {
-    if ((Config.getShowSubSeason() || Calendar.calendarFoundDetailed()) && currentSubSeason.contains("_")) {
-      String lowerSubSeason = currentSubSeason.toLowerCase();
-      return currentSeason.toLowerCase() + "." + lowerSubSeason.substring(0, lowerSubSeason.indexOf("_"));
-    } else {
-      return currentSeason.toLowerCase();
+  public String getSubSeasonLowerCase() {
+    String lowerSubSeason = currentSubSeason.toLowerCase();
+    return currentSeason.toLowerCase() + "." + lowerSubSeason.substring(0, lowerSubSeason.indexOf("_"));
+  }
+
+  public String getSeasonLowerCase() {
+    return currentSeason.toLowerCase();
+  }
+
+  public Component getSeasonKey() {
+    String season;
+
+    if (!Calendar.validDetailedMode() || Common.platformName().equals("Fabric")) {
+      season = getSeasonLowerCase();
     }
+
+    else season = Config.getShowSubSeason() ? getSubSeasonLowerCase() : getSeasonLowerCase();
+
+    return Component.translatable("desc.seasonhud.season." + season);
   }
 
   //Get the current season and match it to the icon for the font
@@ -57,24 +68,28 @@ public class CurrentSeason {
 
   //Localized name for the hud with icon
   public Component getText() {
-    Component season = new TranslatableComponent("desc.seasonhud.season." + getSeasonStateLower());
     Component text = new TextComponent("");
 
     switch (Config.getShowDay()) {
       case NONE:
-        text = new TranslatableComponent(ShowDay.NONE.getKey(), season);
-
-        if (Calendar.calendarFoundDetailed()) {
-          text = new TranslatableComponent(ShowDay.SHOW_WITH_TOTAL_DAYS.getKey(), season, seasonDate, seasonDuration);
-        }
+        text = new TranslatableComponent(ShowDay.NONE.getKey(), getSeasonKey());
         break;
 
       case SHOW_DAY:
-        text = new TranslatableComponent(ShowDay.SHOW_DAY.getKey(), season, seasonDate);
+        text = new TranslatableComponent(ShowDay.SHOW_DAY.getKey(), getSeasonKey(), seasonDate);
+
+        if (!Calendar.validDetailedMode()) {
+          text = new TranslatableComponent(ShowDay.NONE.getKey(), getSeasonKey());
+        }
         break;
 
       case SHOW_WITH_TOTAL_DAYS:
-        text = new TranslatableComponent(ShowDay.SHOW_WITH_TOTAL_DAYS.getKey(), season, seasonDate, seasonDuration);
+        text = new TranslatableComponent(ShowDay.SHOW_WITH_TOTAL_DAYS.getKey(), getSeasonKey(), seasonDate,
+                                      seasonDuration);
+
+        if (!Calendar.validDetailedMode()) {
+          text = new TranslatableComponent(ShowDay.NONE.getKey(), getSeasonKey());
+        }
         break;
 
       case SHOW_WITH_MONTH:
@@ -88,9 +103,13 @@ public class CurrentSeason {
 
           Component currentMonth = new TranslatableComponent("desc.seasonhud.month." + systemMonthString);
 
-          text = new TranslatableComponent(ShowDay.SHOW_WITH_MONTH.getKey(), season, currentMonth, seasonDate);
+          text = new TranslatableComponent(ShowDay.SHOW_WITH_MONTH.getKey(), getSeasonKey(), currentMonth, seasonDate);
+
+          if (!Calendar.validDetailedMode()) {
+            text = new TranslatableComponent(ShowDay.NONE.getKey(), getSeasonKey());
+          }
         } else {
-          text = new TranslatableComponent(ShowDay.SHOW_DAY.getKey(), season, seasonDate);
+          text = new TranslatableComponent(ShowDay.SHOW_DAY.getKey(), getSeasonKey(), seasonDate);
         }
         break;
     }
