@@ -1,9 +1,10 @@
 package club.iananderson.seasonhud.client.gui.components.buttons;
 
 import com.mojang.blaze3d.systems.RenderSystem;
+import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
-import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.GuiComponent;
 import net.minecraft.client.gui.components.AbstractButton;
 import net.minecraft.client.gui.narration.NarratedElementType;
 import net.minecraft.client.gui.narration.NarrationElementOutput;
@@ -52,22 +53,9 @@ public class CheckButton extends AbstractButton {
     }
   }
 
-  public void renderWidget(GuiGraphics graphics, int i, int j, float f) {
-    Minecraft mc = Minecraft.getInstance();
-    Font font = mc.font;
-    RenderSystem.enableDepthTest();
-    graphics.setColor(1.0F, 1.0F, 1.0F, this.alpha);
-    RenderSystem.enableBlend();
-    graphics.pose().pushPose();
-    graphics.pose().scale(scale, scale, 1);
-    graphics.blit(TEXTURE, (int) (this.getX() / scale), (int) (this.getY() / scale), this.isFocused() ? 20.0F : 0.0F,
-                  this.selected ? 20.0F : 0.0F, (int) (this.width / scale), (int) (this.height / scale), 64, 64);
-    graphics.setColor(1.0F, 1.0F, 1.0F, 1.0F);
+  @Override
+  public void updateNarration(NarrationElementOutput narrationElementOutput) {
 
-    graphics.pose().translate((this.width / scale) + 4, ((this.height / scale) - 8) / 2, 0);
-    graphics.drawString(font, this.getMessage(), (int) (this.getX() / scale), (int) (this.getY() / scale),
-                        14737632 | Mth.ceil(this.alpha * 255.0F) << 24);
-    graphics.pose().popPose();
   }
 
   public interface OnPress {
