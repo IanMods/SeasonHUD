@@ -32,7 +32,7 @@ public class SeasonHUDOverlayCommon {
 //      y += 1;
 //      stringWidth += iconWidth + iconSpace;
 //    }
-    if (Common.drawDefaultHud() && Common.vanillaShouldDrawHud() && Calendar.calendarFound()) {
+    if (Common.drawDefaultHud() && Common.vanillaShouldDrawHud() && Calendar.validNeedCalendar()) {
       switch (Config.getHudLocation()) {
         case TOP_LEFT:
           x += xOffset;

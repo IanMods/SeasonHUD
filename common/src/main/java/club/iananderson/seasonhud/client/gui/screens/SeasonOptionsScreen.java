@@ -4,6 +4,7 @@ import club.iananderson.seasonhud.Common;
 import club.iananderson.seasonhud.client.gui.Location;
 import club.iananderson.seasonhud.client.gui.ShowDay;
 import club.iananderson.seasonhud.client.gui.components.buttons.CycleButton;
+import club.iananderson.seasonhud.client.gui.components.buttons.CheckButton;
 import club.iananderson.seasonhud.client.gui.components.sliders.BasicSlider;
 import club.iananderson.seasonhud.client.gui.components.sliders.HudOffsetSlider;
 import club.iananderson.seasonhud.config.Config;
@@ -14,6 +15,7 @@ import net.minecraft.client.gui.GuiComponent;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
+import net.minecraft.network.chat.TextComponent;
 import net.minecraft.network.chat.TranslatableComponent;
 import org.jetbrains.annotations.NotNull;
 
@@ -85,16 +87,6 @@ public class SeasonOptionsScreen extends SeasonHudScreen {
   public void render(@NotNull PoseStack graphics, int mouseX, int mouseY, float partialTicks) {
     xSlider.active = hudLocationButton.getValue() == Location.TOP_LEFT;
     ySlider.active = hudLocationButton.getValue() == Location.TOP_LEFT;
-
-    if (Common.extrasLoaded() && Config.getCalanderDetailMode()) {
-      Config.setShowDay(ShowDay.NONE);
-      showDayButton.active = false;
-
-      if (Common.platformName().equals("Forge")) {
-        Config.setShowSubSeason(false);
-        showSubSeasonButton.active = false;
-      }
-    }
 
     MutableComponent seasonCombined = CurrentSeason.getInstance(this.minecraft).getSeasonHudText();
 
@@ -212,6 +204,24 @@ public class SeasonOptionsScreen extends SeasonHudScreen {
                 Config.setCalanderDetailMode(val);
                 rebuildWidgets();
               });
+
+      float scale = 0.45F;
+
+      CheckButton showTotal = new CheckButton((rightButtonX + BUTTON_WIDTH + BUTTON_PADDING),
+                                              (buttonStartY + (row * yOffset)), new TextComponent("Show Total Days"),
+                                              scale, (b) -> {
+        if (b.selected()) {
+          Config.setShowDay(ShowDay.SHOW_WITH_TOTAL_DAYS);
+        } else {
+          Config.setShowDay((ShowDay.SHOW_DAY));
+        }
+      }, Config.getShowDay() == ShowDay.SHOW_WITH_TOTAL_DAYS);
+
+      CheckButton showSubSeason = new CheckButton((rightButtonX + BUTTON_WIDTH + BUTTON_PADDING),
+                                                  (int) (buttonStartY + (row * yOffset) + BUTTON_HEIGHT - (20 * scale)),
+                                                  new TextComponent(String.valueOf(showTotal.selected())), scale,
+                                                  (b) -> Config.setShowSubSeason(b.selected()),
+                                                  Config.getShowSubSeason());
       widgets.addAll(Arrays.asList(needCalendarButton, calanderDetailModeButton));
     }
 

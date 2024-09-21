@@ -15,7 +15,7 @@ public class Calendar {
     return player.inventory.contains(item) || Services.SEASON.findCuriosCalendar(player, item);
   }
 
-  public static boolean calendarFound() {
+  private static boolean calendarFound() {
     Minecraft mc = Minecraft.getInstance();
     ItemStack calendar = Services.SEASON.calendar();
 
@@ -27,25 +27,14 @@ public class Calendar {
       return false;
     }
 
-    boolean inventorySlot = findCalendar(mc.player, calendar);
-    boolean curioSlot = Services.SEASON.findCuriosCalendar(mc.player, calendar);
-
-    return inventorySlot || curioSlot || !Config.getNeedCalendar();
+    return findCalendar(mc.player, calendar);
   }
 
-  public static boolean calendarFoundDetailed() {
-    Minecraft mc = Minecraft.getInstance();
-    ItemStack calendar = Services.SEASON.calendar();
-
-    if (Common.platformName().equals("Fabric") && !Common.extrasLoaded()) {
-      return false;
-    }
-
-    if (mc.level == null || mc.player == null || calendar == null) {
-      return false;
-    }
-
-    return findCalendar(mc.player, calendar) && Config.getCalanderDetailMode();
+  public static boolean validNeedCalendar() {
+    return (Config.getNeedCalendar() && Calendar.calendarFound()) || !Config.getNeedCalendar();
   }
 
+  public static boolean validDetailedMode() {
+    return (Config.getCalanderDetailMode() && Calendar.calendarFound()) || !Config.getCalanderDetailMode();
+  }
 }
