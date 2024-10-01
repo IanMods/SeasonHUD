@@ -47,9 +47,9 @@ public class CurrentSeason {
 
     if (!Calendar.validDetailedMode() || Common.platformName().equals("Fabric")) {
       season = getSeasonLowerCase();
+    } else {
+      season = Config.getShowSubSeason() ? getSubSeasonLowerCase() : getSeasonLowerCase();
     }
-
-    else season = Config.getShowSubSeason() ? getSubSeasonLowerCase() : getSeasonLowerCase();
 
     return Component.translatable("desc.seasonhud.season." + season);
   }
