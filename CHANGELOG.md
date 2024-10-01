@@ -4,6 +4,12 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 
+## [1.10.8] - 2024-09-30
+
+### Fixed
+
+- Fixed crash with FTB Chunks
+
 ## [1.10.7] - 2024-09-21
 
 ### Fixed
