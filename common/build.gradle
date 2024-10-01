@@ -15,8 +15,8 @@ dependencies {
     // Minimap Mods
     // Not used in common unless they are actually  loaded.
     modCompileOnly "maven.modrinth:xaeros-minimap:${project.xaeros_minimap_version}_Forge_1.18.2"
-    modCompileOnly "curse.maven:ftb-chunks-forge-314906:${project.ftb_chunks_forge_version}"
-    modCompileOnly "curse.maven:ftb-library-forge-404465:${project.ftb_library_forge_version}"
+    modCompileOnly "curse.maven:ftb-chunks-fabric-472657:${project.ftb_chunks_fabric_version}"
+    modCompileOnly "curse.maven:ftb-library-fabric-438495:${project.ftb_library_fabric_version}"
     modCompileOnly "maven.modrinth:journeymap:${project.minecraft_version}-${project.journeymap_version}-forge"
     modCompileOnly "curse.maven:map-atlases-forge-519759:${project.map_atlases_forge_version}"
 
