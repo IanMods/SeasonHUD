@@ -34,7 +34,7 @@ public class FTBChunksClientMixin {
                                                                                   .comment(new String[]{
                                                                                       "Show season under minimap"});
 
-  @Inject(method = "renderHud", at = @At(value = "INVOKE", target = "Lcom/mojang/blaze3d/vertex/PoseStack;scale(FFF)V"), remap = false)
+  @Inject(method = "renderHud", at = @At(value = "INVOKE", target = "Lcom/mojang/blaze3d/vertex/PoseStack;scale(FFF)V"))
   private void renderHud(PoseStack matrixStack, float tickDelta, CallbackInfo ci) {
     MutableComponent seasonCombined = CurrentSeason.getInstance(Minecraft.getInstance()).getSeasonHudText();
 
