@@ -1,6 +1,8 @@
 package club.iananderson.seasonhud.fabric.mixin.ftbchunks;
 
 import club.iananderson.seasonhud.config.Config;
+import club.iananderson.seasonhud.impl.minimaps.CurrentMinimap;
+import club.iananderson.seasonhud.impl.minimaps.CurrentMinimap.Minimap;
 import club.iananderson.seasonhud.impl.seasons.CurrentSeason;
 import com.mojang.blaze3d.vertex.PoseStack;
 import dev.ftb.mods.ftbchunks.client.FTBChunksClient;
@@ -24,7 +26,6 @@ public class FTBChunksClientMixin {
   @Shadow
   private static final List<Component> MINIMAP_TEXT_LIST = new ArrayList<>(3);
 
-
   @Unique
   private static final BooleanValue MINIMAP_SEASON = FTBChunksClientConfig.MINIMAP.getBoolean("season", true)
                                                                                   .comment(new String[]{
@@ -36,7 +37,7 @@ public class FTBChunksClientMixin {
 
     Config.setEnableMod(MINIMAP_SEASON.get());
 
-    if (Config.getEnableMod() && Config.getEnableMinimapIntegration()) {
+    if (CurrentMinimap.shouldDrawMinimapHud(Minimap.FTB_CHUNKS)) {
       MINIMAP_TEXT_LIST.add(seasonCombined);
     }
   }
