@@ -45,7 +45,7 @@ public class CurrentSeason {
   public Component getSeasonKey() {
     String season;
 
-    if (!Calendar.validDetailedMode() || Common.platformName().equals("Fabric")) {
+    if (!Calendar.validDetailedMode() || Common.fabricSeasonsLoaded()) {
       season = getSeasonLowerCase();
     } else {
       season = Config.getShowSubSeason() ? getSubSeasonLowerCase() : getSeasonLowerCase();

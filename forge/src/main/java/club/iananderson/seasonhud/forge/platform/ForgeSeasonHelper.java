@@ -12,7 +12,7 @@ import net.minecraft.world.item.Item;
 import sereneseasons.api.SSItems;
 import sereneseasons.api.season.ISeasonState;
 import sereneseasons.api.season.SeasonHelper;
-import sereneseasons.config.ServerConfig;
+import sereneseasons.init.ModConfig;
 import top.theillusivec4.curios.api.CuriosApi;
 import top.theillusivec4.curios.api.type.capability.ICuriosItemHandler;
 
@@ -59,7 +59,7 @@ public class ForgeSeasonHelper implements ISeasonHelper {
   @Override
   public int getDate(Player player) {
     int seasonDay = currentSeasonState(player).getDay(); //Current day out of the year (Default 24 days * 4 = 96 days)
-    int subSeasonDuration = ServerConfig.subSeasonDuration.get(); //In case the default duration is changed
+    int subSeasonDuration = ModConfig.seasons.subSeasonDuration; //In case the default duration is changed
     int subSeasonDate = (seasonDay % subSeasonDuration) + 1; //Default 8 days in each sub-season (1 week)
     int seasonDate = (seasonDay % (subSeasonDuration * 3)) + 1; //Default 24 days in a season (8 days * 3)
 
@@ -82,7 +82,7 @@ public class ForgeSeasonHelper implements ISeasonHelper {
 
   @Override
   public int seasonDuration(Player player) {
-    int seasonDuration = ServerConfig.subSeasonDuration.get() * 3;
+    int seasonDuration = ModConfig.seasons.subSeasonDuration * 3;
 
     if (isTropicalSeason(player)) {
       seasonDuration *= 2; //Tropical seasons are twice as long (Default 48 days)
@@ -97,7 +97,7 @@ public class ForgeSeasonHelper implements ISeasonHelper {
 
   @Override
   public Item calendar() {
-    return SSItems.CALENDAR.get();
+    return SSItems.CALENDAR;
   }
 
   @Override

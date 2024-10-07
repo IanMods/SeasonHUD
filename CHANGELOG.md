@@ -4,11 +4,16 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 
-## [1.10.9] - 2024-10-01
+## [1.11.0] - 2024-10-07
 
-### Fixed
+### Added
 
-- Actually fixed crash with FTB Chunks
+- Added support for both "Fabric Seasons" and "Serene Seasons" on Fabric.
+
+### Changed
+
+- Slight change to the button layout in the config screen.
+- If "Enable Mod" is off, then the other buttons will no longer be interactable.
 
 ## [1.10.8] - 2024-09-30
 

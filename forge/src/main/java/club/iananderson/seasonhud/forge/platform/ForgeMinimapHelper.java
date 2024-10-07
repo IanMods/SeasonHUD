@@ -10,7 +10,7 @@ import net.minecraft.world.level.Level;
 import pepjebs.mapatlases.MapAtlasesMod;
 import pepjebs.mapatlases.client.MapAtlasesClient;
 import pepjebs.mapatlases.config.MapAtlasesClientConfig;
-import sereneseasons.config.ServerConfig;
+import sereneseasons.init.ModConfig;
 
 public class ForgeMinimapHelper implements IMinimapHelper {
 
@@ -18,7 +18,7 @@ public class ForgeMinimapHelper implements IMinimapHelper {
   public boolean hideHudInCurrentDimension() {
     ResourceKey<Level> currentDim = Objects.requireNonNull(Minecraft.getInstance().level).dimension();
 
-    return !ServerConfig.isDimensionWhitelisted(currentDim);
+    return !ModConfig.seasons.isDimensionWhitelisted(currentDim);
   }
 
   // Needed for older versions. Makes it easier to port.
