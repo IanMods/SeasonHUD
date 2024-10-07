@@ -1,7 +1,9 @@
 package club.iananderson.seasonhud.config;
 
+import club.iananderson.seasonhud.Common;
 import club.iananderson.seasonhud.client.gui.Location;
 import club.iananderson.seasonhud.client.gui.ShowDay;
+import java.util.Arrays;
 import net.minecraft.client.Minecraft;
 import net.neoforged.neoforge.common.ModConfigSpec;
 

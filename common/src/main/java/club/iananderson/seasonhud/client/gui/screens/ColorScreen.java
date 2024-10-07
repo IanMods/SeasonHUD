@@ -1,5 +1,6 @@
 package club.iananderson.seasonhud.client.gui.screens;
 
+import club.iananderson.seasonhud.Common;
 import club.iananderson.seasonhud.client.gui.components.boxes.ColorEditBox;
 import club.iananderson.seasonhud.client.gui.components.buttons.DefaultColorButton;
 import club.iananderson.seasonhud.client.gui.components.sliders.rgb.BlueSlider;

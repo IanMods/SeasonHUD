@@ -26,8 +26,7 @@ public class MainConfigScreen extends SeasonHudScreen {
   MenuButton colorButton;
   CycleButton<Boolean> enableMinimapIntegrationButton;
   CycleButton<Boolean> showMinimapHiddenButton;
-  CycleButton<Boolean> journeyMapAboveMapButton;
-  CycleButton<Boolean> journeyMapMacOSButton;
+  Button journeyMapButton;
   private boolean enableMod;
   private boolean showMinimapHidden;
   private boolean enableMinimapIntegration;
@@ -77,9 +76,7 @@ public class MainConfigScreen extends SeasonHudScreen {
       graphics.drawCenteredString(font, JOURNEYMAP, this.width / 2,
                                   MENU_PADDING + (4 * (BUTTON_HEIGHT + BUTTON_PADDING)) - (font.lineHeight
                                       + BUTTON_PADDING), 16777215);
-
-      journeyMapAboveMapButton.active = enableMod;
-      journeyMapMacOSButton.active = enableMod;
+      journeyMapButton.active = enableMod;
     }
     seasonButton.active = enableMod;
     colorButton.active = enableMod;
@@ -129,7 +126,7 @@ public class MainConfigScreen extends SeasonHudScreen {
 
     if (Services.PLATFORM.isModLoaded("journeymap")) {
       row += 2; //6
-      Button journeyMapButton = Button.builder(Component.translatable("menu.seasonhud.main.journeymap.options.button"),
+      journeyMapButton = Button.builder(Component.translatable("menu.seasonhud.main.journeymap.options.button"),
                                                (button) -> UIManager.INSTANCE.openAddonOptionsEditor(this, true))
           .tooltip(Tooltip.create(Component.translatable("menu.seasonhud.main.journeymap.options.tooltip")))
           .bounds(leftButtonX, (buttonStartY + (row * yOffset)), BUTTON_WIDTH, BUTTON_HEIGHT)

@@ -4,6 +4,7 @@ import club.iananderson.seasonhud.Common;
 import club.iananderson.seasonhud.client.gui.ShowDay;
 import club.iananderson.seasonhud.config.Config;
 import club.iananderson.seasonhud.platform.Services;
+import java.time.LocalDateTime;
 import net.minecraft.client.Minecraft;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
@@ -64,7 +65,7 @@ public class CurrentSeason {
   }
 
   //Localized name for the hud with icon
-  public Component getSeasonText() {
+  public Component getText() {
     Component text = Component.literal("");
 
     switch (Config.getShowDay()) {
@@ -89,26 +90,26 @@ public class CurrentSeason {
         }
         break;
 
-//      case SHOW_WITH_MONTH:
-//        if (Services.SEASON.isSeasonTiedWithSystemTime()) {
-//          int systemMonth = LocalDateTime.now().getMonth().getValue();
-//          String systemMonthString = String.valueOf(systemMonth);
-//
-//          if (systemMonth < 10) {
-//            systemMonthString = "0" + systemMonthString;
-//          }
-//
-//          Component currentMonth = Component.translatable("desc.seasonhud.month." + systemMonthString);
-//
-//          text = Component.translatable(ShowDay.SHOW_WITH_MONTH.getKey(), getSeasonKey(), currentMonth, seasonDate);
-//
-//          if (!Calendar.validDetailedMode()) {
-//            text = Component.translatable(ShowDay.NONE.getKey(), getSeasonKey());
-//          }
-//        } else {
-//          text = Component.translatable(ShowDay.SHOW_DAY.getKey(), getSeasonKey(), seasonDate);
-//        }
-//        break;
+      case SHOW_WITH_MONTH:
+        if (Services.SEASON.isSeasonTiedWithSystemTime()) {
+          int systemMonth = LocalDateTime.now().getMonth().getValue();
+          String systemMonthString = String.valueOf(systemMonth);
+
+          if (systemMonth < 10) {
+            systemMonthString = "0" + systemMonthString;
+          }
+
+          Component currentMonth = Component.translatable("desc.seasonhud.month." + systemMonthString);
+
+          text = Component.translatable(ShowDay.SHOW_WITH_MONTH.getKey(), getSeasonKey(), currentMonth, seasonDate);
+
+          if (!Calendar.validDetailedMode()) {
+            text = Component.translatable(ShowDay.NONE.getKey(), getSeasonKey());
+          }
+        } else {
+          text = Component.translatable(ShowDay.SHOW_DAY.getKey(), getSeasonKey(), seasonDate);
+        }
+        break;
     }
 
     return text;
@@ -127,14 +128,14 @@ public class CurrentSeason {
   public MutableComponent getSeasonHudTextNoFormat() {
     Component seasonIcon = Component.translatable("desc.seasonhud.hud.icon", getSeasonIcon())
                                     .withStyle(Common.SEASON_ICON_STYLE);
-    MutableComponent seasonText = getSeasonText().copy();
+    MutableComponent seasonText = getText().copy();
 
     return Component.translatable("desc.seasonhud.hud.combined", seasonIcon, seasonText);
   }
 
   public MutableComponent getSeasonHudText() {
     MutableComponent seasonIcon = Component.translatable("desc.seasonhud.hud.icon", getSeasonIcon());
-    MutableComponent seasonText = getSeasonText().copy();
+    MutableComponent seasonText = getText().copy();
 
     if (Config.getEnableSeasonNameColor()) {
       seasonFormat = Style.EMPTY.withColor(getTextColor());
