@@ -175,7 +175,8 @@ modrinth {
     changelog = recentChangelogText
 
     dependencies {
-        required.project "serene-seasons"
+        optional.project "serene-seasons"
+        optional.project "fabric-seasons"
         required.project "forge-config-api-port"
         optional.project "trinkets"
         optional.project "accessories"
@@ -207,7 +208,9 @@ task publishCurseForge(type: net.darkhax.curseforgegradle.TaskPublishCurseForge)
     mainFile.addGameVersion("Fabric")
     mainFile.addJavaVersion("Java 21")
 
-    mainFile.addRequirement("serene-seasons")
+    mainFile.addOptional("serene-seasons")
+    mainFile.addOptional("fabric-seasons")
+    mainFile.addOptional("fabric-seasons-extras")
     mainFile.addRequirement("forge-config-api-port-fabric")
     mainFile.addOptional("trinkets")
     mainFile.addOptional("accessories")
