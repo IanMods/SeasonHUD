@@ -24,6 +24,7 @@ import net.minecraft.world.level.Level;
 import pepjebs.dicemc.util.MapAtlasesAccessUtils;
 import sereneseasons.config.SeasonsConfig;
 import xaero.common.HudMod;
+import sereneseasons.init.ModConfig;
 
 public class ForgeMinimapHelper implements IMinimapHelper {
 

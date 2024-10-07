@@ -1,5 +1,6 @@
 package club.iananderson.seasonhud.fabric.platform;
 
+import club.iananderson.seasonhud.Common;
 import club.iananderson.seasonhud.impl.minimaps.CurrentMinimap;
 import club.iananderson.seasonhud.impl.minimaps.CurrentMinimap.Minimap;
 import club.iananderson.seasonhud.impl.seasons.Calendar;
@@ -19,12 +20,21 @@ import net.minecraft.world.level.Level;
 import pepjebs.mapatlases.MapAtlasesMod;
 import pepjebs.mapatlases.utils.MapAtlasesAccessUtils;
 import xaero.common.HudMod;
+import sereneseasons.init.ModConfig;
 
 public class FabricMinimapHelper implements IMinimapHelper {
 
   @Override
   public boolean hideHudInCurrentDimension() {
-    return false;
+    ResourceKey<Level> currentDim = Objects.requireNonNull(Minecraft.getInstance().level).dimension();
+    if (Common.fabricSeasonsLoaded()) {
+      return false;
+    }
+    if (Common.sereneSeasonsLoaded()) {
+      return !ModConfig.seasons.isDimensionWhitelisted(currentDim);
+    } else {
+      return false;
+    }
   }
 
   // Needed for older versions. Makes it easier to port.

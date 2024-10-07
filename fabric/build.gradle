@@ -36,9 +36,18 @@ dependencies {
     shadowBundle project(path: ':common', configuration: 'transformProductionFabric')
 
     //Fabric Seasons
-    modImplementation("maven.modrinth:fabric-seasons:${project.fabric_seasons_version}") {
+    modCompileOnly("maven.modrinth:fabric-seasons:${project.fabric_seasons_version}") {
         exclude group: 'net.fabricmc', module: 'fabric-loader'
     }
+
+    //Serene Seasons
+    modCompileOnly("maven.modrinth:serene-seasons:9.1.0.0-fabric") {
+        exclude group: 'net.fabricmc', module: 'fabric-loader'
+    }
+    modCompileOnly("maven.modrinth:glitchcore:${project.glitchcore_version}-fabric") {
+        exclude group: 'net.fabricmc', module: 'fabric-loader'
+    }
+    compileOnly("net.jodah:typetools:0.6.3")
 
     //Xaero's Minimap
     modCompileOnly("maven.modrinth:xaeros-minimap:${project.xaeros_minimap_version}_Fabric_${project.minecraft_version}") {
@@ -100,6 +109,20 @@ dependencies {
 //        exclude group: 'net.fabricmc', module: 'fabric-loader'
 //    }
 
+    // Season Mod Dev Tests (Fabric)
+    // See root gradle.properties to choose which to use at runtime.
+    switch (project.season_mod.toLowerCase(Locale.ROOT)) {
+        case "serene":
+            modImplementation("maven.modrinth:serene-seasons:9.1.0.0-fabric")
+            modImplementation("maven.modrinth:glitchcore:${project.glitchcore_version}-fabric")
+            implementation("net.jodah:typetools:0.6.3")
+            break
+        case "fabric":
+            modImplementation("maven.modrinth:fabric-seasons:${project.fabric_seasons_version}")
+            break
+        default: println("Unknown season mod specified: ${project.minimap_mod}. Must be serene or fabric")
+    }
+
     // Minimap Mod Dev Tests
     // See root gradle.properties to choose which to use at runtime.
     switch (project.minimap_mod.toLowerCase(Locale.ROOT)) {
@@ -124,7 +147,7 @@ dependencies {
             break
         case "none":
             break
-        default: println("Unknown recipe viewer specified: ${project.minimap_mod}. Must be xaero, journey, ftb, " +
+        default: println("Unknown minimap mod specified: ${project.minimap_mod}. Must be xaero, journey, ftb, " +
                 "atlas, voxel, or none")
     }
 }

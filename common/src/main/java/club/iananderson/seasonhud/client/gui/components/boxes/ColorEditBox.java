@@ -50,7 +50,7 @@ public class ColorEditBox extends EditBox {
   private static EnumSet<Seasons> seasonListSet() {
     EnumSet<Seasons> set = Seasons.SEASONS_ENUM_LIST.clone();
 
-    if (!Config.getShowTropicalSeason() || !Common.platformName().equals("Forge")) {
+    if (!Config.getShowTropicalSeason() || Common.fabricSeasonsLoaded()) {
       set.remove(Seasons.DRY);
       set.remove(Seasons.WET);
     }
