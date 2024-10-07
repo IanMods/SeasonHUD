@@ -193,11 +193,13 @@ modrinth {
     changelog = recentChangelogText
 
     dependencies {
-        required.project "fabric-seasons"
+        optional.project "serene-seasons"
+        optional.project "fabric-seasons"
         optional.project "fabric-seasons-extras"
         required.project "forge-config-api-port"
         optional.project "journeymap"
         optional.project "trinkets"
+        optional.project "accessories"
         optional.project "xaeros-minimap"
         optional.project "xaeros-minimap-fair"
         optional.project "map-atlases"
@@ -225,12 +227,14 @@ task publishCurseForge(type: net.darkhax.curseforgegradle.TaskPublishCurseForge)
     mainFile.addGameVersion("Fabric")
     mainFile.addJavaVersion("Java 17")
 
-    mainFile.addRequirement("fabric-seasons")
+    mainFile.addOptional("serene-seasons")
+    mainFile.addOptional("fabric-seasons")
     mainFile.addRequirement("forge-config-api-port-fabric")
     mainFile.addOptional("fabric-seasons-extras")
     mainFile.addOptional("ftb-chunks-fabric")
     mainFile.addOptional("journeymap")
     mainFile.addOptional("trinkets")
+    mainFile.addOptional("accessories")
     mainFile.addOptional("xaeros-minimap")
     mainFile.addOptional("xaeros-minimap-fair-play-edition")
     mainFile.addOptional("map-atlases")
