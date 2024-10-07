@@ -80,6 +80,7 @@
   "menu.seasonhud.main.journeymap.options.button": "JourneyMap Options",
   "menu.seasonhud.main.journeymap.options.tooltip": "Opens the SeasonHUD Journeymap options.",
   "menu.seasonhud.main.journeymap.title": "JourneyMap",
+  "menu.seasonhud.main.minimap.options": "Minimap Options",
   "menu.seasonhud.main.minimapIntegration.tooltip": "Pistä integrointi päälle minimapin kanssa\n\nTämä ottaa pois perus SeasonHUDin",
   "menu.seasonhud.main.needCalendar.button": "Tarvitseeko kalenterin",
   "menu.seasonhud.main.needCalendar.tooltip": "Kalenteri-esineen pitää olla pelaajan tavaraluettelossa näyttämään HUDin",

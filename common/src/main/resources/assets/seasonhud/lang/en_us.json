@@ -80,6 +80,7 @@
   "menu.seasonhud.main.journeymap.options.button": "JourneyMap Options",
   "menu.seasonhud.main.journeymap.options.tooltip": "Opens the SeasonHUD Journeymap options.",
   "menu.seasonhud.main.journeymap.title": "JourneyMap",
+  "menu.seasonhud.main.minimap.options": "Minimap Options",
   "menu.seasonhud.main.minimapIntegration.tooltip": "Enable integration with minimap mods\n\nThis disables the default SeasonHud",
   "menu.seasonhud.main.needCalendar.button": "Need Calendar Item",
   "menu.seasonhud.main.needCalendar.tooltip": "Require the calendar item to be in the player's inventory to show the Hud",

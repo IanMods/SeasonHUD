@@ -80,6 +80,7 @@
   "menu.seasonhud.main.journeymap.options.button": "JourneyMap Options",
   "menu.seasonhud.main.journeymap.options.tooltip": "Opens the SeasonHUD Journeymap options.",
   "menu.seasonhud.main.journeymap.title": "JourneyMap",
+  "menu.seasonhud.main.minimap.options": "Minimap Options",
   "menu.seasonhud.main.minimapIntegration.tooltip": "Включить интеграцию с модами на миникарту\n\nЭто отключит сезонный интерфейс по умолчанию",
   "menu.seasonhud.main.needCalendar.button": "Нужен календарь",
   "menu.seasonhud.main.needCalendar.tooltip": "Чтобы отобразить сезонный интерфейс, нужно, чтобы календарь был в инвентаре игрока",

@@ -80,6 +80,7 @@
   "menu.seasonhud.main.journeymap.options.button": "JourneyMap Options",
   "menu.seasonhud.main.journeymap.options.tooltip": "Opens the SeasonHUD Journeymap options.",
   "menu.seasonhud.main.journeymap.title": "旅行地图",
+  "menu.seasonhud.main.minimap.options": "Minimap Options",
   "menu.seasonhud.main.minimapIntegration.tooltip": "启用小地图集成\n\n这会禁用默认的 SeasonHud",
   "menu.seasonhud.main.needCalendar.button": "需要日历",
   "menu.seasonhud.main.needCalendar.tooltip": "需要玩家背包内有日历物品才显示 HUD",

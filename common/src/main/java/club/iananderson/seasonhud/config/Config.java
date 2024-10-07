@@ -106,11 +106,18 @@ public class Config {
         "Show sub-season (i.e. Early Winter, Mid Autumn, Late Spring) instead of basic season?\n" + "(true/false)\n"
             + " Default is true.").define("enable_show_sub_season", true);
 
-    showDay = builder.comment("""
-                                  Show the current day of the season/sub-season?
-                                  NONE, SHOW_DAY,
-                                                                                        SHOW_WITH_TOTAL_DAYS
-                                  Default is SHOW_DAY.""").defineEnum("enable_show_day", ShowDay.SHOW_DAY);
+    if (Common.sereneSeasonsLoaded()) {
+      showDay = builder.comment("Show the day of the current Season/Sub-Season?\n" + "Default is SHOW_DAY.")
+                       .defineEnum("enable_show_day", ShowDay.SHOW_DAY,
+                                   Arrays.asList(ShowDay.NONE, ShowDay.SHOW_DAY, ShowDay.SHOW_WITH_TOTAL_DAYS));
+    }
+
+    if (Common.fabricSeasonsLoaded()) {
+      showDay = builder.comment("Show the current day of the season/sub-season?\n" + "Default is SHOW_DAY.")
+                       .defineEnum("enable_show_day", ShowDay.SHOW_DAY,
+                                   Arrays.asList(ShowDay.NONE, ShowDay.SHOW_DAY, ShowDay.SHOW_WITH_TOTAL_DAYS,
+                                                 ShowDay.SHOW_WITH_MONTH));
+    }
     builder.pop();
 
     builder.push("Minimap");

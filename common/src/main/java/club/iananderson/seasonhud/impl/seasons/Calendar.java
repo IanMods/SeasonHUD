@@ -22,6 +22,10 @@ public class Calendar {
     Minecraft mc = Minecraft.getInstance();
     Item calendar = Services.SEASON.calendar();
 
+    if (!Common.extrasLoaded()) {
+      return true;
+    }
+
     if (mc.level == null || mc.player == null || calendar == null) {
       return false;
     }
