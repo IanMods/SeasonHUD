@@ -107,7 +107,7 @@ public class FabricSeasonHelper implements ISeasonHelper {
     int date = 0;
 
     if (Common.fabricSeasonsLoaded()) {
-      int seasonLength = FabricSeasons.CONFIG.getSpringLength();
+      int seasonLength = FabricSeasons.CONFIG.getSeasonLength();
       int worldTime = Math.toIntExact(player.level.getDayTime());
 
       date = ((worldTime - (worldTime / seasonLength * seasonLength)) % seasonLength / 24000) + 1;

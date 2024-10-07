@@ -18,7 +18,7 @@ import org.jetbrains.annotations.NotNull;
 
 public class MainConfigScreen extends SeasonHudScreen {
   private static final Component SCREEN_TITLE = new TranslatableComponent("menu.seasonhud.main.title");
-  private static final Component MINIMAP_SETTINGS = Component.translatable("menu.seasonhud.main.minimap.options");
+  private static final Component MINIMAP_SETTINGS = new TranslatableComponent("menu.seasonhud.main.minimap.options");
   private static final Component JOURNEYMAP = new TranslatableComponent("menu.seasonhud.main.journeymap.title");
   private final List<AbstractWidget> optionButtons = new ArrayList<>();
   MenuButton seasonButton;

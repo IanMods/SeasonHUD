@@ -39,10 +39,6 @@ dependencies {
     modCompileOnly("maven.modrinth:fabric-seasons:${project.fabric_seasons_version}") {
         exclude group: 'net.fabricmc', module: 'fabric-loader'
     }
-    //Fabric Seasons Extras
-    modCompileOnly("maven.modrinth:fabric-seasons-extras:${project.fabric_seasons_extras_version}") {
-        exclude group: 'net.fabricmc', module: 'fabric-loader'
-    }
 
     //Serene Seasons
     modCompileOnly("maven.modrinth:serene-seasons:9.1.0.0-fabric") {
@@ -125,7 +121,6 @@ dependencies {
             break
         case "fabric":
             modImplementation("maven.modrinth:fabric-seasons:${project.fabric_seasons_version}")
-            modImplementation("maven.modrinth:fabric-seasons-extras:${project.fabric_seasons_extras_version}")
             break
         default: println("Unknown season mod specified: ${project.minimap_mod}. Must be serene or fabric")
     }
