@@ -19,24 +19,35 @@ public class Common {
   public static final ResourceLocation SEASON_ICONS = location("season_icons");
   public static final Style SEASON_ICON_STYLE = Style.EMPTY.withFont(SEASON_ICONS);
   public static ResourceLocation slotIcon = new ResourceLocation(MOD_ID, "slot/calendarslot");
+  private static String platformName;
+  private static boolean sereneSeasonsLoaded;
+  private static boolean fabricSeasonsLoaded;
   private static boolean curiosLoaded;
   private static boolean accessoriesLoaded;
   private static boolean extrasLoaded;
-  private static String platformName;
 
   private Common() {
   }
 
   public static void init() {
     platformName = Services.PLATFORM.getPlatformName();
-    extrasLoaded =
-        Services.PLATFORM.isModLoaded("seasonsextras") || Services.PLATFORM.getPlatformName().equals("Forge");
+    sereneSeasonsLoaded = Services.PLATFORM.isModLoaded("sereneseasons");
+    fabricSeasonsLoaded = Services.PLATFORM.isModLoaded("seasons");
+    extrasLoaded = Services.PLATFORM.isModLoaded("seasonsextras") || sereneSeasonsLoaded;
     curiosLoaded = Services.PLATFORM.isModLoaded("trinkets") || Services.PLATFORM.isModLoaded("curios");
     accessoriesLoaded = Services.PLATFORM.isModLoaded("accessories");
   }
 
   public static String platformName() {
     return Common.platformName;
+  }
+
+  public static boolean sereneSeasonsLoaded() {
+    return Common.sereneSeasonsLoaded;
+  }
+
+  public static boolean fabricSeasonsLoaded() {
+    return Common.fabricSeasonsLoaded;
   }
 
   public static boolean extrasLoaded() {

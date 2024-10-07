@@ -61,7 +61,6 @@ public class SeasonOptionsScreen extends SeasonHudScreen {
     Config.setHudX(xSlider.getValueInt());
     Config.setHudY(ySlider.getValueInt());
     Config.setNeedCalendar(needCalendar);
-    ;
   }
 
   @Override
@@ -176,7 +175,7 @@ public class SeasonOptionsScreen extends SeasonHudScreen {
 
     widgets.addAll(Arrays.asList(hudLocationButton, xSlider, ySlider, showDayButton, seasonColorButton));
 
-    if (Common.platformName().equals("Forge")) {
+    if (Common.sereneSeasonsLoaded()) {
       row = 2;
       showSubSeasonButton = CycleButton.onOffBuilder(showSubSeason)
           .create(leftButtonX, (buttonStartY + (row * yOffset)), BUTTON_WIDTH, BUTTON_HEIGHT,

@@ -29,7 +29,7 @@ side = "CLIENT"
 [[dependencies.${ mod_id }]]
 modId = "sereneseasons"
 mandatory = true
-versionRange = "[8.0.0.0,)"
+versionRange = "[8.1.0.0,)"
 ordering = "AFTER"
 side = "CLIENT"
 
