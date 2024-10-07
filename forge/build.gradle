@@ -39,7 +39,9 @@ dependencies {
     shadowBundle project(path: ':common', configuration: 'transformProductionForge')
 
     //Serene Seasons
-    modImplementation "maven.modrinth:serene-seasons:${project.serene_seasons_version}"
+    modImplementation "maven.modrinth:serene-seasons:${project.serene_seasons_version}-forge"
+//    modImplementation "maven.modrinth:glitchcore:${project.glitchcore_version}-forge"
+//    implementation("net.jodah:typetools:0.6.3")
 
     //Xaero's Minimap
     modCompileOnly "maven.modrinth:xaeros-minimap:${project.xaeros_minimap_version}_Forge_1.18.2"

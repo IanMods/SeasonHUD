@@ -12,6 +12,7 @@ import sereneseasons.api.SSItems;
 import sereneseasons.api.season.ISeasonState;
 import sereneseasons.api.season.SeasonHelper;
 import sereneseasons.config.ServerConfig;
+import sereneseasons.init.ModConfig;
 import top.theillusivec4.curios.api.CuriosApi;
 import top.theillusivec4.curios.api.SlotResult;
 

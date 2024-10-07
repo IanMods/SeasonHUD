@@ -10,6 +10,7 @@ import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import sereneseasons.config.ServerConfig;
+import sereneseasons.init.ModConfig;
 
 public class ForgeMinimapHelper implements IMinimapHelper {
 
