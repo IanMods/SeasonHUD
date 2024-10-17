@@ -104,12 +104,13 @@ public class FabricSeasonHelper implements ISeasonHelper {
   @Override
   public int getDate(Player player) {
     int date = 0;
+    int dayLength = Config.getDayLength();
 
     if (Common.fabricSeasonsLoaded()) {
       int seasonLength = FabricSeasons.CONFIG.getSpringLength();
       int worldTime = Math.toIntExact(player.level.getDayTime());
 
-      date = ((worldTime - (worldTime / seasonLength * seasonLength)) % seasonLength / 24000) + 1;
+      date = ((worldTime - (worldTime / seasonLength * seasonLength)) % seasonLength / dayLength) + 1;
 
       // Get the current day of month from the system. Used with fabric seasons' system time tied with season option
       if (isSeasonTiedWithSystemTime()) {
@@ -146,9 +147,10 @@ public class FabricSeasonHelper implements ISeasonHelper {
   @Override
   public int seasonDuration(Player player) {
     int duration = 0;
+    int dayLength = Config.getDayLength();
 
     if (Common.fabricSeasonsLoaded()) {
-      duration = FabricSeasons.CONFIG.getSpringLength() / 24000;
+      duration = FabricSeasons.CONFIG.getSpringLength() / dayLength;
     }
 
     if (Common.sereneSeasonsLoaded()) {
