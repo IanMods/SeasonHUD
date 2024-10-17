@@ -40,6 +40,7 @@ public class Config {
   private static ForgeConfigSpec.BooleanValue showTropicalSeason;
   private static ForgeConfigSpec.BooleanValue showSubSeason;
   private static ForgeConfigSpec.ConfigValue<ShowDay> showDay;
+  private static ForgeConfigSpec.ConfigValue<Integer> dayLength;
   private static ForgeConfigSpec.BooleanValue enableMinimapIntegration;
   private static ForgeConfigSpec.BooleanValue showDefaultWhenMinimapHidden;
   private static ForgeConfigSpec.BooleanValue journeyMapAboveMap;
@@ -129,6 +130,10 @@ public class Config {
                                    Arrays.asList(ShowDay.NONE, ShowDay.SHOW_DAY, ShowDay.SHOW_WITH_TOTAL_DAYS,
                                                  ShowDay.SHOW_WITH_MONTH));
     }
+    dayLength = builder.comment(
+                           "Change if you are using a Minecraft day length other than vanilla value and using Fabric Seasons.\n"
+                               + "Default Minecraft day is 24000.")
+                       .defineInRange("day_length", 24000, 0, 2147483647);
     builder.pop();
 
     builder.push("Minimap");
@@ -291,6 +296,14 @@ public class Config {
 
   public static void setShowDay(ShowDay showDay) {
     Config.showDay.set(showDay);
+  }
+
+  public static int getDayLength() {
+    return dayLength.get();
+  }
+
+  public static void setDayLength(int length) {
+    Config.dayLength.set(length);
   }
 
   public static boolean getShowDefaultWhenMinimapHidden() {

@@ -4,6 +4,15 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 
+## [1.11.1] - 2024-10-16
+
+### Added
+
+- Added Korean translations (via @hibiyasleep)
+- (Fabric Seasons Only) Added config option to assign a custom day length value, if using a value
+  other than the vanilla 24,000 ticks.
+    - Not needed if using SereneSeasons, as it has its own config for day length value.
+
 ## [1.11.0] - 2024-10-07
 
 ### Added
