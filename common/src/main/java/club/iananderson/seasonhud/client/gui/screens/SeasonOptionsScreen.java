@@ -12,6 +12,7 @@ import com.mojang.blaze3d.vertex.PoseStack;
 import java.util.Arrays;
 import net.minecraft.client.gui.GuiComponent;
 import net.minecraft.client.gui.components.CycleButton;
+import net.minecraft.client.gui.components.EditBox;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
@@ -30,9 +31,12 @@ public class SeasonOptionsScreen extends SeasonHudScreen {
   private boolean showTropicalSeason;
   private boolean needCalendar;
   private boolean enableCalanderDetail;
+  private int dayLength;
+  private int newDayLength;
   private CycleButton<Location> hudLocationButton;
   private HudOffsetSlider xSlider;
   private HudOffsetSlider ySlider;
+  private EditBox dayLengthBox;
   private CycleButton<ShowDay> showDayButton;
   private CycleButton<Boolean> showSubSeasonButton;
   private CycleButton<Boolean> needCalendarButton;
@@ -57,12 +61,16 @@ public class SeasonOptionsScreen extends SeasonHudScreen {
     showTropicalSeason = Config.getShowTropicalSeason();
     needCalendar = Config.getNeedCalendar();
     enableCalanderDetail = Config.getCalanderDetailMode();
+    dayLength = Config.getDayLength();
   }
 
   public void saveConfig() {
     Config.setHudX(xSlider.getValueInt());
     Config.setHudY(ySlider.getValueInt());
     Config.setNeedCalendar(needCalendar);
+    if (Common.fabricSeasonsLoaded()) {
+      Config.setDayLength(Integer.parseInt(dayLengthBox.getValue()));
+    }
   }
 
   @Override
@@ -79,6 +87,7 @@ public class SeasonOptionsScreen extends SeasonHudScreen {
     Config.setShowSubSeason(showSubSeason);
     Config.setShowTropicalSeason(showTropicalSeason);
     Config.setCalanderDetailMode(enableCalanderDetail);
+    Config.setDayLength(dayLength);
     super.onClose();
   }
 
@@ -128,6 +137,12 @@ public class SeasonOptionsScreen extends SeasonHudScreen {
     graphics.translate(0, 0, 50);
     GuiComponent.drawString(graphics, font, seasonCombined, x, y, 0xffffff);
     graphics.popPose();
+
+    if (Common.fabricSeasonsLoaded()) {
+      GuiComponent.drawCenteredString(graphics, font, "Day Length", leftButtonX + BUTTON_WIDTH / 2,
+                                      MENU_PADDING + (3 * (BUTTON_HEIGHT + BUTTON_PADDING)) - (font.lineHeight
+                                          + BUTTON_PADDING), 16777215);
+    }
   }
 
   @Override
@@ -191,8 +206,32 @@ public class SeasonOptionsScreen extends SeasonHudScreen {
 
       widgets.addAll(Arrays.asList(showSubSeasonButton, showTropicalSeasonButton));
     }
+    if (Common.fabricSeasonsLoaded()) {
+      row = 3;
+      dayLengthBox = new EditBox(this.font, leftButtonX + 1, (buttonStartY + (row * yOffset)), BUTTON_WIDTH - 2,
+                                 BUTTON_HEIGHT, Component.literal(String.valueOf(dayLength)));
+      dayLengthBox.setMaxLength(10);
+      dayLengthBox.setValue(String.valueOf(dayLength));
+      dayLengthBox.setResponder((lengthString) -> {
+        if (validate(lengthString)) {
+          dayLengthBox.setTextColor(0xffffff);
+          int currentLength = Integer.parseInt(lengthString);
+
+          if (currentLength != this.newDayLength) {
+            this.newDayLength = currentLength;
+            dayLengthBox.setValue(lengthString);
+          }
+
+          doneButton.active = true;
+        } else {
+          dayLengthBox.setTextColor(16733525);
+          doneButton.active = false;
+        }
+      });
+      widgets.add(dayLengthBox);
+    }
     if (Common.extrasLoaded()) {
-      row = 4;
+      row = 5;
       needCalendarButton = CycleButton.onOffBuilder(needCalendar)
           .create(leftButtonX, (buttonStartY + (row * yOffset)), BUTTON_WIDTH, BUTTON_HEIGHT,
                   new TranslatableComponent("menu.seasonhud.main.needCalendar.button"), (b, val) -> needCalendar = val);
@@ -225,5 +264,20 @@ public class SeasonOptionsScreen extends SeasonHudScreen {
     }
 
     widgets.forEach(this::addRenderableWidget);
+  }
+
+  private boolean inBounds(int length) {
+    int minInt = 0;
+
+    return length >= minInt;
+  }
+
+  public boolean validate(String length) {
+    try {
+      int dayLength = Integer.parseInt(length);
+      return this.inBounds(dayLength);
+    } catch (NumberFormatException formatException) {
+      return false;
+    }
   }
 }
