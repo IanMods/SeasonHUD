@@ -124,7 +124,8 @@ public class Config {
                                                  ShowDay.SHOW_WITH_MONTH));
     }
     dayLength = builder.comment(
-                           "Change if you are using a Minecraft day length other than vanilla value." + "Default is 24000.")
+                           "Change if you are using a Minecraft day length other than vanilla value and using Fabric Seasons.\n"
+                               + "Default Minecraft day is 24000.")
                        .defineInRange("day_length", 24000, 0, 2147483647);
     builder.pop();
 
