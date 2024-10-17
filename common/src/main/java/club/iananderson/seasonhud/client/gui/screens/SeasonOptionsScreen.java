@@ -209,7 +209,7 @@ public class SeasonOptionsScreen extends SeasonHudScreen {
     if (Common.fabricSeasonsLoaded()) {
       row = 3;
       dayLengthBox = new EditBox(this.font, leftButtonX + 1, (buttonStartY + (row * yOffset)), BUTTON_WIDTH - 2,
-                                 BUTTON_HEIGHT, Component.literal(String.valueOf(dayLength)));
+                                 BUTTON_HEIGHT, new TextComponent(String.valueOf(dayLength)));
       dayLengthBox.setMaxLength(10);
       dayLengthBox.setValue(String.valueOf(dayLength));
       dayLengthBox.setResponder((lengthString) -> {
