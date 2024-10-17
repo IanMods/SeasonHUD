@@ -10,7 +10,6 @@ import club.iananderson.seasonhud.config.Config;
 import club.iananderson.seasonhud.impl.seasons.CurrentSeason;
 import com.mojang.blaze3d.vertex.PoseStack;
 import java.util.Arrays;
-import net.minecraft.ChatFormatting;
 import net.minecraft.client.gui.GuiComponent;
 import net.minecraft.client.gui.components.CycleButton;
 import net.minecraft.client.gui.components.EditBox;
@@ -95,12 +94,6 @@ public class SeasonOptionsScreen extends SeasonHudScreen {
     xSlider.active = hudLocationButton.getValue() == Location.TOP_LEFT;
     ySlider.active = hudLocationButton.getValue() == Location.TOP_LEFT;
 
-    if (Common.fabricSeasonsLoaded()) {
-      graphics.drawCenteredString(font, "Day Length", leftButtonX + BUTTON_WIDTH / 2,
-                                  MENU_PADDING + (3 * (BUTTON_HEIGHT + BUTTON_PADDING)) - (font.lineHeight
-                                      + BUTTON_PADDING), 16777215);
-    }
-
     MutableComponent seasonCombined = CurrentSeason.getInstance(this.minecraft).getSeasonHudText();
 
     int componentWidth = this.font.width(seasonCombined);
@@ -142,6 +135,12 @@ public class SeasonOptionsScreen extends SeasonHudScreen {
     graphics.translate(0, 0, 50);
     GuiComponent.drawString(graphics, font, seasonCombined, x, y, 0xffffff);
     graphics.popPose();
+
+    if (Common.fabricSeasonsLoaded()) {
+      GuiComponent.drawCenteredString(graphics, font, "Day Length", leftButtonX + BUTTON_WIDTH / 2,
+                                      MENU_PADDING + (3 * (BUTTON_HEIGHT + BUTTON_PADDING)) - (font.lineHeight
+                                          + BUTTON_PADDING), 16777215);
+    }
   }
 
   @Override
@@ -227,7 +226,6 @@ public class SeasonOptionsScreen extends SeasonHudScreen {
           doneButton.active = false;
         }
       });
-      dayLengthBox.setHint(Component.literal("" + dayLength).withStyle(ChatFormatting.DARK_GRAY));
       widgets.add(dayLengthBox);
     }
     if (Common.extrasLoaded()) {
