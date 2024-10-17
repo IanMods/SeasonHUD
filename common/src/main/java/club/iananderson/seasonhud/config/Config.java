@@ -33,8 +33,11 @@ public class Config {
   private static ModConfigSpec.BooleanValue showTropicalSeason;
   private static ModConfigSpec.BooleanValue showSubSeason;
   private static ModConfigSpec.ConfigValue<ShowDay> showDay;
+  private static ModConfigSpec.ConfigValue<Integer> dayLength;
   private static ModConfigSpec.BooleanValue enableMinimapIntegration;
   private static ModConfigSpec.BooleanValue showDefaultWhenMinimapHidden;
+  private static ModConfigSpec.BooleanValue journeyMapAboveMap;
+  private static ModConfigSpec.BooleanValue journeyMapMacOS;
 
   static {
     ModConfigSpec.Builder builder = new ModConfigSpec.Builder();
@@ -120,6 +123,9 @@ public class Config {
                                    Arrays.asList(ShowDay.NONE, ShowDay.SHOW_DAY, ShowDay.SHOW_WITH_TOTAL_DAYS,
                                                  ShowDay.SHOW_WITH_MONTH));
     }
+    dayLength = builder.comment(
+                           "Change if you are using a Minecraft day length other than vanilla value." + "Default is 24000.")
+                       .defineInRange("day_length", 24000, 0, 2147483647);
     builder.pop();
 
     builder.push("Minimap");
@@ -271,6 +277,14 @@ public class Config {
 
   public static void setShowDay(ShowDay showDay) {
     Config.showDay.set(showDay);
+  }
+
+  public static int getDayLength() {
+    return dayLength.get();
+  }
+
+  public static void setDayLength(int length) {
+    Config.dayLength.set(length);
   }
 
   public static boolean getShowDefaultWhenMinimapHidden() {

@@ -9,8 +9,10 @@ import club.iananderson.seasonhud.client.gui.components.sliders.HudOffsetSlider;
 import club.iananderson.seasonhud.config.Config;
 import club.iananderson.seasonhud.impl.seasons.CurrentSeason;
 import java.util.Arrays;
+import net.minecraft.ChatFormatting;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.components.CycleButton;
+import net.minecraft.client.gui.components.EditBox;
 import net.minecraft.client.gui.components.Tooltip;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.network.chat.Component;
@@ -28,9 +30,12 @@ public class SeasonOptionsScreen extends SeasonHudScreen {
   private boolean showTropicalSeason;
   private boolean needCalendar;
   private boolean enableCalanderDetail;
+  private int dayLength;
+  private int newDayLength;
   private CycleButton<Location> hudLocationButton;
   private HudOffsetSlider xSlider;
   private HudOffsetSlider ySlider;
+  private EditBox dayLengthBox;
   private CycleButton<ShowDay> showDayButton;
   private CycleButton<Boolean> showSubSeasonButton;
   private CycleButton<Boolean> needCalendarButton;
@@ -55,12 +60,16 @@ public class SeasonOptionsScreen extends SeasonHudScreen {
     showTropicalSeason = Config.getShowTropicalSeason();
     needCalendar = Config.getNeedCalendar();
     enableCalanderDetail = Config.getCalanderDetailMode();
+    dayLength = Config.getDayLength();
   }
 
   public void saveConfig() {
     Config.setHudX(xSlider.getValueInt());
     Config.setHudY(ySlider.getValueInt());
     Config.setNeedCalendar(needCalendar);
+    if (Common.fabricSeasonsLoaded()) {
+      Config.setDayLength(Integer.parseInt(dayLengthBox.getValue()));
+    }
   }
 
   @Override
@@ -77,6 +86,7 @@ public class SeasonOptionsScreen extends SeasonHudScreen {
     Config.setShowSubSeason(showSubSeason);
     Config.setShowTropicalSeason(showTropicalSeason);
     Config.setCalanderDetailMode(enableCalanderDetail);
+    Config.setDayLength(dayLength);
     super.onClose();
   }
 
@@ -84,6 +94,12 @@ public class SeasonOptionsScreen extends SeasonHudScreen {
   public void render(@NotNull GuiGraphics graphics, int mouseX, int mouseY, float partialTicks) {
     xSlider.active = hudLocationButton.getValue() == Location.TOP_LEFT;
     ySlider.active = hudLocationButton.getValue() == Location.TOP_LEFT;
+
+    if (Common.fabricSeasonsLoaded()) {
+      graphics.drawCenteredString(font, "Day Length", leftButtonX + BUTTON_WIDTH / 2,
+                                  MENU_PADDING + (3 * (BUTTON_HEIGHT + BUTTON_PADDING)) - (font.lineHeight
+                                      + BUTTON_PADDING), 16777215);
+    }
 
     MutableComponent seasonCombined = CurrentSeason.getInstance(this.minecraft).getSeasonHudText();
 
@@ -196,8 +212,33 @@ public class SeasonOptionsScreen extends SeasonHudScreen {
                 (b, val) -> Config.setShowTropicalSeason(val));
       widgets.addAll(Arrays.asList(showSubSeasonButton, showTropicalSeasonButton));
     }
+    if (Common.fabricSeasonsLoaded()) {
+      row = 3;
+      dayLengthBox = new EditBox(this.font, leftButtonX + 1, (buttonStartY + (row * yOffset)), BUTTON_WIDTH - 2,
+                                 BUTTON_HEIGHT, Component.literal(String.valueOf(dayLength)));
+      dayLengthBox.setMaxLength(10);
+      dayLengthBox.setValue(String.valueOf(dayLength));
+      dayLengthBox.setResponder((lengthString) -> {
+        if (validate(lengthString)) {
+          dayLengthBox.setTextColor(0xffffff);
+          int currentLength = Integer.parseInt(lengthString);
+
+          if (currentLength != this.newDayLength) {
+            this.newDayLength = currentLength;
+            dayLengthBox.setValue(lengthString);
+          }
+
+          doneButton.active = true;
+        } else {
+          dayLengthBox.setTextColor(16733525);
+          doneButton.active = false;
+        }
+      });
+      dayLengthBox.setHint(Component.literal("" + dayLength).withStyle(ChatFormatting.DARK_GRAY));
+      widgets.add(dayLengthBox);
+    }
     if (Common.extrasLoaded()) {
-      row = 4;
+      row = 5;
       needCalendarButton = CycleButton.onOffBuilder(needCalendar)
           .withTooltip(t -> Tooltip.create(Component.translatable("menu.seasonhud.main.needCalendar.tooltip")))
           .create(leftButtonX, (buttonStartY + (row * yOffset)), BUTTON_WIDTH, BUTTON_HEIGHT,
@@ -232,5 +273,20 @@ public class SeasonOptionsScreen extends SeasonHudScreen {
     }
 
     widgets.forEach(this::addRenderableWidget);
+  }
+
+  private boolean inBounds(int length) {
+    int minInt = 0;
+
+    return length >= minInt;
+  }
+
+  public boolean validate(String length) {
+    try {
+      int dayLength = Integer.parseInt(length);
+      return this.inBounds(dayLength);
+    } catch (NumberFormatException formatException) {
+      return false;
+    }
   }
 }
