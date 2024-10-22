@@ -4,6 +4,12 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 
+## [1.11.2] - 2024-10-22
+
+### Changed
+
+- Updated Traditional Chinese translations (via @dirtTW)
+
 ## [1.11.1] - 2024-10-16
 
 ### Added
